@@ -216,3 +216,5 @@ function hideMessageLayer()
     $('#messageLayer').fadeOut();
     messageShowing = false;
 }
+
+// ************************************************************
