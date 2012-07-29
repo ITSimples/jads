@@ -83,11 +83,11 @@ var js_ads_app =
 		me.state.change(me.state.PLAY);
 		
 	}
-} // Fim - js_ads_app
+} // END ****  js_ads_app
 
 /*
 -----------------------------------
-Ficheiro: resources.js
+File: resources.js
 Function: showMessageLayer
 Comment: Display a message in the game
 -----------------------------------
@@ -121,7 +121,7 @@ function showMessageLayer()
 
 /*
 -----------------------------------
-Ficheiro: resources.js
+File: resources.js
 Function: hideMessageLayer
 Comment: hide a message in the game
 -----------------------------------
