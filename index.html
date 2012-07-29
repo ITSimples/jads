@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Aventura do Saber</title>
+        <!-- disable cache for development -->
+        <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+        <meta http-equiv="PRAGMA" content="NO-CACHE">
+        <meta http-equiv="Expires" content="0">
+	</head>
+	<body bgcolor="black">
+		<style media="screen" type="text/css">
+		 	#gamePanel 
+			{
+				width: 800px;
+				height:600px;
+				margin: 0px auto;
+				border: 2px outset #FFFFFF; 
+				float:left;
+			}
+			#fps{
+				 width: 60px;
+				 height:20px;
+				 margin: 0px auto;
+				 border: 2px outset #FFFFFF;
+				 float:left;
+			}
+			 #information{
+				text-align:left;
+				float:right;
+				width:50;
+			}
+			
+		#hiddenText {
+			width: 530px;
+			height: auto;
+			display: none;
+			}
+			
+		#messageLayer {
+			position: absolute;
+			bottom: 50px;
+			left: 20px;
+			width: 400px;
+			height: 110px;
+			padding: 10px;
+			background: url('content/images/dialoguebox.png') no-repeat;
+			display: none;
+			}
+
+		#messageLayer img.msgImage {
+			position: absolute;
+			top: 34px;
+			left: 49px;
+		}
+
+		#messageLayer .msgText {
+			position: absolute;
+			top: 20px;
+			left: 120px;
+			width: 530px;
+			height: 60px;
+			color : #fff;
+			font-weight: bold;
+			overflow: hidden;
+			z-index:1;
+		}
+		
+		#messageLayer .msgButton {
+			position: absolute;
+			top: 126px;
+			left: 125px;
+		}
+			
+		</style>	
+		
+		<div>
+			<div id="information">
+				<font color="#FFEFFF", style ="font-size: 14px; font-family: Courier New">
+					<p>Este jogo encontra-se em desenvolvimento.</p>
+					<p>Podem contactar-me, <a href="mailto:fanf1998@yahoo.com">Francisco Fernandes</a>,</p>
+					<p>com alguma sugestão para o jogo.</p>
+					<p>Versão: v0.001<br />
+					Ultima actualização: 23.Nov.2011</p>
+					<p>Ultima actualização: <br />Página html</p>
+					<div id="fps">
+						<div id="info">
+							<font color="#FFFFFF", style ="font-size: 10px; font-family: Courier New">
+							<span id="framecounter">&#xA0;(0/0 fps)</span>
+							</font>
+						</div>
+					</div>
+				</font>
+			</div>		
+			<div id="gamePanel">
+				<div id="js_ads_app">
+					<script type="text/javascript" src="libraries/jquery.js"></script>    
+					<script type="text/javascript" src="libraries/melonJS-0.9.3-min.js"></script>
+					
+					<script type="text/javascript" src="resources.js"></script>
+					<script type="text/javascript" src="main.js"></script>
+					
+					<script type="text/javascript" src="hud.js"></script>
+					<script type="text/javascript" src="entities.js"></script>
+					<script type="text/javascript" src="npc.js"></script>
+					<script type="text/javascript" src="screens.js"></script>				
+					
+				</div>
+				
+				<!-- Testing Message Box -->
+				<div id="messageLayer">
+					<img class="msgImage" src="" alt="">
+					<div class="msgText"></div>
+					<input class="msgButton" type="image" src="content/images/button_a.png" value="buttonValue" />
+					<input id="target" type="hidden" value="Hello there" />
+					</form>
+				</div>
+				<!-- Testing Message Box -->
+				
+			</div>
+			<!-- Testing Message Box -->
+			<div id="hiddenText"></div>
+			<!-- Testing Message Box -->
+		</div>
+	</body>
+</html>
