@@ -121,7 +121,7 @@ function showMessageLayer()
 
 /*
 -----------------------------------
-Ficheiro: resources.js
+File: resources.js
 Function: hideMessageLayer
 Comment: hide a message in the game
 -----------------------------------
