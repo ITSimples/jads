@@ -102,7 +102,7 @@ function showMessageLayer()
             'src' : 'content/sprites/f_male04_face.png',
             'alt' : 'Testing...' 
         });
-        $('.msgText,#hiddenText').html( 'Dormir!!! So podes tar bebado...<br>Vai mas e trabalhar.<br>Ainda tens que fazer as perguntas...' );
+        $('.msgText,#hiddenText').html( 'Olá Mans...<br>Vai mas e trabalhar.<br>Ainda tens que fazer as perguntas...' );
 
         $('#messageLayer').fadeIn( 250, function() {
             $('.msgText').scrollTop(0);
