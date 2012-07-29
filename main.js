@@ -83,7 +83,7 @@ var js_ads_app =
 		me.state.change(me.state.PLAY);
 		
 	}
-} // END ****  js_ads_app
+} // END ****  js_ads_app *******
 
 /*
 -----------------------------------
