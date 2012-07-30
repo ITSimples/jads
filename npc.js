@@ -46,6 +46,8 @@ var NpcEntity = me.ObjectEntity.extend({
 		
 		this.type = 'NPC_OBJECT';
 		
+		// Enable/disable dialogue box
+		this.showMessage = false;
 
 	},
 	
@@ -58,17 +60,17 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.setCurrentAnimation('stand-down');
 		
 		// Check collision
-
+		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************
 		var res = me.game.collide( this );
         if( res ) {
-			if( res.obj.name == 'heroe' && !messageShowing) {
+			if( res.obj.name == 'heroe' ) {
 				showMessageLayer(this.npcData);
-				console.log("Mostra Mensagem..." + res.obj.name);
+				this.showMessage = true;
 			}
-		}else if (messageShowing){
-			console.log("Não Mostra Mensagem...");
-			hideMessageLayer();
-		}
+		}else if (this.showMessage){
+				hideMessageLayer();
+				this.showMessage = false;
+			}
 		
 		// check and update movement - Update a nimation
 		this.updateMovement();

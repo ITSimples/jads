@@ -93,11 +93,11 @@ Comment: Display a message in the game
 -----------------------------------
 */
 
-var messageShowing = false;
+// var messageShowing = false;
 
 function showMessageLayer(npcData)
 {
-    if( !messageShowing ) {
+    // if( !messageShowing ) {
         $('.msgImage').attr({
             'src' : 'content/sprites/' + npcData.cara,
             'alt' : 'Testing...' 
@@ -108,9 +108,9 @@ function showMessageLayer(npcData)
         $('#messageLayer').fadeIn( 250, function() {
             $('.msgText').scrollTop(0);
         });
-		
-		messageShowing = true;
-    }
+	
+		// messageShowing = true;
+    // }
 }
 
 /*
