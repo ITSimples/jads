@@ -60,7 +60,7 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.setCurrentAnimation('stand-down');
 		
 		// Check collision
-		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************
+		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************DDDDADDADAA
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'heroe' ) {
@@ -72,7 +72,7 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.showMessage = false;
 			}
 		
-		// check and update movement - Update a nimation
+		// check and update movement - Update animation
 		this.updateMovement();
 		this.parent(this);
 		
@@ -99,7 +99,7 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
 		me.game.add(npc,2);
 		me.game.sort();
 		
-		npc = new NpcEntity(180, 300 , 
+		npc = new NpcEntity(180, 500 , 
 								{image: adsNpcData[1].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 43}, adsNpcData[1]);
 
