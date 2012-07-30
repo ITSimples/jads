@@ -203,6 +203,9 @@ function showMessageLayer()
 	this.hideMessage = hideMessageLayer;
 }
 
+					<input class="msgButton" type="image" src="content/images/button_a.png" value="buttonValue" />
+					<input id="target" type="hidden" value="Hello there" />
+
 /*
 -----------------------------------
 Ficheiro: resources.js

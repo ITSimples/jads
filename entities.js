@@ -217,9 +217,9 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 								{image: ads_items_data[random_item].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 32}, ads_items_data[random_item]);
 						count++;
-						console.log("Populate Map... X:" + parseInt(32*x) +
-									"   Y:" + parseInt(32*y) + 
-									"   Count:" + count + "    Item: " + random_item);
+						// console.log("Populate Map... X:" + parseInt(32*x) +
+									// "   Y:" + parseInt(32*y) + 
+									// "   Count:" + count + "    Item: " + random_item);
 					}
 				
 				}

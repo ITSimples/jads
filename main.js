@@ -95,25 +95,19 @@ Comment: Display a message in the game
 
 var messageShowing = false;
 
-function showMessageLayer()
+function showMessageLayer(npcData)
 {
     if( !messageShowing ) {
         $('.msgImage').attr({
-            'src' : 'content/sprites/f_male04_face.png',
+            'src' : 'content/sprites/' + npcData.cara,
             'alt' : 'Testing...' 
         });
-        $('.msgText,#hiddenText').html( 'Olá Mans...<br>Vai mas e trabalhar.<br>Ainda tens que fazer as perguntas...' );
+		$('.titleText,#hiddenText').html( npcData.nome );
+        $('.msgText,#hiddenText').html( npcData.mensagem );
 
         $('#messageLayer').fadeIn( 250, function() {
             $('.msgText').scrollTop(0);
         });
-		$('.msgButton').click(function() {
-            alert($(this).attr("value"));
-        });
-		$('#target').focus();
-		$('#target').keypress(function() {
-			alert("Handler for .keypress() called.");
-		});
 		
 		messageShowing = true;
     }

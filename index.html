@@ -55,11 +55,23 @@
 
 		#messageLayer .msgText {
 			position: absolute;
-			top: 20px;
+			top: 40px;
 			left: 120px;
 			width: 530px;
 			height: 60px;
 			color : #fff;
+			font-weight: bold;
+			overflow: hidden;
+			z-index:1;
+		}
+		
+		#messageLayer .titleText {
+			position: absolute;
+			top: 20px;
+			left: 120px;
+			width: 530px;
+			height: 60px;
+			color : #FFFF00;
 			font-weight: bold;
 			overflow: hidden;
 			z-index:1;
@@ -109,9 +121,8 @@
 				<!-- Testing Message Box -->
 				<div id="messageLayer">
 					<img class="msgImage" src="" alt="">
+					<div class="titleText"></div>
 					<div class="msgText"></div>
-					<input class="msgButton" type="image" src="content/images/button_a.png" value="buttonValue" />
-					<input id="target" type="hidden" value="Hello there" />
 					</form>
 				</div>
 				<!-- Testing Message Box -->

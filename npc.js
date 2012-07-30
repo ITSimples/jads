@@ -38,8 +38,8 @@ var NpcEntity = me.ObjectEntity.extend({
 
  
         // make him start from the right
-        this.pos.x = 80;
-		this.pos.y = 200;
+        this.pos.x = x;
+		this.pos.y = y;
         
 		// make it an action object
         // this.type = me.game.ACTION_OBJECT;
@@ -62,7 +62,7 @@ var NpcEntity = me.ObjectEntity.extend({
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'heroe' && !messageShowing) {
-				showMessageLayer();
+				showMessageLayer(this.npcData);
 				console.log("Mostra Mensagem..." + res.obj.name);
 			}
 		}else if (messageShowing){
@@ -90,9 +90,17 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
 
 		this.parent(x, y, settings);
 		
-		npc = new NpcEntity(10, 10 , 
+		npc = new NpcEntity(80, 200 , 
 								{image: adsNpcData[0].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 43}, adsNpcData[0]);
+
+		me.game.add(npc,2);
+		me.game.sort();
+		
+		npc = new NpcEntity(180, 300 , 
+								{image: adsNpcData[1].imagem.replace(".png",""),
+								spritewidth: 32, spriteheight: 43}, adsNpcData[1]);
+
 		me.game.add(npc,2);
 		me.game.sort();
 		console.log("adsNpcData[0].imagem.replace:" + adsNpcData[0].imagem.replace(".png",""));

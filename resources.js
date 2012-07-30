@@ -61,7 +61,7 @@ var ads_resources =
 	// {name: "f_female02",	type: "image",	src: ads_sprites_path + "f_female02.png"},
 	// {name: "f_male01",	type: "image",	src: ads_sprites_path + "f_male01.png"},
 	// {name: "f_male02",	type: "image",	src: ads_sprites_path + "f_male02.png"},
-	// {name: "f_male03",	type: "image",	src: ads_sprites_path + "f_male03.png"},
+	{name: "f_male03",	type: "image",	src: ads_sprites_path + "f_male03.png"},
 	{name: "f_male04",	type: "image",	src: ads_sprites_path + "f_male04.png"},
 	// {name: "flame",	type: "image",	src: ads_sprites_path + "flame.png"},
 	// {name: "goblin",	type: "image",	src: ads_sprites_path + "goblin.png"},
