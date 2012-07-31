@@ -115,3 +115,9 @@ WebFontConfig = {
 })(); 
 //**********************************************
 console.log("Loaded... B");
+
+/*------------------- 
+HUD Configuration
+------------------------------ */
+
+/*--- END HUD Configuration ---*/
