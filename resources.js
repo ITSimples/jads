@@ -117,7 +117,7 @@ WebFontConfig = {
 console.log("Loaded... B");
 
 /*------------------- 
-HUD Configuration
+NPC's animation Configuration
 ------------------------------ */
 
 /*--- END HUD Configuration ---*/

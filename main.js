@@ -97,20 +97,19 @@ Comment: Display a message in the game
 
 function showMessageLayer(npcData)
 {
-    // if( !messageShowing ) {
-        $('.msgImage').attr({
-            'src' : 'content/sprites/' + npcData.cara,
-            'alt' : 'Testing...' 
-        });
-		$('.titleText,#hiddenText').html( npcData.nome );
-        $('.msgText,#hiddenText').html( npcData.mensagem );
-
-        $('#messageLayer').fadeIn( 250, function() {
-            $('.msgText').scrollTop(0);
-        });
+	//Format face image from the name
+	npcFace = npcData.imagem.replace(".png","_face.png");
 	
-		// messageShowing = true;
-    // }
+	$('.msgImage').attr({
+		'src' : 'content/sprites/' + npcFace,
+		'alt' : 'Testing...' 
+	});
+	$('.titleText,#hiddenText').html( npcData.nome );
+	$('.msgText,#hiddenText').html( npcData.mensagem );
+
+	$('#messageLayer').fadeIn( 250, function() {
+		$('.msgText').scrollTop(0);
+	});
 }
 
 /*
