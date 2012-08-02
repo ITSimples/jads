@@ -75,7 +75,6 @@ var ads_resources =
 	// {name: "h_male02",	type: "image",	src: ads_sprites_path + "h_male02.png"},
 	// {name: "h_male03",	type: "image",	src: ads_sprites_path + "h_male03.png"},
 	// {name: "h_male04",	type: "image",	src: ads_sprites_path + "h_male04.png"},
-	// {name: "heroe",	type: "image",	src: ads_sprites_path + "heroe.png"},
 	{name: "Hudbg",	type: "image",	src: ads_sprites_path + "Hudbg.png"},
 	// {name: "Iceman",	type: "image",	src: ads_sprites_path + "Iceman.png"},
 	// {name: "kid_female",	type: "image",	src: ads_sprites_path + "kid_female.png"},
