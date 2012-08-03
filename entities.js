@@ -170,15 +170,20 @@ var ItemEntity = me.CollectableEntity.extend({
 	
 	onCollision : function (res, obj)
 	{
-		console.log("nome item:" + this.items_data.nome);
-		console.log("Descrição:" + this.items_data.descricao);
-		console.log("Valor:" + this.items_data.valor);
-		// add a little score
-        // me.game.HUD.updateItemValue("live", this.updateScore);
-		
-		me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
-		updateScore = 0;
-		me.game.remove(this);
+		var res = me.game.collide( this );
+        if( res ) {
+			if( res.obj.name == 'heroe' ) {
+				console.log("nome item:" + this.items_data.nome);
+				console.log("Descrição:" + this.items_data.descricao);
+				console.log("Valor:" + this.items_data.valor);
+				// add a little score
+				// me.game.HUD.updateItemValue("live", this.updateScore);
+				
+				me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
+				updateScore = 0;
+				me.game.remove(this);
+				}
+		}
 	}
 });
 
