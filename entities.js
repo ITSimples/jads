@@ -36,7 +36,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		this.collidable= true;
 
-		//Configurar animações
+		//Config npc's animation
 		this.addAnimation("stand-down", [4]);
 		this.addAnimation("stand-left", [8]);
 		this.addAnimation("stand-up", [1]);

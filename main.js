@@ -114,7 +114,7 @@ function showMessageLayer(npcData)
 
 /*
 -----------------------------------
-File: resources.js
+File: main.js
 Function: hideMessageLayer
 Comment: hide a message in the game
 -----------------------------------
@@ -124,6 +124,18 @@ function hideMessageLayer()
     $('.msgText').scrollTop(0);
     $('#messageLayer').fadeOut();
     messageShowing = false;
+}
+
+/*
+-----------------------------------
+File: main.js
+Function: randomInt
+Comment: get a random number between min and max value
+-----------------------------------
+*/
+function randomInt( min, max )
+{
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 //bootstrap :)

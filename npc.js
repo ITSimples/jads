@@ -22,20 +22,15 @@ var NpcEntity = me.ObjectEntity.extend({
 		
 		// NPC data from json file
 		this.npcData = npcData;
-
-		console.log("npcData:" + this.npcData.nome);
 		
 		this.collidable= true;
 		
 		this.gravity = 0;
 		
 		this.friction = 0;
-		
-		this.setVelocity(0);
-		
-		//Configurar animações
-		this.addAnimation("stand-down", [4]);
-
+	
+		this.accel.x = 1;
+        this.accel.y = 1;
  
         // make him start from the right
         this.pos.x = x;
@@ -49,32 +44,102 @@ var NpcEntity = me.ObjectEntity.extend({
 		// Enable/disable dialogue box
 		this.showMessage = false;
 
+		//Configurar animações
+		this.addAnimation("stand-down", [4]);
+		this.addAnimation("stand-left", [8]);
+		this.addAnimation("stand-up", [1]);
+		this.addAnimation("stand-right", [11]);
+		this.addAnimation("down", [3,4,5,4]);
+		this.addAnimation("left", [6,7,8]);
+		this.addAnimation("up", [0,1,2,1]);
+		this.addAnimation("right", [9,10,11]);
+
+		//Configure coordinates of npc
+		this.initStartX = this.pos.x;
+		this.initStartY = this.pos.y;
+        this.initDestX = this.npcData.coordenadas.initDestX;
+        this.initDestY = this.npcData.coordenadas.initDestY;
+		
+		this.destX = this.initDestX;
+        this.destY = this.initDestY;
+		
+		//if it moves
+		this.direction = 'right';
+		this.setDirection();
 	},
 	
-	//Update player position.
+	setDirection : function() {
+        this.distanceX = Math.abs( this.destX - this.pos.x );
+        this.distanceY = Math.abs( this.destY - this.pos.y );
+
+        if( this.distanceX > this.distanceY ) {
+            this.direction = this.destX < this.pos.x ? 'left' : 'right' ;
+        } else {
+            this.direction = this.destY < this.pos.y ? 'up' : 'down';
+        }
+		// console.log ("Coordinates :" + "(x=" + this.pos.x + ", y=" + this.pos.y +")" );
+		if ( (this.pos.x > this.initDestX - 2 && this.pos.x < this.initDestX + 2) && 
+			 (this.pos.y > this.initDestY - 2 && this.pos.y < this.initDestY + 2) ){
+			this.destX = this.initStartX;
+			this.destY = this.initStartY;
+		} else if ( (this.pos.x > this.initStartX - 2 && this.pos.x < this.initStartX + 2) && 
+					(this.pos.y > this.initStartY - 2 && this.pos.y < this.initStartY + 2)){
+			this.destX = this.initDestX;
+			this.destY = this.initDestY;
+		}
+    },
+	
+	//Update npc position.
 	update : function ()
-	{	 
-		this.vel.y = 0;
-		this.vel.x = 0;
+	{		
+		this.setCurrentAnimation( this.direction );
+		this.animationspeed = me.sys.fps / 23;
 		
-		this.setCurrentAnimation('stand-down');
+		if (this.direction == 'left')
+		{		
+			this.vel.x = -this.accel.x * me.timer.tick;			
+		}
+		else if (this.direction == 'right')
+		{		
+			this.vel.x = this.accel.x * me.timer.tick;
+		}
+ 
+		if (this.direction == 'up')
+		{
+			this.vel.y = -this.accel.y * me.timer.tick; 
+		}
+		else if (this.direction == 'down')
+		{
+			this.vel.y = this.accel.y * me.timer.tick;
+		}
 		
 		// Check collision
-		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************DDDDADDADAA
+		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'heroe' ) {
+				this.setCurrentAnimation( 'stand-' + this.direction );
 				showMessageLayer(this.npcData);
 				this.showMessage = true;
+				//Stop npc when he talk with heroe
+				this.accel.x = 0;
+				this.accel.y = 0;
+				this.vel.x = 0;
+				this.vel.y = 0;
 			}
 		}else if (this.showMessage){
 				hideMessageLayer();
 				this.showMessage = false;
+				//Move npc when he stop talk with heroe
+				this.accel.x = 1;
+				this.accel.y = 1;
 			}
 		
 		// check and update movement - Update animation
 		this.updateMovement();
 		this.parent(this);
+
+		this.setDirection();
 		
 	}
 });
@@ -91,21 +156,13 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
     init: function(x, y, settings) {
 
 		this.parent(x, y, settings);
-		
-		npc = new NpcEntity(80, 200 , 
-								{image: adsNpcData[0].imagem.replace(".png",""),
-								spritewidth: 32, spriteheight: 43}, adsNpcData[0]);
+
+		npc = new NpcEntity(adsNpcData[5].coordenadas.initStartX, adsNpcData[5].coordenadas.initStartY , 
+								{image: adsNpcData[5].imagem.replace(".png",""),
+								spritewidth: 32, spriteheight: 43}, adsNpcData[5]);
 
 		me.game.add(npc,2);
 		me.game.sort();
-		
-		npc = new NpcEntity(180, 500 , 
-								{image: adsNpcData[1].imagem.replace(".png",""),
-								spritewidth: 32, spriteheight: 43}, adsNpcData[1]);
-
-		me.game.add(npc,2);
-		me.game.sort();
-		console.log("adsNpcData[0].imagem.replace:" + adsNpcData[0].imagem.replace(".png",""));
 	},
 	
 	update: function() {	
