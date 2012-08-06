@@ -1,0 +1,95 @@
+<style media="screen" type="text/css">
+	#gamePanel 
+	{
+		width: 800px;
+		height:600px;
+		margin: 0px auto;
+		border: 2px outset #FFFFFF; 
+		float:left;
+	}
+	
+	#fps{
+		width: 60px;
+		height:20px;
+		margin: 0px auto;
+		border: 2px outset #FFFFFF;
+		float:left;
+	}
+	
+	#information{
+		text-align:left;
+		float:right;
+		width:50;
+	}
+
+	#hiddenText {
+		width: 530px;
+		height: auto;
+		display: none;
+	}
+
+	#messageLayer {
+		position: absolute;
+		bottom: 50px;
+		left: 20px;
+		width: 400px;
+		height: 110px;
+		padding: 10px;
+		background: url('content/images/dialoguebox.png') no-repeat; 
+		display: none;
+	}
+
+	#messageLayer img.msgImage {
+		position: absolute;
+		top: 34px;
+		left: 49px;
+	}
+
+	#messageLayer .msgText {
+		position: absolute;
+		top: 40px;
+		left: 120px;
+		width: 530px;
+		height: 60px;
+		color : #fff;
+		font-weight: bold;
+		overflow: hidden;
+		z-index:1;
+	}
+
+	#messageLayer .titleText {
+		position: absolute;
+		top: 20px;
+		left: 120px;
+		width: 530px;
+		height: 60px;
+		color : #FFFF00;
+		font-weight: bold;
+		overflow: hidden;
+		z-index:1;
+	}
+
+	#messageLayer .msgButton {
+		position: absolute;
+		top: 126px;
+		left: 125px;
+	}
+	
+	#questionLayer {
+		position: absolute;
+		bottom: 100px;
+		left: 217px;
+		width: 366px;
+		height: 308px;
+		padding: 10px;
+		background: url('content/images/questionbox.png') no-repeat; 
+		display: none;
+	}
+	
+	#questionLayer img.msgImage {
+		position: absolute;
+		top: 34px;
+		left: 49px;
+	}
+
+</style>	
