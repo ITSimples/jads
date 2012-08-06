@@ -3,9 +3,9 @@
 	{
 		width: 800px;
 		height:600px;
-		margin: 0px auto;
+		margin: 2px auto;
 		border: 2px outset #FFFFFF; 
-		float:left;
+		float: left;
 	}
 	
 	#fps{
@@ -75,6 +75,7 @@
 		left: 125px;
 	}
 	
+	/* Question layer configuration */
 	#questionLayer {
 		position: absolute;
 		bottom: 100px;
@@ -86,10 +87,22 @@
 		display: none;
 	}
 	
-	#questionLayer img.msgImage {
+	#questionLayer img.qtnImage {
 		position: absolute;
-		top: 34px;
-		left: 49px;
+		top: 36px;
+		left: 45px;
+	}
+	
+	#questionLayer .itemText {
+		position: absolute;
+		top: 38px;
+		left: 80px;
+		width: 530px;
+		height: 60px;
+		color : #996600;
+		font-weight: bold;
+		overflow: hidden;
+		z-index:1;
 	}
 
 </style>	

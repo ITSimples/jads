@@ -137,9 +137,9 @@ var HeroeEntity = me.ObjectEntity.extend({
 			
 			//  --- TESTING MSG ---	MAKE IT DIFFERENT IF IT COLLIDE WITH AN TILE OBJECT		
 			// if (Math.round(this.pos.x/32) == 9 && Math.round(this.pos.y/32)==4 ){
-				// showMessageLayer();
+				// showQuestionLayer();
 			// }else{
-				 // hideMessageLayer();
+				 // hideQuestionLayer();
 			// }
 			//  --- FINISH TESTING MSG ---
 			
@@ -176,12 +176,13 @@ var ItemEntity = me.CollectableEntity.extend({
 				console.log("nome item:" + this.items_data.nome);
 				console.log("Descrição:" + this.items_data.descricao);
 				console.log("Valor:" + this.items_data.valor);
-				// add a little score
-				// me.game.HUD.updateItemValue("live", this.updateScore);
 				
-				me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
-				updateScore = 0;
-				me.game.remove(this);
+				// If the answer is correct then update HUD and remove item
+				if (showQuestionLayer(this.items_data)){
+					me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
+					me.game.remove(this);
+				}				
+
 				}
 		}
 	}

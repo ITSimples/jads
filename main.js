@@ -121,9 +121,42 @@ Comment: hide a message in the game
 */
 function hideMessageLayer()
 {
+	$('.msgImage').scrollTop(0);
+	$('.titleText').scrollTop(0);
     $('.msgText').scrollTop(0);
     $('#messageLayer').fadeOut();
     messageShowing = false;
+}
+
+
+/*
+-----------------------------------
+File: main.js
+Function: showQuestionLayer
+Comment: Display an question box in the game
+-----------------------------------
+*/
+function showQuestionLayer(itemData)
+{	
+	$('#questionLayer').fadeIn( 250 );
+	$('.qtnImage').attr({
+	'src' : 'content/sprites/items/' + itemData.imagem,
+	'alt' : 'Testing...' 
+	});
+	$('.itemText').html( itemData.descricao );
+	return true;
+}
+
+/*
+-----------------------------------
+File: main.js
+Function: hideQuestionLayer
+Comment: hide an question box in the game
+-----------------------------------
+*/
+function hideQuestionLayer()
+{
+    $('#questionLayer').fadeOut();
 }
 
 /*
