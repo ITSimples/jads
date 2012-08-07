@@ -104,5 +104,17 @@
 		overflow: hidden;
 		z-index:1;
 	}
+	
+	#questionLayer .questionText {
+		position: absolute;
+		top: 90px;
+		left: 45px;
+		width: 530px;
+		height: 60px;
+		color : #0B610B;
+		font-weight: bold;
+		overflow: hidden;
+		z-index:1;
+	}
 
 </style>	

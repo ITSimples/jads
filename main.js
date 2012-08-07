@@ -144,6 +144,7 @@ function showQuestionLayer(itemData)
 	'alt' : 'Testing...' 
 	});
 	$('.itemText').html( itemData.descricao );
+	$('.questionText').html( itemData.descricao );
 	return true;
 }
 
