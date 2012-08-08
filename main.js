@@ -136,7 +136,7 @@ Function: showQuestionLayer
 Comment: Display an question box in the game
 -----------------------------------
 */
-function showQuestionLayer(itemData)
+function showQuestionLayer(itemData,adsQtnData)
 {	
 	$('#questionLayer').fadeIn( 250 );
 	$('.qtnImage').attr({
@@ -144,7 +144,10 @@ function showQuestionLayer(itemData)
 	'alt' : 'Testing...' 
 	});
 	$('.itemText').html( itemData.descricao );
-	$('.questionText').html( itemData.descricao );
+	$('.questionText').html( adsQtnData.pergunta );
+	$('.r1').html('(A) ' + adsQtnData.r1 );
+	$('.r2').html('(B) ' + adsQtnData.r2 );
+	$('.r3').html('(C) ' + adsQtnData.r3 );
 	return true;
 }
 
@@ -200,6 +203,13 @@ window.onReady(function()
 			adsNpcData.push(data);		
 		});
 		
+		//Get questions data
+		$.each(data.questions, function(i,data)
+		{
+			countQtn++;
+			adsQtnData.push(data);		
+		});
+		
 		// Copy array ads_items_tmp to ads_items_final to load resouce items
 		load_ads_items = ads_items_tmp.slice();
 
@@ -208,6 +218,9 @@ window.onReady(function()
 		
 		console.log("Carregados " + countNpc + " NPC");
 		console.log("adsNpcData " + adsNpcData + " .");
+		
+		console.log("Carregados " + countQtn + " Questions");
+		console.log("adsQtnData " + adsQtnData + " .");
 		
 		js_ads_app.onload();
 	});

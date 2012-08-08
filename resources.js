@@ -29,8 +29,15 @@ var load_ads_items=[];
 // Keep all information about the items of the game
 var ads_items_data = [];
 
-// Keep all information about the npce
+// Keep all information about the npc's
 var adsNpcData = [];
+
+
+// *********** QUESTIONS SECTION ***********
+// Keep all information about the questions
+var adsQtnData = [];
+// Global variable to keep the number of questions:
+var countQtn = 0;
 
 // Game resources
 var ads_resources = 

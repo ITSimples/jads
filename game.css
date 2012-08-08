@@ -116,5 +116,41 @@
 		overflow: hidden;
 		z-index:1;
 	}
+	
+	#questionLayer .r1 {
+		position: absolute;
+		top: 115px;
+		left: 50px;
+		width: 530px;
+		height: 60px;
+		color : #4B8A08;
+		font-weight: bold;
+		overflow: hidden;
+		z-index:1;
+	}
+	
+	#questionLayer .r2 {
+		position: absolute;
+		top: 135px;
+		left: 50px;
+		width: 530px;
+		height: 60px;
+		color : #4B8A08;
+		font-weight: bold;
+		overflow: hidden;
+		z-index:1;
+	}
+	
+	#questionLayer .r3 {
+		position: absolute;
+		top: 155px;
+		left: 50px;
+		width: 530px;
+		height: 60px;
+		color : #4B8A08;
+		font-weight: bold;
+		overflow: hidden;
+		z-index:1;
+	}
 
 </style>	

@@ -177,8 +177,10 @@ var ItemEntity = me.CollectableEntity.extend({
 				console.log("Descrição:" + this.items_data.descricao);
 				console.log("Valor:" + this.items_data.valor);
 				
+				// Random question number between 0 and number of question less one 
+				var rndQuestion = randomInt( 0 , (countQtn - 1) );
 				// If the answer is correct then update HUD and remove item
-				if (showQuestionLayer(this.items_data)){
+				if (showQuestionLayer(this.items_data, adsQtnData[rndQuestion])){
 					me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
 					me.game.remove(this);
 				}				
