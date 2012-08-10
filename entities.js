@@ -98,6 +98,14 @@ var HeroeEntity = me.ObjectEntity.extend({
 			this.setCurrentAnimation('stand-' + this.direction)
 		}
 
+							if (showingQuestion){
+						this.accel.x = 0;
+						this.accel.y = 0;
+					}else{
+						this.accel.x = 8;
+						this.accel.y = 8;
+					}
+					
 		// check & update player movement
 		updated = this.updateMovement();
 		
@@ -117,21 +125,15 @@ var HeroeEntity = me.ObjectEntity.extend({
 					this.vel.y = 0;
 				}
 				
-				if (res.obj.type == 'ITEM_OBJECT' && showingQuestion) {
+				if (res.obj.type == 'ITEM_OBJECT') {
 					
 					this.setCurrentAnimation('stand-' + this.direction);
 					this.vel.x = 0;
-					this.vel.y = 0;
+					this.vel.y = 0;	
 					
-					if (!goodAnswer){
-						this.accel.x = 0;
-						this.accel.y = 0;
-					}
-				}else{
-						this.accel.x = 8;
-						this.accel.y = 8;
-					}
-			}
+				}
+ 			}
+
 			//  --- TESTING which OBJECT ---
 			
 			// Test if player step into position 6,10
@@ -196,11 +198,12 @@ var ItemEntity = me.CollectableEntity.extend({
 			if( res.obj.name == 'heroe' ) {				
 				// If the answer is correct then update HUD and remove item
 
-				if (showQuestionLayer(this.items_data , this.rndQtnData) && showingQuestion){					
+				if (showQuestionLayer(this.items_data , this.rndQtnData)){					
 					me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
 					me.game.remove(this);
 					hideQuestionLayer();
 					goodAnswer = false;					
+					console.log('Testing how many time question layer ....' + showingQuestion);
 				}
 			}
 		}

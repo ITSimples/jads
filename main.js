@@ -128,7 +128,7 @@ function hideMessageLayer()
     messageShowing = false;
 }
 
-
+// *** Improve Speed of question box
 /*
 -----------------------------------
 File: main.js
@@ -138,6 +138,7 @@ Comment: Display an question box in the game
 */
 function showQuestionLayer(itemData, adsQtnData)
 {	
+	showingQuestion = true;
 	// Get random item
 	rndQtnData = adsQtnData;
 	
@@ -165,16 +166,16 @@ function showQuestionLayer(itemData, adsQtnData)
 				goodAnswer = false;
 				console.log('Resposta errada.');
 			}
-		}
+		}		
 	});
-	
-	showingQuestion = true;
-	
+
 	if (!goodAnswer){
 		return false;
 	}else{
 		return true;
 	}
+	
+	console.log('Testing how many time question layer ....' + showingQuestion);
 }
 
 /*
@@ -186,7 +187,13 @@ Comment: hide an question box in the game
 */
 function hideQuestionLayer()
 {
+	
     $('#questionLayer').fadeOut();
+	
+	// * Question - remove from html ????
+	// $('#questionLayer').remove();
+	$('#target').unbind('keyup');
+	
 	showingQuestion = false;
 }
 
