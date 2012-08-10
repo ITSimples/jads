@@ -91,8 +91,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 			this.setCurrentAnimation('down')
 			this.direction = 'down'
 		}
-		
-		
+	
 		// If player Stop set stand animationa
 		if (this.vel.y == 0 && this.vel.x == 0)
 		{
@@ -112,11 +111,26 @@ var HeroeEntity = me.ObjectEntity.extend({
 			//  --- TESTING which OBJECT ---
 			if (res){
 				if (res.obj.type == 'NPC_OBJECT') {
-					console.log(res.obj.type);
+
 					this.setCurrentAnimation('stand-' + this.direction);
 					this.vel.x = 0;
 					this.vel.y = 0;
 				}
+				
+				if (res.obj.type == 'ITEM_OBJECT' && showingQuestion) {
+					
+					this.setCurrentAnimation('stand-' + this.direction);
+					this.vel.x = 0;
+					this.vel.y = 0;
+					
+					if (!goodAnswer){
+						this.accel.x = 0;
+						this.accel.y = 0;
+					}
+				}else{
+						this.accel.x = 8;
+						this.accel.y = 8;
+					}
 			}
 			//  --- TESTING which OBJECT ---
 			
@@ -166,26 +180,29 @@ var ItemEntity = me.CollectableEntity.extend({
 		this.parent(x, y , settings);
 		// Item data
 		this.items_data=items_data;
+		
+		// Random question number between 0 and number of question less one 
+		var rndQuestion = randomInt( 0 , (countQtn - 1) );
+		this.rndQtnData = adsQtnData[rndQuestion];
+		
+		this.type = 'ITEM_OBJECT';
+
 	},
 	
 	onCollision : function (res, obj)
 	{
 		var res = me.game.collide( this );
         if( res ) {
-			if( res.obj.name == 'heroe' ) {
-				console.log("nome item:" + this.items_data.nome);
-				console.log("Descrição:" + this.items_data.descricao);
-				console.log("Valor:" + this.items_data.valor);
-				
-				// Random question number between 0 and number of question less one 
-				var rndQuestion = randomInt( 0 , (countQtn - 1) );
+			if( res.obj.name == 'heroe' ) {				
 				// If the answer is correct then update HUD and remove item
-				if (showQuestionLayer(this.items_data, adsQtnData[rndQuestion])){
+
+				if (showQuestionLayer(this.items_data , this.rndQtnData) && showingQuestion){					
 					me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
 					me.game.remove(this);
-				}				
-
+					hideQuestionLayer();
+					goodAnswer = false;					
 				}
+			}
 		}
 	}
 });

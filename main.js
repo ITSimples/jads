@@ -70,10 +70,10 @@ var js_ads_app =
 		me.input.bindKey(me.input.KEY.S, "down");
 		
 		// --- TESTING NUMBER INPUT FROM QUESTION BOX
-		me.input.bindKey(me.input.KEY.Y, "Y");
-		me.input.bindKey(me.input.KEY.U, "U");
-		me.input.bindKey(me.input.KEY.I, "I");
-		me.input.bindKey(me.input.KEY.O, "O");
+		// me.input.bindKey(me.input.KEY.Y, "Y");
+		// me.input.bindKey(me.input.KEY.U, "U");
+		// me.input.bindKey(me.input.KEY.I, "I");
+		// me.input.bindKey(me.input.KEY.O, "O");
 		// --- FINISH TESTING NUMBER INPUT FROM QUESTION BOX
 		
 		// Iniciar o jogo com o Menu
@@ -136,19 +136,45 @@ Function: showQuestionLayer
 Comment: Display an question box in the game
 -----------------------------------
 */
-function showQuestionLayer(itemData,adsQtnData)
+function showQuestionLayer(itemData, adsQtnData)
 {	
+	// Get random item
+	rndQtnData = adsQtnData;
+	
 	$('#questionLayer').fadeIn( 250 );
 	$('.qtnImage').attr({
 	'src' : 'content/sprites/items/' + itemData.imagem,
 	'alt' : 'Testing...' 
 	});
 	$('.itemText').html( itemData.descricao );
-	$('.questionText').html( adsQtnData.pergunta );
-	$('.r1').html('(A) ' + adsQtnData.r1 );
-	$('.r2').html('(B) ' + adsQtnData.r2 );
-	$('.r3').html('(C) ' + adsQtnData.r3 );
-	return true;
+	$('.questionText').html( rndQtnData.pergunta );
+	$('.r1').html('(1) ' + rndQtnData.r1 );
+	$('.r2').html('(2) ' + rndQtnData.r2 );
+	$('.r3').html('(3) ' + rndQtnData.r3 );
+	$('.r4').html('(0) Não responder.');
+	$('.answerValue').html('+' + itemData.valor + ' de ' + itemData.categoria + '.');
+	$('#target').focus();
+	$("#target").keyup(function(event) {
+		var keyPressed = (String.fromCharCode(event.keyCode)).toUpperCase();
+		// If correct answer return true else return false
+		if (keyPressed =='0' || keyPressed =='1' || keyPressed =='2'|| keyPressed =='3'  ) {	
+			if (keyPressed == rndQtnData.correta){
+				goodAnswer = true;
+				console.log('Resposta correta.');
+			}else{			
+				goodAnswer = false;
+				console.log('Resposta errada.');
+			}
+		}
+	});
+	
+	showingQuestion = true;
+	
+	if (!goodAnswer){
+		return false;
+	}else{
+		return true;
+	}
 }
 
 /*
@@ -161,6 +187,7 @@ Comment: hide an question box in the game
 function hideQuestionLayer()
 {
     $('#questionLayer').fadeOut();
+	showingQuestion = false;
 }
 
 /*

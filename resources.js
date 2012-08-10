@@ -39,6 +39,11 @@ var adsQtnData = [];
 // Global variable to keep the number of questions:
 var countQtn = 0;
 
+// Global variables to test answer
+var goodAnswer = false;
+// If Question box is showing
+var showingQuestion = false;
+
 // Game resources
 var ads_resources = 
 [
