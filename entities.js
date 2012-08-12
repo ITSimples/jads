@@ -19,7 +19,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 		this.xydivision = 0;
 		
 		// Configurar velocidade do jogador
-		this.setVelocity(6, 6);
+		this.setVelocity(3, 3);
 		
 		// Configurar velocidade de travagem
 		// Valores maiores tempo de travagem menor
@@ -61,7 +61,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 	//Update player position.
 	update : function ()
 	{
-		
+		var resBefore = me.game.collide(this);
 		if (me.input.isKeyPressed('left'))
 		{
 			this.animationspeed = me.sys.fps / 20;
@@ -98,44 +98,37 @@ var HeroeEntity = me.ObjectEntity.extend({
 			this.setCurrentAnimation('stand-' + this.direction)
 		}
 
-							if (showingQuestion){
-						this.accel.x = 0;
-						this.accel.y = 0;
-					}else{
-						this.accel.x = 8;
-						this.accel.y = 8;
-					}
+		// if (showingQuestion){
+			// this.accel.x = 0;
+			// this.accel.y = 0;
+		// }else{
+			// this.accel.x = 8;
+			// this.accel.y = 8;
+		// }
 					
-		// check & update player movement
-		updated = this.updateMovement();
-		
-		// update animation
-		if (updated)
-		{
+
 			// Actaualizar colisão
 			var res = me.game.collide(this);
-
+			
 			
 			//  --- TESTING which OBJECT ---
 			if (res){
 				if (res.obj.type == 'NPC_OBJECT') {
 
 					this.setCurrentAnimation('stand-' + this.direction);
-					this.vel.x = 0;
-					this.vel.y = 0;
+					// this.vel.x = 0;
+					// this.vel.y = 0;
 				}
 				
 				if (res.obj.type == 'ITEM_OBJECT') {
-					
 					this.setCurrentAnimation('stand-' + this.direction);
 					this.vel.x = 0;
-					this.vel.y = 0;	
-					
+					this.vel.y = 0;
 				}
  			}
 
 			//  --- TESTING which OBJECT ---
-			
+			// It's better to use a invisible object
 			// Test if player step into position 6,10
 			// console.log("Testing player position (x,y): (" + Math.round(this.pos.x/32) + "," + Math.round(this.pos.y/32) + ")");
 			if (this.makeOneTime && Math.round(this.pos.x/32) == 6 && Math.round(this.pos.y/32)==9 ){
@@ -150,19 +143,19 @@ var HeroeEntity = me.ObjectEntity.extend({
 				
 				this.makeOneTime = false;
 			}
-			
-			//  --- TESTING MSG ---	MAKE IT DIFFERENT IF IT COLLIDE WITH AN TILE OBJECT		
-			// if (Math.round(this.pos.x/32) == 9 && Math.round(this.pos.y/32)==4 ){
-				// showQuestionLayer();
-			// }else{
-				 // hideQuestionLayer();
-			// }
-			//  --- FINISH TESTING MSG ---
-			
+
+		// check & update player movement
+		updated = this.updateMovement();
+
+		// update animation
+		if (updated)
+		{
 			// Actualizar animação
 			this.parent(this);
 		}
+
 		return updated;
+
 	}
 });
 // *****************************
