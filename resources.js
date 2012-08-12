@@ -40,9 +40,9 @@ var adsQtnData = [];
 var countQtn = 0;
 
 // Global variables to test answer
-var goodAnswer = false;
+var heroeAnswer = -1;
 // If Question box is showing
-var showingQuestion = false;
+var showingQuestion = false; 
 
 // Game resources
 var ads_resources = 

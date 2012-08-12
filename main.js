@@ -153,32 +153,33 @@ function showQuestionLayer(itemData, adsQtnData)
 		$('.r2').html('(2) ' + rndQtnData.r2 );
 		$('.r3').html('(3) ' + rndQtnData.r3 );
 		$('.r4').html('(0) Não responder.');
-		$('.answerValue').html('+' + itemData.valor + ' de ' + itemData.categoria + '.');
+		$('.answerValue').html('+/-' + itemData.valor + ' de ' + itemData.categoria + '.');
 		$('#target').focus();
 		$("#target").keyup(function(event) {
 			var keyPressed = (String.fromCharCode(event.keyCode)).toUpperCase();
 			// If correct answer return true else return false
 			if (keyPressed =='0' || keyPressed =='1' || keyPressed =='2'|| keyPressed =='3'  ) {	
-				if (keyPressed == rndQtnData.correta){
-					goodAnswer = true;
-					console.log('Resposta correta.');
-				}else{			
-					goodAnswer = false;
-					console.log('Resposta errada.');
-				}
+				// if (keyPressed == rndQtnData.correta){
+					// heroeAnswer = true;
+					// console.log('Resposta correta.');
+				// }else{			
+					// heroeAnswer = false;
+					// console.log('Resposta errada.');
+				// }
+				heroeAnswer = keyPressed;
 			}
 		});
 		console.log('Testing how many time question layer ....' + showingQuestion);
 		showingQuestion = true;
 	}
 	
-	if (!goodAnswer){
-		return false;
-	}else{
-		return true;
-	}
+	// if (!heroeAnswer){
+		// return false;
+	// }else{
+		// return true;
+	// }
 
-	
+	return heroeAnswer;
 }
 
 /*
@@ -188,9 +189,15 @@ Function: hideQuestionLayer
 Comment: hide an question box in the game
 -----------------------------------
 */
-function hideQuestionLayer()
+function hideQuestionLayer(answer)
 {
+	// C -  if heroe correct answer
+	// W -  if heroe answer to the question but it's not the correct one
+	// D -  If heroe doesn't answer to the question
 	
+	// **** TO MAKE - Keep information to the player until press space key
+	//				- Show in box question the result of the answer
+	//				- Make a new field with that information
     $('#questionLayer').fadeOut();
 	
 	// * Question - remove from html ????

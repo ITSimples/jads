@@ -190,13 +190,24 @@ var ItemEntity = me.CollectableEntity.extend({
         if( res ) {
 			if( res.obj.name == 'heroe' ) {				
 				// If the answer is correct then update HUD and remove item
-
-				if (showQuestionLayer(this.items_data , this.rndQtnData)){					
-					me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
-					me.game.remove(this);
-					hideQuestionLayer();
-					goodAnswer = false;					
-					console.log('Testing how many time question layer ....' + showingQuestion);
+				heroeAnswer = showQuestionLayer(this.items_data , this.rndQtnData);
+				if (heroeAnswer != -1)
+				{
+					if ( heroeAnswer == this.rndQtnData.correta){ // if heroe correct answer			
+						me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
+						me.game.remove(this);
+						hideQuestionLayer('C');
+						heroeAnswer = -1;
+					}else if(heroeAnswer != 0){ // if heroe answer to the question but it's not the correct one
+						me.game.HUD.updateItemValue(this.items_data.categoria, -(parseInt(this.items_data.valor)));
+						me.game.remove(this);
+						hideQuestionLayer('W');
+						heroeAnswer = -1;
+					}else{ // If heroe doesn't answer to the question
+						me.game.remove(this);
+						hideQuestionLayer('D');
+						heroeAnswer = -1;
+					}
 				}
 			}
 		}
