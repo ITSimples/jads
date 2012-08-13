@@ -176,5 +176,19 @@
 		overflow: hidden;
 		z-index:1;
 	}
+	
+	#questionLayer .answerResult {
+		position: absolute;
+		top: 115px;
+		left: 50px;
+		width: 530px;
+		height: 60px;
+		color : #FF8000;
+		font-size:20px;
+		font-weight: bold;
+		overflow: hidden;
+		z-index:1;
+	}
+
 
 </style>	

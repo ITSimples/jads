@@ -139,9 +139,20 @@ Comment: Display an question box in the game
 function showQuestionLayer(itemData, adsQtnData)
 {
 	if (!showingQuestion){
-		// Get random item
+	
+		var $questionBoxHtml = ('<img class="qtnImage" src="" alt="">' + 
+							'<div class="itemText"></div>' +
+							'<div class="questionText"></div>' + 
+							'<div class="r1"></div>' + 
+							'<div class="r2"></div>' +
+							'<div class="r3"></div>' + 
+							'<div class="r4"></div>' + 
+							'<div class="answerValue">' + 
+							'</div><div class="answerResult"></div>');
+							
+		$('#questionLayer').append($questionBoxHtml);
+
 		rndQtnData = adsQtnData;
-		
 		$('#questionLayer').fadeIn( 250 );
 		$('.qtnImage').attr({
 		'src' : 'content/sprites/items/' + itemData.imagem,
@@ -159,25 +170,13 @@ function showQuestionLayer(itemData, adsQtnData)
 			var keyPressed = (String.fromCharCode(event.keyCode)).toUpperCase();
 			// If correct answer return true else return false
 			if (keyPressed =='0' || keyPressed =='1' || keyPressed =='2'|| keyPressed =='3'  ) {	
-				// if (keyPressed == rndQtnData.correta){
-					// heroeAnswer = true;
-					// console.log('Resposta correta.');
-				// }else{			
-					// heroeAnswer = false;
-					// console.log('Resposta errada.');
-				// }
+				// Return player answer
 				heroeAnswer = keyPressed;
 			}
 		});
 		console.log('Testing how many time question layer ....' + showingQuestion);
 		showingQuestion = true;
 	}
-	
-	// if (!heroeAnswer){
-		// return false;
-	// }else{
-		// return true;
-	// }
 
 	return heroeAnswer;
 }
@@ -191,6 +190,8 @@ Comment: hide an question box in the game
 */
 function hideQuestionLayer(answer)
 {
+	showingQuestion = false;
+	
 	// C -  if heroe correct answer
 	// W -  if heroe answer to the question but it's not the correct one
 	// D -  If heroe doesn't answer to the question
@@ -198,13 +199,49 @@ function hideQuestionLayer(answer)
 	// **** TO MAKE - Keep information to the player until press space key
 	//				- Show in box question the result of the answer
 	//				- Make a new field with that information
-    $('#questionLayer').fadeOut();
+    var answerResult ='';
 	
-	// * Question - remove from html ????
-	// $('#questionLayer').remove();
-	$('#target').unbind('keyup');
+	if(answer == 'C')
+	{
+		answerResult ='Parabéns resposta certa...';
+	}else if(answer == 'W')
+	{
+		answerResult ='Resposta errada...';
+	}
+	else{		
+		answerResult ='Tenta para a próxima...';
+	}
+
+	//Hide Question fields
+	$('.questionText').fadeOut();
+	$('.r1').fadeOut();
+	$('.r2').fadeOut();
+	$('.r3').fadeOut();
+	$('.r4').fadeOut();
+	$('.answerValue').fadeOut();
 	
-	showingQuestion = false;
+	$('.questionText').remove();
+	$('.r1').remove();
+	$('.r2').remove();
+	$('.r3').remove();
+	$('.r4').remove();
+	$('.answerValue').remove();
+	
+	// Show player answer result
+	$('.answerResult').hide();
+	$('.answerResult').html(answerResult);
+	$('.answerResult').fadeIn();
+	
+	//Waiting for a key to hide question box
+	$('#target').keyup(function(event) {
+		
+		$('.answerResult').fadeOut();		
+		$('#target').unbind('keyup');
+		$('.answerResult').remove();
+		$('#questionLayer').fadeOut( 250 );
+	});
+	
+	heroeAnswer = -1;
 }
 
 /*
