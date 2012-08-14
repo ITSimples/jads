@@ -209,7 +209,7 @@ var ItemEntity = me.CollectableEntity.extend({
 		// Chamar o contrutor
 		this.parent(x, y , settings);
 		// Item data
-		this.items_data=items_data;
+		this.items_data = items_data;
 		
 		// Random question number between 0 and number of question less one 
 		var rndQuestion = randomInt( 0 , (countQtn - 1) );
@@ -261,9 +261,9 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		var collision_layer = me.game.currentLevel.getLayerByName("collision");
 		
 		// parse all the collision layer tiles 
-		for ( var x = 0; x <collision_layer.width + 1; x++) 
+		for ( var x = 0; x < collision_layer.width; x++) 
 		{ 
-		   for ( var y = 0; y < collision_layer.height + 1; y++) 
+		   for ( var y = 0; y < collision_layer.height; y++) 
 		   { 
 				var testTile = collision_layer.layerData[x][y];   
 				
@@ -273,15 +273,15 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					var item_probability = Number.prototype.random(0, 10);
 					// Total of items
 					total_items = ads_items_data.length - 1;
-					random_item = Number.prototype.random(0, total_items);			
-					if (item_probability==5){
+					random_item = Number.prototype.random(0, total_items);					
+					if ( item_probability == 5 ){
 						item[count] = new ItemEntity(parseInt(32*x), parseInt(32*y), 
 								{image: ads_items_data[random_item].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 32}, ads_items_data[random_item]);
 						count++;
-						// console.log("Populate Map... X:" + parseInt(32*x) +
-									// "   Y:" + parseInt(32*y) + 
-									// "   Count:" + count + "    Item: " + random_item);
+						console.log("Populate Map... X:" + parseInt(32*x) +
+									"   Y:" + parseInt(32*y) + 
+									" dss  Count:" + count + "    Item: " + random_item);
 					}
 				
 				}
@@ -290,7 +290,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 
 		// Adicionar items na camada 2
 		$.each(item, function(i, item){
-			me.game.add(item,2);
+			me.game.add(item,3);
 			me.game.sort();
 		});		
 	}
