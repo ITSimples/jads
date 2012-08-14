@@ -189,12 +189,5 @@
 		overflow: hidden;
 		z-index:1;
 	}
-	
-	#questionLayer .target {
-		position: absolute;
-		top: 10px;
-		left: 50px;
-	}
-
 
 </style>	

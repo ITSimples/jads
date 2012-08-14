@@ -14,12 +14,12 @@ else if (me.input.isKeyPressed('fire') || this.movemouse)
 		this.distancetotargetx = this.dest_point_X - this.pos.x;
         this.distancetotargety = this.dest_point_Y - this.pos.y;    
 		
-		console.log("Mouse button clicked...");
-		console.log("Mouse x=" + me.input.mouse.pos.x + " y=" + me.input.mouse.pos.y);
-		console.log("Player x=" + this.pos.x + " y=" + this.pos.y);
-		console.log("Viewport x=" + me.game.viewport.pos.x + " y=" + me.game.viewport.pos.y);
-		console.log("Mouse + Viewport x=" + this.dest_point_X + " y=" + this.dest_point_Y);
-		console.log("distancetotarget x=" + this.distancetotargetx + " y=" + this.distancetotargety);
+		// console.log("Mouse button clicked...");
+		// console.log("Mouse x=" + me.input.mouse.pos.x + " y=" + me.input.mouse.pos.y);
+		// console.log("Player x=" + this.pos.x + " y=" + this.pos.y);
+		// console.log("Viewport x=" + me.game.viewport.pos.x + " y=" + me.game.viewport.pos.y);
+		// console.log("Mouse + Viewport x=" + this.dest_point_X + " y=" + this.dest_point_Y);
+		// console.log("distancetotarget x=" + this.distancetotargetx + " y=" + this.distancetotargety);
 
 		if (Math.abs(this.distancetotargetx) > Math.abs(this.distancetotargety)){
 					
@@ -221,3 +221,72 @@ function hideMessageLayer()
 }
 
 // ************************************************************
+
+
+
+			//  --- TESTING which OBJECT ---
+			// It's better to use a invisible object
+			// Test if player step into position 6,10
+			// console.log("Testing player position (x,y): (" + Math.round(this.pos.x/32) + "," + Math.round(this.pos.y/32) + ")");
+			if (this.makeOneTime && Math.round(this.pos.x/32) == 6 && Math.round(this.pos.y/32)==9 ){
+				var doorLayer = me.game.currentLevel.getLayerByName("door");
+				var collisionLayer = me.game.currentLevel.getLayerByName("collision");
+				// var testTile = door_layer.layerData[6][10];
+				// testTile.clearTile(6,10);
+				doorLayer.clearTile(6,10);
+				collisionLayer.clearTile(5,10);
+				collisionLayer.clearTile(6,10);
+				collisionLayer.clearTile(7,10);
+				// collisionLayer.clearTile(5,10);
+				// collisionLayer.clearTile(7,10);	
+				
+				this.makeOneTime = false;
+			}
+			
+			
+					// Get answer from the mouses
+		$("*", "#questionLayer").bind("click" , function(e) {
+			var answerClick = this.className;
+			if (answerClick[0]='r'){
+				heroeAnswer = answerClick[1];
+			}
+			e.stopPropagation();
+        });
+		
+				// map the touch event on the X key
+		me.input.bindMouse(me.input.mouse.LEFT, me.input.KEY.T);
+		
+				
+		//Testing mouse
+		if (me.input.isKeyPressed('touch'))
+		{
+			if (me.input.mouse.pos.x < 100)
+			{
+				this.animationspeed = me.sys.fps / 20;
+				this.vel.x = -this.accel.x * me.timer.tick;
+				this.setCurrentAnimation('left');
+				this.direction = 'left';			
+			}
+			else if (me.input.mouse.pos.x > 700)
+			{
+				this.animationspeed = me.sys.fps / 20;
+				this.vel.x = this.accel.x * me.timer.tick 
+				this.setCurrentAnimation('right')
+				this.direction = 'right'
+			}
+
+			if (me.input.mouse.pos.y < 100)
+			{
+				this.animationspeed = me.sys.fps / 20;
+				this.vel.y = -this.accel.y * me.timer.tick 
+				this.setCurrentAnimation('up')
+				this.direction = 'up'
+			}
+			else if (me.input.mouse.pos.y > 500)
+			{
+				this.animationspeed = me.sys.fps / 20;
+				this.vel.y = this.accel.y * me.timer.tick 
+				this.setCurrentAnimation('down')
+				this.direction = 'down'
+			}
+		}

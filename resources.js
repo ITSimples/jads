@@ -122,10 +122,10 @@ WebFontConfig = {
 	wf.async = 'true';
 	var s = document.getElementsByTagName('script')[0];
 	s.parentNode.insertBefore(wf, s);
-	console.log("Loaded... Fonts");
+	// console.log("Loaded... Fonts");
 })(); 
 //**********************************************
-console.log("Loaded... B");
+// console.log("Loaded... B");
 
 /*------------------- 
 NPC's animation Configuration

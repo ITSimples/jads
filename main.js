@@ -25,7 +25,7 @@ var js_ads_app =
 		//Callback - Carregar os recursos do jogo quando tudo estiver preparado
 		me.loader.onload = this.loaded.bind(this);
 		
-		console.log("Loaded... C");
+		// console.log("Loaded... C");
 		//Preparar todos os recursos do jogo
 		me.loader.preload(ads_resources.concat(load_ads_items));
 
@@ -71,8 +71,6 @@ var js_ads_app =
 		
 		// enable the keyboard
 		me.input.bindKey(me.input.KEY.T, "touch");
-		// map the touch event on the X key
-		me.input.bindMouse(me.input.mouse.LEFT, me.input.KEY.T);
 		
 		// Iniciar o jogo com o Menu
         //me.state.change(me.state.MENU);
@@ -137,7 +135,7 @@ Comment: Display an question box in the game
 function showQuestionLayer(itemData, adsQtnData)
 {
 	if (!showingQuestion){
-	
+		heroeAnswer = -1;
 		var $questionBoxHtml = ('<img class="qtnImage" src="" alt="">' + 
 							'<div class="itemText"></div>' +
 							'<div class="questionText"></div>' + 
@@ -145,8 +143,7 @@ function showQuestionLayer(itemData, adsQtnData)
 							'<div class="r2"></div>' +
 							'<div class="r3"></div>' + 
 							'<div class="r0"></div>' + 
-							'<div class="answerValue"></div>' +							
-							'<input class="target" id="target" type="hidden" value="Hello there" />');
+							'<div class="answerValue"></div>');
 							
 		$('#questionLayer').append($questionBoxHtml);
 		$('#questionLayer').fadeIn( 250 );
@@ -165,17 +162,6 @@ function showQuestionLayer(itemData, adsQtnData)
 		$('.r0').html('(0) Não responder.');
 		$('.answerValue').html('+/-' + itemData.valor + ' de ' + itemData.categoria + '.');
 		
-		
-		// Get answer from the mouses
-		$("*", "#questionLayer").bind("click" , function(e) {
-			var answerClick = this.className;
-			if (answerClick[0]='r'){
-				heroeAnswer = answerClick[1];
-			}
-			e.stopPropagation();
-        });
-		// $('.r1').unbind("click");
-		
 		// Create event listener to get answer from player
 		$(document).keyup(function(event) {
 			var keyPressed = (String.fromCharCode(event.keyCode)).toUpperCase();
@@ -185,7 +171,8 @@ function showQuestionLayer(itemData, adsQtnData)
 				heroeAnswer = keyPressed;
 			}
 		});
-		console.log('Testing how many time question layer ....' + showingQuestion);
+		
+		//Message box is showing - avoid call over and over again
 		showingQuestion = true;
 	}
 
@@ -201,8 +188,6 @@ Comment: hide an question box in the game
 */
 function hideQuestionLayer(answer)
 {
-	
-	
 	// C -  if heroe correct answer
 	// W -  if heroe answer to the question but it's not the correct one
 	// D -  If heroe doesn't answer to the question
@@ -231,6 +216,8 @@ function hideQuestionLayer(answer)
 	$('.r0').fadeOut();
 	$('.answerValue').fadeOut();
 	
+	// Kill click events
+	$("*", "#questionLayer").unbind("click");
 	$('.questionText').remove();
 	$('.r1').remove();
 	$('.r2').remove();
@@ -244,24 +231,19 @@ function hideQuestionLayer(answer)
 	$('.answerResult').html(answerResult);
 	$('.answerResult').fadeIn();
 	
-	//Waiting for a key to hide question box
-	$('#target').focus();
-	// $('#target').keyup(function(event) {
+	
 	$(document).keyup(function(event) {		
-		$('.answerResult').fadeOut();		
-		$('#target').unbind('keyup');
+		$('.answerResult').fadeOut();
 		$('.answerResult').remove();
 		$('#target').remove();
 		$('#questionLayer').fadeOut( 50 , function(){
 			// When finish to fade out 
 			showingQuestion = false;
 		});
+		// event.stopPropagation();
 		// Remove event listener to get answer from player
 		$(document).unbind();
 	});
-	
-	// Reset player answer
-	heroeAnswer = -1;
 }
 
 /*
@@ -285,7 +267,7 @@ window.onReady(function()
 		var countNpc = 0;
 		var countItems = 0;
 		var ads_items_tmp=[];
-		console.log("Loaded... A");
+		// console.log("Loaded... A");
 		
 		//Get data Items
 		$.each(data.items, function(i,data)
@@ -314,14 +296,14 @@ window.onReady(function()
 		// Copy array ads_items_tmp to ads_items_final to load resouce items
 		load_ads_items = ads_items_tmp.slice();
 
-		console.log("Carregados " + countItems + " Items");
-		console.log("ads_items_data " + ads_items_data + " .");
+		// console.log("Carregados " + countItems + " Items");
+		// console.log("ads_items_data " + ads_items_data + " .");
 		
-		console.log("Carregados " + countNpc + " NPC");
-		console.log("adsNpcData " + adsNpcData + " .");
+		// console.log("Carregados " + countNpc + " NPC");
+		// console.log("adsNpcData " + adsNpcData + " .");
 		
-		console.log("Carregados " + countQtn + " Questions");
-		console.log("adsQtnData " + adsQtnData + " .");
+		// console.log("Carregados " + countQtn + " Questions");
+		// console.log("adsQtnData " + adsQtnData + " .");
 		
 		js_ads_app.onload();
 	});
