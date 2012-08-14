@@ -98,14 +98,12 @@ var HeroeEntity = me.ObjectEntity.extend({
 			this.setCurrentAnimation('stand-' + this.direction)
 		}
 
-		// if (showingQuestion){
-			// this.accel.x = 0;
-			// this.accel.y = 0;
-		// }else{
-			// this.accel.x = 8;
-			// this.accel.y = 8;
-		// }
-					
+		// If question box is showing then stop the player
+		if (showingQuestion){
+			this.setCurrentAnimation('stand-' + this.direction);
+			this.vel.x = 0;
+			this.vel.y = 0;
+		}		
 
 			// Actaualizar colisão
 			var res = me.game.collide(this);
@@ -195,16 +193,14 @@ var ItemEntity = me.CollectableEntity.extend({
 				{
 					if ( heroeAnswer == this.rndQtnData.correta){ // if heroe correct answer			
 						me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
-						me.game.remove(this);
 						hideQuestionLayer('C');
 					}else if(heroeAnswer != 0){ // if heroe answer to the question but it's not the correct one
 						me.game.HUD.updateItemValue(this.items_data.categoria, -(parseInt(this.items_data.valor)));
-						me.game.remove(this);
 						hideQuestionLayer('W');
 					}else{ // If heroe doesn't answer to the question
-						me.game.remove(this);
 						hideQuestionLayer('D');
 					}
+					me.game.remove(this);
 				}
 			}
 		}

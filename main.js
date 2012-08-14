@@ -146,14 +146,15 @@ function showQuestionLayer(itemData, adsQtnData)
 							'<div class="r1"></div>' + 
 							'<div class="r2"></div>' +
 							'<div class="r3"></div>' + 
-							'<div class="r4"></div>' + 
-							'<div class="answerValue">' + 
-							'</div><div class="answerResult"></div>');
+							'<div class="r0"></div>' + 
+							'<div class="answerValue"></div>' +							
+							'<input class="target" id="target" type="hidden" value="Hello there" />');
 							
 		$('#questionLayer').append($questionBoxHtml);
-
-		rndQtnData = adsQtnData;
 		$('#questionLayer').fadeIn( 250 );
+		
+		//Show fields from question box with data
+		rndQtnData = adsQtnData;
 		$('.qtnImage').attr({
 		'src' : 'content/sprites/items/' + itemData.imagem,
 		'alt' : 'Testing...' 
@@ -163,10 +164,18 @@ function showQuestionLayer(itemData, adsQtnData)
 		$('.r1').html('(1) ' + rndQtnData.r1 );
 		$('.r2').html('(2) ' + rndQtnData.r2 );
 		$('.r3').html('(3) ' + rndQtnData.r3 );
-		$('.r4').html('(0) Não responder.');
+		$('.r0').html('(0) Não responder.');
 		$('.answerValue').html('+/-' + itemData.valor + ' de ' + itemData.categoria + '.');
-		$('#target').focus();
-		$("#target").keyup(function(event) {
+		
+		$("*", "#questionLayer").bind("click" , function(e) {
+			var answerClick = this.className;
+
+			e.stopPropagation();
+        });
+		// $('.r1').unbind("click");
+		
+		// Create event listener to get answer from player
+		$(document).keyup(function(event) {
 			var keyPressed = (String.fromCharCode(event.keyCode)).toUpperCase();
 			// If correct answer return true else return false
 			if (keyPressed =='0' || keyPressed =='1' || keyPressed =='2'|| keyPressed =='3'  ) {	
@@ -190,7 +199,7 @@ Comment: hide an question box in the game
 */
 function hideQuestionLayer(answer)
 {
-	showingQuestion = false;
+	
 	
 	// C -  if heroe correct answer
 	// W -  if heroe answer to the question but it's not the correct one
@@ -217,30 +226,39 @@ function hideQuestionLayer(answer)
 	$('.r1').fadeOut();
 	$('.r2').fadeOut();
 	$('.r3').fadeOut();
-	$('.r4').fadeOut();
+	$('.r0').fadeOut();
 	$('.answerValue').fadeOut();
 	
 	$('.questionText').remove();
 	$('.r1').remove();
 	$('.r2').remove();
 	$('.r3').remove();
-	$('.r4').remove();
+	$('.r0').remove();
 	$('.answerValue').remove();
 	
 	// Show player answer result
-	$('.answerResult').hide();
+	var $addAnswerResult = ('<div class="answerResult"></div>');
+	$('#questionLayer').append($addAnswerResult);
 	$('.answerResult').html(answerResult);
 	$('.answerResult').fadeIn();
 	
 	//Waiting for a key to hide question box
-	$('#target').keyup(function(event) {
-		
+	$('#target').focus();
+	// $('#target').keyup(function(event) {
+	$(document).keyup(function(event) {		
 		$('.answerResult').fadeOut();		
 		$('#target').unbind('keyup');
 		$('.answerResult').remove();
-		$('#questionLayer').fadeOut( 250 );
+		$('#target').remove();
+		$('#questionLayer').fadeOut( 50 , function(){
+			// When finish to fade out 
+			showingQuestion = false;
+		});
+		// Remove event listener to get answer from player
+		$(document).unbind();
 	});
 	
+	// Reset player answer
 	heroeAnswer = -1;
 }
 
