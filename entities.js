@@ -62,6 +62,41 @@ var HeroeEntity = me.ObjectEntity.extend({
 	update : function ()
 	{
 		var resBefore = me.game.collide(this);
+		
+		//Testing mouse
+		if (me.input.isKeyPressed('touch'))
+		{
+			if (me.input.mouse.pos.x < 100)
+			{
+				this.animationspeed = me.sys.fps / 20;
+				this.vel.x = -this.accel.x * me.timer.tick;
+				this.setCurrentAnimation('left');
+				this.direction = 'left';			
+			}
+			else if (me.input.mouse.pos.x > 700)
+			{
+				this.animationspeed = me.sys.fps / 20;
+				this.vel.x = this.accel.x * me.timer.tick 
+				this.setCurrentAnimation('right')
+				this.direction = 'right'
+			}
+
+			if (me.input.mouse.pos.y < 100)
+			{
+				this.animationspeed = me.sys.fps / 20;
+				this.vel.y = -this.accel.y * me.timer.tick 
+				this.setCurrentAnimation('up')
+				this.direction = 'up'
+			}
+			else if (me.input.mouse.pos.y > 500)
+			{
+				this.animationspeed = me.sys.fps / 20;
+				this.vel.y = this.accel.y * me.timer.tick 
+				this.setCurrentAnimation('down')
+				this.direction = 'down'
+			}
+		}
+		
 		if (me.input.isKeyPressed('left'))
 		{
 			this.animationspeed = me.sys.fps / 20;
@@ -135,7 +170,9 @@ var HeroeEntity = me.ObjectEntity.extend({
 				// var testTile = door_layer.layerData[6][10];
 				// testTile.clearTile(6,10);
 				doorLayer.clearTile(6,10);
+				collisionLayer.clearTile(5,10);
 				collisionLayer.clearTile(6,10);
+				collisionLayer.clearTile(7,10);
 				// collisionLayer.clearTile(5,10);
 				// collisionLayer.clearTile(7,10);	
 				

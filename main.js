@@ -69,12 +69,10 @@ var js_ads_app =
 		me.input.bindKey(me.input.KEY.W, "up");
 		me.input.bindKey(me.input.KEY.S, "down");
 		
-		// --- TESTING NUMBER INPUT FROM QUESTION BOX
-		// me.input.bindKey(me.input.KEY.Y, "Y");
-		// me.input.bindKey(me.input.KEY.U, "U");
-		// me.input.bindKey(me.input.KEY.I, "I");
-		// me.input.bindKey(me.input.KEY.O, "O");
-		// --- FINISH TESTING NUMBER INPUT FROM QUESTION BOX
+		// enable the keyboard
+		me.input.bindKey(me.input.KEY.T, "touch");
+		// map the touch event on the X key
+		me.input.bindMouse(me.input.mouse.LEFT, me.input.KEY.T);
 		
 		// Iniciar o jogo com o Menu
         //me.state.change(me.state.MENU);
@@ -167,9 +165,13 @@ function showQuestionLayer(itemData, adsQtnData)
 		$('.r0').html('(0) Não responder.');
 		$('.answerValue').html('+/-' + itemData.valor + ' de ' + itemData.categoria + '.');
 		
+		
+		// Get answer from the mouses
 		$("*", "#questionLayer").bind("click" , function(e) {
 			var answerClick = this.className;
-
+			if (answerClick[0]='r'){
+				heroeAnswer = answerClick[1];
+			}
 			e.stopPropagation();
         });
 		// $('.r1').unbind("click");
