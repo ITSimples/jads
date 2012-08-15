@@ -173,6 +173,10 @@ var ItemEntity = me.CollectableEntity.extend({
 				{
 					if ( heroeAnswer == this.rndQtnData.correta){ // if heroe correct answer			
 						me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
+						
+						//Keep data for all items found by the heroe
+						heroeItems.push(this.items_data);
+						
 						hideQuestionLayer('C');
 					}else if(heroeAnswer != 0){ // if heroe answer to the question but it's not the correct one
 						me.game.HUD.updateItemValue(this.items_data.categoria, -(parseInt(this.items_data.valor)));
@@ -236,5 +240,102 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 			me.game.add(item,3);
 			me.game.sort();
 		});		
+	}
+});
+
+// **************************************
+// ****  TEST INVISIBLE ENTITY  ****
+// **************************************
+var DoorEntity = me.InvisibleEntity.extend({
+	
+	//Constructor
+	init: function( x , y , settings , doorData){
+		
+		this.parent(x, y , settings );
+		
+		this.collidable = true;
+		
+		this.doorData = doorData;
+		
+		// prepare data to message box
+		this.msgData = {};
+		this.msgData.msgImage = 'sprites/items/' + doorData.imageName;
+		this.msgData.msgName = "Mensagem:";
+		this.msgData.msg = doorData.message;
+		
+		this.doorLayer = me.game.currentLevel.getLayerByName("door");
+		this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
+		
+		this.type = 'DOOR_OBJECT';
+		
+		this.openX = this.doorData.doorOpen.x;
+		this.openY = this.doorData.doorOpen.y;
+		
+		//Check if door is open
+		this.doorOpen = false;
+		
+		// Enable/disable dialogue box
+		this.showMessage = false;
+	},
+	
+	onCollision : function (res, obj){
+		
+		var res = me.game.collide( this );
+        if( res ) {
+			if( res.obj.name == 'heroe') {
+				
+				var doorKey = this.doorData.doorKey;
+				var openDoor =false;
+				
+				//check if heroe have the key			
+				$.each(heroeItems, function(i,data)
+				{
+					if (data.valor == doorKey){
+						console.log('Heroe have the key.');
+						openDoor = true;
+						return false;
+					}
+				});
+	
+				if (openDoor){
+					// Open the door
+					this.doorLayer.clearTile(this.openX,this.openY);
+					this.collisionLayer.clearTile(this.openX,this.openY);
+				
+					//Remove this object
+					me.game.remove(this);
+				}else{
+					console.log("Heroe don't have the key.");
+					showMessageLayer(this.msgData);
+				}	
+			}
+		}
+	}
+});
+
+// **************************************
+// ****  TEST INVISIBLE ENTITY SPAWN ****
+// **************************************
+var DoorsSpawnEntity = me.InvisibleEntity.extend({
+	//Constructor
+	init: function( x , y , settings){
+		
+		var doorData = {};
+		doorData.doorOpen = {x:6,y:10};
+		doorData.message = "Precisas da Chave Caveira<br>para abrir a porta.";
+		doorData.imageName = "chaveosso.png";
+		doorData.doorKey = "chaveosso";
+		
+		
+		var settings = {};
+		settings.width = 32;
+		settings.height = 32;
+		// call the parent constructor
+		this.parent(x, y, settings);
+		
+		// Door = new DoorEntity( 6*32 , 9*32, {image: "doorcheck", spritewidth: 32, spriteheight: 32});
+		heroeDoorCell = new DoorEntity( 6*32 , 9*32, settings , doorData);
+		me.game.add(heroeDoorCell,3);
+		me.game.sort();
 	}
 });

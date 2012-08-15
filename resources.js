@@ -33,6 +33,9 @@ var ads_items_data = [];
 var adsNpcData = [];
 
 
+// Keep all items found by heroe
+var heroeItems = [];
+
 // *********** QUESTIONS SECTION ***********
 // Keep all information about the questions
 var adsQtnData = [];
@@ -43,6 +46,9 @@ var countQtn = 0;
 var heroeAnswer = -1;
 // If Question box is showing
 var showingQuestion = false; 
+
+// *********** MESSAGE SECTION ***********
+var messageShowing = false; 
 
 // Game resources
 var ads_resources = 

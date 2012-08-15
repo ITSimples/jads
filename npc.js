@@ -23,6 +23,12 @@ var NpcEntity = me.ObjectEntity.extend({
 		// NPC data from json file
 		this.npcData = npcData;
 		
+		// Data to message box
+		this.msgData = {};
+		this.msgData.msgImage = 'sprites/' + this.npcData.imagem.replace(".png","_face.png");
+		this.msgData.msgName = this.npcData.nome;
+		this.msgData.msg = this.npcData.mensagem;
+		
 		this.collidable= true;
 		
 		this.gravity = 0;
@@ -119,7 +125,9 @@ var NpcEntity = me.ObjectEntity.extend({
         if( res ) {
 			if( res.obj.name == 'heroe' ) {
 				this.setCurrentAnimation( 'stand-' + this.direction );
-				showMessageLayer(this.npcData);
+				
+				showMessageLayer(this.msgData);
+				
 				this.showMessage = true;
 				//Stop npc when he talk with heroe
 				this.accel.x = 0;

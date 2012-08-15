@@ -55,6 +55,7 @@ var js_ads_app =
 		me.entityPool.add("items", ItemEntity);
 		me.entityPool.add("items_spawn", ItemSpawnEntity);
 		me.entityPool.add("npc_spawn", NpcSpawnEntity);
+		me.entityPool.add("doors_spawn", DoorsSpawnEntity);
 		
 		// Configurar teclas a usar, False - Lê mais que uma vez True - Lê várias vezes.
 		// Usar true por exemplo para lutar...
@@ -89,19 +90,16 @@ Comment: Display a message in the game
 -----------------------------------
 */
 
-// var messageShowing = false;
 
-function showMessageLayer(npcData)
+
+function showMessageLayer(msgData)
 {
-	//Format face image from the name
-	npcFace = npcData.imagem.replace(".png","_face.png");
-	
 	$('.msgImage').attr({
-		'src' : 'content/sprites/' + npcFace,
+		'src' : 'content/' + msgData.msgImage,
 		'alt' : 'Testing...' 
 	});
-	$('.titleText,#hiddenText').html( npcData.nome );
-	$('.msgText,#hiddenText').html( npcData.mensagem );
+	$('.titleText,#hiddenText').html( msgData.msgName );
+	$('.msgText,#hiddenText').html( msgData.msg );
 
 	$('#messageLayer').fadeIn( 250, function() {
 		$('.msgText').scrollTop(0);
