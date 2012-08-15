@@ -239,7 +239,16 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		$.each(item, function(i, item){
 			me.game.add(item,3);
 			me.game.sort();
-		});		
+		});	
+
+		// ** DEBUG ADD kEYS - Chave osso - ADD KEYS from the gamedata.json
+		item = new ItemEntity(parseInt(32*9), parseInt(32*5), 
+		{image: ads_items_data[15].imagem.replace(".png",""),
+		spritewidth: 32, spriteheight: 32}, ads_items_data[15]);
+		me.game.add(item,3);
+		me.game.sort();
+		// **************************************************************
+		
 	}
 });
 
@@ -279,7 +288,7 @@ var DoorEntity = me.InvisibleEntity.extend({
 	},
 	
 	onCollision : function (res, obj){
-		
+		console.log('remove message box...');
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'heroe') {
