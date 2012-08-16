@@ -8,13 +8,14 @@ HTTP://www.itsimples.com
 -----------------------------------
 */
 
-var js_ads_app = 
+/* adsGame - Game namespace */
+var adsGame = 
 { 
 	// Inicializar o Jogo
 	onload:function()
 	{
 		//Inicializar resolução e teste se browser suporta o jogo
-		if(!me.video.init('js_ads_app',ads_width,ads_height,false,1.0)){
+		if(!me.video.init('adsGame',ads_width,ads_height,false,1.0)){
 			alert("O seu browser não suporta o jogo * Aventura do saber \n Use o Firefox, Chrome ou IE9+ para poder jogar. *");
 			return;
 		}
@@ -48,7 +49,7 @@ var js_ads_app =
 		// Definir estado jogo 
 		me.state.set(me.state.PLAY,new PlayScreen());		
 
-		// Configurar entidades do mapa
+		// Configurar entidades do mapasw
 		// Class HeroeEntity em entities
 		//"Heroe" - Nome no mapa .tmx
 		me.entityPool.add("Heroe", HeroeEntity);		
@@ -80,7 +81,7 @@ var js_ads_app =
 		me.state.change(me.state.PLAY);
 		
 	}
-} // END ****  js_ads_app *******
+} // END ****  adsGame *******
 
 /*
 -----------------------------------
@@ -303,6 +304,6 @@ window.onReady(function()
 		// console.log("Carregados " + countQtn + " Questions");
 		// console.log("adsQtnData " + adsQtnData + " .");
 		
-		js_ads_app.onload();
+		adsGame.onload();
 	});
 });
