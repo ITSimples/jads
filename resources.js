@@ -48,7 +48,7 @@ var heroeAnswer = -1;
 var showingQuestion = false; 
 
 // *********** MESSAGE SECTION ***********
-var messageShowing = false; 
+// adsGame.messageShowing = false; 
 
 // Game resources
 var ads_resources = 

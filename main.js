@@ -39,6 +39,9 @@ var adsGame =
 		//Ver caixa de colisão
 		me.debug.renderHitBox = true;
 		
+		//Create message box object
+		adsGame.message = new adsGame.message();
+		
 	},
 	
 	loaded:function()
@@ -83,45 +86,6 @@ var adsGame =
 	}
 } // END ****  adsGame *******
 
-/*
------------------------------------
-File: resources.js
-Function: showMessageLayer
-Comment: Display a message in the game
------------------------------------
-*/
-
-
-
-function showMessageLayer(msgData)
-{
-	$('.msgImage').attr({
-		'src' : 'content/' + msgData.msgImage,
-		'alt' : 'Testing...' 
-	});
-	$('.titleText,#hiddenText').html( msgData.msgName );
-	$('.msgText,#hiddenText').html( msgData.msg );
-
-	$('#messageLayer').fadeIn( 250, function() {
-		$('.msgText').scrollTop(0);
-	});
-}
-
-/*
------------------------------------
-File: main.js
-Function: hideMessageLayer
-Comment: hide a message in the game
------------------------------------
-*/
-function hideMessageLayer()
-{
-	$('.msgImage').scrollTop(0);
-	$('.titleText').scrollTop(0);
-    $('.msgText').scrollTop(0);
-    $('#messageLayer').fadeOut();
-    messageShowing = false;
-}
 
 // *** Improve Speed of question box
 /*

@@ -288,7 +288,6 @@ var DoorEntity = me.InvisibleEntity.extend({
 	},
 	
 	onCollision : function (res, obj){
-		console.log('remove message box...');
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'heroe') {
@@ -315,7 +314,7 @@ var DoorEntity = me.InvisibleEntity.extend({
 					me.game.remove(this);
 				}else{
 					console.log("Heroe don't have the key.");
-					showMessageLayer(this.msgData);
+					adsGame.message.show(this.msgData);
 				}	
 			}
 		}

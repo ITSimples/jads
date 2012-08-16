@@ -19,23 +19,61 @@
  /**
  * showMessage.
  * @class
- * @extends me.SpriteObject
+ * @extends 
  * @constructor
- * @param {int} x the x coordinates of the dialog box
- * @param {int} y the y coordinates of the dialog box
- * @param {me.loader#getImage} background image
- * @param {array} an array of dialog phrases (strings)
- * @param {int} width of the textbox
- * @param {int} height of the textbox
- * @param {int} x offset of the textbox inside the background image
- * @param {int} y offset of the textbox inside the background image
- * @param {me#Font} the font used to write the dialog
- * @param {String} tag of the key used to pass the dialog pages
- * @param {function} an optional callback function to be called when the dialog is done
+ * @param msgData (.msgImage, .msgName, .msg)
  * @example
  * dialog = new DialogObject(10, 10, background, dialog, background.width - OFFSET_SIZE_TEXT_X, background.width - OFFSET_SIZE_TEXT_Y, OFFSET_DIALOG_X, OFFSET_DIALOG_Y, new me.Font("acmesa",20,"#880D0D", "center"), "enter", activateControls);
  */
  
-js_ads_app.showMessage = function showMessage(script, callback) {
+adsGame.message =  Object.extend({
+	"init" : function init() {
+		this.messageShowing = false;
+		
+		// Create html in messagelayer DIV
+		var $messageBoxHtml = ('<img class="msgImage" src="" alt="">' +
+			'<div class="titleText"></div>' +
+			'<div class="msgText"></div>');
+			
+		$('#messageLayer').append($messageBoxHtml);
+		
+		console.log('Init message class...');
+	},
+	"show": function show(msgData) {
+			if (!this.messageShowing){
+			
+				//Fill fields from question box with msgData
+				$('.msgImage').attr({
+				'src' : 'content/' + msgData.msgImage,
+				'alt' : 'Testing...' 
+				});
+				$('.titleText,#hiddenText').html( msgData.msgName );
+				$('.msgText,#hiddenText').html( msgData.msg );
 
+				$('#messageLayer').fadeIn( 250, function() {
+				$('.msgText').scrollTop(0);
+				});
+
+
+				console.log("Show message...");
+				this.messageShowing = true;
+			}
+	},
+		
+	"hide": function hide() {
+		if (this.messageShowing){
+			$('#messageLayer').fadeOut();
+	
+			console.log("hide message...");
+			this.messageShowing = false;
+		}
+	}
+});
+
+adsGame.hideMessage = function hideMessage() {
+	if (adsGame.messageShowing){
+		console.log("Hide message...");
+		adsGame.messageShowing = false;
+	}
+		
 };

@@ -125,9 +125,7 @@ var NpcEntity = me.ObjectEntity.extend({
         if( res ) {
 			if( res.obj.name == 'heroe' ) {
 				this.setCurrentAnimation( 'stand-' + this.direction );
-				
-				showMessageLayer(this.msgData);
-				
+				adsGame.message.show(this.msgData);
 				this.showMessage = true;
 				//Stop npc when he talk with heroe
 				this.accel.x = 0;
@@ -136,7 +134,7 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.vel.y = 0;
 			}
 		}else if (this.showMessage){
-				hideMessageLayer();
+				adsGame.message.hide();
 				this.showMessage = false;
 				//Move npc when he stop talk with heroe
 				this.accel.x = 1;
