@@ -17,7 +17,7 @@
  */
  
  /**
- * showMessage.
+ * message.
  * @class
  * @extends 
  * @constructor
@@ -70,10 +70,3 @@ adsGame.message =  Object.extend({
 	}
 });
 
-adsGame.hideMessage = function hideMessage() {
-	if (adsGame.messageShowing){
-		console.log("Hide message...");
-		adsGame.messageShowing = false;
-	}
-		
-};

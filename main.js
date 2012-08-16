@@ -41,7 +41,7 @@ var adsGame =
 		
 		//Create message box object
 		adsGame.message = new adsGame.message();
-		
+
 	},
 	
 	loaded:function()
@@ -59,7 +59,7 @@ var adsGame =
 		me.entityPool.add("items", ItemEntity);
 		me.entityPool.add("items_spawn", ItemSpawnEntity);
 		me.entityPool.add("npc_spawn", NpcSpawnEntity);
-		me.entityPool.add("doors_spawn", DoorsSpawnEntity);
+		me.entityPool.add("doors_spawn", TriggerSpawnEntity);
 		
 		// Configurar teclas a usar, False - Lê mais que uma vez True - Lê várias vezes.
 		// Usar true por exemplo para lutar...
