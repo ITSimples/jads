@@ -235,16 +235,23 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		   } 
 		} 
 
-		// Adicionar items na camada 2
+		// Adicionar items na camada 3
 		$.each(item, function(i, item){
 			me.game.add(item,3);
 			me.game.sort();
 		});	
 
 		// ** DEBUG ADD kEYS - Chave osso - ADD KEYS from the gamedata.json
+		// Key
 		item = new ItemEntity(parseInt(32*9), parseInt(32*5), 
 		{image: ads_items_data[15].imagem.replace(".png",""),
 		spritewidth: 32, spriteheight: 32}, ads_items_data[15]);
+		me.game.add(item,3);
+		me.game.sort();
+		// Portal scroll
+		item = new ItemEntity(parseInt(32*2), parseInt(32*3), 
+		{image: ads_items_data[16].imagem.replace(".png",""),
+		spritewidth: 32, spriteheight: 32}, ads_items_data[16]);
 		me.game.add(item,3);
 		me.game.sort();
 		// **************************************************************
@@ -271,16 +278,18 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		this.msgData.msgImage = 'sprites/items/' + triggerData.imageName;
 		this.msgData.msgName = "Mensagem:";
 		this.msgData.msg = triggerData.message;		
-		
 		this.type = triggerData.type;
 		
+		this.targX = triggerData.target.x;
+		this.targY = triggerData.target.y;
+		
+		this.solution = this.triggerData.solution;
+
+
 		// If trigger is a door get layer door and coolision. Set where the door open
 		if (this.type == 'DOOR_OBJECT'){
 			this.doorLayer = me.game.currentLevel.getLayerByName("door");
 			this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
-			
-			this.openX = this.triggerData.tileTarget.x;
-			this.openY = this.triggerData.tileTarget.y;
 		
 			//Check if door is open
 			this.tileTarget = false;
@@ -288,7 +297,6 @@ var TriggerEntity = me.InvisibleEntity.extend({
 			// Enable/disable dialogue box
 			this.showMessage = false;
 		}
-
 	},
 
 	update : function (){
@@ -296,43 +304,59 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'heroe' ) {
-				if (this.type == 'DOOR_OBJECT'){
-					var solution = this.triggerData.solution;
-					var openDoor = false;
-					
-					//check if heroe have the key			
+				//Create variable to work for each ?!?!?!?!?
+				var solution = this.solution;
+				var checkSolution = false;
+				
+				//Make it check one time only - Problem var checkSolution = false; have to go inside if doorobject
+					//check if heroe have the Solution			
 					$.each(heroeItems, function(i,data)
 					{
 						if (data.valor == solution){
 							console.log('Heroe have the key.');
-							openDoor = true;
+							checkSolution = true;
 							return false;
 						}
 					});
-		
-					if (openDoor){
+				
+				// If trigger is a door object
+				if (this.type == 'DOOR_OBJECT'){
+					if (checkSolution){
 						// Open the door
-						this.doorLayer.clearTile(this.openX,this.openY);
-						this.collisionLayer.clearTile(this.openX,this.openY);
-						
-						//***** TEST TELEPORT AND FADE MAP
-						var player = me.game.getEntityByName('Heroe');
-						
-						player[0].pos.x = 46*32;
-						player[0].pos.y = 5*32;
-						//TODO - Fade out /in viewport 
-						me.game.viewport.fadeOut('#000000',1000);
+						this.doorLayer.clearTile(this.targX,this.targY);
+						this.collisionLayer.clearTile(this.targX,this.targY);
 
 						//Remove this object
 						me.game.remove(this);
+						
+						// **** TODO - REMOVE KEY  FROM LIST OF ITEMS
 					}else{
-						console.log("Heroe don't have the key.");
+						// console.log("Heroe don't have the key.");
 						adsGame.message.show(this.msgData);
 					}	
 				} // End door object
+				
+				// If trigger is a portal object
+				if (this.type == 'PORTAL_OBJECT'){
+					if (checkSolution){
+						//***** TEST TELEPORT AND FADE MAP
+						var player = me.game.getEntityByName('Heroe');
+						
+						player[0].pos.x = this.targX * 32;
+						player[0].pos.y = this.targY * 32;
+						//TODO - Fade out /in viewport 
+						me.game.viewport.fadeOut('#000000',1000);
+						
+						// **** TODO - REMOVE SCROOLL OF PORTAL FROM LIST OF ITEMS
+					}else{
+						// console.log("Heroe don't have the key.");
+						adsGame.message.show(this.msgData);
+					}
+
+				}
 			} // End heroe collision
 		}else{
-			if (this.type == 'DOOR_OBJECT')
+			if (this.type == 'DOOR_OBJECT' || this.type == 'PORTAL_OBJECT')
 				adsGame.message.hide();
 			
 		}
@@ -348,22 +372,29 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		// call the parent constructor
 		this.parent(x, y, settings);
 		
-		var triggerData = {};
-		triggerData.coordinates = {x:6,y:10};
-		triggerData.type = 'DOOR_OBJECT';
-		triggerData.tileTarget = {x:6,y:10};
-		triggerData.message = "Precisas da Chave Caveira<br>para abrir a porta.";
-		triggerData.imageName = "chaveosso.png";
-		triggerData.solution = "chaveosso";
-		
+		// var triggerData = {};
+		// triggerData.coordinates = {x:6,y:10};
+		// triggerData.type = 'DOOR_OBJECT';
+		// triggerData.tileTarget = {x:6,y:10};
+		// triggerData.message = "Precisas da Chave Caveira<br>para abrir a porta.";
+		// triggerData.imageName = "chaveosso.png";
+		// triggerData.solution = "chaveosso";
 		
 		var settings = {};
 		settings.width = 32;
 		settings.height = 32;
 		
-		// Door = new DoorEntity( 6*32 , 9*32, {image: "doorcheck", spritewidth: 32, spriteheight: 32});
-		heroeDoorCell = new TriggerEntity( 6*32 , 9*32, settings , triggerData);
-		me.game.add(heroeDoorCell,3);
-		me.game.sort();
+		// Adicionar items na camada 3
+		$.each(triggersData, function(i, triggerData){
+			trigger = new TriggerEntity( triggerData.coordinates.x * 32 , triggerData.coordinates.y * 32
+										, settings , triggerData);
+			me.game.add(trigger,3);
+			me.game.sort();
+		});	
+		
+		// // Door = new DoorEntity( 6*32 , 9*32, {image: "doorcheck", spritewidth: 32, spriteheight: 32});
+		// heroeDoorCell = new TriggerEntity( 6*32 , 9*32, settings , triggersData[0]);
+		// me.game.add(heroeDoorCell,3);
+		// me.game.sort();
 	}
 });

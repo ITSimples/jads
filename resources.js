@@ -32,6 +32,8 @@ var ads_items_data = [];
 // Keep all information about the npc's
 var adsNpcData = [];
 
+// Keep all information about the trigger identity
+var triggersData = [];
 
 // Keep all items found by heroe
 var heroeItems = [];
