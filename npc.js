@@ -136,6 +136,7 @@ var NpcEntity = me.ObjectEntity.extend({
 			}
 		}else if (this.showMessage){
 				adsGame.message.hide();
+				msgShowing = false;
 				this.showMessage = false;
 				//Move npc when he stop talk with heroe
 				this.accel.x = 1;
