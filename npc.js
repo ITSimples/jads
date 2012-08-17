@@ -127,6 +127,7 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.setCurrentAnimation( 'stand-' + this.direction );
 				adsGame.message.show(this.msgData);
 				this.showMessage = true;
+				msgShowing = true;
 				//Stop npc when he talk with heroe
 				this.accel.x = 0;
 				this.accel.y = 0;

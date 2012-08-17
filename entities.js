@@ -339,7 +339,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					}else{
 						// console.log("Heroe don't have the key.");
 						adsGame.message.show(this.msgData);
-						triggerCollide = true;
+						msgShowing = true;
 					}	
 				} // End door object
 				
@@ -358,17 +358,17 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					}else{
 						// console.log("Heroe don't have the key.");
 						adsGame.message.show(this.msgData);
-						triggerCollide = true;
+						msgShowing = true;
 					}
 				} // End portal object
 				
 			} // End heroe collision
 		}else{
-			if (!triggerCollide)
+			if (!msgShowing)
 			{
 					adsGame.message.hide();	
 			}
-			triggerCollide = false;
+			msgShowing = false;
 			// Reset check for items
 			this.isChecked = false;
 		}

@@ -35,7 +35,8 @@ var adsNpcData = [];
 // Keep all information about the trigger identity
 var triggersData = [];
 // To solve problem with messageBox keeping blink - If is collide with a trigger avoid the others to hide message box
-var triggerCollide = false;
+// also setup in NPC - set allways when message is showinf
+var msgShowing = false;
 
 // Keep all items found by heroe
 var heroeItems = [];
