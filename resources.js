@@ -3,8 +3,8 @@ Gobal Variables
 -------------------------------- */
 
 // Configurações do Jogo - Variáveis Globais:
-var ads_width= 800;
-var ads_height=600;
+var ads_width = 800;
+var ads_height = 600;
 var ads_images_path='content/images/';
 var ads_sprites_path='content/sprites/';
 var ads_items_path='content/sprites/items/';
@@ -34,6 +34,8 @@ var adsNpcData = [];
 
 // Keep all information about the trigger identity
 var triggersData = [];
+// To solve problem with messageBox keeping blink - If is collide with a trigger avoid the others to hide message box
+var triggerCollide = false;
 
 // Keep all items found by heroe
 var heroeItems = [];

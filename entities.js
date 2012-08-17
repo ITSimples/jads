@@ -284,7 +284,9 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		this.targY = triggerData.target.y;
 		
 		this.solution = this.triggerData.solution;
-
+		this.checkSolution = false;
+		this.isChecked = false;
+		
 
 		// If trigger is a door get layer door and coolision. Set where the door open
 		if (this.type == 'DOOR_OBJECT'){
@@ -293,9 +295,6 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		
 			//Check if door is open
 			this.tileTarget = false;
-			
-			// Enable/disable dialogue box
-			this.showMessage = false;
 		}
 	},
 
@@ -304,24 +303,31 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'heroe' ) {
-				//Create variable to work for each ?!?!?!?!?
-				var solution = this.solution;
-				var checkSolution = false;
-				
-				//Make it check one time only - Problem var checkSolution = false; have to go inside if doorobject
+				// Verify if heroe have the item only one time
+				if (!this.isChecked)
+				{
+					//Create variable to work for each ?!?!?!?!?
+					var solution = this.solution;
+					var checkSolution = false;
+					
+					//Make it check one time only - Problem var checkSolution = false; have to go inside if doorobject
 					//check if heroe have the Solution			
 					$.each(heroeItems, function(i,data)
 					{
 						if (data.valor == solution){
 							console.log('Heroe have the key.');
 							checkSolution = true;
-							return false;
 						}
 					});
-				
+					
+					this.checkSolution = checkSolution;
+					this.isChecked = true;
+					
+					console.log('Test times...' + this.checkSolution);
+				}
 				// If trigger is a door object
 				if (this.type == 'DOOR_OBJECT'){
-					if (checkSolution){
+					if (this.checkSolution){
 						// Open the door
 						this.doorLayer.clearTile(this.targX,this.targY);
 						this.collisionLayer.clearTile(this.targX,this.targY);
@@ -333,12 +339,13 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					}else{
 						// console.log("Heroe don't have the key.");
 						adsGame.message.show(this.msgData);
+						triggerCollide = true;
 					}	
 				} // End door object
 				
 				// If trigger is a portal object
 				if (this.type == 'PORTAL_OBJECT'){
-					if (checkSolution){
+					if (this.checkSolution){
 						//***** TEST TELEPORT AND FADE MAP
 						var player = me.game.getEntityByName('Heroe');
 						
@@ -351,14 +358,19 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					}else{
 						// console.log("Heroe don't have the key.");
 						adsGame.message.show(this.msgData);
+						triggerCollide = true;
 					}
-
-				}
+				} // End portal object
+				
 			} // End heroe collision
 		}else{
-			if (this.type == 'DOOR_OBJECT' || this.type == 'PORTAL_OBJECT')
-				adsGame.message.hide();
-			
+			if (!triggerCollide)
+			{
+					adsGame.message.hide();	
+			}
+			triggerCollide = false;
+			// Reset check for items
+			this.isChecked = false;
 		}
 	}
 });
