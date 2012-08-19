@@ -4,7 +4,7 @@ Ficheiro: main.js
 ClassName:main
 Comment: Classe principal do jogo
 Create Date: 26/02/2012 - ITSimples
-HTTP://www.itsimples.com
+HTTP://www.itsimples.com  - change to ITSimples Games
 -----------------------------------
 */
 
@@ -122,7 +122,7 @@ function showQuestionLayer(itemData, adsQtnData)
 		$('.r1').html('(1) ' + rndQtnData.r1 );
 		$('.r2').html('(2) ' + rndQtnData.r2 );
 		$('.r3').html('(3) ' + rndQtnData.r3 );
-		$('.r0').html('(0) Não responder.');
+		$('.r0').html('(0) Não responder..');
 		$('.answerValue').html('+/-' + itemData.valor + ' de ' + itemData.categoria + '.');
 		
 		// Create event listener to get answer from player

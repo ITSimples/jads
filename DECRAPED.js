@@ -1,3 +1,6 @@
+I'm testing if ftp writes on JADS local directory
+123
+
 //************************************************************
 //*	Trying to implement mouse movement - Pass - 09-07-2012
 //************************************************************
