@@ -230,6 +230,7 @@ window.onReady(function()
 		var countNpc = 0;
 		var countItems = 0;
 		var countTrg = 0;
+		var countSI = 0;
 		var ads_items_tmp=[];
 		// console.log("Loaded... A");
 		
@@ -242,6 +243,9 @@ window.onReady(function()
 			countItems++;
 			ads_items_data.push(data);		
 		});
+		
+		// Copy array ads_items_tmp to ads_items_final to load resouce items
+		load_ads_items = ads_items_tmp.slice();
 		
 		//Get NPC data
 		$.each(data.npc, function(i,data)
@@ -264,8 +268,13 @@ window.onReady(function()
 			triggersData.push(data);		
 		});
 		
-		// Copy array ads_items_tmp to ads_items_final to load resouce items
-		load_ads_items = ads_items_tmp.slice();
+				//Get triggers data
+		$.each(data.specialItems, function(i,data)
+		{
+			countSI++;
+			specialItemsData.push(data);		
+		});
+		
 
 		// console.log("Carregados " + countItems + " Items");
 		// console.log("ads_items_data " + ads_items_data + " .");

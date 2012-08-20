@@ -34,6 +34,10 @@ var adsNpcData = [];
 
 // Keep all information about the trigger identity
 var triggersData = [];
+
+// Keep all information where to place the special items (coordinates and value)
+var specialItemsData = [];
+
 // To solve problem with messageBox keeping blink - If is collide with a trigger avoid the others to hide message box
 // also setup in NPC - set allways when message is showinf
 var msgShowing = false;

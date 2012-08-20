@@ -206,29 +206,49 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		var count = 0;
 		
 		var collision_layer = me.game.currentLevel.getLayerByName("collision");
+		var background_layer = me.game.currentLevel.getLayerByName("background");
 		
 		// parse all the collision layer tiles 
 		for ( var x = 0; x < collision_layer.width; x++) 
 		{ 
 		   for ( var y = 0; y < collision_layer.height; y++) 
 		   { 
-				var testTile = collision_layer.layerData[x][y];   
+				var testTileCollision = collision_layer.layerData[x][y];
+				var testTileBackground = background_layer.layerData[x][y];
 				
 				// If tile of layer collision is null then we can put an item
-				if (testTile == null){
+				if (testTileCollision == null && testTileBackground != null){
 					// Item probability
-					var item_probability = Number.prototype.random(0, 30);
+					var item_probability = Number.prototype.random(0, 50);
 					// Total of items
 					total_items = ads_items_data.length - 1;
 					random_item = Number.prototype.random(0, total_items);					
-					if ( item_probability == 5 ){
-						item[count] = new ItemEntity(parseInt(32*x), parseInt(32*y), 
-								{image: ads_items_data[random_item].imagem.replace(".png",""),
-								spritewidth: 32, spriteheight: 32}, ads_items_data[random_item]);
-						count++;
-						// console.log("Populate Map... X:" + parseInt(32*x) +
-									// "   Y:" + parseInt(32*y) + 
-									// " dss  Count:" + count + "    Item: " + random_item);
+					if ( item_probability == 5 ){						
+						//Test if not a trigger or special item or born heroe
+						var isCollide = false;
+						$.each(triggersData, function(i, data){
+							if (data.coordinates.x == x && data.coordinates.y == y)
+								isCollide = true;
+						});
+						s//special item
+						$.each(specialItemsData, function(i, data){
+							if (data.coordinates.x == x && data.coordinates.y == y)
+								isCollide = true;
+						});						
+						//Heroe born
+						if (x == 6 && y == 5)
+								isCollide = true;
+						
+						if (!isCollide)
+						{
+							item[count] = new ItemEntity(parseInt(32*x), parseInt(32*y), 
+									{image: ads_items_data[random_item].imagem.replace(".png",""),
+									spritewidth: 32, spriteheight: 32}, ads_items_data[random_item]);
+							count++;
+							// console.log("Populate Map... X:" + parseInt(32*x) +
+										// "   Y:" + parseInt(32*y) + 
+										// " dss  Count:" + count + "    Item: " + random_item);
+						}
 					}
 				
 				}
@@ -239,23 +259,22 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		$.each(item, function(i, item){
 			me.game.add(item,3);
 			me.game.sort();
-		});	
+		});
 
-		// ** DEBUG ADD kEYS - Chave osso - ADD KEYS from the gamedata.json
-		// Key
-		item = new ItemEntity(parseInt(32*9), parseInt(32*5), 
-		{image: ads_items_data[15].imagem.replace(".png",""),
-		spritewidth: 32, spriteheight: 32}, ads_items_data[15]);
-		me.game.add(item,3);
-		me.game.sort();
-		// Portal scroll
-		item = new ItemEntity(parseInt(32*2), parseInt(32*3), 
-		{image: ads_items_data[16].imagem.replace(".png",""),
-		spritewidth: 32, spriteheight: 32}, ads_items_data[16]);
-		me.game.add(item,3);
-		me.game.sort();
-		// **************************************************************
-		
+		//Spawn special items
+		$.each(specialItemsData, function(i, dataSpecialItem){
+			$.each(ads_items_data, function(i, ads_item_data){
+				// console.log('dataSpecialItem.value: ' + dataSpecialItem.value + '  ads_item_data.valor: ' + ads_item_data.valor);
+				if ( dataSpecialItem.value == ads_item_data.valor)
+				{
+					item = new ItemEntity(parseInt(32*dataSpecialItem.coordinates.x), parseInt(32*dataSpecialItem.coordinates.y), 
+					{image: ads_item_data.imagem.replace(".png",""),
+					spritewidth: 32, spriteheight: 32}, ads_item_data);
+					me.game.add(item,3);
+					me.game.sort();
+				}
+			});
+		});
 	}
 });
 
