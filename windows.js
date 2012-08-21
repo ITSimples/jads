@@ -1,6 +1,6 @@
 /*
  * Aventura do saber, a fantasy action RPG
- * Copyright (C) 2012  ITSimples Francisco Fernandes
+ * Copyright (C) 2012  ITSimples - Francisco Fernandes
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
  * @constructor
  * @param msgData (.msgImage, .msgName, .msg)
  * @example
- * dialog = new DialogObject(10, 10, background, dialog, background.width - OFFSET_SIZE_TEXT_X, background.width - OFFSET_SIZE_TEXT_Y, OFFSET_DIALOG_X, OFFSET_DIALOG_Y, new me.Font("acmesa",20,"#880D0D", "center"), "enter", activateControls);
+ * 
  */
  
 adsGame.message =  Object.extend({

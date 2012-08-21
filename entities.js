@@ -230,7 +230,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 							if (data.coordinates.x == x && data.coordinates.y == y)
 								isCollide = true;
 						});
-						s//special item
+						//special item
 						$.each(specialItemsData, function(i, data){
 							if (data.coordinates.x == x && data.coordinates.y == y)
 								isCollide = true;
