@@ -78,7 +78,7 @@ var adsGame =
 		me.input.bindKey(me.input.KEY.S, "down");
 		
 		//Create inventory key
-		me.input.bindKey(me.input.KEY.I, "inventory");
+		me.input.bindKey(me.input.KEY.I, "inventory", true);
 		
 		// enable the keyboard
 		me.input.bindKey(me.input.KEY.T, "touch");

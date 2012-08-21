@@ -193,10 +193,10 @@
 	/* Question layer configuration */
 	#inventoryLayer {
 		position: absolute;
-		bottom: 476px;
-		left: 680px;
-		width: 120px;
-		height: 160px;
+		top: 42px;
+		left: 627px;
+		width: 180px;
+		height: 240px;
 		padding: 0px;
 		background: url('content/gui/inventory.png') no-repeat; 
 		display: none;
@@ -205,20 +205,102 @@
 	/* Heroe image maybe */
 	#inventoryLayer img.invImage {
 		position: absolute;
-		top: 5px;
-		left: 5px;
-		width: 48px;
-		height: 48px;
+		top: 12px;
+		left: 12px;
+		width: 35px;
+		height: 35px;
 	}
 	
 	/* Text inventory*/
 	#inventoryLayer .invText {
 		position: absolute;
-		top: 5px;
-		left: 50px;
+		top: 18px;
+		left: 55px;
 		color : #996600;
 		font-weight: bold;
+		font-size: 20px;
 		overflow: hidden;
 		z-index:1;
+	}
+	
+	/* Slots inventory*/
+	#inventoryLayer img.invSlot01 {
+		position: absolute;
+		top: 73px; /* 60 + 13 */
+		left: 14px;
+		width: 32px;
+		height: 32px;
+	}
+	
+	/* Slots inventory*/
+	#inventoryLayer img.invSlot02 {
+		position: absolute;
+		top: 73px;
+		left: 74px; /* 60 + 14 */
+		width: 32px;
+		height: 32px;
+	}
+	
+		/* Slots inventory*/
+	#inventoryLayer img.invSlot03 {
+		position: absolute;
+		top: 73px;
+		left: 134px;
+		width: 32px;
+		height: 32px;
+	}
+	
+		/* Slots inventory*/
+	#inventoryLayer img.invSlot04 {
+		position: absolute;
+		top: 133px;
+		left: 14px;
+		width: 32px;
+		height: 32px;
+	}
+	
+		/* Slots inventory*/
+	#inventoryLayer img.invSlot05 {
+		position: absolute;
+		top: 133px;
+		left: 74px;
+		width: 32px;
+		height: 32px;
+	}
+	
+		/* Slots inventory*/
+	#inventoryLayer img.invSlot06 {
+		position: absolute;
+		top: 133px;
+		left: 134px;
+		width: 32px;
+		height: 32px;
+	}
+	
+		/* Slots inventory*/
+	#inventoryLayer img.invSlot07 {
+		position: absolute;
+		top: 193px;
+		left: 14px;
+		width: 32px;
+		height: 32px;
+	}
+	
+		/* Slots inventory*/
+	#inventoryLayer img.invSlot08 {
+		position: absolute;
+		top: 193px;
+		left: 74px;
+		width: 32px;
+		height: 32px;
+	}
+	
+		/* Slots inventory*/
+	#inventoryLayer img.invSlot09 {
+		position: absolute;
+		top: 193px;
+		left: 134px;
+		width: 32px;
+		height: 32px;
 	}
 </style>	

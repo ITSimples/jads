@@ -32,7 +32,16 @@
 		
 		// Create html in inventoryLayer DIV
 		var $messageBoxHtml = (	'<img class="invImage" src="" alt="">' +
-								'<div class="invText"></div>');
+								'<div class="invText"></div>' +
+								'<img class="invSlot01"/>' + 
+								'<img class="invSlot02"/>' + 
+								'<img class="invSlot03"/>' + 
+								'<img class="invSlot04"/>' + 
+								'<img class="invSlot05"/>' + 
+								'<img class="invSlot06"/>' + 
+								'<img class="invSlot07"/>' + 
+								'<img class="invSlot08"/>' + 
+								'<img class="invSlot09"/>');
 		
 		// attach to inventoryLayer
 		$('#inventoryLayer').append($messageBoxHtml);
@@ -49,8 +58,15 @@
 			'alt' : 'Testing...'});
 			
 			// Inventory name
-			$('.invText,#hiddenText').html('Inventário');
-
+			$('.invText,#hiddenText').html('Inventario');
+			
+			// Test item on slot
+			for ( x = 1 ; x < 10 ; x++)
+			{
+				$('.invSlot0' + x ).attr({
+				'src' : 'content/sprites/items/vegetais.png',
+				'alt' : 'Testing...'});
+			}
 			// Show inventory window with a fade
 			$('#inventoryLayer').fadeIn( 250, function() {
 				$('.msgText').scrollTop(0);
@@ -61,7 +77,12 @@
 			}
 	},
 	"hide" : function hide() {
-			
+		if (this.isShowing){
+			$('#inventoryLayer').fadeOut();
+	
+			console.log("hide inventory...");
+			this.isShowing = false;
+		}	
 	},
 	"remove" : function remove() {
 			

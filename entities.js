@@ -55,6 +55,9 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		//TESTING.... 
 		this.makeOneTime = true;
+		
+		//Check if is showing the inventory enable/disable
+		this.isShowInv = false;
 	},
 
 
@@ -94,7 +97,15 @@ var HeroeEntity = me.ObjectEntity.extend({
 		// If keypressed I then open the inventory
 		if (me.input.isKeyPressed('inventory'))
 		{
-			adsGame.Inventory.show();
+			if (this.isShowInv){
+				adsGame.Inventory.hide();
+				// Disable showing
+				this.isShowInv = false;
+			}else{
+				adsGame.Inventory.show();
+				// Enable showing
+				this.isShowInv = true;
+			}			
 		}
 	
 		// If player Stop set stand animationa
