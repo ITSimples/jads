@@ -90,6 +90,12 @@ var HeroeEntity = me.ObjectEntity.extend({
 			this.setCurrentAnimation('down')
 			this.direction = 'down'
 		}
+			
+		// If keypressed I then open the inventory
+		if (me.input.isKeyPressed('inventory'))
+		{
+			adsGame.Inventory.show();
+		}
 	
 		// If player Stop set stand animationa
 		if (this.vel.y == 0 && this.vel.x == 0)

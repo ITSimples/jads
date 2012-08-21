@@ -189,5 +189,36 @@
 		overflow: hidden;
 		z-index:1;
 	}
-
+	
+	/* Question layer configuration */
+	#inventoryLayer {
+		position: absolute;
+		bottom: 476px;
+		left: 680px;
+		width: 120px;
+		height: 160px;
+		padding: 0px;
+		background: url('content/gui/inventory.png') no-repeat; 
+		display: none;
+	}
+	
+	/* Heroe image maybe */
+	#inventoryLayer img.invImage {
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		width: 48px;
+		height: 48px;
+	}
+	
+	/* Text inventory*/
+	#inventoryLayer .invText {
+		position: absolute;
+		top: 5px;
+		left: 50px;
+		color : #996600;
+		font-weight: bold;
+		overflow: hidden;
+		z-index:1;
+	}
 </style>	

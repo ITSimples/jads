@@ -30,12 +30,35 @@
 		// initialize variable to check if inventory is showing
 		this.isShowing = false;
 		
-		//Initialize the html div for inventory
+		// Create html in inventoryLayer DIV
+		var $messageBoxHtml = (	'<img class="invImage" src="" alt="">' +
+								'<div class="invText"></div>');
 		
+		// attach to inventoryLayer
+		$('#inventoryLayer').append($messageBoxHtml);
+		
+		console.log('Init inventory class...');
 		
 	},
 	"show" : function show() {
+		if (!this.isShowing){
+		
+			//Heroe face
+			$('.invImage').attr({
+			'src' : 'content/sprites/h_male01_face.png',
+			'alt' : 'Testing...'});
 			
+			// Inventory name
+			$('.invText,#hiddenText').html('Inventário');
+
+			// Show inventory window with a fade
+			$('#inventoryLayer').fadeIn( 250, function() {
+				$('.msgText').scrollTop(0);
+			});
+
+			console.log("Show inventory...");
+			this.isShowing = true;
+			}
 	},
 	"hide" : function hide() {
 			

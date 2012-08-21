@@ -41,6 +41,9 @@ var adsGame =
 		
 		//Create message box object
 		adsGame.message = new adsGame.message();
+		
+		//Create Inventory box object
+		adsGame.Inventory = new adsGame.Inventory();
 
 	},
 	
@@ -73,6 +76,9 @@ var adsGame =
 		me.input.bindKey(me.input.KEY.D, "right");
 		me.input.bindKey(me.input.KEY.W, "up");
 		me.input.bindKey(me.input.KEY.S, "down");
+		
+		//Create inventory key
+		me.input.bindKey(me.input.KEY.I, "inventory");
 		
 		// enable the keyboard
 		me.input.bindKey(me.input.KEY.T, "touch");
