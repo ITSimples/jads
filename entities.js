@@ -184,7 +184,7 @@ var ItemEntity = me.CollectableEntity.extend({
 	{
 		var res = me.game.collide( this );
         if( res ) {
-			if( res.obj.name == 'heroe' && !fullInventory) {				
+			if( res.obj.name == 'heroe' && !fullInventory) {
 				// If the answer is correct then update HUD and remove item
 				heroeAnswer = showQuestionLayer(this.items_data , this.rndQtnData);
 				if (heroeAnswer != -1)
@@ -208,6 +208,10 @@ var ItemEntity = me.CollectableEntity.extend({
 				}
 			}else if( res.obj.name == 'heroe' && fullInventory) {
 				adsGame.Inventory.show();
+				// Set isShowInv to true in heroe to avoid double pressed key I when inventory is full
+				var player = me.game.getEntityByName('Heroe');
+				player[0].isShowInv = true;
+				player = undefined;
 			}
 		}
 	}
@@ -244,7 +248,11 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					var item_probability = Number.prototype.random(0, 20);
 					// Total of items
 					total_items = ads_items_data.length - 1;
-					random_item = Number.prototype.random(0, total_items);					
+					
+					//random a item
+					random_item = Number.prototype.random(0, total_items);
+
+					
 					if ( item_probability == 5 ){						
 						//Test if not a trigger or special item or born heroe
 						var isCollide = false;

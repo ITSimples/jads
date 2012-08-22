@@ -33,8 +33,8 @@
 		//Check the empty slots - Set to the first
 		this.slotNumber = 0;
 		
-		//Map of slots 0 - empty 1 - full
-		this.slotsMap = [0,0,0,0,0,0,0,0,0];
+		//Map of slots -1 - empty  index of ads_items_data  full
+		this.slotsMap = [-1,-1,-1,-1,-1,-1,-1,-1,-1];
 		
 		//Comment on inventory
 		this.invComment = 'Inventario Vazio.';
@@ -59,7 +59,7 @@
 		console.log('Init inventory class...');
 		
 	},
-	"show" : function show() {
+	"show" : function show() {		
 		if (!this.isShowing){
 		
 			//Heroe face
@@ -77,7 +77,7 @@
 			$('#inventoryLayer').fadeIn( 250, function() {
 				$('.msgText').scrollTop(0);
 			});
-
+		
 			this.isShowing = true;
 			}
 	},
@@ -94,32 +94,37 @@
 	},
 	"add" : function add( item ) {		
 		// Check empty slots - if no empty slots then warning player
-		this.slotNumber = jQuery.inArray(0, this.slotsMap);
-		console.log (this.slotNumber);
+		this.slotNumber = jQuery.inArray(-1, this.slotsMap);
+
 		if (this.slotNumber != -1) {
 			//Keep data for all items found by the heroe
 			heroeItems.push( item );
 			
 			//This slot is full now
-			this.slotsMap[this.slotNumber] = 1;
-			
+			this.slotsMap[this.slotNumber] = ( item.itemIndex );
+			console.log(' slotNumber : ' +  this.slotNumber );
+			console.log(' Insert item on inventory: ' +  ads_items_data[this.slotsMap[this.slotNumber]].nome );
+			console.log(' this.slotsMap[this.slotNumber] : ' + this.slotsMap[this.slotNumber] );
 			//Show item in inventory
 			$( '.invSlot0' + ( this.slotNumber + 1 ) ).attr({
 			'src' : 'content/sprites/items/' + item.imagem,
 			'alt' : ''});
 
 			//*** IMPROVE - Update invComment
-			this.invComment = '';
+			this.invComment = ads_items_data[this.slotsMap[this.slotNumber]].nome;
 			$('.invComment,#hiddenText').html(this.invComment);
-		}else{
-			//*** IMPROVE - Update invComment
-			console.log('Inventory full...');
-			this.invComment = 'Inventario cheio.';
-			$('.invComment,#hiddenText').html(this.invComment);
-			fullInventory = true;
+			
+			// Test again if slots are full after add new item
+			this.slotNumber = jQuery.inArray( -1 , this.slotsMap);
+			console.log (this.slotNumber);
+			if (this.slotNumber == -1) {
+				//*** IMPROVE - Update invComment
+				console.log('Inventory full...');
+				this.invComment = 'Inventario cheio.';
+				$('.invComment,#hiddenText').html(this.invComment);
+				fullInventory = true;
+			}
 		}
-		
-
 	},
 	"use" : function use() {
 			

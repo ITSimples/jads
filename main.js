@@ -247,7 +247,9 @@ window.onReady(function()
 			ads_items_tmp.push({name: data.imagem.replace(".png",""),	type: "image",	
 			src: ""+ ads_items_path + "" + data.imagem + ""});
 			countItems++;
-			ads_items_data.push(data);		
+			// Add index of item in de array to use in inventory
+			data.itemIndex = i;
+			ads_items_data.push(data);
 		});
 		
 		// Copy array ads_items_tmp to ads_items_final to load resouce items
@@ -274,7 +276,7 @@ window.onReady(function()
 			triggersData.push(data);		
 		});
 		
-				//Get triggers data
+		//Get triggers data
 		$.each(data.specialItems, function(i,data)
 		{
 			countSI++;
