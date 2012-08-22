@@ -58,6 +58,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		//Check if is showing the inventory enable/disable
 		this.isShowInv = false;
+		
 	},
 
 
@@ -132,7 +133,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 				this.setCurrentAnimation('stand-' + this.direction);
 			}
 			
-			if (res.obj.type == 'ITEM_OBJECT') {
+			if (res.obj.type == 'ITEM_OBJECT'  && !fullInventory) {
 				this.setCurrentAnimation('stand-' + this.direction);
 				this.vel.x = 0;
 				this.vel.y = 0;
@@ -183,7 +184,7 @@ var ItemEntity = me.CollectableEntity.extend({
 	{
 		var res = me.game.collide( this );
         if( res ) {
-			if( res.obj.name == 'heroe' ) {				
+			if( res.obj.name == 'heroe' && !fullInventory) {				
 				// If the answer is correct then update HUD and remove item
 				heroeAnswer = showQuestionLayer(this.items_data , this.rndQtnData);
 				if (heroeAnswer != -1)
@@ -192,7 +193,9 @@ var ItemEntity = me.CollectableEntity.extend({
 						me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
 						
 						//Keep data for all items found by the heroe
-						heroeItems.push(this.items_data);
+						// heroeItems.push(this.items_data);
+						// **** TODO - Add item to inventory
+						adsGame.Inventory.add( this.items_data );
 						
 						hideQuestionLayer('C');
 					}else if(heroeAnswer != 0){ // if heroe answer to the question but it's not the correct one
@@ -203,6 +206,8 @@ var ItemEntity = me.CollectableEntity.extend({
 					}
 					me.game.remove(this);
 				}
+			}else if( res.obj.name == 'heroe' && fullInventory) {
+				adsGame.Inventory.show();
 			}
 		}
 	}
@@ -236,7 +241,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 				// If tile of layer collision is null then we can put an item
 				if (testTileCollision == null && testTileBackground != null){
 					// Item probability
-					var item_probability = Number.prototype.random(0, 50);
+					var item_probability = Number.prototype.random(0, 20);
 					// Total of items
 					total_items = ads_items_data.length - 1;
 					random_item = Number.prototype.random(0, total_items);					

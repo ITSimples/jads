@@ -53,8 +53,12 @@ var countQtn = 0;
 
 // Global variables to test answer
 var heroeAnswer = -1;
+
 // If Question box is showing
-var showingQuestion = false; 
+var showingQuestion = false;
+
+// If Question box is showing
+var fullInventory = false; 
 
 // *********** MESSAGE SECTION ***********
 // adsGame.messageShowing = false; 

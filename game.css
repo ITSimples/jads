@@ -31,7 +31,7 @@
 	#messageLayer {
 		position: absolute;
 		bottom: 50px;
-		left: 20px;
+		left: 400px;
 		width: 400px;
 		height: 110px;
 		padding: 10px;
@@ -79,7 +79,7 @@
 	#questionLayer {
 		position: absolute;
 		bottom: 20px;
-		left: 434px;
+		left: 0px;
 		width: 366px;
 		height: 308px;
 		padding: 10px;
@@ -196,7 +196,7 @@
 		top: 42px;
 		left: 627px;
 		width: 180px;
-		height: 240px;
+		height: 270px;
 		padding: 0px;
 		background: url('content/gui/inventory.png') no-repeat; 
 		display: none;
@@ -216,6 +216,18 @@
 		position: absolute;
 		top: 18px;
 		left: 55px;
+		color : #996600;
+		font-weight: bold;
+		font-size: 20px;
+		overflow: hidden;
+		z-index:1;
+	}
+	
+	/* Comment inventory*/
+	#inventoryLayer .invComment {
+		position: absolute;
+		bottom: 4px;
+		left: 13px;
 		color : #996600;
 		font-weight: bold;
 		font-size: 20px;
@@ -295,12 +307,12 @@
 		height: 32px;
 	}
 	
-		/* Slots inventory*/
+	/* Slots inventory*/
 	#inventoryLayer img.invSlot09 {
 		position: absolute;
 		top: 193px;
 		left: 134px;
 		width: 32px;
-		height: 32px;
+		height: 32px;i
 	}
 </style>	

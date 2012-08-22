@@ -30,9 +30,19 @@
 		// initialize variable to check if inventory is showing
 		this.isShowing = false;
 		
+		//Check the empty slots - Set to the first
+		this.slotNumber = 0;
+		
+		//Map of slots 0 - empty 1 - full
+		this.slotsMap = [0,0,0,0,0,0,0,0,0];
+		
+		//Comment on inventory
+		this.invComment = 'Inventario Vazio.';
+		
 		// Create html in inventoryLayer DIV
 		var $messageBoxHtml = (	'<img class="invImage" src="" alt="">' +
 								'<div class="invText"></div>' +
+								'<div class="invComment"></div>' +
 								'<img class="invSlot01"/>' + 
 								'<img class="invSlot02"/>' + 
 								'<img class="invSlot03"/>' + 
@@ -60,19 +70,14 @@
 			// Inventory name
 			$('.invText,#hiddenText').html('Inventario');
 			
-			// Test item on slot
-			for ( x = 1 ; x < 10 ; x++)
-			{
-				$('.invSlot0' + x ).attr({
-				'src' : 'content/sprites/items/vegetais.png',
-				'alt' : 'Testing...'});
-			}
+			// Show invComment
+			$('.invComment,#hiddenText').html(this.invComment);
+			
 			// Show inventory window with a fade
 			$('#inventoryLayer').fadeIn( 250, function() {
 				$('.msgText').scrollTop(0);
 			});
 
-			console.log("Show inventory...");
 			this.isShowing = true;
 			}
 	},
@@ -87,8 +92,34 @@
 	"remove" : function remove() {
 			
 	},
-	"add" : function add() {
+	"add" : function add( item ) {		
+		// Check empty slots - if no empty slots then warning player
+		this.slotNumber = jQuery.inArray(0, this.slotsMap);
+		console.log (this.slotNumber);
+		if (this.slotNumber != -1) {
+			//Keep data for all items found by the heroe
+			heroeItems.push( item );
 			
+			//This slot is full now
+			this.slotsMap[this.slotNumber] = 1;
+			
+			//Show item in inventory
+			$( '.invSlot0' + ( this.slotNumber + 1 ) ).attr({
+			'src' : 'content/sprites/items/' + item.imagem,
+			'alt' : ''});
+
+			//*** IMPROVE - Update invComment
+			this.invComment = '';
+			$('.invComment,#hiddenText').html(this.invComment);
+		}else{
+			//*** IMPROVE - Update invComment
+			console.log('Inventory full...');
+			this.invComment = 'Inventario cheio.';
+			$('.invComment,#hiddenText').html(this.invComment);
+			fullInventory = true;
+		}
+		
+
 	},
 	"use" : function use() {
 			
