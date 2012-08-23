@@ -195,7 +195,7 @@ var ItemEntity = me.CollectableEntity.extend({
 						//Keep data for all items found by the heroe
 						// heroeItems.push(this.items_data);
 						// **** TODO - Add item to inventory
-						adsGame.Inventory.add( this.items_data );
+						adsGame.Inventory.addItem( this.items_data );
 						
 						hideQuestionLayer('C');
 					}else if(heroeAnswer != 0){ // if heroe answer to the question but it's not the correct one
