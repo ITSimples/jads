@@ -43,26 +43,27 @@
 		var $messageBoxHtml = (	'<img class="invImage" src="" alt="">' +
 								'<div class="invText"></div>' +
 								'<div class="invComment"></div>' +
-								'<span id="Slot01"><img class="invSlot01"/></span>' + 
-								'<span id="Slot02"><img class="invSlot02"/></span>' + 
-								'<span id="Slot03"><img class="invSlot03"/></span>' + 
-								'<span id="Slot04"><img class="invSlot04"/></span>' + 
-								'<span id="Slot05"><img class="invSlot05"/></span>' + 
-								'<span id="Slot06"><img class="invSlot06"/></span>' + 
-								'<span id="Slot07"><img class="invSlot07"/></span>' + 
-								'<span id="Slot08"><img class="invSlot08"/></span>' + 
-								'<span id="Slot09"><img class="invSlot09"/></span>');
+								'<span id="Slot01"><img class="invSlot01" src="content/gui/32x32Trans.png" /></span>' + 
+								'<span id="Slot02"><img class="invSlot02" src="content/gui/32x32Trans.png"/></span>' + 
+								'<span id="Slot03"><img class="invSlot03" src="content/gui/32x32Trans.png"/></span>' + 
+								'<span id="Slot04"><img class="invSlot04" src="content/gui/32x32Trans.png"/></span>' + 
+								'<span id="Slot05"><img class="invSlot05" src="content/gui/32x32Trans.png"/></span>' + 
+								'<span id="Slot06"><img class="invSlot06" src="content/gui/32x32Trans.png"/></span>' + 
+								'<span id="Slot07"><img class="invSlot07" src="content/gui/32x32Trans.png"/></span>' + 
+								'<span id="Slot08"><img class="invSlot08" src="content/gui/32x32Trans.png"/></span>' + 
+								'<span id="Slot09"><img class="invSlot09" src="content/gui/32x32Trans.png"/></span>');
 		
 		// attach to inventoryLayer
 		$('#inventoryLayer').append($messageBoxHtml);
 		
 		console.log('Init inventory class...');
 		
+		//TESTING Drag and drop
+		this.itemDND();
 	},
 	"show" : function show() {
 		
-		//TESTING Drag and drop
-		this.itemDND();
+
 		
 		if (!this.isShowing){
 		
@@ -94,25 +95,39 @@
 		}	
 	},
 	"removeItem" : function removeItem( slot ) {
-		//this.slotsMap[slot] = -1
-		$( '.inv' + slot ).remove();
-			console.log('Remove: ' + '.inv' + slot);
+		var itemIndex = parseInt(slot.substr(slot.length - 1));
+		this.slotsMap[ itemIndex - 1 ] = -1
+		$( '.inv' + slot ).attr({
+			'src' : 'content/gui/32x32Trans.png',
+			'alt' : ''});
+			
+		// heroeItems.splice((this.slotNumber - 1),1);
+		
+		$.each( heroeItems , function(i,heroeItem){
+			if (heroeItem.slotNumber == (itemIndex - 1) ){
+				console.log('Delete this item.');
+				heroeItems.splice(i,1);
+				return
+			}
+		});
 	},
 	
-	"addItem" : function add( item ) {		
+	"addItem" : function addItem( item ) {		
 		// Check empty slots - if no empty slots then warning player
 		this.slotNumber = jQuery.inArray(-1, this.slotsMap);
-
+		
+	
 		if (this.slotNumber != -1) {
 			//Keep data for all items found by the heroe
-			heroeItems.push( item );
-			
+			item.slotNumber = this.slotNumber;
+			heroeItems.push(item);
+
 			//This slot is full now
 			this.slotsMap[this.slotNumber] = ( item.itemIndex );
 			console.log(' slotNumber : ' +  this.slotNumber );
 			console.log(' Insert item on inventory: ' +  ads_items_data[this.slotsMap[this.slotNumber]].nome );
 			console.log(' this.slotsMap[this.slotNumber] : ' + this.slotsMap[this.slotNumber] );
-			// Add image and Show item in inventory
+			//Show item in inventory
 			$( '.invSlot0' + ( this.slotNumber + 1 ) ).attr({
 			'src' : 'content/sprites/items/' + item.imagem,
 			'alt' : ''});
@@ -123,7 +138,8 @@
 			
 			// Test again if slots are full after add new item
 			this.slotNumber = jQuery.inArray( -1 , this.slotsMap);
-			console.log (this.slotNumber);
+			
+			
 			if (this.slotNumber == -1) {
 				//*** IMPROVE - Update invComment
 				console.log('Inventory full...');
@@ -133,7 +149,7 @@
 			}
 		}
 	},
-	"itemDND" : function use() {
+	"itemDND" : function itemDND() {
 			var box = document.getElementById('adsGame');
 			var slot =[];
 			for(var i=0; i < 9; i++){

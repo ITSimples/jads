@@ -363,10 +363,10 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					//check if heroe have the Solution			
 					$.each(heroeItems, function(i,data)
 					{
-						if (data.valor == solution){
-							console.log('Heroe have the key.');
-							checkSolution = true;
-						}
+							if (data.valor == solution){
+								console.log('Heroe have the key.');
+								checkSolution = true;
+							}
 					});
 					
 					this.checkSolution = checkSolution;
