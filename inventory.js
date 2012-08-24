@@ -60,10 +60,7 @@
 	},
 	"show" : function show() {
 	
-		if (!this.isShowing){
-			// Call eventListener for drag and drop event
-			this.eventListener('add');
-			
+		if (!this.isShowing){		
 			//Heroe face
 			$('.invImage').attr({
 			'src' : 'content/sprites/h_male01_face.png',
@@ -90,9 +87,6 @@
 			console.log("hide inventory...");
 			this.isShowing = false;
 		}
-		
-		//Call removeEvent for DnD
-		this.eventListener('remove');
 	},
 	
 	"removeItem" : function removeItem( slot ) {
@@ -131,7 +125,10 @@
 			//Show item in the inventory slot
 			$( '.invSlot0' + ( this.slotNumber + 1 ) ).attr({
 			'src' : 'content/sprites/items/' + item.imagem,
-			'alt' : ''});			
+			'alt' : ''});
+
+			this.eventListener ('add' , this.slotNumber + 1);
+			// $( '.invSlot0' + ( this.slotNumber + 1 ) ).bind('dblclick' , function () { adsGame.Inventory.useItem( this.slotNumber + 1 ); });
 			
 			//*** IMPROVE - Update invComment
 			// this.invComment = ads_items_data[this.slotsMap[this.slotNumber]].nome;
@@ -166,28 +163,28 @@
 		console.log('Item drop out...' + slot);
 		adsGame.Inventory.removeItem(slot);
 	},
-	
-	"eventListener" : function eventListener( option ){
+
+	"eventListener" : function eventListener( option , slotNumber){
 		// Get two options "remove" and "add"
-		
+						
 		var box = document.getElementById('adsGame');
-		var slot =[];
-		for(var i=0; i < 9; i++){
-			slot[i] = document.getElementById('Slot0' + ( i + 1 ));
-			if ( option == 'remove'){
-				slot[i].removeEventListener('dragstart',this.dragStart, false);
-			} else if ( option == 'add' ) {
-				// Drag and Drop event
-				slot[i].addEventListener('dragstart',this.dragStart, false);
-				slot[i].addEventListener('dragstart',this.dragStart, false);
-			}
-		}
+		var slot = document.getElementById('Slot0' + slotNumber );
 		if ( option == 'remove'){
+			slot.removeEventListener('dragstart',this.dragStart, false);
+			
 			box.removeEventListener('dragover',function(e){e.preventDefault()}, false);
 			box.removeEventListener('drop',this.dropped, false);
+			
+			slot.removeEventListener('dblclick');
+			
 		} else if ( option == 'add' ) {
+			// Drag and Drop event
+			slot.addEventListener('dragstart',this.dragStart, false);
+			
 			box.addEventListener('dragover',function(e){e.preventDefault()}, false);
 			box.addEventListener('drop',this.dropped, false);
+			
+			slot.addEventListener('dblclick' , function () { adsGame.Inventory.useItem( slotNumber ); });
 		}
 	}
  });
