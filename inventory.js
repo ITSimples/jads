@@ -156,7 +156,7 @@
 				//*** IMPROVE - Update invComment
 				this.invComment = 'Inventario cheio.';
 				$('.invComment,#hiddenText').html(this.invComment);
-				fullInventory = true;
+				fullInventory = true; 
 			}
 		}
 	},
