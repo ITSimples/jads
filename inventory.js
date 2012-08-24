@@ -60,7 +60,10 @@
 	},
 	"show" : function show() {
 	
-		if (!this.isShowing){		
+		if (!this.isShowing){	
+			// Call eventListener for drag and drop event
+			this.eventListener('add');
+			
 			//Heroe face
 			$('.invImage').attr({
 			'src' : 'content/sprites/h_male01_face.png',
@@ -87,6 +90,9 @@
 			console.log("hide inventory...");
 			this.isShowing = false;
 		}
+		
+		//Call removeEvent for DnD
+		this.eventListener('remove');
 	},
 	
 	"removeItem" : function removeItem( slot , itemTarget ) {
@@ -94,8 +100,6 @@
 		
 		// slot variable return 'Slot0*' substr function return the last character * like 0,1 the slot dropped
 		var itemIndex = ( parseInt(slot.substr(slot.length - 1)) - 1);
-		
-		this.eventListener ('remove' , itemIndex + 1);
 		
 		// Make this slot available
 		this.slotsMap[ itemIndex ] = -1
@@ -118,8 +122,14 @@
 		
 		
 		//Delete item from heroeItems array
-		console.log(heroeItems.splice(itemIndex,1));
+		// console.log(heroeItems.splice(itemIndex,1));
+		heroeItems[itemIndex] = [];
 		
+		console.log ('Test after remove item. heroeItems:');
+		$.each(heroeItems , function (i, heroeItem) {
+			console.log ('heroeItem[' + i + ']: ' + heroeItem.nome);
+		});
+			
 		// Reset inComment
 		this.invComment = '';
 		
@@ -141,7 +151,6 @@
 			'src' : 'content/sprites/items/' + item.imagem,
 			'alt' : ''});
 
-			this.eventListener ('add' , this.slotNumber + 1);
 			// $( '.invSlot0' + ( this.slotNumber + 1 ) ).bind('dblclick' , function () { adsGame.Inventory.useItem( this.slotNumber + 1 ); });
 			
 			//*** IMPROVE - Update invComment
@@ -158,6 +167,11 @@
 				$('.invComment,#hiddenText').html(this.invComment);
 				fullInventory = true; 
 			}
+			
+			console.log ('Test heroeItems:');
+			$.each(heroeItems , function (i, heroeItem) {
+				console.log ('heroeItem[' + i + ']: ' + heroeItem.nome);
+			});
 		}
 	},
 	
@@ -171,36 +185,30 @@
 		e.preventDefault();
 		var slot = e.dataTransfer.getData('text')
 		console.log('Item drop out...' + slot);
-		adsGame.Inventory.removeItem(slot , 'drop');
+		adsGame.Inventory.removeItem(slot);
 	},
 
-	"eventListener" : function eventListener( option , slotNumber){
+	"eventListener" : function eventListener( option ){
 		// Get two options "remove" and "add"
-		
-		var removeItem = function () { adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use'); };
+
 		var box = document.getElementById('adsGame');
-		var slot = document.getElementById('Slot0' + slotNumber );
-		
+		var slot =[];
+		for(var i=0; i < 9; i++){
+			slot[i] = document.getElementById('Slot0' + ( i + 1 ));
+			if ( option == 'remove'){
+				slot[i].removeEventListener('dragstart',this.dragStart, false);
+			} else if ( option == 'add' ) {
+				// Drag and Drop event
+				slot[i].addEventListener('dragstart',this.dragStart, false);
+				slot[i].addEventListener('dragstart',this.dragStart, false);
+			}
+		}
 		if ( option == 'remove'){
-			slot.removeEventListener('dragstart',this.dragStart, false);
-			slot.removeEventListener('dblclick');
-			
-			console.log('Remove event listener...');
-			
 			box.removeEventListener('dragover',function(e){e.preventDefault()}, false);
 			box.removeEventListener('drop',this.dropped, false);
-	
 		} else if ( option == 'add' ) {
-			// Drag and Drop event
-			slot.addEventListener('dragstart',this.dragStart, false);
-			slot.addEventListener('dblclick' , removeItem , false );
-			
-			console.log('add event listener...');
-					
 			box.addEventListener('dragover',function(e){e.preventDefault()}, false);
 			box.addEventListener('drop',this.dropped, false);
-			
-			
 		}
 	}
  });
