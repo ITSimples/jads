@@ -95,54 +95,50 @@
 		}	
 	},
 	"removeItem" : function removeItem( slot ) {
-		var itemIndex = parseInt(slot.substr(slot.length - 1));
-		this.slotsMap[ itemIndex - 1 ] = -1
+	
+		// slot variable return 'Slot0*' substr function return the last character * like 0,1 the slot dropped
+		var itemIndex = ( parseInt(slot.substr(slot.length - 1)) - 1);
+		
+		// Make this slot available
+		this.slotsMap[ itemIndex ] = -1
+		
+		// Mask the removed item with a transparent image
 		$( '.inv' + slot ).attr({
 			'src' : 'content/gui/32x32Trans.png',
 			'alt' : ''});
 			
-		// heroeItems.splice((this.slotNumber - 1),1);
-		
-		$.each( heroeItems , function(i,heroeItem){
-			if (heroeItem.slotNumber == (itemIndex - 1) ){
-				console.log('Delete this item.');
-				heroeItems.splice(i,1);
-				return
-			}
-		});
+		//The heroe drop one 
+		fullInventory = false;
+		//Delete item from heroeItems array
+		heroeItems.splice(itemIndex,1);
 	},
 	
 	"addItem" : function addItem( item ) {		
-		// Check empty slots - if no empty slots then warning player
+		// Check empty slots - if no empty slots then return -1
 		this.slotNumber = jQuery.inArray(-1, this.slotsMap);
-		
-	
-		if (this.slotNumber != -1) {
-			//Keep data for all items found by the heroe
-			item.slotNumber = this.slotNumber;
-			heroeItems.push(item);
 
-			//This slot is full now
+		if (this.slotNumber != -1) {
+			// Add the new item to heroeItems data
+			heroeItems[this.slotNumber] = item;
+			
+			//The data slot in the position of new item keep the number of the item index in the array
 			this.slotsMap[this.slotNumber] = ( item.itemIndex );
-			console.log(' slotNumber : ' +  this.slotNumber );
-			console.log(' Insert item on inventory: ' +  ads_items_data[this.slotsMap[this.slotNumber]].nome );
-			console.log(' this.slotsMap[this.slotNumber] : ' + this.slotsMap[this.slotNumber] );
-			//Show item in inventory
+		
+			//Show item in the inventory slot
 			$( '.invSlot0' + ( this.slotNumber + 1 ) ).attr({
 			'src' : 'content/sprites/items/' + item.imagem,
 			'alt' : ''});
 
 			//*** IMPROVE - Update invComment
-			this.invComment = ads_items_data[this.slotsMap[this.slotNumber]].nome;
+			// this.invComment = ads_items_data[this.slotsMap[this.slotNumber]].nome;
+			this.invComment = item.nome;
 			$('.invComment,#hiddenText').html(this.invComment);
 			
 			// Test again if slots are full after add new item
 			this.slotNumber = jQuery.inArray( -1 , this.slotsMap);
 			
-			
 			if (this.slotNumber == -1) {
 				//*** IMPROVE - Update invComment
-				console.log('Inventory full...');
 				this.invComment = 'Inventario cheio.';
 				$('.invComment,#hiddenText').html(this.invComment);
 				fullInventory = true;
@@ -156,6 +152,7 @@
 				slot[i] = document.getElementById('Slot0' + ( i + 1 ));
 				slot[i].addEventListener('dragstart',this.dragStart, false);
 			}
+			
 			box.addEventListener('dragover',function(e){e.preventDefault()}, false);
 			box.addEventListener('drop',this.dropped, false);
 	},

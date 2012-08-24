@@ -245,7 +245,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 				// If tile of layer collision is null then we can put an item
 				if (testTileCollision == null && testTileBackground != null){
 					// Item probability
-					var item_probability = Number.prototype.random(0, 20);
+					var item_probability = Number.prototype.random(0, 10);
 					// Total of items
 					total_items = ads_items_data.length - 1;
 					
