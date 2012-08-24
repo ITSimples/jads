@@ -190,7 +190,7 @@ var ItemEntity = me.CollectableEntity.extend({
 				if (heroeAnswer != -1)
 				{
 					if ( heroeAnswer == this.rndQtnData.correta){ // if heroe correct answer			
-						me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
+						// me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
 						
 						//Keep data for all items found by the heroe
 						// heroeItems.push(this.items_data);
