@@ -252,7 +252,6 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					//random a item
 					random_item = Number.prototype.random(0, total_items);
 
-					
 					if ( item_probability == 5 ){						
 						//Test if not a trigger or special item or born heroe
 						var isCollide = false;

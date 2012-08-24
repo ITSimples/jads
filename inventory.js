@@ -43,30 +43,27 @@
 		var $messageBoxHtml = (	'<img class="invImage" src="" alt="">' +
 								'<div class="invText"></div>' +
 								'<div class="invComment"></div>' +
-								'<span id="Slot01"><img class="invSlot01" src="content/gui/32x32Trans.png" /></span>' + 
-								'<span id="Slot02"><img class="invSlot02" src="content/gui/32x32Trans.png"/></span>' + 
-								'<span id="Slot03"><img class="invSlot03" src="content/gui/32x32Trans.png"/></span>' + 
-								'<span id="Slot04"><img class="invSlot04" src="content/gui/32x32Trans.png"/></span>' + 
-								'<span id="Slot05"><img class="invSlot05" src="content/gui/32x32Trans.png"/></span>' + 
-								'<span id="Slot06"><img class="invSlot06" src="content/gui/32x32Trans.png"/></span>' + 
-								'<span id="Slot07"><img class="invSlot07" src="content/gui/32x32Trans.png"/></span>' + 
-								'<span id="Slot08"><img class="invSlot08" src="content/gui/32x32Trans.png"/></span>' + 
-								'<span id="Slot09"><img class="invSlot09" src="content/gui/32x32Trans.png"/></span>');
+								'<div id="Slot01"><img class="invSlot01" src="content/gui/32x32Trans.png" /></div>' + 
+								'<div id="Slot02"><img class="invSlot02" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot03"><img class="invSlot03" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot04"><img class="invSlot04" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot05"><img class="invSlot05" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot06"><img class="invSlot06" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot07"><img class="invSlot07" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot08"><img class="invSlot08" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot09"><img class="invSlot09" src="content/gui/32x32Trans.png"/></div>');
 		
 		// attach to inventoryLayer
 		$('#inventoryLayer').append($messageBoxHtml);
 		
 		console.log('Init inventory class...');
-		
-		//TESTING Drag and drop
-		this.itemDND();
 	},
 	"show" : function show() {
-		
-
-		
+	
 		if (!this.isShowing){
-		
+			// Call eventListener for drag and drop event
+			this.eventListener('add');
+			
 			//Heroe face
 			$('.invImage').attr({
 			'src' : 'content/sprites/h_male01_face.png',
@@ -92,8 +89,12 @@
 	
 			console.log("hide inventory...");
 			this.isShowing = false;
-		}	
+		}
+		
+		//Call removeEvent for DnD
+		this.eventListener('remove');
 	},
+	
 	"removeItem" : function removeItem( slot ) {
 	
 		// slot variable return 'Slot0*' substr function return the last character * like 0,1 the slot dropped
@@ -111,9 +112,12 @@
 		fullInventory = false;
 		//Delete item from heroeItems array
 		heroeItems.splice(itemIndex,1);
+		
+		// Reset inComment
+		this.invComment = '';
 	},
 	
-	"addItem" : function addItem( item ) {		
+	"addItem" : function addItem( item ) {
 		// Check empty slots - if no empty slots then return -1
 		this.slotNumber = jQuery.inArray(-1, this.slotsMap);
 
@@ -127,8 +131,8 @@
 			//Show item in the inventory slot
 			$( '.invSlot0' + ( this.slotNumber + 1 ) ).attr({
 			'src' : 'content/sprites/items/' + item.imagem,
-			'alt' : ''});
-
+			'alt' : ''});			
+			
 			//*** IMPROVE - Update invComment
 			// this.invComment = ads_items_data[this.slotsMap[this.slotNumber]].nome;
 			this.invComment = item.nome;
@@ -145,16 +149,9 @@
 			}
 		}
 	},
-	"itemDND" : function itemDND() {
-			var box = document.getElementById('adsGame');
-			var slot =[];
-			for(var i=0; i < 9; i++){
-				slot[i] = document.getElementById('Slot0' + ( i + 1 ));
-				slot[i].addEventListener('dragstart',this.dragStart, false);
-			}
-			
-			box.addEventListener('dragover',function(e){e.preventDefault()}, false);
-			box.addEventListener('drop',this.dropped, false);
+	
+	"useItem" : function useItem( slot ) {
+		console.log ("Slot : " + slot );
 	},
 	
 	"dragStart" : function dragStart(e){
@@ -168,5 +165,29 @@
 		var slot = e.dataTransfer.getData('text')
 		console.log('Item drop out...' + slot);
 		adsGame.Inventory.removeItem(slot);
+	},
+	
+	"eventListener" : function eventListener( option ){
+		// Get two options "remove" and "add"
+		
+		var box = document.getElementById('adsGame');
+		var slot =[];
+		for(var i=0; i < 9; i++){
+			slot[i] = document.getElementById('Slot0' + ( i + 1 ));
+			if ( option == 'remove'){
+				slot[i].removeEventListener('dragstart',this.dragStart, false);
+			} else if ( option == 'add' ) {
+				// Drag and Drop event
+				slot[i].addEventListener('dragstart',this.dragStart, false);
+				slot[i].addEventListener('dragstart',this.dragStart, false);
+			}
+		}
+		if ( option == 'remove'){
+			box.removeEventListener('dragover',function(e){e.preventDefault()}, false);
+			box.removeEventListener('drop',this.dropped, false);
+		} else if ( option == 'add' ) {
+			box.addEventListener('dragover',function(e){e.preventDefault()}, false);
+			box.addEventListener('drop',this.dropped, false);
+		}
 	}
  });
