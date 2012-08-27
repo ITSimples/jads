@@ -337,3 +337,60 @@ function hideMessageLayer()
     $('#messageLayer').fadeOut();
     messageShowing = false;
 }		
+
+
+	// var myArray = new Array(10);
+	
+	
+	// var count = 0;
+	
+	// for (var i = 10; i < 10; i++) {
+		// myArray[i] = new Array(10);
+		// for (var j = 0; j < 10; j++) {
+			// myArray[i][j] = collisionLayer[count];
+			// count++;
+			// console.log ('[4,3] = ' + '[' + myArray[8][8] + ']');
+		// }
+	// }
+
+	// console.log ('myArray: ' + myArray);
+	
+	 // // var graph = new Graph([myArray]);
+	// var myArray = [
+        // [0,0,0,0],
+        // [0,1,1,1],
+        // [0,0,0,1],
+		// [0,0,0,1]
+    // ]
+	
+	// function rotateMap( mapa, tx, ty)
+    // {
+
+            // var rotated = [];
+
+            // for(l=0;l<ty;l++){
+                // c2 = 3 - l;
+                // rotated[l] = [];
+                // for(c=0;c<tx;c++){
+                        // l2 = c;
+                        // //console.debug( myArray[y] );
+                        // rotated[l][c] = mapa[l2][c2];
+                // }
+            // }
+
+            // return rotated;
+    // }
+	
+	// // console.log ('myArray: ' + myArray);
+	
+	// var myArray = rotateMap(myLayer, 10,10);
+	
+    // var graph = new Graph(myArray);
+	
+	// //result: [0 1],[1 1],[1 2]
+	// // x,y
+    // var start = graph.nodes[1][1];
+    // var end = graph.nodes[8][8];
+    // var result = astar.search(graph.nodes, start, end);
+	// var resultWithDiagonals = astar.search(graph.nodes, start, end, true);
+		// console.log ('result: ' + resultWithDiagonals);
