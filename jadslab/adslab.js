@@ -61,11 +61,7 @@ var adsTest =
 		// Debug Mode
 		me.state.change(me.state.PLAY);
 		
-		// Teclas para debug - prefiro :)
-		me.input.bindKey(me.input.KEY.A, "left");
-		me.input.bindKey(me.input.KEY.D, "right");
-		me.input.bindKey(me.input.KEY.W, "up");
-		me.input.bindKey(me.input.KEY.S, "down");
+
 
 	var myLayer = [	
 	//     ------- X ->
@@ -80,15 +76,8 @@ var adsTest =
 	[1, 0, 0, 0, 0, 0, 0, 1, 0, 1], //7
 	[1, 0, 0, 0, 0, 0, 0, 0, 0, 1], //8
 	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]  //9
-	
 	];
-	
-	// var myLayer = [
-        // [0,0,0,0],
-        // [0,1,1,1],
-        // [0,0,0,1],
-		// [0,0,0,1]
-    // ]
+
 	
 	var	startPoint = [1,1];
 	var	endPoint = [8,8];
@@ -98,11 +87,7 @@ var adsTest =
 	
 	console.log (result);
 	
-	for(var x, y, i = 0, j = result.length; i < j; i++) {
-		x = result[i][0];
-		y = result[i][1];
-	};
-	
+
 		
 	}
 } // END ****  adsGame *******
@@ -140,17 +125,17 @@ var beeEntity = me.ObjectEntity.extend({
 		settings.spritewidth=32;
 
 		// Chamar o contrutor
-		this.parent(x, y , settings);
+		this.parent(32, 32 , settings);
 
 		// Configurar velocidade do jogador
-		this.setVelocity(3, 3);
+		this.setVelocity(1, 1);
 		
 		// Configurar velocidade de travagem
 		// Valores maiores tempo de travagem menor
-		this.setFriction(0.5, 0.5);
+		this.setFriction(0, 0);
 		
 		// adjust the bounding box
-		this.updateColRect(4,24,10,24); 
+		this.updateColRect(0,32,0,32); 
 		
 		// disable gravity
 		this.gravity = 0;
@@ -175,24 +160,84 @@ var beeEntity = me.ObjectEntity.extend({
 	
 		// set the display to follow our position on both axis
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+		
+		
+		this.i = 1;
+		
+				// x = result[i][0];
+		// y = result[i][1];
+			this.destX = result[1][0] * 32;
+			this.destY = result[1][1] * 32;
+		
+		this.stop = false;
+
 	},
+	
+	setDirection : function() {
+        this.distanceX = Math.abs( this.destX - this.pos.x );
+        this.distanceY = Math.abs( this.destY - this.pos.y );
+
+		if ( this.distanceX == 0 && this.distanceY == 0){
+			this.stop = true;
+		} else if( this.distanceX > this.distanceY ) {
+            this.direction = this.destX < this.pos.x ? 'left' : 'right' ;
+        } else {
+            this.direction = this.destY < this.pos.y ? 'up' : 'down';
+        }
+		
+
+    },	
 
 
 	//Update player position.
 	update : function ()
-	{
-
+	{		
+		this.setCurrentAnimation( this.direction );
+		this.animationspeed = me.sys.fps / 23;
 		
+
+		if ( this.stop )
+		{
+			this.vel.x = 0;
+			this.vel.y = 0;
+			
+			this.setCurrentAnimation( this.direction );
+
+			
+			if (this.i != result.length){
+				this.destX = result[this.i][0] * 32;
+				this.destY = result[this.i][1] * 32;
+				
+				this.i++;
+			}			
+			
+			this.stop = false;
+		} else if (this.direction == 'left')
+		{		
+			this.vel.x = -this.accel.x * me.timer.tick;			
+		}
+		else if (this.direction == 'right')
+		{		
+			this.vel.x = this.accel.x * me.timer.tick;
+		}
+ 
+		if (this.direction == 'up')
+		{
+			this.vel.y = -this.accel.y * me.timer.tick; 
+		}
+		else if (this.direction == 'down')
+		{
+			this.vel.y = this.accel.y * me.timer.tick;
+		}
+
 		// check & update player movement
 		updated = this.updateMovement();
 
-		// update animation
-		if (updated)
-		{
 			// Actualizar animação
 			this.parent(this);
-		}
 
+		this.setDirection();
+		
 		return updated;
 	}
 });
