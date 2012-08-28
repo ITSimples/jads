@@ -56,14 +56,15 @@
 		// attach to inventoryLayer
 		$('#inventoryLayer').append($messageBoxHtml);
 		
+		
 		console.log('Init inventory class...');
 	},
 	"show" : function show() {
 	
 		if (!this.isShowing){	
-			// Call eventListener for drag and drop event
-			// this.eventListener('add');
-			
+			//Disable event drop on game window
+			this.eventDrop(true);
+						
 			//Heroe face
 			$('.invImage').attr({
 			'src' : 'content/sprites/h_male01_face.png',
@@ -73,6 +74,9 @@
 			$('.invText,#hiddenText').html('Inventario');
 			
 			// Show invComment
+			if (fullInventory){
+				this.invComment = 'Inventario cheio.';
+			}
 			$('.invComment,#hiddenText').html(this.invComment);
 			
 			// Show inventory window with a fade
@@ -89,10 +93,23 @@
 	
 			console.log("hide inventory...");
 			this.isShowing = false;
+			//Disable event drop on game window
+			this.eventDrop(false);
 		}
-		
-		//Call removeEvent for DnD
-		// this.eventListener('remove');
+	},
+	
+	//Enable/Disable event drop on game window
+	"eventDrop" : function eventDrop( enable ) {
+	
+			var box = document.getElementById('adsGame');
+			
+			if (!enable){
+				box.removeEventListener('dragover',function(e){e.preventDefault()}, false);
+				box.removeEventListener('drop',this.dropped, false);
+			}else{
+				box.addEventListener('dragover',function(e){e.preventDefault()}, false);
+				box.addEventListener('drop',this.dropped, false);
+			}
 	},
 	
 	"removeItem" : function removeItem( slot , itemTarget ) {
@@ -110,10 +127,12 @@
 			'alt' : ''});
 		
 		
-		// if (itemTarget == 'use'){
-			// console.log (' Use this item...');
-			// me.game.HUD.updateItemValue(heroeItems[itemIndex].categoria, (parseInt(heroeItems[itemIndex].valor)));
-		// }
+		if (itemTarget == 'use'){
+			console.log (' Use this item...');
+			me.game.HUD.updateItemValue(heroeItems[itemIndex].categoria, (parseInt(heroeItems[itemIndex].valor)));
+				//hide item information because on leave with mouse the item info doesn't dissapear
+			$('#itemInfLayer').hide();
+		}
 		
 		
 		//The heroe drop one 
@@ -132,7 +151,10 @@
 			
 		// Reset inComment
 		this.invComment = '';
+		$('.invComment,#hiddenText').html(this.invComment);
 		
+		//Call removeEvents for this slot (itemIndex + 1 is the slot number)
+		this.eventListener('remove', itemIndex + 1 );
 	},
 	
 	"addItem" : function addItem( item ) {
@@ -176,8 +198,14 @@
 	},
 	
 	"dragStart" : function dragStart(e){
-		var value=e.currentTarget.id;
-		e.dataTransfer.setData('text',value);
+
+		var value = e.currentTarget.id;
+		console.log(value);
+		e.originalEvent.dataTransfer.setData('text',value);
+		
+		//hide item information because on leave with mouse the item info doesn't dissapear
+		$('#itemInfLayer').hide();
+		
 		console.log('..drag start...' );
 	},
 	
@@ -187,28 +215,59 @@
 		console.log('Item drop out...' + slot);
 		adsGame.Inventory.removeItem(slot);
 	},
+	
+	"itemInformation" : function itemInformation( e, slot ){
+		
+		// slot variable return 'Slot0*' substr function return the last character * like 0,1 the slot dropped
+		var itemIndex = ( parseInt(slot.substr(slot.length - 1)) - 1);
+		
+		this.invComment = heroeItems[itemIndex].nome;
+		$('.invComment,#hiddenText').html(this.invComment);
+		// Show inventory window with a fade
+		$('#itemInfLayer').show();
+		$('#itemInfLayer').offset({left:(e.pageX - 260),top:(e.pageY + 10)});
+	},
 
 	"eventListener" : function eventListener( option , slotNumber){
 		// Get two options "remove" and "add"
 
-		var box = document.getElementById('adsGame');
-		var slot = document.getElementById('Slot0' + slotNumber );
+		// var box = document.getElementById('adsGame');
+		var box = $("#adsGame");
+
+		var slot = $("#Slot0" + slotNumber );
+		
+		// var slot = $("#Slot01");
+
 		if ( option == 'remove'){
-			slot.removeEventListener('dragstart',this.dragStart, false);
-
-			box.removeEventListener('dragover',function(e){e.preventDefault()}, false);
-			box.removeEventListener('drop',this.dropped, false);
-
-			slot.removeEventListener('dblclick');
+			box.unbind();
+			slot.unbind();
 
 		} else if ( option == 'add' ) {
-			// Drag and Drop event
-			slot.addEventListener('dragstart',this.dragStart, false);
 
-			box.addEventListener('dragover',function(e){e.preventDefault()}, false);
-			box.addEventListener('drop',this.dropped, false);
+			
+			if (box != "undefined") {
+				box.bind('dragover',function(e){e.preventDefault()});
+				box.bind('drop',this.dropped);
+			}
 
-			slot.addEventListener('dblclick' , function () { adsGame.Inventory.removeItem( 'Slot0' + slotNumber ); });
+			if (slot != "undefined") {
+				// Drag and Drop event
+				slot.bind("dragstart",this.dragStart);
+				
+				//Use item with double click
+				slot.bind('dblclick' , function () { 
+					adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' ); 
+				});
+
+				
+				 // Mouse enter and leave to show item information
+				slot.mouseenter(function(e) {
+					adsGame.Inventory.itemInformation( e, 'Slot0' + slotNumber); 
+				}).mouseleave(function() {
+					$('#itemInfLayer').hide();
+				});
+
+			}
 		}
 	}
  });
