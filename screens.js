@@ -63,6 +63,7 @@ var PlayScreen = me.ScreenObject.extend(
 		me.game.HUD.addItem("forca", new HUDStrength(125,ads_HUD_Y_Position));
 		me.game.HUD.addItem("velocidade", new HUDVelocity(250,ads_HUD_Y_Position));
 		me.game.HUD.addItem("conhecimento", new HUDKnowledge(440,ads_HUD_Y_Position));
+		me.game.HUD.addItem("sorte", new HUDLucky(650,ads_HUD_Y_Position));
 		// HUD border must be last so it is on the bottom
 		// me.game.HUD.addItem("HUDborder", new HUDBorder(0,0));
 	},

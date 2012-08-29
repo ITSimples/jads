@@ -56,6 +56,13 @@
 		// attach to inventoryLayer
 		$('#inventoryLayer').append($messageBoxHtml);
 		
+		// Create html in itemInfLayer DIV
+		var $infItemBoxHtml = (	'<div class="infName"></div>' +
+								'<div class="infDesc"></div>' +
+								'<div class="infValue"></div>');
+		
+		$('#itemInfLayer').append($infItemBoxHtml);
+		
 		
 		console.log('Init inventory class...');
 	},
@@ -176,8 +183,8 @@
 			this.eventListener ('add' , this.slotNumber + 1);
 			
 			//*** IMPROVE - Update invComment
-			// this.invComment = ads_items_data[this.slotsMap[this.slotNumber]].nome;
-			this.invComment = item.nome;
+
+			this.invComment = "Duplo-click usar";
 			$('.invComment,#hiddenText').html(this.invComment);
 			
 			// Test again if slots are full after add new item
@@ -223,7 +230,35 @@
 		
 		this.invComment = heroeItems[itemIndex].nome;
 		$('.invComment,#hiddenText').html(this.invComment);
+		 
+		
 		// Show inventory window with a fade
+		$('.infName').html( heroeItems[itemIndex].nome + ':' );
+		$('.infDesc').html( heroeItems[itemIndex].descricao );
+		
+		// select information value color		
+		var infValueColor;
+		switch (heroeItems[itemIndex].categoria)
+		{
+			case 'vida': infValueColor = hudColorLive;
+						break;
+			case 'forca': infValueColor = hudColorStrength;
+						break;
+
+			case 'velocidade': infValueColor = hudColorVelocity;
+						break;
+							
+			case 'conhecimento': infValueColor = hudColorKnowledge;
+						break;
+			
+			case 'sorte': infValueColor = hudColorLucky;
+						break;
+							
+			default:  infValueColor = "white";
+		}	
+		
+		$('.infValue').css("color", infValueColor);
+		$('.infValue').html( '+' + heroeItems[itemIndex].valor + ' ' +  heroeItems[itemIndex].categoria );
 		$('#itemInfLayer').show();
 		$('#itemInfLayer').offset({left:(e.pageX - 260),top:(e.pageY + 10)});
 	},

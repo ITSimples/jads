@@ -19,6 +19,14 @@ HUD Configuration
 var ads_HUD_font_size = 18;
 // HUD texx Y Position
 var ads_HUD_Y_Position = 23;
+// HUD color
+
+var hudColorLive = "white";
+var hudColorStrength = "red";
+var hudColorVelocity = "blue";
+var hudColorKnowledge = "yellow";
+var hudColorLucky = "green";
+
 
 /*--- END HUD Configuration ---*/
 

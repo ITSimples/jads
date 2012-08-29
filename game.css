@@ -35,7 +35,8 @@
 		width: 400px;
 		height: 110px;
 		padding: 10px;
-		background: url('content/images/dialoguebox.png') no-repeat; 
+		background: url('content/images/dialoguebox.png') no-repeat;
+		font-family: 'MedievalSharp', serif;
 		display: none;
 	}
 
@@ -52,7 +53,6 @@
 		width: 530px;
 		height: 60px;
 		color : #fff;
-		font-weight: bold;
 		overflow: hidden;
 		z-index:1;
 	}
@@ -83,7 +83,8 @@
 		width: 366px;
 		height: 308px;
 		padding: 10px;
-		background: url('content/images/questionbox.png') no-repeat; 
+		background: url('content/images/questionbox.png') no-repeat;
+		font-family: 'MedievalSharp', serif;
 		display: none;
 	}
 	
@@ -99,8 +100,8 @@
 		left: 80px;
 		width: 530px;
 		height: 60px;
-		color : #996600;
 		font-weight: bold;
+		color : #996600;
 		overflow: hidden;
 		z-index:1;
 	}
@@ -111,8 +112,8 @@
 		left: 45px;
 		width: 530px;
 		height: 60px;
-		color : #0B610B;
 		font-weight: bold;
+		color : #0B610B;
 		overflow: hidden;
 		z-index:1;
 	}
@@ -124,7 +125,6 @@
 		width: 530px;
 		height: 60px;
 		color : #4B8A08;
-		font-weight: bold;
 		overflow: hidden;
 		z-index:1;
 	}
@@ -136,7 +136,6 @@
 		width: 530px;
 		height: 60px;
 		color : #4B8A08;
-		font-weight: bold;
 		overflow: hidden;
 		z-index:1;
 	}
@@ -148,7 +147,6 @@
 		width: 530px;
 		height: 60px;
 		color : #4B8A08;
-		font-weight: bold;
 		overflow: hidden;
 		z-index:1;
 	}
@@ -160,7 +158,6 @@
 		width: 530px;
 		height: 60px;
 		color : #4B8A08;
-		font-weight: bold;
 		overflow: hidden;
 		z-index:1;
 	}
@@ -172,7 +169,6 @@
 		width: 530px;
 		height: 60px;
 		color : #8A4B08;
-		font-weight: bold;
 		overflow: hidden;
 		z-index:1;
 	}
@@ -185,7 +181,6 @@
 		height: 60px;
 		color : #FF8000;
 		font-size:20px;
-		font-weight: bold;
 		overflow: hidden;
 		z-index:1;
 	}
@@ -199,6 +194,7 @@
 		height: 270px;
 		padding: 0px;
 		background: url('content/gui/inventory.png') no-repeat; 
+		font-family: 'MedievalSharp', serif;
 		display: none;
 	}
 	
@@ -230,7 +226,7 @@
 		left: 13px;
 		color : #996600;
 		font-weight: bold;
-		font-size: 20px;
+		font-size: 13px;
 		overflow: hidden;
 		z-index:1;
 	}
@@ -326,5 +322,41 @@
 		padding: 10px;
 		background: url('content/gui/iteminf.png') no-repeat;
 		display: none;
+		font-family: 'MedievalSharp', serif;
+		z-index:2;
 	}
+	
+	/* Information about item - name*/
+	#itemInfLayer .infName {
+		position: absolute;
+		top: 5px;
+		left: 15px;
+		color : #FFFFFF;
+		font-weight: bold;
+		font-size: 17px;
+		overflow: hidden;
+		z-index:2;
+	}
+	
+	/* Information about item - name*/
+	#itemInfLayer .infDesc {
+		position: absolute;
+		top: 27px;
+		left: 13px;
+		color : #333333;
+		font-size: 15px;
+		overflow: hidden;
+		z-index:2;
+	}
+	
+	/* Information about item - name*/
+	#itemInfLayer .infValue {
+		position: absolute;
+		top: 70px;
+		left: 15px;
+		font-weight: bold;
+		font-size: 15px;
+		overflow: hidden;
+		z-index:2;
+	}	
 </style>	
