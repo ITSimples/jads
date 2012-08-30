@@ -59,7 +59,9 @@
 		// Create html in itemInfLayer DIV
 		var $infItemBoxHtml = (	'<div class="infName"></div>' +
 								'<div class="infDesc"></div>' +
-								'<div class="infValue"></div>');
+								'<div class="infValue"></div>'+
+								'<div class="infUse"></div>');
+								
 		
 		$('#itemInfLayer').append($infItemBoxHtml);
 		
@@ -189,12 +191,11 @@
 			'src' : 'content/sprites/items/' + item.imagem,
 			'alt' : ''});
 
-			if (item.categoria != 'itemMissao'){
-				this.eventListener ('add' , this.slotNumber + 1);
-			}
+			// Add events for the new item 
+			this.eventListener ('add' , this.slotNumber + 1);
+			
 			//*** IMPROVE - Update invComment
-
-			this.invComment = "Duplo-click usar.";
+			this.invComment = "Parabéns novo item.";
 			$('.invComment,#hiddenText').html(this.invComment);
 			
 			// If added item is velocity or lucky update Hud 
@@ -234,7 +235,15 @@
 		e.preventDefault();
 		var slot = e.originalEvent.dataTransfer.getData('text')
 		console.log('Item drop out...' + slot);
-		adsGame.Inventory.removeItem(slot);
+		// If item is not dragable then dont return slot data return image to avoid error
+		if ( slot.indexOf("Slot") >= 0){ // Remove Item - check if Slot string is in slot variable
+			adsGame.Inventory.removeItem(slot);
+
+			$('.invComment').html('Item destruido.');
+		}else{ // Item not removed
+
+			$('.invComment').html('Item da missão, não pode ser destruido.');
+		}
 	},
 	
 	"itemInformation" : function itemInformation( e, slot ){
@@ -250,29 +259,37 @@
 		$('.infName').html( heroeItems[itemIndex].nome + ':' );
 		$('.infDesc').html( heroeItems[itemIndex].descricao );
 		
+		var itemInfUse;
+		
+		var iteminfValue = '+' + heroeItems[itemIndex].valor + ' ' +  heroeItems[itemIndex].categoria
+		
 		// select information value color		
 		var infValueColor;
 		switch (heroeItems[itemIndex].categoria)
 		{
 			case 'vida': infValueColor = hudColorLive;
-						break;
-			case 'Gold': infValueColor = hudColorStrength;
+						itemInfUse  = 'Duplo click para usares.';
 						break;
 
 			case 'velocidade': infValueColor = hudColorVelocity;
-						break;
-							
-			case 'conhecimento': infValueColor = hudColorKnowledge;
+						itemInfUse	 = 'Destruir retira-te velocidade.';
 						break;
 			
 			case 'sorte': infValueColor = hudColorLucky;
+						itemInfUse = 'Destruir retira-te sorte.';
 						break;
 							
-			default:  infValueColor = "white";
+			default:  infValueColor = "white"; // Mission items
+					  itemInfUse = 'Não podes usar nem destruir';
+					  // If mission item then change value 
+					  iteminfValue= "Item da missão.";
 		}	
+			
 		
 		$('.infValue').css("color", infValueColor);
-		$('.infValue').html( '+' + heroeItems[itemIndex].valor + ' ' +  heroeItems[itemIndex].categoria );
+		$('.infValue').html( iteminfValue );
+		$('.infUse').css("color", infValueColor);
+		$('.infUse').html( itemInfUse );
 		$('#itemInfLayer').show();
 		$('#itemInfLayer').offset({left:(e.pageX - 260),top:(e.pageY + 10)});
 	},
@@ -291,23 +308,26 @@
 
 		} else if ( option == 'add' ) {
 			if (slot != "undefined") {
-				// Drag and Drop event	
-				slot.bind("dragstart",this.dragStart);
+				// if an item mission then disable drag an drop and double click events
+				if (itemCategory != 'itemMissao'){				
+					// Drag and Drop event	
+					slot.bind("dragstart",this.dragStart);
 
-				
-				//Use item with double click
-				if (itemCategory == 'vida'){
-					slot.bind('dblclick' , function () {
-						console.log((me.game.HUD.getItemValue(itemCategory) + itemValue) , ' < ' ,maxHudValue['live']);
-						// Check if live is full
-						if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= maxHudValue['live']){
-							adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
-						}else {
-							this.invComment = 'Supera o máximo de vida. Não podes usar.';
-							$('.invComment').css("color", hudColorLive);
-							$('.invComment,#hiddenText').html(this.invComment);
-						}
-					});
+					
+					//Use item with double click
+					if (itemCategory == 'vida'){
+						slot.bind('dblclick' , function () {
+							console.log((me.game.HUD.getItemValue(itemCategory) + itemValue) , ' < ' ,maxHudValue['live']);
+							// Check if live is full
+							if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= maxHudValue['live']){
+								adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
+							}else {
+								this.invComment = 'Supera o máximo de vida. Não podes usar.';
+								$('.invComment').css("color", hudColorLive);
+								$('.invComment,#hiddenText').html(this.invComment);
+							}
+						});
+					}
 				}
 				
 				 // Mouse enter and leave to show item information

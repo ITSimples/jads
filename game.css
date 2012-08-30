@@ -352,11 +352,21 @@
 	/* Information about item - name*/
 	#itemInfLayer .infValue {
 		position: absolute;
-		top: 70px;
+		top: 62px;
 		left: 15px;
 		font-weight: bold;
 		font-size: 15px;
 		overflow: hidden;
 		z-index:2;
 	}	
+		
+	/* Information about item - name*/
+	#itemInfLayer .infUse {
+		position: absolute;
+		top: 79px;
+		left: 15px;
+		font-size: 15px;
+		overflow: hidden;
+		z-index:2;
+	}
 </style>	
