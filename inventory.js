@@ -43,7 +43,7 @@
 		var $messageBoxHtml = (	'<img class="invImage" src="" alt="">' +
 								'<div class="invText"></div>' +
 								'<div class="invComment"></div>' +
-								'<div id="Slot01"><img class="invSlot01" src="content/gui/32x32Trans.png" /></div>' + 
+								'<div id="Slot01"><img class="invSlot01" src="content/gui/32x32Trans.png"/></div>' + 
 								'<div id="Slot02"><img class="invSlot02" src="content/gui/32x32Trans.png"/></div>' + 
 								'<div id="Slot03"><img class="invSlot03" src="content/gui/32x32Trans.png"/></div>' + 
 								'<div id="Slot04"><img class="invSlot04" src="content/gui/32x32Trans.png"/></div>' + 
@@ -108,14 +108,13 @@
 	//Enable/Disable event drop on game window
 	"eventDrop" : function eventDrop( enable ) {
 	
-			var box = document.getElementById('adsGame');
+			var box = $("#adsGame");
 			
 			if (!enable){
-				box.removeEventListener('dragover',function(e){e.preventDefault()}, false);
-				box.removeEventListener('drop',this.dropped, false);
+				box.unbind();
 			}else{
-				box.addEventListener('dragover',function(e){e.preventDefault()}, false);
-				box.addEventListener('drop',this.dropped, false);
+				box.bind('dragover',function(e){e.preventDefault()});
+				box.bind('drop',this.dropped);
 			}
 	},
 	
@@ -134,14 +133,24 @@
 			'alt' : ''});
 		
 		
+		// If option is to use the item
+		var itemCategory = heroeItems[itemIndex].categoria;
+		var itemValue = heroeItems[itemIndex].valor;
+			
 		if (itemTarget == 'use'){
 			console.log (' Use this item...');
-			me.game.HUD.updateItemValue(heroeItems[itemIndex].categoria, (parseInt(heroeItems[itemIndex].valor)));
-				//hide item information because on leave with mouse the item info doesn't dissapear
+	
+			me.game.HUD.updateItemValue(itemCategory,  parseInt(itemValue));
+			//hide item information because on leave with mouse the item info doesn't dissapear
 			$('#itemInfLayer').hide();
+			
+		}else // If removed item is velocity or lucky then update Hud to remove hud points
+		{
+			if ( itemCategory == 'velocidade' || itemCategory == 'sorte' ){
+				me.game.HUD.updateItemValue(itemCategory,  -(parseInt(itemValue)) );
+			}
 		}
-		
-		
+				
 		//The heroe drop one 
 		fullInventory = false;
 		
@@ -180,12 +189,18 @@
 			'src' : 'content/sprites/items/' + item.imagem,
 			'alt' : ''});
 
-			this.eventListener ('add' , this.slotNumber + 1);
-			
+			if (item.categoria != 'itemMissao'){
+				this.eventListener ('add' , this.slotNumber + 1);
+			}
 			//*** IMPROVE - Update invComment
 
-			this.invComment = "Duplo-click usar";
+			this.invComment = "Duplo-click usar.";
 			$('.invComment,#hiddenText').html(this.invComment);
+			
+			// If added item is velocity or lucky update Hud 
+			if ( item.categoria == 'velocidade' || item.categoria == 'sorte' ){
+				me.game.HUD.updateItemValue(item.categoria,  (parseInt(item.valor)) );
+			}
 			
 			// Test again if slots are full after add new item
 			this.slotNumber = jQuery.inArray( -1 , this.slotsMap);
@@ -205,7 +220,6 @@
 	},
 	
 	"dragStart" : function dragStart(e){
-
 		var value = e.currentTarget.id;
 		console.log(value);
 		e.originalEvent.dataTransfer.setData('text',value);
@@ -218,7 +232,7 @@
 	
 	"dropped" : function dropped(e){
 		e.preventDefault();
-		var slot = e.dataTransfer.getData('text')
+		var slot = e.originalEvent.dataTransfer.getData('text')
 		console.log('Item drop out...' + slot);
 		adsGame.Inventory.removeItem(slot);
 	},
@@ -228,8 +242,8 @@
 		// slot variable return 'Slot0*' substr function return the last character * like 0,1 the slot dropped
 		var itemIndex = ( parseInt(slot.substr(slot.length - 1)) - 1);
 		
-		this.invComment = heroeItems[itemIndex].nome;
-		$('.invComment,#hiddenText').html(this.invComment);
+		// this.invComment = heroeItems[itemIndex].nome;
+		// $('.invComment,#hiddenText').html(this.invComment);
 		 
 		
 		// Show inventory window with a fade
@@ -242,7 +256,7 @@
 		{
 			case 'vida': infValueColor = hudColorLive;
 						break;
-			case 'forca': infValueColor = hudColorStrength;
+			case 'Gold': infValueColor = hudColorStrength;
 						break;
 
 			case 'velocidade': infValueColor = hudColorVelocity;
@@ -266,34 +280,35 @@
 	"eventListener" : function eventListener( option , slotNumber){
 		// Get two options "remove" and "add"
 
-		// var box = document.getElementById('adsGame');
-		var box = $("#adsGame");
-
 		var slot = $("#Slot0" + slotNumber );
 		
-		// var slot = $("#Slot01");
+		//Get item category and value
+		var itemCategory = heroeItems[slotNumber - 1].categoria;
+		var itemValue = parseInt(heroeItems[slotNumber - 1].valor);
 
 		if ( option == 'remove'){
-			box.unbind();
 			slot.unbind();
 
 		} else if ( option == 'add' ) {
-
-			
-			if (box != "undefined") {
-				box.bind('dragover',function(e){e.preventDefault()});
-				box.bind('drop',this.dropped);
-			}
-
 			if (slot != "undefined") {
-				// Drag and Drop event
+				// Drag and Drop event	
 				slot.bind("dragstart",this.dragStart);
+
 				
 				//Use item with double click
-				slot.bind('dblclick' , function () { 
-					adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' ); 
-				});
-
+				if (itemCategory == 'vida'){
+					slot.bind('dblclick' , function () {
+						console.log((me.game.HUD.getItemValue(itemCategory) + itemValue) , ' < ' ,maxHudValue['live']);
+						// Check if live is full
+						if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= maxHudValue['live']){
+							adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
+						}else {
+							this.invComment = 'Supera o máximo de vida. Não podes usar.';
+							$('.invComment').css("color", hudColorLive);
+							$('.invComment,#hiddenText').html(this.invComment);
+						}
+					});
+				}
 				
 				 // Mouse enter and leave to show item information
 				slot.mouseenter(function(e) {

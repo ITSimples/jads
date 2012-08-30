@@ -22,13 +22,24 @@ var ads_HUD_Y_Position = 23;
 // HUD color
 
 var hudColorLive = "white";
-var hudColorStrength = "red";
-var hudColorVelocity = "blue";
-var hudColorKnowledge = "yellow";
+var hudColorGold  = "yellow";
+var hudColorVelocity = "red";
+var hudColorKnowledge = "blue";
 var hudColorLucky = "green";
 
-
+// Max values to hud objects
+var maxHudValue = {"live":10,"velocity":10};
 /*--- END HUD Configuration ---*/
+
+
+/*------------------- 
+Heroe Configuration
+-------------------------------- */
+
+var heroeVelocity = 2 ;
+
+/*--- END Heroe Configuration ---*/
+
 
 // Array with all items from game to load resources - Load from JSON file
 // {name: "****",type: "image",src: "*****"},

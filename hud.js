@@ -20,7 +20,7 @@ var HUDLive = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorLive,"left");
-		this.value = 100;
+		this.value = 10;
 		this.name= "Vida:";
     },
 
@@ -33,14 +33,14 @@ var HUDLive = me.HUD_Item.extend({
 
 
 /*------------------- 
-START hud strength entity
+START hud gold entity
 -------------------------------- */
-var HUDStrength = me.HUD_Item.extend({
+var HUDGold = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
-		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorStrength,"left");
-		this.value = 100;
-		this.name = "Força:";
+		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorGold,"left");
+		this.value = 10;
+		this.name = "Ouro:";
     },
 
     draw: function(context, x, y) {
@@ -48,7 +48,7 @@ var HUDStrength = me.HUD_Item.extend({
         this.font.draw(context, this.value, this.pos.x + 60, this.pos.y);
     }
 });
-/*--- END hud Strength entity ---*/
+/*--- END hud Gold entity ---*/
 
 /*------------------- 
 START hud velocity entity
@@ -57,13 +57,20 @@ var HUDVelocity = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorVelocity,"left");
-		this.value = 100;
+		this.value = heroeVelocity * 2 ; //Hud information
 		this.name = "Velocidade:";
     },
 
     draw: function(context, x, y) {
 		this.font.draw(context, this.name, this.pos.x , this.pos.y);
         this.font.draw(context, this.value, this.pos.x + 100, this.pos.y);
+		heroeVelocity = this.value / 2;
+		console.log ('heroeVelocity:', heroeVelocity)
+		
+		// Update heroe velocity
+		var player = me.game.getEntityByName('Heroe');
+		player[0].setVelocity(heroeVelocity, heroeVelocity);
+		player = undefined;
     }
 });
 /*--- END hud velocity entity ---*/
@@ -76,7 +83,7 @@ var HUDKnowledge = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorKnowledge,"left");
-		this.value = 100;
+		this.value = 10;
 		this.name = "Conhecimento:";
     },
 
@@ -95,7 +102,7 @@ var HUDLucky = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorLucky,"left");
-		this.value = 100;
+		this.value = 1;
 		this.name = "Sorte:";
     },
 

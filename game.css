@@ -191,7 +191,7 @@
 		top: 42px;
 		left: 627px;
 		width: 180px;
-		height: 270px;
+		height: 300px;
 		padding: 0px;
 		background: url('content/gui/inventory.png') no-repeat; 
 		font-family: 'MedievalSharp', serif;
@@ -222,7 +222,7 @@
 	/* Comment inventory*/
 	#inventoryLayer .invComment {
 		position: absolute;
-		bottom: 4px;
+		bottom: 15px;
 		left: 13px;
 		color : #996600;
 		font-weight: bold;

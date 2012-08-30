@@ -19,7 +19,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 		this.xydivision = 0;
 		
 		// Configurar velocidade do jogador
-		this.setVelocity(3, 3);
+		this.setVelocity(heroeVelocity, heroeVelocity);
 		
 		// Configurar velocidade de travagem
 		// Valores maiores tempo de travagem menor
@@ -192,10 +192,13 @@ var ItemEntity = me.CollectableEntity.extend({
 					if ( heroeAnswer == this.rndQtnData.correta){ // if heroe correct answer			
 						// me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
 						
-						//Keep data for all items found by the heroe
-						// heroeItems.push(this.items_data);
-						// **** TODO - Add item to inventory
-						adsGame.Inventory.addItem( this.items_data );						
+						//Keep data for all items found by the heroe less gold and knowledge increment right away
+						if (this.items_data.categoria == 'ouro' ||
+							this.items_data.categoria == 'conhecimento'){
+							me.game.HUD.updateItemValue(this.items_data.categoria, (parseInt(this.items_data.valor)));
+						}else{
+							adsGame.Inventory.addItem( this.items_data );
+						}						
 						hideQuestionLayer('C');
 					}else if(heroeAnswer != 0){ // if heroe answer to the question but it's not the correct one
 						me.game.HUD.updateItemValue(this.items_data.categoria, -(parseInt(this.items_data.valor)));
