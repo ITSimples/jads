@@ -65,16 +65,18 @@ var HeroeEntity = me.ObjectEntity.extend({
 	//Update player position.
 	update : function ()
 	{		
+		
 		if (me.input.isKeyPressed('left'))
 		{
-			this.animationspeed = me.sys.fps / 20;
+			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
+
 			this.vel.x = -this.accel.x * me.timer.tick;
 			this.setCurrentAnimation('left');
 			this.direction = 'left';			
 		}
 		else if (me.input.isKeyPressed('right'))
 		{
-			this.animationspeed = me.sys.fps / 20;
+			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 			this.vel.x = this.accel.x * me.timer.tick 
 			this.setCurrentAnimation('right')
 			this.direction = 'right'
@@ -82,14 +84,14 @@ var HeroeEntity = me.ObjectEntity.extend({
 
 		if (me.input.isKeyPressed('up'))
 		{
-			this.animationspeed = me.sys.fps / 20;
+			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 			this.vel.y = -this.accel.y * me.timer.tick 
 			this.setCurrentAnimation('up')
 			this.direction = 'up'
 		}
 		else if (me.input.isKeyPressed('down'))
 		{
-			this.animationspeed = me.sys.fps / 20;
+			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 			this.vel.y = this.accel.y * me.timer.tick 
 			this.setCurrentAnimation('down')
 			this.direction = 'down'

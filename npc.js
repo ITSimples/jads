@@ -35,8 +35,8 @@ var NpcEntity = me.ObjectEntity.extend({
 		
 		this.friction = 0;
 	
-		this.accel.x = 1;
-        this.accel.y = 1;
+		this.accel.x = 0.5;
+        this.accel.y = 0.5;
  
         // make him start from the right
         this.pos.x = x;
@@ -99,7 +99,7 @@ var NpcEntity = me.ObjectEntity.extend({
 	update : function ()
 	{		
 		this.setCurrentAnimation( this.direction );
-		this.animationspeed = me.sys.fps / 23;
+		this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 		
 		if (this.direction == 'left')
 		{		
@@ -139,13 +139,14 @@ var NpcEntity = me.ObjectEntity.extend({
 				msgShowing = false;
 				this.showMessage = false;
 				//Move npc when he stop talk with heroe
-				this.accel.x = 1;
-				this.accel.y = 1;
+				this.accel.x = 0.5;
+				this.accel.y = 0.5;
 			}
 		
 		// check and update movement - Update animation
 		this.updateMovement();
 		this.parent(this);
+
 
 		this.setDirection();
 		

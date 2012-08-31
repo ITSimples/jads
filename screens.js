@@ -56,14 +56,28 @@ var PlayScreen = me.ScreenObject.extend(
 		me.levelDirector.loadLevel("map01");
 
 		// Setup HUD
+		var hudSpace= 80 - ads_HUD_font_size;
 		me.game.addHUD(0,0,ads_width,34,"#111111");
+		var hudLive = new HUDLive(ads_HUD_X_Position ,ads_HUD_Y_Position);
+		var hudKnowledge = new HUDKnowledge( hudLive.hudLength() + 
+											(hudSpace * 1),ads_HUD_Y_Position);
+		var hudVelocity = new HUDVelocity(	hudLive.hudLength() + 
+											hudKnowledge.hudLength() + 
+											(hudSpace * 2) ,ads_HUD_Y_Position);
+		var hudGold =  new HUDGold(	hudVelocity.hudLength() + 
+									hudLive.hudLength() + 
+									hudKnowledge.hudLength() + 
+									(hudSpace * 3),ads_HUD_Y_Position);
+		var hudLucky =  new HUDLucky(	hudLive.hudLength() + 
+										hudKnowledge.hudLength() + 
+										hudVelocity.hudLength() + 
+										hudGold.hudLength() + (hudSpace * 4),ads_HUD_Y_Position);
 		
-
-		me.game.HUD.addItem("vida", new HUDLive(10,ads_HUD_Y_Position));
-		me.game.HUD.addItem("ouro", new HUDGold(125,ads_HUD_Y_Position));
-		me.game.HUD.addItem("velocidade", new HUDVelocity(250,ads_HUD_Y_Position));
-		me.game.HUD.addItem("conhecimento", new HUDKnowledge(440,ads_HUD_Y_Position));
-		me.game.HUD.addItem("sorte", new HUDLucky(650,ads_HUD_Y_Position));
+		me.game.HUD.addItem("vida", hudLive );
+		me.game.HUD.addItem("conhecimento", hudKnowledge );
+		me.game.HUD.addItem("velocidade", hudVelocity );
+		me.game.HUD.addItem("ouro", hudGold );
+		me.game.HUD.addItem("sorte", hudLucky);
 		// HUD border must be last so it is on the bottom
 		// me.game.HUD.addItem("HUDborder", new HUDBorder(0,0));
 	},

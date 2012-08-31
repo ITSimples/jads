@@ -2,6 +2,15 @@
 Gobal Variables
 -------------------------------- */
 
+/*------------------- 
+Game engine system Configuration
+-------------------------------- */
+me.sys.fps = 30;
+me.sys.useNativeAnimFrame = true;
+/*--- END Game engine system Configuration ---*/
+
+
+
 // Configurações do Jogo - Variáveis Globais:
 var ads_width = 800;
 var ads_height = 600;
@@ -16,9 +25,11 @@ var ads_json_files='content/jsondata/';
 HUD Configuration
 -------------------------------- */
 // HUD font Size
-var ads_HUD_font_size = 18;
+var ads_HUD_font_size = 20;
 // HUD texx Y Position
 var ads_HUD_Y_Position = 23;
+// HUD texx X Position
+var ads_HUD_X_Position = 10;
 // HUD color
 
 var hudColorLive = "white";
@@ -29,6 +40,7 @@ var hudColorLucky = "green";
 
 // Max values to hud objects
 var maxHudValue = {"live":10,"velocity":10};
+
 /*--- END HUD Configuration ---*/
 
 
