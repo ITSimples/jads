@@ -179,6 +179,13 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
 
 		me.game.add(npc,4);
 		me.game.sort();
+		
+		npc = new NpcEntity(adsNpcData[4].coordenadas.initStartX, adsNpcData[4].coordenadas.initStartY , 
+								{image: adsNpcData[4].imagem.replace(".png",""),
+								spritewidth: 32, spriteheight: 43}, adsNpcData[4]);
+
+		me.game.add(npc,4);
+		me.game.sort();
 	},
 	
 	update: function() {	

@@ -31,7 +31,7 @@
 #messageLayer {
 	position: absolute;
 	top: 490px;
-	left: 400px;
+	left: 395px;
 	width: 400px;
 	height: 110px;
 	padding: 10px;
@@ -50,7 +50,7 @@
 	position: absolute;
 	top: 40px;
 	left: 120px;
-	width: 530px;
+	width: 250px;
 	height: 60px;
 	color : #fff;
 	overflow: hidden;
@@ -61,7 +61,7 @@
 	position: absolute;
 	top: 20px;
 	left: 120px;
-	width: 530px;
+	width: 300px;
 	height: 60px;
 	color : #FFFF00;
 	font-weight: bold;
@@ -97,8 +97,8 @@
 #questionLayer .itemText {
 	position: absolute;
 	top: 38px;
-	left: 80px;
-	width: 530px;
+	left: 82px;
+	width: 250px;
 	height: 60px;
 	font-weight: bold;
 	color : #996600;
@@ -188,8 +188,8 @@
 /* Question layer configuration */
 #inventoryLayer {
 	position: absolute;
-	top: 42px;
-	left: 627px;
+	top: 35px;
+	right: 0px;
 	width: 180px;
 	height: 300px;
 	padding: 0px;
@@ -343,6 +343,7 @@
 	position: absolute;
 	top: 27px;
 	left: 13px;
+	width: 235px;
 	color : #333333;
 	font-size: 15px;
 	overflow: hidden;

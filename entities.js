@@ -249,14 +249,14 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 				// If tile of layer collision is null then we can put an item
 				if (testTileCollision == null && testTileBackground != null){
 					// Item probability
-					var item_probability = Number.prototype.random(0, 5);
+					var item_probability = Number.prototype.random(0, itemLucky);
 					// Total of items
 					total_items = ads_items_data.length - 1;
 					
 					//random a item
 					random_item = Number.prototype.random(0, total_items);
 
-					if ( item_probability == 5 ){						
+					if ( item_probability == Math.round(itemLucky / 2) ){						
 						//Test if not a trigger or special item or born heroe
 						var isCollide = false;
 						$.each(triggersData, function(i, data){
