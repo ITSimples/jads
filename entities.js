@@ -382,7 +382,8 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					console.log('Remove the item number : ' + itemIndex);
 					
 					// Remove item from inventory - Index + 1 Slot number
-					adsGame.Inventory.removeItem( 'Slot0' + (itemIndex + 1) )
+					if (itemIndex != null)
+						adsGame.Inventory.removeItem( 'Slot0' + (itemIndex + 1) )
 				}
 				// If trigger is a door object
 				if (this.type == 'DOOR_OBJECT'){

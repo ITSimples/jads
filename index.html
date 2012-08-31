@@ -7,62 +7,58 @@
         <meta http-equiv="PRAGMA" content="NO-CACHE">
         <meta http-equiv="Expires" content="0">
 		<link rel="stylesheet" type="text/css" href="game.css" />
+		
+		<script type="text/javascript" src="libraries/jquery.js"></script>    
+		<script type="text/javascript" src="libraries/melonJS-0.9.4.js"></script>
+
+		<script type="text/javascript" src="resources.js"></script>
+		<script type="text/javascript" src="main.js"></script>
+		<script type="text/javascript" src="hud.js"></script>
+		<script type="text/javascript" src="entities.js"></script>
+		<script type="text/javascript" src="npc.js"></script>
+		<script type="text/javascript" src="screens.js"></script>		
+		<script type="text/javascript" src="windows.js"></script>
+		<script type="text/javascript" src="inventory.js"></script>
 	</head>
 	<body bgcolor="black">
-		<div>
-			<div id="information">
-				<font color="#FFEFFF", style ="font-size: 14px; font-family: Courier New">
-					<p>Este jogo encontra-se em desenvolvimento.</p>
-					<p>Podem contactar-me, <a href="mailto:fanf1998@yahoo.com">Francisco Fernandes</a>,</p>
-					<p>com alguma sugestão para o jogo.</p>
-					<p>Versão: v0.001<br />
-					Ultima actualização: 23.Nov.2011</p>
-					<p>Ultima actualização: <br />Página html</p>
-					<div id="fps">
-						<div id="info">
-							<font color="#FFFFFF", style ="font-size: 10px; font-family: Courier New">
-							<span id="framecounter">&#xA0;(0/0 fps)</span>
-							</font>
-						</div>
-					</div>
+	
+		<div id="fps">
+			<div id="info">
+				<font color="#FFFFFF", style ="font-size: 10px; font-family: Courier New">
+				<span id="framecounter">&#xA0;(0/0 fps)</span>
 				</font>
-			</div>		
-			<div id="gamePanel">
-				<div id="adsGame">
-					<script type="text/javascript" src="libraries/jquery.js"></script>    
-					<script type="text/javascript" src="libraries/melonJS-0.9.4.js"></script>
-					
-					<script type="text/javascript" src="resources.js"></script>
-					<script type="text/javascript" src="main.js"></script>
-					
-					
-					<script type="text/javascript" src="hud.js"></script>
-					<script type="text/javascript" src="entities.js"></script>
-					<script type="text/javascript" src="npc.js"></script>
-					<script type="text/javascript" src="screens.js"></script>		
-					<script type="text/javascript" src="windows.js"></script>
-					<script type="text/javascript" src="inventory.js"></script>
-					
-					<!-- Message Box -->
-					<div id="messageLayer">
-					</div>
-					<!-- Message Box -->
-					
-					<!-- Question Box -->
-					<div id="questionLayer">
-					</div>
-					<!-- Question Box -->
-					
-					<!-- Inventory Box -->
-					<div id="inventoryLayer">
-					</div>
-					<!-- Inventory Box -->
-					
-					<!-- Item Information Box -->
-					<div id="itemInfLayer">
-					</div>
-					<!-- Item Information Box -->
-				</div>
 			</div>
+		</div>
+				
+		<div id="adsGame">
+			<!-- Message Box -->
+			<div id="messageLayer">
+			</div>
+			<!-- Message Box -->
+			
+			<!-- Question Box -->
+			<div id="questionLayer">
+			</div>
+			<!-- Question Box -->
+			
+			<!-- Inventory Box -->
+			<div id="inventoryLayer">
+			</div>
+			<!-- Inventory Box -->
+			
+			<!-- Item Information Box -->
+			<div id="itemInfLayer">
+			</div>
+			<!-- Item Information Box -->
+		</div>
+		
+		
+		<div id="information">
+			<font color="#FFEFFF", style ="font-size: 14px; font-family: Courier New">
+				<p>Este jogo encontra-se em desenvolvimento.</p>
+				<p>Podem contactar-me, <a href="mailto:fanf1998@yahoo.com">Francisco Fernandes</a>,</p>
+				<p>com alguma sugestão para o jogo.</p>
+			</font>
+		</div>
 	</body>
 </html>
