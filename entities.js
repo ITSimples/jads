@@ -290,7 +290,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 
 		// Adicionar items na camada 3
 		$.each(item, function(i, item){
-			me.game.add(item,4);
+			me.game.add(item,5);
 			me.game.sort();
 		});
 
@@ -303,7 +303,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					item = new ItemEntity(parseInt(32*dataSpecialItem.coordinates.x), parseInt(32*dataSpecialItem.coordinates.y), 
 					{image: ads_item_data.imagem.replace(".png",""),
 					spritewidth: 32, spriteheight: 32}, ads_item_data);
-					me.game.add(item,4);
+					me.game.add(item,5);
 					me.game.sort();
 				}
 			});

@@ -63,9 +63,10 @@ var NpcEntity = me.ObjectEntity.extend({
 		//Configure coordinates of npc
 		this.initStartX = this.pos.x;
 		this.initStartY = this.pos.y;
-        this.initDestX = this.npcData.coordenadas.initDestX;
-        this.initDestY = this.npcData.coordenadas.initDestY;
+        this.initDestX = this.npcData.coordenadas.initDestX  * 32;
+        this.initDestY = this.npcData.coordenadas.initDestY  * 32;
 		
+		//*32 to convert tile position to map coordinates
 		this.destX = this.initDestX;
         this.destY = this.initDestY;
 		
@@ -168,26 +169,27 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
     init: function(x, y, settings) {
 
 		this.parent(x, y, settings);
-
-		npc = new NpcEntity(adsNpcData[5].coordenadas.initStartX, adsNpcData[5].coordenadas.initStartY , 
+		
+		// Create a new npc *32 to transform map coordinates to tile coordinates
+		npc = new NpcEntity(adsNpcData[5].coordenadas.initStartX * 32, adsNpcData[5].coordenadas.initStartY * 32 , 
 								{image: adsNpcData[5].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 43}, adsNpcData[5]);
 
-		me.game.add(npc,4);
+		me.game.add(npc,6);
 		me.game.sort();
 		
-		npc = new NpcEntity(adsNpcData[6].coordenadas.initStartX, adsNpcData[6].coordenadas.initStartY , 
+		npc = new NpcEntity(adsNpcData[6].coordenadas.initStartX * 32, adsNpcData[6].coordenadas.initStartY * 32 , 
 								{image: adsNpcData[6].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 43}, adsNpcData[6]);
 
-		me.game.add(npc,4);
+		me.game.add(npc,6);
 		me.game.sort();
 		
-		npc = new NpcEntity(adsNpcData[4].coordenadas.initStartX, adsNpcData[4].coordenadas.initStartY , 
+		npc = new NpcEntity(adsNpcData[4].coordenadas.initStartX * 32, adsNpcData[4].coordenadas.initStartY * 32 , 
 								{image: adsNpcData[4].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 43}, adsNpcData[4]);
 
-		me.game.add(npc,4);
+		me.game.add(npc,6);
 		me.game.sort();
 	},
 	

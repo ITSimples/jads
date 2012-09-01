@@ -5,7 +5,7 @@ Gobal Variables
 /*------------------- 
 Game engine system Configuration
 -------------------------------- */
-me.sys.fps = 30;
+me.sys.fps = 60;
 me.sys.useNativeAnimFrame = true;
 /*--- END Game engine system Configuration ---*/
 
@@ -53,7 +53,7 @@ var heroeVelocity = 2 ;
 /*--- END Heroe Configuration ---*/
 
 
-var itemLucky = 30;
+var itemLucky = 10;
 
 // Array with all items from game to load resources - Load from JSON file
 // {name: "****",type: "image",src: "*****"},
