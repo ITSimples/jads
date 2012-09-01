@@ -60,16 +60,15 @@ var adsTest =
 		
 		// Debug Mode
 		me.state.change(me.state.PLAY);
-		
 
 
 	var myLayer = [	
 	//     ------- X ->
-   //1  0  2  1  4  5  6  7  8  9
-	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //1
-	[1, 0, 0, 0, 1, 0, 0, 0, 0, 1], //0
+   //0  1  2  3  4  5  6  7  8  9
+	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //0
+	[1, 0, 0, 0, 1, 0, 0, 0, 0, 1], //1
 	[1, 0, 0, 0, 0, 0, 0, 1, 0, 1], //2
-	[1, 0, 0, 1, 1, 0, 0, 0, 0, 1], //1		 |
+	[1, 0, 0, 1, 1, 0, 0, 0, 0, 1], //3		 |
 	[1, 0, 0, 0, 0, 0, 0, 0, 0, 1], //4   Y \/
 	[1, 0, 1, 0, 1, 0, 0, 0, 0, 1], //5
 	[1, 0, 1, 0, 1, 0, 1, 0, 0, 1], //6
@@ -85,7 +84,10 @@ var adsTest =
 	
 	result = AStar(myLayer, startPoint, endPoint, "Manhattan");
 	
-	console.log (result);
+	$.each ( result, function (i, results ){
+		console.log ("- " + results);
+	});
+	// console.log ("- " + result);
 	
 
 		

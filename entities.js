@@ -227,58 +227,6 @@ var ItemEntity = me.CollectableEntity.extend({
 			player = undefined;
 		}
 	}
-	
-	
-	
-	
-	
-	
-	// onCollision : function (res, obj)
-	// {
-		// var res = me.game.collide( this );
-
-        // if( res ) {
-			// if( res.obj.name == 'heroe' && !fullInventory) {
-				// //Stop player
-				// var player = me.game.getEntityByName('Heroe');
-				// player[0].vel.x = 0;
-				// player[0].vel.y = 0;
-				// player = undefined;
-				
-				// // If the answer is correct then update HUD and remove item
-				// heroeAnswer = showQuestionLayer(this.items_data , this.rndQtnData);
-				// if (heroeAnswer != -1)
-				// {
-					// if ( heroeAnswer == this.rndQtnData.correta){ // if heroe correct answer			
-						// // me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
-						
-						// //Keep data for all items found by the heroe less gold and knowledge increment right away
-						// if (this.items_data.categoria == 'ouro' ||
-							// this.items_data.categoria == 'conhecimento'){
-							// me.game.HUD.updateItemValue(this.items_data.categoria, (parseInt(this.items_data.valor)));
-						// }else{
-							// adsGame.Inventory.addItem( this.items_data );
-						// }						
-						// hideQuestionLayer('C');
-					// }else if(heroeAnswer != 0){ // if heroe answer to the question but it's not the correct one
-						// me.game.HUD.updateItemValue(this.items_data.categoria, -(parseInt(this.items_data.valor)));
-						// hideQuestionLayer('W');
-					// }else{ // If heroe doesn't answer to the question
-						// hideQuestionLayer('D');
-					// }
-					// me.game.remove(this);
-				// }
-			// }else if( res.obj.name == 'heroe' && fullInventory) {
-				// adsGame.Inventory.show();
-				// // Set isShowInv to true in heroe to avoid double pressed key I when inventory is full
-				// var player = me.game.getEntityByName('Heroe');
-				// player[0].isShowInv = true;
-				// player = undefined;
-			// }
-		// }
-	// }
-	
-	
 });
 
 // **************************************
