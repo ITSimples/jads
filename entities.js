@@ -290,7 +290,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 
 		// Adicionar items na camada 3
 		$.each(item, function(i, item){
-			me.game.add(item,3);
+			me.game.add(item,4);
 			me.game.sort();
 		});
 
@@ -303,7 +303,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					item = new ItemEntity(parseInt(32*dataSpecialItem.coordinates.x), parseInt(32*dataSpecialItem.coordinates.y), 
 					{image: ads_item_data.imagem.replace(".png",""),
 					spritewidth: 32, spriteheight: 32}, ads_item_data);
-					me.game.add(item,3);
+					me.game.add(item,4);
 					me.game.sort();
 				}
 			});
@@ -338,6 +338,9 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		this.solution = this.triggerData.solution;
 		this.checkSolution = false;
 		this.isChecked = false;
+		
+		// Create message box for object
+		this.message = new adsGame.message();
 		
 
 		// If trigger is a door get layer door and coolision. Set where the door open
@@ -398,7 +401,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						// **** TODO - REMOVE KEY  FROM LIST OF ITEMS
 					}else{
 						// console.log("Heroe don't have the key.");
-						adsGame.message.show(this.msgData);
+						this.message.show(this.msgData);
 						msgShowing = true;
 					}	
 				} // End door object
@@ -417,7 +420,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						// **** TODO - REMOVE SCROOLL OF PORTAL FROM LIST OF ITEMS
 					}else{
 						// console.log("Heroe don't have the key.");
-						adsGame.message.show(this.msgData);
+						this.message.show(this.msgData);
 						msgShowing = true;
 					}
 				} // End portal object
@@ -426,7 +429,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		}else{
 			if (!msgShowing)
 			{
-					adsGame.message.hide();	
+					this.message.hide();	
 			}
 			msgShowing = false;
 			// Reset check for items
@@ -456,11 +459,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		settings.width = 32;
 		settings.height = 32;
 		
-		// Adicionar items na camada 3
+		// Adicionar items na camada 4
 		$.each(triggersData, function(i, triggerData){
 			trigger = new TriggerEntity( triggerData.coordinates.x * 32 , triggerData.coordinates.y * 32
 										, settings , triggerData);
-			me.game.add(trigger,3);
+			me.game.add(trigger,4);
 			me.game.sort();
 		});	
 		

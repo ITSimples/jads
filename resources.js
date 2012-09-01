@@ -102,6 +102,8 @@ var ads_resources =
 	// ---- Mapas ----
 	{name: "tiles",type: "image",src: "content/maps/area01_tileset/tiles.png"},
 	{name: "tiles02", type: "image", src: "content/maps/area01_tileset/tiles02.png"},
+	{name: "area01_bkg0", type: "image", src: "content/maps/area01_parallax/area01_bkg0.png"},
+	{name: "area01_bkg1", type: "image", src: "content/maps/area01_parallax/area01_bkg1.png"},
 	{name: "map01", type: "tmx", src: "content/maps/map01.tmx"},
 	
 	// ---- Imagens ----

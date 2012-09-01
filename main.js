@@ -40,7 +40,7 @@ var adsGame =
 		me.debug.renderHitBox = true;
 		
 		//Create message box object
-		adsGame.message = new adsGame.message();
+		// adsGame.message = new adsGame.message();
 		
 		//Create Inventory box object
 		adsGame.Inventory = new adsGame.Inventory();

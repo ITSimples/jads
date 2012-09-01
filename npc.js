@@ -72,6 +72,9 @@ var NpcEntity = me.ObjectEntity.extend({
 		//if it moves
 		this.direction = 'right';
 		this.setDirection();
+		
+		// Create message box for object to avoid blinking if is a global box
+		this.message = new adsGame.message();
 	},
 	
 	setDirection : function() {
@@ -125,7 +128,7 @@ var NpcEntity = me.ObjectEntity.extend({
         if( res ) {
 			if( res.obj.name == 'heroe' ) {
 				this.setCurrentAnimation( 'stand-' + this.direction );
-				adsGame.message.show(this.msgData);
+				this.message.show(this.msgData);
 				this.showMessage = true;
 				msgShowing = true;
 				//Stop npc when he talk with heroe
@@ -135,7 +138,7 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.vel.y = 0;
 			}
 		}else if (this.showMessage){
-				adsGame.message.hide();
+				this.message.hide();
 				msgShowing = false;
 				this.showMessage = false;
 				//Move npc when he stop talk with heroe
