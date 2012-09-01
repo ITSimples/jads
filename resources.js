@@ -53,7 +53,7 @@ var heroeVelocity = 2 ;
 /*--- END Heroe Configuration ---*/
 
 
-var itemLucky = 5;
+var itemLucky = 20;
 
 // Array with all items from game to load resources - Load from JSON file
 // {name: "****",type: "image",src: "*****"},
