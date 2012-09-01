@@ -70,6 +70,10 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.destX = this.initDestX;
         this.destY = this.initDestY;
 		
+		this.distanceX = 0;
+		this.distanceY = 0;
+		this.stop = false;
+		
 		//if it moves
 		this.direction = 'right';
 		this.setDirection();
@@ -79,24 +83,31 @@ var NpcEntity = me.ObjectEntity.extend({
 	},
 	
 	setDirection : function() {
-        this.distanceX = Math.abs( this.destX - this.pos.x );
-        this.distanceY = Math.abs( this.destY - this.pos.y );
+        this.distanceX = Math.floor(Math.abs( this.destX - this.pos.x ));
+        this.distanceY = Math.floor(Math.abs( this.destY - this.pos.y ));
 
         if( this.distanceX > this.distanceY ) {
             this.direction = this.destX < this.pos.x ? 'left' : 'right' ;
         } else {
             this.direction = this.destY < this.pos.y ? 'up' : 'down';
         }
-		// console.log ("Coordinates :" + "(x=" + this.pos.x + ", y=" + this.pos.y +")" );
-		if ( (this.pos.x > this.initDestX - 2 && this.pos.x < this.initDestX + 2) && 
-			 (this.pos.y > this.initDestY - 2 && this.pos.y < this.initDestY + 2) ){
-			this.destX = this.initStartX;
-			this.destY = this.initStartY;
-		} else if ( (this.pos.x > this.initStartX - 2 && this.pos.x < this.initStartX + 2) && 
-					(this.pos.y > this.initStartY - 2 && this.pos.y < this.initStartY + 2)){
-			this.destX = this.initDestX;
-			this.destY = this.initDestY;
+		
+		if (this.distanceX == 0 && this.distanceY == 0){
+			this.stop = true;
+			this.direction = "stand-" + this.direction;
 		}
+		
+		
+		// console.log ("Coordinates :" + "(x=" + this.pos.x + ", y=" + this.pos.y +")" );
+		// if ( (this.pos.x > this.initDestX - 2 && this.pos.x < this.initDestX + 2) && 
+			 // (this.pos.y > this.initDestY - 2 && this.pos.y < this.initDestY + 2) ){
+			// this.destX = this.initStartX;
+			// this.destY = this.initStartY;
+		// } else if ( (this.pos.x > this.initStartX - 2 && this.pos.x < this.initStartX + 2) && 
+					// (this.pos.y > this.initStartY - 2 && this.pos.y < this.initStartY + 2)){
+			// this.destX = this.initDestX;
+			// this.destY = this.initDestY;
+		// }
     },
 	
 	//Update npc position.
@@ -121,6 +132,10 @@ var NpcEntity = me.ObjectEntity.extend({
 		else if (this.direction == 'down')
 		{
 			this.vel.y = this.accel.y * me.timer.tick;
+		}else if (this.stop){
+			this.setCurrentAnimation( this.direction );
+			this.vel.x = 0;
+			this.vel.y = 0;
 		}
 		
 		// Check collision
@@ -128,7 +143,7 @@ var NpcEntity = me.ObjectEntity.extend({
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'heroe' ) {
-				this.setCurrentAnimation( 'stand-' + this.direction );
+				// this.setCurrentAnimation( 'stand-' + this.direction );
 				this.message.show(this.msgData);
 				this.showMessage = true;
 				msgShowing = true;
@@ -151,8 +166,8 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.updateMovement();
 		this.parent(this);
 
-
-		this.setDirection();
+		if (!this.stop)
+			this.setDirection();
 		
 	}
 });

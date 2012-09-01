@@ -130,15 +130,18 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		//  --- TESTING which OBJECT ---
 		if (res){
-			if (res.obj.type == 'NPC_OBJECT') {
-
-				this.setCurrentAnimation('stand-' + this.direction);
-			}
+		
+			// // Not needed anymore
+			// if (res.obj.type == 'NPC_OBJECT') {
+				// console.log('Heroe Collide with NPC...');
+				// this.setCurrentAnimation('stand-' + this.direction);
+			// }
 			
 			if (res.obj.type == 'ITEM_OBJECT'  && !fullInventory) {
-				this.setCurrentAnimation('stand-' + this.direction);
-				this.vel.x = 0;
-				this.vel.y = 0;
+				console.log('Heroe Collide with Item...' , res.obj.items_data);
+				// this.setCurrentAnimation('stand-' + this.direction);
+				// this.vel.x = 0;
+				// this.vel.y = 0;
 			}
 		}
 
@@ -185,8 +188,15 @@ var ItemEntity = me.CollectableEntity.extend({
 	onCollision : function (res, obj)
 	{
 		var res = me.game.collide( this );
+
         if( res ) {
 			if( res.obj.name == 'heroe' && !fullInventory) {
+				//Stop player
+				var player = me.game.getEntityByName('Heroe');
+				player[0].vel.x = 0;
+				player[0].vel.y = 0;
+				player = undefined;
+				
 				// If the answer is correct then update HUD and remove item
 				heroeAnswer = showQuestionLayer(this.items_data , this.rndQtnData);
 				if (heroeAnswer != -1)
