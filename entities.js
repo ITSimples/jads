@@ -243,17 +243,22 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		
 		var count = 0;
 		
-		var collision_layer = me.game.currentLevel.getLayerByName("collision");
+		var collision_layer = me.game.currentLevel.getLayerByName("collision");		
 		var background_layer = me.game.currentLevel.getLayerByName("background");
+
+		var start = [2,5]; //{'x': 2 , 'y' : 9};
+		var end = [2,3]; //{'x': 7 , 'y' : 9};
+		
+		adsGame.pathFinder.getPath(start,end,"collision");
 		
 		// parse all the collision layer tiles 
 		for ( var x = 0; x < collision_layer.width; x++) 
-		{ 
-		   for ( var y = 0; y < collision_layer.height; y++) 
+		{ 	
+			for ( var y = 0; y < collision_layer.height; y++) 
 		   { 
 				var testTileCollision = collision_layer.layerData[x][y];
 				var testTileBackground = background_layer.layerData[x][y];
-				
+
 				// If tile of layer collision is null then we can put an item
 				if (testTileCollision == null && testTileBackground != null){
 					// Item probability
@@ -295,7 +300,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 				}
 		   } 
 		} 
-
+		
 		// Adicionar items na camada 3
 		$.each(item, function(i, item){
 			me.game.add(item,5);

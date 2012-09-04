@@ -45,6 +45,8 @@ var adsTest =
 		// ************ Configurações de DEBUG *************
 		//Ver caixa de colisão
 		me.debug.renderHitBox = true;
+		
+		var result;
 
 	},
 	

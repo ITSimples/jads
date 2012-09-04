@@ -44,6 +44,8 @@ var adsGame =
 		
 		//Create Inventory box object
 		adsGame.Inventory = new adsGame.Inventory();
+		
+		adsGame.pathFinder = new  adsGame.pathFinder();
 
 	},
 	

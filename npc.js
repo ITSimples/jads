@@ -220,3 +220,4 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
 // ******************************
 // **** End Spawn NPC on map ****
 // ******************************
+
