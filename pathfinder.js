@@ -45,12 +45,10 @@ adsGame.pathFinder =  Object.extend({
 			}
 		}	
 		
-		console.log (myLayerArray);
+		// console.log (myLayerArray);
 		
-
-	
-		console.log('Start point:' , myLayerArray[start[0]][start[1]]);
-		console.log('End point:' , myLayerArray[end[0]][end[1]]);
+		// console.log('Start point:' , myLayerArray[start[0]][start[1]]);
+		// console.log('End point:' , myLayerArray[end[0]][end[1]]);
 		
 		
 		var result = AStar(myLayerArray, start, end, "Manhattan");
@@ -60,7 +58,8 @@ adsGame.pathFinder =  Object.extend({
 			var y = result[i][1];
 			console.log ("X: " , x , ' Y:', y);
 		});
-		// return path;
+		
+		return result;
 	}
 });
 	

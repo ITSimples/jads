@@ -50,8 +50,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 		this.dest_point_X = 0;
 		this.dest_point_Y = 0; 
 				 
-		// set the display to follow our position on both axis
-		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+
 		
 		//TESTING.... 
 		this.makeOneTime = true;
@@ -245,11 +244,6 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		
 		var collision_layer = me.game.currentLevel.getLayerByName("collision");		
 		var background_layer = me.game.currentLevel.getLayerByName("background");
-
-		var start = [2,5]; //{'x': 2 , 'y' : 9};
-		var end = [2,3]; //{'x': 7 , 'y' : 9};
-		
-		adsGame.pathFinder.getPath(start,end,"collision");
 		
 		// parse all the collision layer tiles 
 		for ( var x = 0; x < collision_layer.width; x++) 

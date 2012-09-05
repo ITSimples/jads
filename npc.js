@@ -37,6 +37,11 @@ var NpcEntity = me.ObjectEntity.extend({
 	
 		this.accel.x = 0.5;
         this.accel.y = 0.5;
+		// Configurar velocidade do jogador
+
+						
+		// adjust the bounding box
+		this.updateColRect(4,24,20,23); 
  
         // make him start from the right
         this.pos.x = x;
@@ -66,9 +71,6 @@ var NpcEntity = me.ObjectEntity.extend({
         this.initDestX = this.npcData.coordenadas.initDestX  * 32;
         this.initDestY = this.npcData.coordenadas.initDestY  * 32;
 		
-		//*32 to convert tile position to map coordinates
-		this.destX = this.initDestX;
-        this.destY = this.initDestY;
 		
 		this.distanceX = 0;
 		this.distanceY = 0;
@@ -76,28 +78,53 @@ var NpcEntity = me.ObjectEntity.extend({
 		
 		//if it moves
 		this.direction = 'right';
-		this.setDirection();
+		// this.setDirection();
 		
 		// Create message box for object to avoid blinking if is a global box
 		this.message = new adsGame.message();
+		
+		this.result = [];
+		this.i = 0;
+		this.destX = 0;
+		this.destY = 0;
+		
+		if (this.npcData.tipoMovimento == "path"){
+			var start = [this.npcData.coordenadas.initStartX,this.npcData.coordenadas.initStartY]; //{'x': 2 , 'y' : 9};
+			var end = [this.npcData.coordenadas.initDestX,this.npcData.coordenadas.initDestY]; //{'x': 7 , 'y' : 9};
+		
+			this.result = adsGame.pathFinder.getPath(start,end,"collision");
+			
+			//*32 to convert tile position to map coordinates
+			this.destX = this.result[0][0] * 32;
+			this.destY = this.result[0][1] * 32;
+			
+	
+		}else{
+			//*32 to convert tile position to map coordinates
+			this.destX = this.initDestX;
+			this.destY = this.initDestY;
+		}
+		
+		if(this.npcData.nome == 'John'){
+		// set the display to follow our position on both axis
+		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+		}
 	},
 	
 	setDirection : function() {
-        this.distanceX = Math.floor(Math.abs( this.destX - this.pos.x ));
-        this.distanceY = Math.floor(Math.abs( this.destY - this.pos.y ));
-
-        if( this.distanceX > this.distanceY ) {
+	
+        this.distanceX = Math.abs( this.destX - this.pos.x );
+        this.distanceY = Math.abs( this.destY - this.pos.y );
+		
+		if( this.distanceX > this.distanceY ) {
             this.direction = this.destX < this.pos.x ? 'left' : 'right' ;
         } else {
             this.direction = this.destY < this.pos.y ? 'up' : 'down';
         }
 		
-		if (this.distanceX == 0 && this.distanceY == 0){
-			this.stop = true;
-			this.direction = "stand-" + this.direction;
-		}
-		
-		
+		// console.log ("distance :" + "(x=" + this.distanceX + ", y=" + this.distanceY +")" );
+
+			
 		// console.log ("Coordinates :" + "(x=" + this.pos.x + ", y=" + this.pos.y +")" );
 		// if ( (this.pos.x > this.initDestX - 2 && this.pos.x < this.initDestX + 2) && 
 			 // (this.pos.y > this.initDestY - 2 && this.pos.y < this.initDestY + 2) ){
@@ -116,27 +143,20 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.setCurrentAnimation( this.direction );
 		this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 		
-		if (this.direction == 'left')
-		{		
-			this.vel.x = -this.accel.x * me.timer.tick;			
+		this.setDirection();
+		
+		
+		if( moveObject( this ) ) {
+			if (this.i != this.result.length){
+				this.destX = this.result[this.i][0] * 32;
+				this.destY = this.result[this.i][1] * 32;
+				
+				this.i++;
+			}
+			this.setDirection();
 		}
-		else if (this.direction == 'right')
-		{		
-			this.vel.x = this.accel.x * me.timer.tick;
-		}
- 
-		if (this.direction == 'up')
-		{
-			this.vel.y = -this.accel.y * me.timer.tick; 
-		}
-		else if (this.direction == 'down')
-		{
-			this.vel.y = this.accel.y * me.timer.tick;
-		}else if (this.stop){
-			this.setCurrentAnimation( this.direction );
-			this.vel.x = 0;
-			this.vel.y = 0;
-		}
+		
+		
 		
 		// Check collision
 		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************
@@ -165,10 +185,11 @@ var NpcEntity = me.ObjectEntity.extend({
 		// check and update movement - Update animation
 		this.updateMovement();
 		this.parent(this);
-
-		if (!this.stop)
-			this.setDirection();
 		
+
+
+		// if (!this.stop && this.i != this.result.length){
+
 	}
 });
 // *************************

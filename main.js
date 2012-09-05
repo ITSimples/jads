@@ -217,6 +217,43 @@ function hideQuestionLayer(answer)
 	});
 }
 
+
+/**
+ * move object from current position to destination x, y using Bresenham algorithm
+ *
+ * Source: http://de.wikipedia.org/wiki/Bresenham-Algorithmus#Kompakte_Variante
+ *
+ * object should have the attributes destX and destY for the destination coordinate
+ *
+ * @param object
+ * @return bool / check, if object reached it's goal
+ */
+function moveObject( object )
+{
+
+    var dx  =  Math.abs( object.destX - object.pos.x ), sx = object.pos.x < object.destX ? object.accel.x : -object.accel.x,
+        dy  = -Math.abs( object.destY - object.pos.y ), sy = object.pos.y < object.destY ? object.accel.y : -object.accel.y,
+        err = dx + dy, e2 = 0;
+
+    if( object.pos.x == object.destX && object.pos.y == object.destY ) {
+        return true;
+    }
+
+    e2 = 2 * err;
+    if( e2 > dy ) {
+        err += dy;
+        object.pos.x += sx;
+    }
+
+    if( e2 < dx ) {
+        err += dx;
+        object.pos.y += sy;
+    }
+
+    return false;
+}
+
+
 /*
 -----------------------------------
 File: main.js
