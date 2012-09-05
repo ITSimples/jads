@@ -35,21 +35,18 @@ var NpcEntity = me.ObjectEntity.extend({
 		
 		this.friction = 0;
 	
-		this.accel.x = 0.5;
-        this.accel.y = 0.5;
-		// Configurar velocidade do jogador
-
+		// Config NPC acceleration 
+		this.accel.x = this.accel.y = this.npcData.velocidade;
+		
 						
 		// adjust the bounding box
-		this.updateColRect(4,24,20,23); 
+		// this.updateColRect(4,24,20,23); 
  
         // make him start from the right
         this.pos.x = x;
 		this.pos.y = y;
-        
-		// make it an action object
-        // this.type = me.game.ACTION_OBJECT;
-		
+
+		// Set NPC object type
 		this.type = 'NPC_OBJECT';
 		
 		// Enable/disable dialogue box
@@ -64,55 +61,57 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.addAnimation("left", [6,7,8]);
 		this.addAnimation("up", [0,1,2,1]);
 		this.addAnimation("right", [9,10,11]);
-
-		//Configure coordinates of npc
-		this.initStartX = this.pos.x;
-		this.initStartY = this.pos.y;
-        this.initDestX = this.npcData.coordenadas.initDestX  * 32;
-        this.initDestY = this.npcData.coordenadas.initDestY  * 32;
-		
-		
-		this.distanceX = 0;
-		this.distanceY = 0;
-		this.stop = false;
-		
-		//if it moves
-		this.direction = 'right';
-		// this.setDirection();
 		
 		// Create message box for object to avoid blinking if is a global box
 		this.message = new adsGame.message();
 		
-		this.result = [];
-		this.i = 0;
+		//To store the distances bewwen two start and end point
+		this.distanceX = 0;
+		this.distanceY = 0;
+		
+		// If NPC reaches the end stops
+		this.stop = false;
+		
+		//Get the path from Astar algotithm from pathfinder.js
+		this.path = [];
+		
+		//Number of points in the path
+		this.countPath  = 0;
+		
+		//Next destination of the NPC
 		this.destX = 0;
 		this.destY = 0;
 		
-		if (this.npcData.tipoMovimento == "path"){
-			var start = [this.npcData.coordenadas.initStartX,this.npcData.coordenadas.initStartY]; //{'x': 2 , 'y' : 9};
-			var end = [this.npcData.coordenadas.initDestX,this.npcData.coordenadas.initDestY]; //{'x': 7 , 'y' : 9};
+		//Set initial direction of NPC
+		this.direction = "down";
 		
-			this.result = adsGame.pathFinder.getPath(start,end,"collision");
+		//Wait time in seconds standing.
+		this.wait = this.npcData.pausa.tempo * 60;
+		this.waitNode = this.npcData.pausa.passo;
+
+		//Check NPC movement
+		if (this.npcData.tipoMovimento == "path"){
+			// Get start and end position from gamedata.json
+			var start = [this.npcData.coordenadas.initStartX,this.npcData.coordenadas.initStartY];
+			var end = [this.npcData.coordenadas.initDestX,this.npcData.coordenadas.initDestY]; 
+		
+			// Calculate path
+			this.path = adsGame.pathFinder.getPath(start,end,"collision");
 			
 			//*32 to convert tile position to map coordinates
-			this.destX = this.result[0][0] * 32;
-			this.destY = this.result[0][1] * 32;
-			
-	
+			// First destination on array path
+			this.destX = this.path[0][0] * 32;
+			this.destY = this.path[0][1] * 32;	
 		}else{
 			//*32 to convert tile position to map coordinates
-			this.destX = this.initDestX;
-			this.destY = this.initDestY;
-		}
-		
-		if(this.npcData.nome == 'John'){
-		// set the display to follow our position on both axis
-		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+			// If NPC movement is between two points only
+			this.destX = this.npcData.coordenadas.initDestX  * 32;
+			this.destY = this.npcData.coordenadas.initDestY  * 32;
 		}
 	},
 	
 	setDirection : function() {
-	
+		// Get the distance between the two points to set the direction of NPC
         this.distanceX = Math.abs( this.destX - this.pos.x );
         this.distanceY = Math.abs( this.destY - this.pos.y );
 		
@@ -121,42 +120,41 @@ var NpcEntity = me.ObjectEntity.extend({
         } else {
             this.direction = this.destY < this.pos.y ? 'up' : 'down';
         }
-		
-		// console.log ("distance :" + "(x=" + this.distanceX + ", y=" + this.distanceY +")" );
-
-			
-		// console.log ("Coordinates :" + "(x=" + this.pos.x + ", y=" + this.pos.y +")" );
-		// if ( (this.pos.x > this.initDestX - 2 && this.pos.x < this.initDestX + 2) && 
-			 // (this.pos.y > this.initDestY - 2 && this.pos.y < this.initDestY + 2) ){
-			// this.destX = this.initStartX;
-			// this.destY = this.initStartY;
-		// } else if ( (this.pos.x > this.initStartX - 2 && this.pos.x < this.initStartX + 2) && 
-					// (this.pos.y > this.initStartY - 2 && this.pos.y < this.initStartY + 2)){
-			// this.destX = this.initDestX;
-			// this.destY = this.initDestY;
-		// }
     },
 	
 	//Update npc position.
 	update : function ()
-	{		
-		this.setCurrentAnimation( this.direction );
+	{	
+		//Set animation speed
 		this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 		
-		this.setDirection();
 		
-		
-		if( moveObject( this ) ) {
-			if (this.i != this.result.length){
-				this.destX = this.result[this.i][0] * 32;
-				this.destY = this.result[this.i][1] * 32;
-				
-				this.i++;
+		if( moveObject( this ) && !this.stop) {
+			if (this.countPath != this.path.length){
+				if(--this.wait < 0 ){				
+					//return movement
+					this.accel.x = this.accel.y = this.npcData.velocidade;
+					this.setCurrentAnimation( this.direction );
+					
+					this.destX = this.path[this.countPath ][0] * 32;
+					this.destY = this.path[this.countPath ][1] * 32;
+					
+					this.countPath ++;
+					this.setDirection();
+					this.setCurrentAnimation( this.direction );
+					this.wait = this.npcData.pausa.tempo * 60;
+				}else {			
+					//Stop npc when he talk with heroe
+					this.setCurrentAnimation( "stand-" + this.direction );
+					this.accel.x = this.accel.y = 0;
+					this.vel.x = this.vel.y = 0;
+				}
+			}else {
+				// Stop the player
+				this.stop = true;
+				this.setCurrentAnimation( "stand-" + this.direction );
 			}
-			this.setDirection();
 		}
-		
-		
 		
 		// Check collision
 		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************
@@ -168,28 +166,24 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.showMessage = true;
 				msgShowing = true;
 				//Stop npc when he talk with heroe
-				this.accel.x = 0;
-				this.accel.y = 0;
-				this.vel.x = 0;
-				this.vel.y = 0;
+				this.setCurrentAnimation( "stand-" + this.direction );
+				this.accel.x = this.accel.y = 0;
+				this.vel.x = this.vel.y = 0;
 			}
 		}else if (this.showMessage){
 				this.message.hide();
 				msgShowing = false;
 				this.showMessage = false;
-				//Move npc when he stop talk with heroe
-				this.accel.x = 0.5;
-				this.accel.y = 0.5;
+				//Move npc when he stop talk with heroe if is not stoped yet
+				if (!this.stop){
+					this.accel.x = this.accel.y = this.npcData.velocidade;
+					this.setCurrentAnimation( this.direction );
+				}
 			}
 		
 		// check and update movement - Update animation
 		this.updateMovement();
 		this.parent(this);
-		
-
-
-		// if (!this.stop && this.i != this.result.length){
-
 	}
 });
 // *************************

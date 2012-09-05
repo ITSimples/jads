@@ -5,7 +5,7 @@ Gobal Variables
 /*------------------- 
 Game engine system Configuration
 -------------------------------- */
-me.sys.fps = 60;
+me.sys.fps = 30;
 me.sys.useNativeAnimFrame = true;
 /*--- END Game engine system Configuration ---*/
 

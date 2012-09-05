@@ -50,7 +50,9 @@ var HeroeEntity = me.ObjectEntity.extend({
 		this.dest_point_X = 0;
 		this.dest_point_Y = 0; 
 				 
-
+				 
+		// Viewport follow heroe
+		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 		
 		//TESTING.... 
 		this.makeOneTime = true;

@@ -8,8 +8,8 @@
  * @class
  * @extends 
  * @constructor
- * @param
- * @example
+ * @param 
+ * @return path
  */
  
 adsGame.pathFinder =  Object.extend({
@@ -43,23 +43,52 @@ adsGame.pathFinder =  Object.extend({
 					myLayerArray[x][y] = 1;
 				}
 			}
-		}	
-		
-		// console.log (myLayerArray);
-		
-		// console.log('Start point:' , myLayerArray[start[0]][start[1]]);
-		// console.log('End point:' , myLayerArray[end[0]][end[1]]);
+		}
 		
 		
 		var result = AStar(myLayerArray, start, end, "Manhattan");
-	
+		
+		/*
+			Get the result and transform to get only the start and end points of a line.
+			to apply the Bresenham algorithm
+		*/
+		var pathArray = [];
+		var countArray = 1;
+		var equal ='';
+		var x;
+		var y;
+		var nextX;
+		var nextY;
+		
+		//first point
+		pathArray[0] = start;
+		
 		$.each ( result, function (i, results ){
-			var x = result[i][0];
-			var y = result[i][1];
-			console.log ("X: " , x , ' Y:', y);
+			if (i != result.length - 1){
+				x = result[i][0];
+				y = result[i][1];
+				nextX = result[i + 1][0];
+				nextY = result[i + 1][1];
+				
+				//if x is not equal to x+1 then y equal to y+1
+				if ( x == nextX){
+					if (equal == 'y') countArray++;
+					pathArray[countArray] = [nextX,nextY];
+					equal ='x';
+				}else { // y equal
+					if (equal == 'x') countArray++;
+					pathArray[countArray] = [nextX,nextY];
+					equal ='y';
+				}
+
+			}
+			// console.log ("X: " , x , ' Y:', y);		
 		});
 		
-		return result;
+		// $.each ( pathArray, function (i, point ){
+			// console.log('pathArray:', i , '-' , point);
+		// });
+		return pathArray;
 	}
 });
 	
