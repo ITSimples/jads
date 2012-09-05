@@ -61,8 +61,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 		this.isShowInv = false;
 		
 	},
-
-
+	
 	//Update player position.
 	update : function ()
 	{		

@@ -73,7 +73,7 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.stop = false;
 		
 		//Get the path from Astar algotithm from pathfinder.js
-		this.path = [];
+		this.path = [[]];
 		
 		//Number of points in the path
 		this.countPath  = 0;
@@ -88,25 +88,31 @@ var NpcEntity = me.ObjectEntity.extend({
 		//Wait time in seconds standing.
 		this.wait = this.npcData.pausa.tempo * 60;
 		this.waitNode = this.npcData.pausa.passo;
+		
+		//Current path
+		this.currentPath = 0;
 
 		//Check NPC movement
 		if (this.npcData.tipoMovimento == "path"){
-			// Get start and end position from gamedata.json
-			var start = [this.npcData.coordenadas.initStartX,this.npcData.coordenadas.initStartY];
-			var end = [this.npcData.coordenadas.initDestX,this.npcData.coordenadas.initDestY]; 
 		
-			// Calculate path
-			this.path = adsGame.pathFinder.getPath(start,end,"collision");
+			// Get start and end position from gamedata.json for all paths
+			for (pathNumber = 0 ; pathNumber < this.npcData.coordenadas.length ; pathNumber++ ){
+				var start = [this.npcData.coordenadas[pathNumber].initStartX,this.npcData.coordenadas[pathNumber].initStartY];
+				var end = [this.npcData.coordenadas[pathNumber].initDestX,this.npcData.coordenadas[pathNumber].initDestY]; 
+			
+				// Calculate path 1
+				this.path[pathNumber] = adsGame.pathFinder.getPath(start,end,"collision");
+			}
 			
 			//*32 to convert tile position to map coordinates
 			// First destination on array path
-			this.destX = this.path[0][0] * 32;
-			this.destY = this.path[0][1] * 32;	
+			this.destX = this.path[0][0][0] * 32;
+			this.destY = this.path[0][0][1] * 32;	
 		}else{
 			//*32 to convert tile position to map coordinates
 			// If NPC movement is between two points only
-			this.destX = this.npcData.coordenadas.initDestX  * 32;
-			this.destY = this.npcData.coordenadas.initDestY  * 32;
+			this.destX = this.npcData.coordenadas[0].initDestX  * 32;
+			this.destY = this.npcData.coordenadas[0].initDestY  * 32;
 		}
 	},
 	
@@ -129,30 +135,42 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 		
 		
+		// **** DEBUG
+		// if (this.npcData.nome == 'John')
+			// console.log ('this.path[0].length' , this.path.length);
+		
+		// If there is a pause is different from -1 pause in the node
+		if(this.waitNode != -1 && this.currentPath == this.npcData.pausa.caminho){
+			if(this.waitNode == this.countPath){
+				if(--this.wait > 0 ){
+					return
+				}
+			}
+		}
+
 		if( moveObject( this ) && !this.stop) {
-			if (this.countPath != this.path.length){
-				if(--this.wait < 0 ){				
+			if (this.countPath != this.path[this.currentPath].length){				
 					//return movement
 					this.accel.x = this.accel.y = this.npcData.velocidade;
 					this.setCurrentAnimation( this.direction );
 					
-					this.destX = this.path[this.countPath ][0] * 32;
-					this.destY = this.path[this.countPath ][1] * 32;
+					this.destX = this.path[this.currentPath][this.countPath ][0] * 32;
+					this.destY = this.path[this.currentPath][this.countPath ][1] * 32;
 					
 					this.countPath ++;
 					this.setDirection();
 					this.setCurrentAnimation( this.direction );
 					this.wait = this.npcData.pausa.tempo * 60;
-				}else {			
-					//Stop npc when he talk with heroe
-					this.setCurrentAnimation( "stand-" + this.direction );
-					this.accel.x = this.accel.y = 0;
-					this.vel.x = this.vel.y = 0;
-				}
+				
 			}else {
+				this.countPath = 0;
+				this.currentPath++ ;
+				
 				// Stop the player
-				this.stop = true;
-				this.setCurrentAnimation( "stand-" + this.direction );
+				if (this.currentPath == this.path.length){
+					this.stop = true;
+					this.setCurrentAnimation( "stand-" + this.direction );
+				}
 			}
 		}
 		
@@ -201,21 +219,21 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
 		this.parent(x, y, settings);
 		
 		// Create a new npc *32 to transform map coordinates to tile coordinates
-		npc = new NpcEntity(adsNpcData[5].coordenadas.initStartX * 32, adsNpcData[5].coordenadas.initStartY * 32 , 
+		npc = new NpcEntity(adsNpcData[5].coordenadas[0].initStartX * 32, adsNpcData[5].coordenadas[0].initStartY * 32 , 
 								{image: adsNpcData[5].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 43}, adsNpcData[5]);
 
 		me.game.add(npc,6);
 		me.game.sort();
 		
-		npc = new NpcEntity(adsNpcData[6].coordenadas.initStartX * 32, adsNpcData[6].coordenadas.initStartY * 32 , 
+		npc = new NpcEntity(adsNpcData[6].coordenadas[0].initStartX * 32, adsNpcData[6].coordenadas[0].initStartY * 32 , 
 								{image: adsNpcData[6].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 43}, adsNpcData[6]);
 
 		me.game.add(npc,6);
 		me.game.sort();
 		
-		npc = new NpcEntity(adsNpcData[4].coordenadas.initStartX * 32, adsNpcData[4].coordenadas.initStartY * 32 , 
+		npc = new NpcEntity(adsNpcData[4].coordenadas[0].initStartX * 32, adsNpcData[4].coordenadas[0].initStartY * 32 , 
 								{image: adsNpcData[4].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 43}, adsNpcData[4]);
 
