@@ -443,7 +443,8 @@ var TriggerEntity = me.InvisibleEntity.extend({
 			// Reset check for items
 			this.isChecked = false;
 		}
-	}
+	} // End Update
+	
 });
 
 // **************************************
@@ -481,3 +482,4 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		// me.game.sort();
 	}
 });
+

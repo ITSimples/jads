@@ -27,7 +27,7 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.msgData = {};
 		this.msgData.msgImage = 'sprites/' + this.npcData.imagem.replace(".png","_face.png");
 		this.msgData.msgName = this.npcData.nome;
-		this.msgData.msg = this.npcData.mensagem;
+		this.msgData.msg = this.npcData.mensagem[2];
 		
 		this.collidable= true;
 		
@@ -85,12 +85,23 @@ var NpcEntity = me.ObjectEntity.extend({
 		//Set initial direction of NPC
 		this.direction = "down";
 		
-		//Wait time in seconds standing.
-		this.wait = this.npcData.pausa.tempo * 60;
-		this.waitNode = this.npcData.pausa.passo;
-		
 		//Current path
 		this.currentPath = 0;
+		
+		//Event wait time 
+		this.waitEvent = 0;
+		
+		//Use this variable to read waitEvent only one time
+		this.readWaitEvent = false;
+		
+		//Increment number of events
+		this.CurrentEventNumber = 0;
+		
+		// Check if event is happening at the moment
+		this.eventHappening = false;
+		
+		// Check if event talk is happening at the moment
+		this.talkEventHappening = false;
 
 		//Check NPC movement
 		if (this.npcData.tipoMovimento == "path"){
@@ -133,18 +144,41 @@ var NpcEntity = me.ObjectEntity.extend({
 	{	
 		//Set animation speed
 		this.animationspeed = me.sys.fps / (me.sys.fps / 3);
-		
-		
-		// **** DEBUG
-		// if (this.npcData.nome == 'John')
-			// console.log ('this.path[0].length' , this.path.length);
-		
-		// If there is a pause is different from -1 pause in the node
-		if(this.waitNode != -1 && this.currentPath == this.npcData.pausa.caminho){
-			if(this.waitNode == this.countPath){
-				if(--this.wait > 0 ){
-					return
+			
+		// Check collision
+		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************
+		var res = me.game.collide( this );
+        if( res ) {
+			if( res.obj.name == 'heroe' ) {
+				// this.setCurrentAnimation( 'stand-' + this.direction );
+				this.message.show(this.msgData);
+				this.showMessage = true;
+				msgShowing = true;
+				//Stop npc when he talk with heroe
+				this.setCurrentAnimation( "stand-" + this.direction );
+				this.accel.x = this.accel.y = 0;
+				this.vel.x = this.vel.y = 0;
+			}
+		}else if ( this.showMessage && !this.talkEventHappening){
+				this.message.hide();
+				msgShowing = false;
+				this.showMessage = false;
+				//Move npc when he stop talk with heroe if is not stoped yet
+				if (!this.stop){
+					this.accel.x = this.accel.y = this.npcData.velocidade;
+					this.setCurrentAnimation( this.direction );
 				}
+		}
+		
+		if ( this.npcData.nome == "John"){
+			//if return true then wait else no wait time then can readwaittime again
+			this.eventHappening = this.npcEvent(this.npcData.evento);
+			
+			// Check if there is a wait time
+			if(this.eventHappening){
+				return;
+			}else{
+				this.readWaitEvent = false;
 			}
 		}
 
@@ -160,8 +194,6 @@ var NpcEntity = me.ObjectEntity.extend({
 					this.countPath ++;
 					this.setDirection();
 					this.setCurrentAnimation( this.direction );
-					this.wait = this.npcData.pausa.tempo * 60;
-				
 			}else {
 				this.countPath = 0;
 				this.currentPath++ ;
@@ -174,35 +206,92 @@ var NpcEntity = me.ObjectEntity.extend({
 			}
 		}
 		
-		// Check collision
-		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************
-		var res = me.game.collide( this );
-        if( res ) {
-			if( res.obj.name == 'heroe' ) {
-				// this.setCurrentAnimation( 'stand-' + this.direction );
-				this.message.show(this.msgData);
-				this.showMessage = true;
-				msgShowing = true;
-				//Stop npc when he talk with heroe
-				this.setCurrentAnimation( "stand-" + this.direction );
-				this.accel.x = this.accel.y = 0;
-				this.vel.x = this.vel.y = 0;
-			}
-		}else if (this.showMessage){
-				this.message.hide();
-				msgShowing = false;
-				this.showMessage = false;
-				//Move npc when he stop talk with heroe if is not stoped yet
-				if (!this.stop){
-					this.accel.x = this.accel.y = this.npcData.velocidade;
-					this.setCurrentAnimation( this.direction );
-				}
-			}
-		
 		// check and update movement - Update animation
 		this.updateMovement();
 		this.parent(this);
+	}, // end update
+	
+	
+	// *** Event Managment
+	npcEvent : function npcEvent(npcEvents){
+		// console.log('this.CurrentEventNumber:' , this.CurrentEventNumber);
+		
+
+		if (this.CurrentEventNumber == npcEvents.length){
+			return;
+		}else{
+			this.currentEvent = npcEvents[this.CurrentEventNumber];
+		}
+		
+		switch( this.currentEvent.tipo ){
+			case "talk":
+				if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
+					// read event wait time 
+					if(!this.readWaitEvent){
+						this.waitEvent = this.currentEvent.tempo * 60;
+						this.readWaitEvent = true;
+						
+						// Event talk is happening to prevent hide message
+						this.talkEventHappening = true;
+						
+						//Show message
+						this.messageNumber = 0;
+						this.pauseMessage = Math.floor(this.waitEvent / this.npcData.mensagem.length);
+					}
+					
+					// this.msgData.msg = this.npcData.mensagem[0];
+					// $('.msgText,#hiddenText').html( this.msgData.msg );
+						
+					// Change dialogue depending on the number of messages divided by the waiting time
+					if ( this.waitEvent == ((this.currentEvent.tempo * 60) - (this.pauseMessage * this.messageNumber + 1)) && this.messageNumber < this.npcData.mensagem.length ){
+						this.msgData.msg = this.npcData.mensagem[this.currentEvent.conversa[this.messageNumber]];
+						$('.msgText,#hiddenText').html( this.msgData.msg );
+						this.messageNumber++;
+					}
+					
+					this.message.show(this.msgData);
+					this.showMessage = true;
+					msgShowing = true;
+
+					if ( --this.waitEvent < 0 ){
+						// Hide message
+						this.message.hide();
+						msgShowing = false;
+						this.showMessage = false;
+						
+						// New event
+						this.CurrentEventNumber++;
+						
+						// Event is not happening anymore 
+						this.talkEventHappening = false;
+						
+						return false;  // Event end...~~						
+					}else{
+						return true;  // Event happening
+					}
+				}
+				break;
+			case "wait":
+				if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
+					
+					if(!this.readWaitEvent){
+						this.waitEvent = this.currentEvent.tempo * 60;
+						this.readWaitEvent = true;
+					}
+					
+					if ( --this.waitEvent < 0 ){
+						this.CurrentEventNumber++; // New event
+						return false;						
+					}else{
+						return true;  // Event happening
+					}
+				}
+				break;
+			default:
+				break;
+		}
 	}
+	
 });
 // *************************
 // ****  End NPC entity ****
