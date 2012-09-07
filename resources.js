@@ -5,10 +5,14 @@ Gobal Variables
 /*------------------- 
 Game engine system Configuration
 -------------------------------- */
-me.sys.fps = 30;
-me.sys.useNativeAnimFrame = true;
+me.sys.fps = 60;
+me.sys.useNativeAnimFrame = false;
+me.sys.cacheImage = true;
 /*--- END Game engine system Configuration ---*/
 
+/*------------------- 
+START Global Variables
+-------------------------------- */
 
 
 // Configurações do Jogo - Variáveis Globais:
@@ -16,6 +20,7 @@ var ads_width = 800;
 var ads_height = 600;
 var ads_images_path='content/images/';
 var ads_sprites_path='content/sprites/';
+var ads_effects_path='content/effects/';
 var ads_items_path='content/sprites/items/';
 var ads_music_path='content/music/';
 var ads_json_files='content/jsondata/';
@@ -156,7 +161,9 @@ var ads_resources =
 	// {name: "tiles",	type: "image",	src: ads_sprites_path + "tiles.png"},
 	// {name: "villain",	type: "image",	src: ads_sprites_path + "villain.png"},
 	// {name: "wolf",	type: "image",	src: ads_sprites_path + "wolf.png"},
-	{name: "items1",	type: "image",	src: ads_items_path + "fruta.png"}
+	{name: "items1",	type: "image",	src: ads_items_path + "fruta.png"},
+	{name: "explosion_32x32", 	type: "image",src: ads_effects_path + "explosion_32x32.png"},
+	{name: "explosion_64x64", 	type: "image",src: ads_effects_path + "explosion_64x64.png"}
 ];
 
 

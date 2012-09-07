@@ -75,6 +75,10 @@ var NpcEntity = me.ObjectEntity.extend({
 		//Get the path from Astar algotithm from pathfinder.js
 		this.path = [[]];
 		
+		//Get reverse path from Astar algotithm from pathfinder.js
+		this.reversePath = [[]];
+		this.reversePathNumber = -1 ;
+		
 		//Number of points in the path
 		this.countPath  = 0;
 		
@@ -111,8 +115,15 @@ var NpcEntity = me.ObjectEntity.extend({
 				var start = [this.npcData.coordenadas[pathNumber].initStartX,this.npcData.coordenadas[pathNumber].initStartY];
 				var end = [this.npcData.coordenadas[pathNumber].initDestX,this.npcData.coordenadas[pathNumber].initDestY]; 
 			
-				// Calculate path 1
+				// Calculate path 
 				this.path[pathNumber] = adsGame.pathFinder.getPath(start,end,"collision");
+				
+				// Calculate reverse path if event reverse
+				if (this.npcData.coordenadas[pathNumber].reverter){
+					this.reversePath[pathNumber] = adsGame.pathFinder.getPath(start,end,"collision");
+					this.reversePathNumber = pathNumber;
+					console.log('Calculate reverse path...' , pathNumber);
+				}
 			}
 			
 			//*32 to convert tile position to map coordinates
@@ -170,7 +181,7 @@ var NpcEntity = me.ObjectEntity.extend({
 				}
 		}
 		
-		if ( this.npcData.nome == "John"){
+		if ( this.npcData.nome == "John" || this.npcData.nome == "Lief"){
 			//if return true then wait else no wait time then can readwaittime again
 			this.eventHappening = this.npcEvent(this.npcData.evento);
 			
@@ -198,6 +209,12 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.countPath = 0;
 				this.currentPath++ ;
 				
+				//Test if there is reverse path
+				if (this.reversePathNumber != -1){
+					console.log('There is a reverse path...');
+					this.currentPath = 0;
+					this.path[this.currentPath] = this.reversePath[this.currentPath];
+				}
 				// Stop the player
 				if (this.currentPath == this.path.length){
 					this.stop = true;
@@ -225,7 +242,9 @@ var NpcEntity = me.ObjectEntity.extend({
 		
 		switch( this.currentEvent.tipo ){
 			case "talk":
-				if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
+				//**** CHANGE THIS FOR COORDINATES INSTEAD PATH
+				// if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
+				if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)){
 					// read event wait time 
 					if(!this.readWaitEvent){
 						this.waitEvent = this.currentEvent.tempo * 60;
@@ -236,7 +255,10 @@ var NpcEntity = me.ObjectEntity.extend({
 						
 						//Show message
 						this.messageNumber = 0;
-						this.pauseMessage = Math.floor(this.waitEvent / this.npcData.mensagem.length);
+						
+						// Change to calculate the number of conversations on currentevent
+						// this.pauseMessage = Math.floor(this.waitEvent / this.npcData.mensagem.length);
+						this.pauseMessage = Math.floor(this.waitEvent / this.currentEvent.conversa.length);
 					}
 					
 					// this.msgData.msg = this.npcData.mensagem[0];
@@ -245,7 +267,9 @@ var NpcEntity = me.ObjectEntity.extend({
 					// Change dialogue depending on the number of messages divided by the waiting time
 					if ( this.waitEvent == ((this.currentEvent.tempo * 60) - (this.pauseMessage * this.messageNumber + 1)) && this.messageNumber < this.npcData.mensagem.length ){
 						this.msgData.msg = this.npcData.mensagem[this.currentEvent.conversa[this.messageNumber]];
+						// $('.msgText').hide();						
 						$('.msgText,#hiddenText').html( this.msgData.msg );
+						// $('.msgText').fadeIn(1000);	
 						this.messageNumber++;
 					}
 					
@@ -272,11 +296,44 @@ var NpcEntity = me.ObjectEntity.extend({
 				}
 				break;
 			case "wait":
-				if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
+				// if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
+				if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)){	
+					if(!this.readWaitEvent){
+						this.waitEvent = this.currentEvent.tempo * 60;
+						this.readWaitEvent = true;						
+					}
 					
+					
+					
+					if ( --this.waitEvent < 0 ){
+						this.CurrentEventNumber++; // New event
+						return false;						
+					}else{
+						return true;  // Event happening
+					}
+				}
+				break;
+			case "efects":
+				// if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
+				if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)){	
 					if(!this.readWaitEvent){
 						this.waitEvent = this.currentEvent.tempo * 60;
 						this.readWaitEvent = true;
+						
+						//Call one time function explode
+						console.log('Explode...');
+						// (this.currentEvent.coordenadasAlvo[0] * 32)- 16 to center the explosion in the midle of tile
+						var boom = new effect((this.currentEvent.coordenadasAlvo[0] * 32)- 16, (this.currentEvent.coordenadasAlvo[1] * 32) - 16, me.loader.getImage("explosion_64x64"), 64, 64);
+						me.game.add(boom, 5);
+						me.game.sort();
+						
+						// if is a door Open it
+						this.doorLayer = me.game.currentLevel.getLayerByName("door");
+						this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
+						this.doorLayer.clearTile(this.currentEvent.coordenadasAlvo[0],this.currentEvent.coordenadasAlvo[1]);
+						this.collisionLayer.clearTile(this.currentEvent.coordenadasAlvo[0],this.currentEvent.coordenadasAlvo[1]);
+						this.doorLayer = undefined;
+						this.collisionLayer = undefined;
 					}
 					
 					if ( --this.waitEvent < 0 ){
@@ -287,6 +344,25 @@ var NpcEntity = me.ObjectEntity.extend({
 					}
 				}
 				break;
+			// case "reverse":
+				// if( this.currentEvent.caminho == this.currentPath &&  this.path[this.currentPath].length == this.countPath){
+				// // if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)){	
+					// if(!this.readWaitEvent){
+						// this.waitEvent = this.currentEvent.tempo * 60;
+						// this.readWaitEvent = true;
+						// console.log('Reverse...');
+					// }
+					
+					
+					
+					// if ( --this.waitEvent < 0 ){
+						// this.CurrentEventNumber++; // New event
+						// return false;						
+					// }else{
+						// return true;  // Event happening
+					// }
+				// }
+				// break;
 			default:
 				break;
 		}

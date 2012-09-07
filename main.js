@@ -19,6 +19,7 @@ var adsGame =
 			alert("O seu browser não suporta o jogo * Aventura do saber \n Use o Firefox, Chrome ou IE9+ para poder jogar. *");
 			return;
 		}
+
 		
 		//Inicializar formato de música a utilizar
 		me.audio.init("mp3");

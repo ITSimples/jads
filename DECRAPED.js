@@ -413,3 +413,6 @@ function hideMessageLayer()
 		// }
 		
 							// this.wait = this.npcData.pausa.tempo * 60;
+							
+							
+							{"tipo":"trigger","alvo":[6,10], "caminho": 1,"tempo":0}
