@@ -406,6 +406,9 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						//Remove this object
 						me.game.remove(this);
 						
+						//portaPrisao -- Set door open to the prison number
+						prisonBreak[this.triggerData.portaPrisao] = true;
+						
 						// **** TODO - REMOVE KEY  FROM LIST OF ITEMS
 					}else{
 						// console.log("Heroe don't have the key.");

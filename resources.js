@@ -58,6 +58,16 @@ var heroeVelocity = 2 ;
 /*--- END Heroe Configuration ---*/
 
 
+
+/*------------------- 
+Prison Configuration
+-------------------------------- */
+
+//Create global variable to check if prison door is opened or closed
+var prisonBreak = [false,false,false,false];
+
+/*--- END Prision Configuration ---*/
+
 var itemLucky = 20;
 
 // Array with all items from game to load resources - Load from JSON file

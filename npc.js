@@ -62,6 +62,9 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.addAnimation("up", [0,1,2,1]);
 		this.addAnimation("right", [9,10,11]);
 		
+		// Check if this npc is a prisoner 
+		this.prisoner = this.npcData.prisioneiro;
+
 		// Create message box for object to avoid blinking if is a global box
 		this.message = new adsGame.message();
 		
@@ -78,6 +81,8 @@ var NpcEntity = me.ObjectEntity.extend({
 		//Get reverse path from Astar algotithm from pathfinder.js
 		this.reversePath = [[]];
 		this.reversePathNumber = -1 ;
+		// Save path when reverse is used
+		this.cachepath = [[]];
 		
 		//Number of points in the path
 		this.countPath  = 0;
@@ -120,9 +125,11 @@ var NpcEntity = me.ObjectEntity.extend({
 				
 				// Calculate reverse path if event reverse
 				if (this.npcData.coordenadas[pathNumber].reverter){
-					this.reversePath[pathNumber] = adsGame.pathFinder.getPath(start,end,"collision");
+					this.reversePath[pathNumber] = adsGame.pathFinder.getPath(end,start,"collision");
 					this.reversePathNumber = pathNumber;
 					console.log('Calculate reverse path...' , pathNumber);
+					// Keep a cache of normal path...
+					this.cachepath[this.currentPath] = this.path[this.currentPath];
 				}
 			}
 			
@@ -194,7 +201,21 @@ var NpcEntity = me.ObjectEntity.extend({
 		}
 
 		if( moveObject( this ) && !this.stop) {
-			if (this.countPath != this.path[this.currentPath].length){				
+			if (this.countPath != this.path[this.currentPath].length){
+
+					if (this.prisoner){
+						if( prisonBreak[this.npcData.prisao.numero] ){
+							
+							console.log ('Says thx to heroe and.. ');
+							console.log ('Calculate path to freedom... :)');
+							console.log ('Stop being a prisoner...');
+							//Stop being a prisoner...
+							this.prisoner = false;
+						}
+						
+						console.log ('Prisoner ' , this.npcData.nome , ' is arrested at cell ' , this.npcData.prisao.numero ,
+							' and this cell is ' , prisonBreak[this.npcData.prisao.numero] ? 'open' : 'closed' );
+					}
 					//return movement
 					this.accel.x = this.accel.y = this.npcData.velocidade;
 					this.setCurrentAnimation( this.direction );
@@ -210,10 +231,18 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.currentPath++ ;
 				
 				//Test if there is reverse path
-				if (this.reversePathNumber != -1){
-					console.log('There is a reverse path...');
-					this.currentPath = 0;
-					this.path[this.currentPath] = this.reversePath[this.currentPath];
+				if (this.reversePathNumber == this.currentPath){
+					console.log('Reverse path...');
+
+					this.currentPath = 0;					
+					
+					// if (this.cachepath[this.currentPath] == this.path[this.currentPath]){
+						// console.log('Reverse path...');
+						// this.path[this.currentPath] = this.reversePath[this.currentPath];
+					// }else{
+						// console.log('Normal Path...');
+						// this.path[this.currentPath] = this.cachepath[this.currentPath];
+					// }					
 				}
 				// Stop the player
 				if (this.currentPath == this.path.length){
@@ -344,25 +373,6 @@ var NpcEntity = me.ObjectEntity.extend({
 					}
 				}
 				break;
-			// case "reverse":
-				// if( this.currentEvent.caminho == this.currentPath &&  this.path[this.currentPath].length == this.countPath){
-				// // if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)){	
-					// if(!this.readWaitEvent){
-						// this.waitEvent = this.currentEvent.tempo * 60;
-						// this.readWaitEvent = true;
-						// console.log('Reverse...');
-					// }
-					
-					
-					
-					// if ( --this.waitEvent < 0 ){
-						// this.CurrentEventNumber++; // New event
-						// return false;						
-					// }else{
-						// return true;  // Event happening
-					// }
-				// }
-				// break;
 			default:
 				break;
 		}
