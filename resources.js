@@ -66,6 +66,8 @@ Prison Configuration
 //Create global variable to check if prison door is opened or closed
 var prisonBreak = [false,false,false,false];
 
+var prisonDoorTrigger = [false,false,false,false];
+
 /*--- END Prision Configuration ---*/
 
 var itemLucky = 20;

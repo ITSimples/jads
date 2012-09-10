@@ -79,8 +79,9 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.path = [[]];
 		
 		//Get reverse path from Astar algotithm from pathfinder.js
-		this.reversePath = [[]];
+		// this.reversePath = [[]];
 		this.reversePathNumber = -1 ;
+		
 		// Save path when reverse is used
 		this.cachepath = [[]];
 		
@@ -101,7 +102,7 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.waitEvent = 0;
 		
 		//Use this variable to read waitEvent only one time
-		this.readWaitEvent = false;
+		this.readOneTimeEvent = false;
 		
 		//Increment number of events
 		this.CurrentEventNumber = 0;
@@ -111,6 +112,11 @@ var NpcEntity = me.ObjectEntity.extend({
 		
 		// Check if event talk is happening at the moment
 		this.talkEventHappening = false;
+		
+		this.npcEvents = this.npcData.evento;
+		
+		this.npcEscapeEvents = this.npcData.eventoFuga;
+
 
 		//Check NPC movement
 		if (this.npcData.tipoMovimento == "path"){
@@ -125,11 +131,11 @@ var NpcEntity = me.ObjectEntity.extend({
 				
 				// Calculate reverse path if event reverse
 				if (this.npcData.coordenadas[pathNumber].reverter){
-					this.reversePath[pathNumber] = adsGame.pathFinder.getPath(end,start,"collision");
+					// this.reversePath[pathNumber] = adsGame.pathFinder.getPath(end,start,"collision");
 					this.reversePathNumber = pathNumber;
 					console.log('Calculate reverse path...' , pathNumber);
-					// Keep a cache of normal path...
-					this.cachepath[this.currentPath] = this.path[this.currentPath];
+					// // Keep a cache of normal path...
+					// this.cachepath[this.currentPath] = this.path[this.currentPath];
 				}
 			}
 			
@@ -188,15 +194,17 @@ var NpcEntity = me.ObjectEntity.extend({
 				}
 		}
 		
-		if ( this.npcData.nome == "John" || this.npcData.nome == "Lief"){
+		
+		// *** IMPROVE THIS ONE - MAKE IT DINAMIC IF IS PRISONER OR NOT
+		if ( this.npcData.nome == "John" || (this.npcData.nome == "Lief" && prisonDoorTrigger[this.npcData.prisao.numero]) ){
 			//if return true then wait else no wait time then can readwaittime again
-			this.eventHappening = this.npcEvent(this.npcData.evento);
+			this.eventHappening = this.npcEvent( this.npcEvents );
 			
 			// Check if there is a wait time
 			if(this.eventHappening){
 				return;
 			}else{
-				this.readWaitEvent = false;
+				this.readOneTimeEvent = false;
 			}
 		}
 
@@ -211,6 +219,10 @@ var NpcEntity = me.ObjectEntity.extend({
 							console.log ('Stop being a prisoner...');
 							//Stop being a prisoner...
 							this.prisoner = false;
+							
+							//reset event number and execute escape events
+							this.CurrentEventNumber = 0;
+							this.npcEvents = this.npcEscapeEvents;
 						}
 						
 						console.log ('Prisoner ' , this.npcData.nome , ' is arrested at cell ' , this.npcData.prisao.numero ,
@@ -256,13 +268,111 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.updateMovement();
 		this.parent(this);
 	}, // end update
+
+	// *** npcTalkEvent Managment
+	npcTalkEvent : function npcTalkEvent(){
+		// read event wait time 
+		if(!this.readOneTimeEvent){
+			this.waitEvent = this.currentEvent.tempo * 60;
+			this.readOneTimeEvent = true;
+			
+			// Event talk is happening to prevent hide message
+			this.talkEventHappening = true;
+			
+			//Show message
+			this.messageNumber = 0;
+			
+			// Change to calculate the number of conversations on currentevent
+			// this.pauseMessage = Math.floor(this.waitEvent / this.npcData.mensagem.length);
+			this.pauseMessage = Math.floor(this.waitEvent / this.currentEvent.conversa.length);
+			
+		}
+		console.log('this.currentEvent.conversa:' , this.currentEvent.conversa , 'this.messageNumber:' , this.messageNumber );
+		
+		// this.msgData.msg = this.npcData.mensagem[0];
+		// $('.msgText,#hiddenText').html( this.msgData.msg );
+			
+		// Change dialogue depending on the number of messages divided by the waiting time
+		if ( this.waitEvent == ((this.currentEvent.tempo * 60) - (this.pauseMessage * this.messageNumber + 1)) && this.messageNumber < this.npcData.mensagem.length ){
+			this.msgData.msg = this.npcData.mensagem[this.currentEvent.conversa[this.messageNumber]];
+			// $('.msgText').hide();						
+			$('.msgText,#hiddenText').html( this.msgData.msg );
+			// $('.msgText').fadeIn(1000);	
+			this.messageNumber++;
+		}
+		
+		this.message.show(this.msgData);
+		this.showMessage = true;
+		msgShowing = true;
+
+		if ( --this.waitEvent < 0 ){
+			// Hide message
+			this.message.hide();
+			msgShowing = false;
+			this.showMessage = false;
+			
+			// New event
+			this.CurrentEventNumber++;
+			
+			// Event is not happening anymore 
+			this.talkEventHappening = false;
+			
+			return false;  // Event end...~~						
+		}else{
+			return true;  // Event happening
+		}
+	}, // end npcTalkEvent
 	
+	// *** npcWaitEvent Managment
+	npcWaitEvent : function npcWaitEvent(){
+		if(!this.readOneTimeEvent){
+			this.waitEvent = this.currentEvent.tempo * 60;
+			this.readOneTimeEvent = true;						
+		}
+			
+		if ( --this.waitEvent < 0 ){
+			this.CurrentEventNumber++; // New event
+			return false;						
+		}else{
+			return true;  // Event happening
+		}	
+	},	 // end npcWaitEvent
+	
+	// *** npceffectEvent Managment
+	npceffectEvent : function npceffectEvent(){
+		if(!this.readOneTimeEvent){
+			this.waitEvent = this.currentEvent.tempo * 60;
+			this.readOneTimeEvent = true;
+			
+			//Call one time function explode
+			console.log('Explode...');
+			// (this.currentEvent.coordenadasAlvo[0] * 32)- 16 to center the explosion in the midle of tile
+			var boom = new effect((this.currentEvent.coordenadasAlvo[0] * 32)- 16, (this.currentEvent.coordenadasAlvo[1] * 32) - 16, me.loader.getImage("explosion_64x64"), 64, 64);
+			me.game.add(boom, 5);
+			me.game.sort();
+			
+			// if is a door Open it
+			this.doorLayer = me.game.currentLevel.getLayerByName("door");
+			this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
+			this.doorLayer.clearTile(this.currentEvent.coordenadasAlvo[0],this.currentEvent.coordenadasAlvo[1]);
+			this.collisionLayer.clearTile(this.currentEvent.coordenadasAlvo[0],this.currentEvent.coordenadasAlvo[1]);
+			this.doorLayer = undefined;
+			this.collisionLayer = undefined;
+		}
+		
+		if ( --this.waitEvent < 0 ){
+			this.CurrentEventNumber++; // New event
+			return false;						
+		}else{
+			return true;  // Event happening
+		}
+	},	 // end npceffectEvent
 	
 	// *** Event Managment
-	npcEvent : function npcEvent(npcEvents){
+	npcEvent : function npcEvent( npcEvents ){
 		// console.log('this.CurrentEventNumber:' , this.CurrentEventNumber);
-		
-
+				
+		// If no more events return else execute the next event
 		if (this.CurrentEventNumber == npcEvents.length){
 			return;
 		}else{
@@ -273,106 +383,75 @@ var NpcEntity = me.ObjectEntity.extend({
 			case "talk":
 				//**** CHANGE THIS FOR COORDINATES INSTEAD PATH
 				// if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
-				if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)){
-					// read event wait time 
-					if(!this.readWaitEvent){
-						this.waitEvent = this.currentEvent.tempo * 60;
-						this.readWaitEvent = true;
-						
-						// Event talk is happening to prevent hide message
-						this.talkEventHappening = true;
-						
-						//Show message
-						this.messageNumber = 0;
-						
-						// Change to calculate the number of conversations on currentevent
-						// this.pauseMessage = Math.floor(this.waitEvent / this.npcData.mensagem.length);
-						this.pauseMessage = Math.floor(this.waitEvent / this.currentEvent.conversa.length);
-					}
-					
-					// this.msgData.msg = this.npcData.mensagem[0];
-					// $('.msgText,#hiddenText').html( this.msgData.msg );
-						
-					// Change dialogue depending on the number of messages divided by the waiting time
-					if ( this.waitEvent == ((this.currentEvent.tempo * 60) - (this.pauseMessage * this.messageNumber + 1)) && this.messageNumber < this.npcData.mensagem.length ){
-						this.msgData.msg = this.npcData.mensagem[this.currentEvent.conversa[this.messageNumber]];
-						// $('.msgText').hide();						
-						$('.msgText,#hiddenText').html( this.msgData.msg );
-						// $('.msgText').fadeIn(1000);	
-						this.messageNumber++;
-					}
-					
-					this.message.show(this.msgData);
-					this.showMessage = true;
-					msgShowing = true;
-
-					if ( --this.waitEvent < 0 ){
-						// Hide message
-						this.message.hide();
-						msgShowing = false;
-						this.showMessage = false;
-						
-						// New event
-						this.CurrentEventNumber++;
-						
-						// Event is not happening anymore 
-						this.talkEventHappening = false;
-						
-						return false;  // Event end...~~						
+				if( (this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && 
+					 this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)) ||
+					 prisonDoorTrigger[this.npcData.prisao.numero]){
+					if (this.npcTalkEvent()){
+						return true;
 					}else{
-						return true;  // Event happening
+						return false;
 					}
 				}
 				break;
 			case "wait":
 				// if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
 				if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)){	
-					if(!this.readWaitEvent){
-						this.waitEvent = this.currentEvent.tempo * 60;
-						this.readWaitEvent = true;						
-					}
-					
-					
-					
-					if ( --this.waitEvent < 0 ){
-						this.CurrentEventNumber++; // New event
-						return false;						
+					if (this.npcWaitEvent()){
+						return true;
 					}else{
-						return true;  // Event happening
+						return false;
 					}
 				}
 				break;
-			case "efects":
+			case "effect":
 				// if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
 				if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)){	
-					if(!this.readWaitEvent){
-						this.waitEvent = this.currentEvent.tempo * 60;
-						this.readWaitEvent = true;
-						
-						//Call one time function explode
-						console.log('Explode...');
-						// (this.currentEvent.coordenadasAlvo[0] * 32)- 16 to center the explosion in the midle of tile
-						var boom = new effect((this.currentEvent.coordenadasAlvo[0] * 32)- 16, (this.currentEvent.coordenadasAlvo[1] * 32) - 16, me.loader.getImage("explosion_64x64"), 64, 64);
-						me.game.add(boom, 5);
-						me.game.sort();
-						
-						// if is a door Open it
-						this.doorLayer = me.game.currentLevel.getLayerByName("door");
-						this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
-						this.doorLayer.clearTile(this.currentEvent.coordenadasAlvo[0],this.currentEvent.coordenadasAlvo[1]);
-						this.collisionLayer.clearTile(this.currentEvent.coordenadasAlvo[0],this.currentEvent.coordenadasAlvo[1]);
-						this.doorLayer = undefined;
-						this.collisionLayer = undefined;
-					}
-					
-					if ( --this.waitEvent < 0 ){
-						this.CurrentEventNumber++; // New event
-						return false;						
+					if (this.npceffectEvent()){
+						return true;
 					}else{
-						return true;  // Event happening
+						return false;
 					}
 				}
 				break;
+			case "escape":
+				// this.readOneTimeEvent = false;
+				if (this.npcTalkEvent()){
+					
+					return true;
+				}else{
+					// Calculate new path
+					console.log('Calculate path on trigger ...');
+					this.currentPath = this.path.length - 1 ;
+					
+					this.countPath = 0;
+					var start = [ Math.round(this.pos.x/32), Math.round(this.pos.y/32)];
+					var end = this.currentEvent.coordenadas;
+					this.path[this.currentPath] = adsGame.pathFinder.getPath(start,end,"collision");
+					
+					// Stay on waiting room
+					this.reversePathNumber = -1;					
+					return false;
+				}
+				break;	
+			case "giveItem":
+				// this.readOneTimeEvent = false;
+				if (this.npcTalkEvent()){
+					
+					return true;
+				}else{
+					console.log('Give item ...');
+					// Show inventory window
+					adsGame.Inventory.show();
+					// Set isShowInv to true in heroe to avoid double pressed key I when inventory is showed by NPC
+					var player = me.game.getEntityByName('Heroe');
+					player[0].isShowInv = true;
+					player = undefined;
+					// Add item to heroe
+					adsGame.Inventory.addItem( ads_items_data[this.currentEvent.item] );
+					
+					return false;
+				}
+				break;					
 			default:
 				break;
 		}

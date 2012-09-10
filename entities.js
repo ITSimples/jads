@@ -414,7 +414,11 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						// console.log("Heroe don't have the key.");
 						this.message.show(this.msgData);
 						msgShowing = true;
+
 					}	
+					
+					// Set if NPC prisoner talk to heore to avoid to talk again on npc.js
+					prisonDoorTrigger[this.triggerData.portaPrisao] = true;
 				} // End door object
 				
 				// If trigger is a portal object
