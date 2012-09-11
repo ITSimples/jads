@@ -1,13 +1,16 @@
 Aventura do Saber
+-----------------
+
+Game by ITSimples - Francisco Fernandes
 
 Getting
-.......
+------------
 
 $ git clone https://github.com/ITSimples/jads.git
 
 
 License
-.......
+------------
 
 This code is released to the public under a dual license. The full license texts
 are available as follows:
@@ -19,14 +22,14 @@ For asset license information, please see AUTHORS.txt.
 
 
 Game Information
-................
+----------------
 
 Este jogo é um RPG ( roleplaying game) com uma característica muito própria para o 
 jogador conseguir os seus objectivos terá que passar vários desafios tais como perguntas 
 ou resolver problemas. Ou seja é um RPG didáctico.
 
 Running
-.......
+-------
 
 Requirements:
 
