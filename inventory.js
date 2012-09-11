@@ -170,9 +170,9 @@
 		
 		// console.log ('Test after remove item. heroeItems:');
 		
-		$.each(heroeItems , function (i, heroeItem) {
-			console.log ('heroeItem[' + i + ']: ' + heroeItem.nome);
-		});
+		// $.each(heroeItems , function (i, heroeItem) {
+			// console.log ('heroeItem[' + i + ']: ' + heroeItem.nome);
+		// });
 			
 		// Reset inComment
 		this.invComment = '';
@@ -220,10 +220,10 @@
 				fullInventory = true; 
 			}
 			
-			console.log ('Test heroeItems:');
-			$.each(heroeItems , function (i, heroeItem) {
-				console.log ('heroeItem[' + i + ']: ' + heroeItem.nome);
-			});
+			// console.log ('Test heroeItems:');
+			// $.each(heroeItems , function (i, heroeItem) {
+				// console.log ('heroeItem[' + i + ']: ' + heroeItem.nome);
+			// });
 		}
 	},
 	
