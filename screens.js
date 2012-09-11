@@ -73,6 +73,9 @@ var PlayScreen = me.ScreenObject.extend(
 	{	
 		// Ler o primeiro nível
 		me.levelDirector.loadLevel("map01");
+		
+		// Show inventory when game start
+		adsGame.Inventory.show();
 
 		// Setup HUD
 		var hudSpace= 80 - ads_HUD_font_size;

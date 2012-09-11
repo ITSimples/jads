@@ -239,10 +239,6 @@ var ItemEntity = me.CollectableEntity.extend({
 			}
 		}else if(fullInventory) {
 			adsGame.Inventory.show();
-			// Set isShowInv to true in heroe to avoid double pressed key I when inventory is full
-			var player = me.game.getEntityByName('Heroe');
-			player[0].isShowInv = true;
-			player = undefined;
 		}
 	}
 });
@@ -407,8 +403,8 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					this.checkSolution = checkSolution;
 					this.isChecked = true;
 					
-					console.log('Test times...' + this.checkSolution);
-					console.log('Remove the item number : ' + itemIndex);
+					// console.log('Test times...' + this.checkSolution);
+					// console.log('Remove the item number : ' + itemIndex);
 					
 					// Remove item from inventory - Index + 1 Slot number
 					if (itemIndex != null)

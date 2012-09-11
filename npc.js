@@ -152,7 +152,7 @@ var NpcEntity = me.ObjectEntity.extend({
 				if (this.npcData.coordenadas[pathNumber].reverter){
 					// this.reversePath[pathNumber] = adsGame.pathFinder.getPath(end,start,"collision");
 					this.reversePathNumber = pathNumber;
-					console.log('Calculate reverse path...' , pathNumber);
+					// console.log('Calculate reverse path...' , pathNumber);
 					// // Keep a cache of normal path...
 					// this.cachepath[this.currentPath] = this.path[this.currentPath];
 				}
@@ -192,7 +192,7 @@ var NpcEntity = me.ObjectEntity.extend({
 		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************
 		var res = me.game.collide( this );
         if( res ) {
-			if( res.obj.name == 'heroe' ) {
+			if( res.obj.name == 'heroe' && !this.eventHappening ) {
 				// this.setCurrentAnimation( 'stand-' + this.direction );
 				this.message.show(this.msgData);
 				this.showMessage = true;
@@ -233,9 +233,9 @@ var NpcEntity = me.ObjectEntity.extend({
 					if (this.prisoner){
 						if( prisonBreak[this.npcData.prisao.numero] ){
 							
-							console.log ('Says thx to heroe and.. ');
-							console.log ('Calculate path to freedom... :)');
-							console.log ('Stop being a prisoner...');
+							// console.log ('Says thx to heroe and.. ');
+							// console.log ('Calculate path to freedom... :)');
+							// console.log ('Stop being a prisoner...');
 							//Stop being a prisoner...
 							this.prisoner = false;
 							
@@ -244,8 +244,8 @@ var NpcEntity = me.ObjectEntity.extend({
 							this.npcEvents = this.npcEscapeEvents;
 						}
 						
-						console.log ('Prisoner ' , this.npcData.nome , ' is arrested at cell ' , this.npcData.prisao.numero ,
-							' and this cell is ' , prisonBreak[this.npcData.prisao.numero] ? 'open' : 'closed' );
+						// console.log ('Prisoner ' , this.npcData.nome , ' is arrested at cell ' , this.npcData.prisao.numero ,
+							// ' and this cell is ' , prisonBreak[this.npcData.prisao.numero] ? 'open' : 'closed' );
 					}
 					//return movement
 					this.accel.x = this.accel.y = this.npcData.velocidade;
@@ -306,7 +306,8 @@ var NpcEntity = me.ObjectEntity.extend({
 			this.pauseMessage = Math.floor(this.waitEvent / this.currentEvent.conversa.length);
 			
 		}
-		console.log('this.currentEvent.conversa:' , this.currentEvent.conversa , 'this.messageNumber:' , this.messageNumber );
+		
+		// console.log('this.currentEvent.conversa:' , this.currentEvent.conversa , 'this.messageNumber:' , this.messageNumber );
 		
 		// this.msgData.msg = this.npcData.mensagem[0];
 		// $('.msgText,#hiddenText').html( this.msgData.msg );
@@ -439,7 +440,7 @@ var NpcEntity = me.ObjectEntity.extend({
 					return true;
 				}else{
 					// Calculate new path
-					console.log('Calculate path on trigger ...');
+					// console.log('Calculate path on trigger ...');
 					this.currentPath = this.path.length - 1 ;
 					
 					this.countPath = 0;
@@ -458,13 +459,13 @@ var NpcEntity = me.ObjectEntity.extend({
 					
 					return true;
 				}else{
-					console.log('Give item ...');
-					// Show inventory window
-					adsGame.Inventory.show();
-					// Set isShowInv to true in heroe to avoid double pressed key I when inventory is showed by NPC
-					var player = me.game.getEntityByName('Heroe');
-					player[0].isShowInv = true;
-					player = undefined;
+					
+					// Show inventory window if is not open
+					if (!adsGame.Inventory.isShowing){
+						adsGame.Inventory.show();
+						console.log('Inventory is not showing...');
+					}
+					
 					// Add item to heroe
 					adsGame.Inventory.addItem( ads_items_data[this.currentEvent.item] );
 					

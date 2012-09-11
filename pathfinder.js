@@ -32,7 +32,8 @@ adsGame.pathFinder =  Object.extend({
 	
 	"getPath" : function getPath( start, end , layerName){
 		
-		console.log('Start:', start , 'End:', end , 'layerName:', layerName);
+		// console.log('Start:', start , 'End:', end , 'layerName:', layerName);
+		
 		// Get layer object
 		var layer = me.game.currentLevel.getLayerByName("collision");
 		

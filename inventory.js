@@ -37,7 +37,7 @@
 		this.slotsMap = [-1,-1,-1,-1,-1,-1,-1,-1,-1];
 		
 		//Comment on inventory
-		this.invComment = 'Inventario Vazio.';
+		this.invComment = " 'I' Esconder inventário.";
 		
 		// Create html in inventoryLayer DIV
 		var $messageBoxHtml = (	'<img class="invImage" src="" alt="">' +
@@ -94,6 +94,12 @@
 			});
 		
 			this.isShowing = true;
+			
+			// Set inventory key I when inventory is open without I key
+			// Set isShowInv to true in heroe to avoid double pressed key I 
+			var player = me.game.getEntityByName('Heroe');
+			player[0].isShowInv = true;
+			player = undefined;
 			}
 	},
 	"hide" : function hide() {
@@ -162,7 +168,8 @@
 		// Empty item from heroeItems array
 		heroeItems[itemIndex] = [];
 		
-		console.log ('Test after remove item. heroeItems:');
+		// console.log ('Test after remove item. heroeItems:');
+		
 		$.each(heroeItems , function (i, heroeItem) {
 			console.log ('heroeItem[' + i + ']: ' + heroeItem.nome);
 		});
@@ -339,5 +346,7 @@
 
 			}
 		}
-	}
+	},
+	
+	"isShowing" : this.isShowing,
  });
