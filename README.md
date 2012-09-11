@@ -32,7 +32,7 @@ Requirements:
 
 * A browser supporting HTML5 canvas; Chromium, Firefox, Opera, Safari, ...
 
-
+GAME URL : http://jads.itsimples.pt/
 
 
 Level Editor
