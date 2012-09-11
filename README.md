@@ -33,7 +33,7 @@ Requirements:
 * A browser supporting HTML5 canvas; Chromium, Firefox, Opera, Safari, ...
 
 
-Just go to [the snapshot](http://parasyte.kodewerx.org/projects/neverwell-moor/) ;)
+
 
 Level Editor
 ------------
