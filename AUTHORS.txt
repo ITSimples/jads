@@ -1,0 +1,136 @@
+Code authors
+************
+
+This program was written by the following people:
+ - Francisco Fernandes
+
+
+Libraries used
+********************
+
+Olivier Biot
+ - melonJS
+
+// (C) Andrea Giammarchi
+//	Special thanks to Alessandro Crugnola [www.sephiroth.it]
+ - astar.js
+
+
+Asset attribution
+*****************
+
+Assets were authored by the following people:
+
+Must be on credits when game finished
+
+Interior Tile Set:
+
+"Art Collection Title" art by Daniel Cook (Lostgarden.com)
+
+
+author name "REFMAP":
+website (http://www.tekepon.net/fsm) 
+Resources REFMAP used in game:
+
+-bee.png
+-death.png
+-diablo.png
+-diablo02.png
+-diablo03.png
+-doorcheck.png
+-eye.png
+-e_female01.png
+-e_female01_face.png
+-e_male01.png
+-e_male01_face.png
+-e_male02.png
+-e_male02_face.png
+-e_male03.png
+-e_male03_face.png
+-flame.png
+-f_female01.png
+-f_female01_face.png
+-f_female02.png
+-f_female02_face.png
+-f_male01.png
+-f_male01_face.png
+-f_male02.png
+-f_male02_face.png
+-f_male03.png
+-f_male03_face.png
+-f_male04.png
+-f_male04_face.png
+-goblin.png
+-goblin02.png
+-golem.png
+-heroe.png
+-heroe_face.png
+-Hudbg.png
+-h_female01.png
+-h_female01_face.png
+-h_female02.png
+-h_female02_face.png
+-h_female03.png
+-h_female03_face.png
+-h_female04.png
+-h_female04_face.png
+-h_male01.png
+-h_male01_face.png
+-h_male02.png
+-h_male02_face.png
+-h_male03.png
+-h_male03_face.png
+-h_male04.png
+-h_male04_face.png
+-Iceman.png
+-kid_female.png
+-kid_female_face.png
+-kid_male.png
+-kid_male_face.png
+-king.png
+-king_face.png
+-list_images.txt
+-mushroom.png
+-print.txt
+-queen.png
+-queen_face.png
+-skull.png
+-sleleton.png
+-snake.png
+-stoneman.png
+-tiles.png
+-villain.png
+-villain_face.png
+-wolf.png
+
+
+
+medievil stuff tileset pack by benja6678
+download from http://sandbox.yoyogames.com/resources?cat_id=3
+
+-items\banana.png
+-items\botas.png
+-items\cenoura.png
+-items\chaveosso.png
+-items\colarunicornio.png
+-items\fruta.png
+-items\lanca.png
+-items\livro2.png
+-items\livroazul.png
+-items\maca.png
+-items\manuscrito.png
+-items\moedas.png
+-items\pao.png
+-items\pera.png
+-items\pocao1.png
+-items\pocao2.png
+-items\pocao3.png
+-items\pocao4.png
+-items\pocaoazul.png
+-items\presunto.png
+-items\vegetais.png
+-items\vinho1.png
+-items\vinho2.png
+
+
+
