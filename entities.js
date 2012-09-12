@@ -584,7 +584,8 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
     },
     
     createProjectil: function () {
-      var projectil = new projectilEntity(this.pos.x + 9 , this.pos.y + 33, projectilsData[this.throwerData.numeroProjectil]);
+		console.debug( "Info projectil", adsGame.data.projectils, this.throwerData);
+      var projectil = new projectilEntity(this.pos.x + 9 , this.pos.y + 33, adsGame.data.projectils[this.throwerData.numeroProjectil]);
       me.game.add(projectil, 6);
       me.game.sort.defer();
     }
@@ -603,7 +604,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
     init: function (x, y, projectilData) {
 		
 		this.projectilData = projectilData;
-
+		console.debug( "Projectil", projectilData );
 		var settings = this.projectilData.configuracoes;
 		this.parent(x, y, settings);
 

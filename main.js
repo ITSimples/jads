@@ -30,7 +30,7 @@ HTTP://www.itsimples.com  - change to ITSimples Games
 var adsGame = 
 { 
 	// Inicializar o Jogo
-	onload:function()
+	onload:function( game_data )
 	{
 		//Inicializar resolução e teste se browser suporta o jogo
 		if(!me.video.init('adsGame',ads_width,ads_height,false,1.0)){
@@ -62,12 +62,15 @@ var adsGame =
 		// adsGame.message = new adsGame.message();
 		
 		//Create Inventory box object
+		adsGame.data = game_data;
 		adsGame.Inventory = new adsGame.Inventory();
 		
 		adsGame.pathFinder = new  adsGame.pathFinder();
 
 	},
-	
+	reboot:function(){
+		this.data = null;
+	},
 	loaded:function()
 	{
 		// Definir estado Menu 
@@ -287,10 +290,10 @@ function randomInt( min, max )
 }
 
 //bootstrap :)
-window.onReady(function() 
-{
-	$.getJSON(ads_json_files + "gamedata.json",function(data)
+//window.onReady(function(){
+	var init_game = function(data)
 	{
+
 		// Inicializar variável para ler recursos dos items
 		var countNpc = 0;
 		var countItems = 0;
@@ -350,13 +353,9 @@ window.onReady(function()
 			countThrow++;
 			throwersData.push(data);		
 		});
-
+		
 		//Get projectilData data
-		$.each(data.projectils, function(i,data)
-		{
-			countProjectil++;
-			projectilsData.push(data);		
-		});
+		projectilsData = data.projectils;
 		
 
 		// console.log("Carregados " + countItems + " Items");
@@ -368,6 +367,19 @@ window.onReady(function()
 		// console.log("Carregados " + countQtn + " Questions");
 		// console.log("adsQtnData " + adsQtnData + " .");
 		
-		adsGame.onload();
-	});
+		adsGame.onload( data );
+	};
+$( function(){
+	$.get( ads_json_files + "gamedata.json" )
+		.done( function( data ){
+			if( typeof data != "object" ){
+				alert( "Data is invalid" );
+			}
+			console.debug( "recebi o seguinte", data );
+			init_game( data );
+			
+		})
+		.fail( function(){
+			alert( "Invalid DATA file!" );
+		})
 });
