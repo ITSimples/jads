@@ -132,5 +132,8 @@ download from http://sandbox.yoyogames.com/resources?cat_id=3
 -items\vinho1.png
 -items\vinho2.png
 
+Boysano :
+
+fire.png
 
 

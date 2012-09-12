@@ -275,8 +275,15 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					// Total of items
 					total_items = ads_items_data.length - 1;
 					
-					//random a item
-					random_item = Number.prototype.random(0, total_items);
+					// If is a mission item don't spawn
+					do
+					  {
+						//random a item
+						random_item = Number.prototype.random(0, total_items);
+					  }
+					while ( ads_items_data[random_item].categoria == "itemMissao" );
+					
+					
 
 					if ( item_probability == Math.round(itemLucky / 2) ){						
 						//Test if not a trigger or special item or born heroe
@@ -285,11 +292,16 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 							if (data.coordinates.x == x && data.coordinates.y == y)
 								isCollide = true;
 						});
+						
+						
+						
+						//Improve thi is to not spwan items on mission tiles
 						//special item
 						$.each(specialItemsData, function(i, data){
 							if (data.coordinates.x == x && data.coordinates.y == y)
 								isCollide = true;
-						});						
+						});	
+						
 						//Heroe born
 						if (x == 6 && y == 5)
 								isCollide = true;
@@ -469,7 +481,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 });
 
 // **************************************
-// ****  TEST INVISIBLE ENTITY SPAWN ****
+// ****  INVISIBLE ENTITY SPAWN ****
 // **************************************
 var TriggerSpawnEntity = me.InvisibleEntity.extend({
 	//Constructor
@@ -503,4 +515,160 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		// me.game.sort();
 	}
 });
+// **************************************
+// ****  END INVISIBLE ENTITY SPAWN ****
+// **************************************
 
+// **************************************
+// ****  THROWERS ENTITY 				 ****
+// **************************************
+
+  var throwersEntity = me.ObjectEntity.extend({
+    
+	init: function (x, y, throwerData) {
+
+		this.throwerData = throwerData;
+
+		var settings = this.throwerData.configuracoes;
+	 
+		this.parent(x, y , settings);
+
+		this.collidable = false;
+		this.isSolid = true;
+		
+		// disable gravity
+		this.gravity = 0;
+
+		this.addAnimation("default", this.throwerData.animacoes.parado );
+		this.addAnimation("throw", this.throwerData.animacoes.animado );
+		this.setCurrentAnimation("default");
+
+		this.animationspeed = this.throwerData.animacoes.velocidade ;
+
+		this.resetThrowDurationAndTimer();
+	},
+    
+	update: function () {
+		this.updateThrowTimer();
+		// check & update player movement
+		updated = this.updateMovement();
+
+		// update animation
+		if (updated)
+		{
+			// Actualizar animação
+			this.parent(this);
+		}
+
+		return updated;
+	},
+    
+    updateThrowTimer: function () {
+      this.throwTimer++;
+      if (this.throwTimer > this.throwDuration) {
+        this.resetThrowDurationAndTimer();
+        this.throwProjectil();
+      }
+    },
+    
+    throwProjectil: function () {
+      this.setCurrentAnimation("throw", "default");
+      this.createProjectil();
+      // me.audio.play("shot1");
+    },
+    
+    resetThrowDurationAndTimer: function () {
+	  // Set throw interval between shots
+      this.throwDuration = randomInt(this.throwerData.intervaloTempoDisparo[0], this.throwerData.intervaloTempoDisparo[1]);
+      this.throwTimer = 0;
+    },
+    
+    createProjectil: function () {
+      var projectil = new projectilEntity(this.pos.x + 9 , this.pos.y + 33, projectilsData[this.throwerData.numeroProjectil]);
+      me.game.add(projectil, 6);
+      me.game.sort.defer();
+    }
+    
+  });
+  
+// **************************************
+// ****  END THROWERS ENTITY 			 ****
+// **************************************  
+  
+// **************************************
+// ****  PROJECTIL ENTITY 			 ****
+// ************************************** 
+   var projectilEntity = me.ObjectEntity.extend({
+    
+    init: function (x, y, projectilData) {
+		
+		this.projectilData = projectilData;
+
+		var settings = this.projectilData.configuracoes;
+		this.parent(x, y, settings);
+
+		this.gravity = 0;
+		this.vel.y = 1;
+		this.removeLive = 3;
+    },
+    
+    update: function () {
+		// check & update player movement
+		updated = this.updateMovement();
+
+		// update animation
+		if (updated)
+		{
+			// Actualizar animação
+			this.parent(this);
+		}
+
+		this.handleCollisions();
+		
+		return updated;
+    },
+    
+    handleCollisions: function () {
+      var res = me.game.collide(this);
+      
+	if (this.vel.y == 0 || (res && (res.obj.isSolid || res.obj.name == "heroe"))) {
+
+	if (res && res.obj.name == "heroe" ) {
+		me.game.HUD.updateItemValue(this.projectilData.atualizarHUD.tipo, 
+									-(parseInt(this.projectilData.atualizarHUD.valor)));
+	}								
+		me.game.remove(this);
+	}
+		
+		 
+    }
+    
+  });
+  
+// **************************************
+// ****  END PROJECTIL ENTITY 		*****
+// **************************************
+
+
+// **************************************
+// ****  THROWERS ENTITY SPAWN ****
+// **************************************
+var ThrowersSpawnEntity = me.InvisibleEntity.extend({
+	//Constructor
+	init: function( x , y , settings){
+		// call the parent constructor
+		this.parent(x, y, settings);
+		
+		
+		// Adicionar items na camada 4
+		$.each( throwersData, function(i, throwerData){
+			thrower = new throwersEntity( throwerData.coordenadas.x * 32 , throwerData.coordenadas.y * 32, throwerData);
+			me.game.add(thrower,5);
+			me.game.sort.defer();
+		});	
+
+	}
+});
+// **************************************
+// ****  END THROWERS ENTITY SPAWN ****
+// **************************************   

@@ -73,6 +73,8 @@ Heroe Configuration
 
 var heroeVelocity = 2 ;
 
+var itemLucky = 20;
+
 /*--- END Heroe Configuration ---*/
 
 
@@ -86,9 +88,15 @@ var prisonBreak = [false,false,false,false];
 
 var prisonDoorTrigger = [false,false,false,false];
 
-/*--- END Prision Configuration ---*/
+/*------------------- 
+End Prison Configuration
+-------------------------------- */
 
-var itemLucky = 20;
+
+
+/*------------------- 
+KEEP DATA IN ARRAY FROM JSON FILE
+-------------------------------- */
 
 // Array with all items from game to load resources - Load from JSON file
 // {name: "****",type: "image",src: "*****"},
@@ -105,6 +113,16 @@ var triggersData = [];
 
 // Keep all information where to place the special items (coordinates and value)
 var specialItemsData = [];
+
+// Keep all information where to place the Throwers 
+var throwersData = [];
+
+// Keep all information where to place the Throwers 
+var projectilsData = [];
+
+
+
+
 
 // To solve problem with messageBox keeping blink - If is collide with a trigger avoid the others to hide message box
 // also setup in NPC - set allways when message is showinf
@@ -192,8 +210,11 @@ var ads_resources =
 	// {name: "villain",	type: "image",	src: ads_sprites_path + "villain.png"},
 	// {name: "wolf",	type: "image",	src: ads_sprites_path + "wolf.png"},
 	{name: "items1",	type: "image",	src: ads_items_path + "fruta.png"},
+	{name: "fire01", 	type: "image",src: ads_sprites_path + "fire01.png"},
+	{name: "thrower01", 	type: "image",src: ads_sprites_path + "thrower01.png"},
 	{name: "explosion_32x32", 	type: "image",src: ads_effects_path + "explosion_32x32.png"},
 	{name: "explosion_64x64", 	type: "image",src: ads_effects_path + "explosion_64x64.png"}
+	
 ];
 
 

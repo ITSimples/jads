@@ -84,6 +84,7 @@ var adsGame =
 		me.entityPool.add("items_spawn", ItemSpawnEntity);
 		me.entityPool.add("npc_spawn", NpcSpawnEntity);
 		me.entityPool.add("doors_spawn", TriggerSpawnEntity);
+		me.entityPool.add("throwers_spawn", ThrowersSpawnEntity);
 		
 		// Configurar teclas a usar, False - Lê mais que uma vez True - Lê várias vezes.
 		// Usar true por exemplo para lutar...
@@ -295,6 +296,8 @@ window.onReady(function()
 		var countItems = 0;
 		var countTrg = 0;
 		var countSI = 0;
+		var countThrow = 0;
+		var countProjectil = 0;
 		var ads_items_tmp=[];
 		// console.log("Loaded... A");
 		
@@ -334,11 +337,25 @@ window.onReady(function()
 			triggersData.push(data);		
 		});
 		
-		//Get triggers data
+		//Get specialItems data
 		$.each(data.specialItems, function(i,data)
 		{
 			countSI++;
 			specialItemsData.push(data);		
+		});
+
+		//Get throwers data
+		$.each(data.throwers, function(i,data)
+		{
+			countThrow++;
+			throwersData.push(data);		
+		});
+
+		//Get projectilData data
+		$.each(data.projectils, function(i,data)
+		{
+			countProjectil++;
+			projectilsData.push(data);		
 		});
 		
 
