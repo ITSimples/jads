@@ -30,7 +30,7 @@ HTTP://www.itsimples.com  - change to ITSimples Games
 var adsGame = 
 { 
 	// Inicializar o Jogo
-	onload:function( game_data )
+	onload:function()
 	{
 		//Inicializar resolução e teste se browser suporta o jogo
 		if(!me.video.init('adsGame',ads_width,ads_height,false,1.0)){
@@ -61,8 +61,10 @@ var adsGame =
 		//Create message box object
 		// adsGame.message = new adsGame.message();
 		
+		// New structure for game
+		// adsGame.data = game_data;
+		
 		//Create Inventory box object
-		adsGame.data = game_data;
 		adsGame.Inventory = new adsGame.Inventory();
 		
 		adsGame.pathFinder = new  adsGame.pathFinder();
@@ -115,7 +117,7 @@ var adsGame =
 		me.state.change(me.state.PLAY);
 		
 	}
-} // END ****  adsGame *******
+}; // END ****  adsGame *******
 
 
 // *** Improve Speed of question box
@@ -276,6 +278,38 @@ function moveObject( object )
     return false;
 }
 
+/**
+ * move object in circle
+ *
+ * @param object
+ * @return bool / check, if object reached it's goal
+ */
+function moveObjectCircle( object )
+{
+	if (object !== null){
+        // Update the object     
+        // this.vel.y += this.gravity ;
+		if (launchAngle == 360) launchAngle = 0;
+
+		var x_pos = object.pos.x + (90 * Math.sin(Number.prototype.degToRad(launchAngle)));
+		var y_pos = object.pos.y + (90 * Math.cos(Number.prototype.degToRad(launchAngle)));
+		var x_pos_add = object.pos.x + (90 * Math.sin(Number.prototype.degToRad(launchAngle + 1)));
+		var y_pos_add = object.pos.y + (90 * Math.cos(Number.prototype.degToRad(launchAngle + 1)));
+		x_pos = Math.round(x_pos_add) - Math.round(x_pos);
+		y_pos = Math.round(y_pos_add) - Math.round(y_pos);
+		
+		// **** temos que ver a direção e andar em x em y positivo ou negativo
+ 		
+		// console.log("x: " + x_pos + " Y: " + y_pos); 
+		object.vel.x = (object.accel.x * me.timer.tick) + x_pos;
+		object.vel.y = (object.accel.y * me.timer.tick) + y_pos;
+		launchAngle += 1;
+		
+		return true;
+	}else{
+		return false;
+	}
+}
 
 /*
 -----------------------------------
@@ -300,7 +334,6 @@ function randomInt( min, max )
 		var countTrg = 0;
 		var countSI = 0;
 		var countThrow = 0;
-		var countProjectil = 0;
 		var ads_items_tmp=[];
 		// console.log("Loaded... A");
 		
@@ -315,6 +348,7 @@ function randomInt( min, max )
 			data.itemIndex = i;
 			ads_items_data.push(data);
 		});
+		
 		
 		// Copy array ads_items_tmp to ads_items_final to load resouce items
 		load_ads_items = ads_items_tmp.slice();
@@ -354,7 +388,7 @@ function randomInt( min, max )
 			throwersData.push(data);		
 		});
 		
-		//Get projectilData data
+		//Get projectilData data - It's not necessary $.each
 		projectilsData = data.projectils;
 		
 
@@ -367,7 +401,10 @@ function randomInt( min, max )
 		// console.log("Carregados " + countQtn + " Questions");
 		// console.log("adsQtnData " + adsQtnData + " .");
 		
-		adsGame.onload( data );
+		// Implement with a new level
+		// adsGame.onload( data );
+		
+		adsGame.onload();
 	};
 $( function(){
 	$.get( ads_json_files + "gamedata.json" )
@@ -375,11 +412,11 @@ $( function(){
 			if( typeof data != "object" ){
 				alert( "Data is invalid" );
 			}
-			console.debug( "recebi o seguinte", data );
+			// console.debug( "recebi o seguinte", data );
 			init_game( data );
 			
 		})
 		.fail( function(){
 			alert( "Invalid DATA file!" );
-		})
+		});
 });

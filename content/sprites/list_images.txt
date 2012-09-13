@@ -1,4 +1,4 @@
-doorcheck.png bee.png	
+beeheve.png snakehole.png doorcheck.png bee.png	
 death.png
 diablo.png
 diablo02.png

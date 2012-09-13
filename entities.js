@@ -66,9 +66,8 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		// Define point of click on mouse :
 		this.dest_point_X = 0;
-		this.dest_point_Y = 0; 
-				 
-				 
+		this.dest_point_Y = 0;
+		
 		// Viewport follow heroe
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 		
@@ -95,24 +94,24 @@ var HeroeEntity = me.ObjectEntity.extend({
 		else if (me.input.isKeyPressed('right'))
 		{
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
-			this.vel.x = this.accel.x * me.timer.tick 
-			this.setCurrentAnimation('right')
-			this.direction = 'right'
+			this.vel.x = this.accel.x * me.timer.tick; 
+			this.setCurrentAnimation('right');
+			this.direction = 'right';
 		}
 
 		if (me.input.isKeyPressed('up'))
 		{
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
-			this.vel.y = -this.accel.y * me.timer.tick 
-			this.setCurrentAnimation('up')
-			this.direction = 'up'
+			this.vel.y = -this.accel.y * me.timer.tick; 
+			this.setCurrentAnimation('up');
+			this.direction = 'up';
 		}
 		else if (me.input.isKeyPressed('down'))
 		{
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
-			this.vel.y = this.accel.y * me.timer.tick 
-			this.setCurrentAnimation('down')
-			this.direction = 'down'
+			this.vel.y = this.accel.y * me.timer.tick; 
+			this.setCurrentAnimation('down');
+			this.direction = 'down';
 		}
 			
 		// If keypressed I then open the inventory
@@ -130,9 +129,9 @@ var HeroeEntity = me.ObjectEntity.extend({
 		}
 	
 		// If player Stop set stand animationa
-		if (this.vel.y == 0 && this.vel.x == 0)
+		if (this.vel.y === 0 && this.vel.x === 0)
 		{
-			this.setCurrentAnimation('stand-' + this.direction)
+			this.setCurrentAnimation('stand-' + this.direction);
 		}
 
 		// If question box is showing then stop the player
@@ -224,13 +223,13 @@ var ItemEntity = me.CollectableEntity.extend({
 					//Keep data for all items found by the heroe less gold and knowledge increment right away
 					if (this.items_data.categoria == 'ouro' ||
 						this.items_data.categoria == 'conhecimento'){
-						me.game.HUD.updateItemValue(this.items_data.categoria, (parseInt(this.items_data.valor)));
+						me.game.HUD.updateItemValue(this.items_data.categoria , parseInt(this.items_data.valor, 10));
 					}else{
 						adsGame.Inventory.addItem( this.items_data );
 					}						
 					hideQuestionLayer('C');
-				}else if(heroeAnswer != 0){ // if heroe answer to the question but it's not the correct one
-					me.game.HUD.updateItemValue(this.items_data.categoria, -(parseInt(this.items_data.valor)));
+				}else if(heroeAnswer !== 0){ // if heroe answer to the question but it's not the correct one
+					me.game.HUD.updateItemValue(this.items_data.categoria, -(parseInt(this.items_data.valor,10)));
 					hideQuestionLayer('W');
 				}else{ // If heroe doesn't answer to the question
 					hideQuestionLayer('D');
@@ -261,15 +260,15 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		var background_layer = me.game.currentLevel.getLayerByName("background");
 		
 		// parse all the collision layer tiles 
-		for ( var x = 0; x < collision_layer.width; x++) 
-		{ 	
-			for ( var y = 0; y < collision_layer.height; y++) 
-		   { 
+		for ( x = 0; x < collision_layer.width; x++) 
+		{
+			for ( y = 0; y < collision_layer.height; y++) 
+			{
 				var testTileCollision = collision_layer.layerData[x][y];
 				var testTileBackground = background_layer.layerData[x][y];
 
 				// If tile of layer collision is null then we can put an item
-				if (testTileCollision == null && testTileBackground != null){
+				if (testTileCollision === null && testTileBackground !== null){
 					// Item probability
 					var item_probability = Number.prototype.random(0, itemLucky);
 					// Total of items
@@ -277,10 +276,10 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					
 					// If is a mission item don't spawn
 					do
-					  {
+					{
 						//random a item
 						random_item = Number.prototype.random(0, total_items);
-					  }
+					}
 					while ( ads_items_data[random_item].categoria == "itemMissao" );
 					
 					
@@ -308,7 +307,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 						
 						if (!isCollide)
 						{
-							item[count] = new ItemEntity(parseInt(32*x), parseInt(32*y), 
+							item[count] = new ItemEntity(parseInt(32*x ,10), parseInt(32*y ,10), 
 									{image: ads_items_data[random_item].imagem.replace(".png",""),
 									spritewidth: 32, spriteheight: 32}, ads_items_data[random_item]);
 							count++;
@@ -319,8 +318,8 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					}
 				
 				}
-		   } 
-		} 
+			}
+		}
 		
 		// Adicionar items na camada 3
 		$.each(item, function(i, item){
@@ -334,7 +333,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 				// console.log('dataSpecialItem.value: ' + dataSpecialItem.value + '  ads_item_data.valor: ' + ads_item_data.valor);
 				if ( dataSpecialItem.value == ads_item_data.valor)
 				{
-					item = new ItemEntity(parseInt(32*dataSpecialItem.coordinates.x), parseInt(32*dataSpecialItem.coordinates.y), 
+					item = new ItemEntity(parseInt(32*dataSpecialItem.coordinates.x , 10), parseInt(32*dataSpecialItem.coordinates.y ,10), 
 					{image: ads_item_data.imagem.replace(".png",""),
 					spritewidth: 32, spriteheight: 32}, ads_item_data);
 					me.game.add(item,5);
@@ -419,8 +418,8 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					// console.log('Remove the item number : ' + itemIndex);
 					
 					// Remove item from inventory - Index + 1 Slot number
-					if (itemIndex != null)
-						adsGame.Inventory.removeItem( 'Slot0' + (itemIndex + 1) )
+					if (itemIndex !== null)
+						adsGame.Inventory.removeItem( 'Slot0' + (itemIndex + 1) );
 				}
 				// If trigger is a door object
 				if (this.type == 'DOOR_OBJECT'){
@@ -584,8 +583,8 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
     },
     
     createProjectil: function () {
-		console.debug( "Info projectil", adsGame.data.projectils, this.throwerData);
-      var projectil = new projectilEntity(this.pos.x + 9 , this.pos.y + 33, adsGame.data.projectils[this.throwerData.numeroProjectil]);
+		// console.debug( "Info projectil", adsGame.data.projectils, this.throwerData);
+      var projectil = new projectilEntity(this.pos.x + 9 , this.pos.y + 33, projectilsData[this.throwerData.nomeProjectil]);
       me.game.add(projectil, 6);
       me.game.sort.defer();
     }
@@ -604,7 +603,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
     init: function (x, y, projectilData) {
 		
 		this.projectilData = projectilData;
-		console.debug( "Projectil", projectilData );
+		// console.debug( "Projectil", projectilData );
 		var settings = this.projectilData.configuracoes;
 		this.parent(x, y, settings);
 

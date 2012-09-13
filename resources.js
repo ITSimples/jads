@@ -166,7 +166,8 @@ var ads_resources =
 	{name: "mfh", type: "audio",  src: "content/music/", channel: 1},
 	
 	// ---- Sprites ----
-	// {name: "bee",		type: "image",	src: ads_sprites_path + "bee.png"},
+	{name: "bee",		type: "image",	src: ads_sprites_path + "bee.png"},
+	{name: "beehive",		type: "image",	src: ads_sprites_path + "beehive.png"},
 	// {name: "death",	type: "image",	src: ads_sprites_path + "death.png"},
 	// {name: "diablo",	type: "image",	src: ads_sprites_path + "diablo.png"},
 	// {name: "diablo02",	type: "image",	src: ads_sprites_path + "diablo02.png"},
@@ -204,7 +205,8 @@ var ads_resources =
 	// {name: "QuestionTile",type: "image",	src: ads_sprites_path + "QuestionTile.png"},
 	// {name: "skull",	type: "image",	src: ads_sprites_path + "skull.png"},
 	// {name: "sleleton",	type: "image",	src: ads_sprites_path + "sleleton.png"},
-	// {name: "snake",	type: "image",	src: ads_sprites_path + "snake.png"},
+	{name: "snake",	type: "image",	src: ads_sprites_path + "snake.png"},
+	{name: "snakehole",		type: "image",	src: ads_sprites_path + "snakehole.png"},
 	// {name: "stoneman",	type: "image",	src: ads_sprites_path + "stoneman.png"},
 	// {name: "tiles",	type: "image",	src: ads_sprites_path + "tiles.png"},
 	// {name: "villain",	type: "image",	src: ads_sprites_path + "villain.png"},

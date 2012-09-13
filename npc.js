@@ -162,6 +162,8 @@ var NpcEntity = me.ObjectEntity.extend({
 			// First destination on array path
 			this.destX = this.path[0][0][0] * 32;
 			this.destY = this.path[0][0][1] * 32;	
+		}else if (this.npcData.tipoMovimento == "circle"){
+			
 		}else{
 			//*32 to convert tile position to map coordinates
 			// If NPC movement is between two points only
