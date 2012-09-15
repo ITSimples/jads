@@ -29,6 +29,11 @@ var HeroeEntity = me.ObjectEntity.extend({
 		// Chamar o contrutor
 		this.parent(x, y , settings);
 		
+		//Debug Position
+		
+		this.pos.x = 36 * 32;
+		this.pos.y = 48 * 32;
+		
 		// This move
 		this.movemouse = false;
 		
@@ -583,10 +588,16 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
     },
     
     createProjectil: function () {
-		// console.debug( "Info projectil", adsGame.data.projectils, this.throwerData);
-      var projectil = new projectilEntity(this.pos.x + 9 , this.pos.y + 33, projectilsData[this.throwerData.nomeProjectil]);
-      me.game.add(projectil, 6);
-      me.game.sort.defer();
+	
+		//Create a random velocity for each projectil created
+		projectilsData[this.throwerData.nomeProjectil].velocity = randomInt(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
+		
+		//Receive witch type of path the projectil must follow
+		projectilsData[this.throwerData.nomeProjectil].movimento = this.throwerData.movimento;
+		
+		var projectil = new projectilEntity(this.pos.x + 9 , this.pos.y + 33, projectilsData[this.throwerData.nomeProjectil]);
+		me.game.add(projectil, 6);
+		me.game.sort.defer();
     }
     
   });
@@ -605,14 +616,79 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		this.projectilData = projectilData;
 		// console.debug( "Projectil", projectilData );
 		var settings = this.projectilData.configuracoes;
+		
 		this.parent(x, y, settings);
 
 		this.gravity = 0;
-		this.vel.y = 1;
-		this.removeLive = 3;
+		
+		// this.collidable = true;
+		
+		//Define if object moves in all directions
+		this.testDirection = false;
+		
+		// If the projectil move in all directions then add animation if not set one animation
+		if (typeof(this.projectilData.animacoes.anima) != 'undefined' && this.projectilData.animacoes.anima != null){
+			this.addAnimation("default", this.projectilData.animacoes.parado );
+			this.addAnimation("down", this.projectilData.animacoes.anima.baixo );
+			this.addAnimation("up", this.projectilData.animacoes.anima.cima );
+			this.addAnimation("left", this.projectilData.animacoes.anima.esquerda );
+			this.addAnimation("right", this.projectilData.animacoes.anima.direita );
+			
+			//If projectil moves in all directions
+			this.testDirection = true;
+		}else{
+			this.addAnimation("anime", this.projectilData.animacoes.animaTodasDirecoes );
+			this.addAnimation("default", this.projectilData.animacoes.parado );
+		}
+		
+		this.currentAnimation = "";
+		
+		this.setCurrentAnimation("default");
+		
+		switch (this.projectilData.movimento){
+			case "down":
+				this.vel.y = this.projectilData.velocity;
+			break;
+			
+			case "up":
+				this.vel.y = -this.projectilData.velocity;
+			break;
+			
+			case "left":
+				this.vel.x = -this.projectilData.velocity;
+			break;
+			
+			case "right":
+				this.vel.x = this.projectilData.velocity;
+			break;	
+
+			case "random":
+					this.randomMovement();
+			break;
+
+			
+			default:
+			break;
+		}
+		
+		// console.log('Create object...');
+		// If you want add time before destroy object must be interesting
+		this.timeToDestroy = 0;
     },
     
     update: function () {
+	
+		this.timeToDestroy++;
+	
+		//Update animation
+		if (this.testDirection){
+			this.setCurrentAnimation(this.currentAnimation);
+		}else{
+			this.setCurrentAnimation("anime");
+		}
+		
+		this.handleCollisions();
+		
 		// check & update player movement
 		updated = this.updateMovement();
 
@@ -622,26 +698,101 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			// Actualizar animação
 			this.parent(this);
 		}
-
-		this.handleCollisions();
 		
 		return updated;
     },
     
     handleCollisions: function () {
-      var res = me.game.collide(this);
-      
-	if (this.vel.y == 0 || (res && (res.obj.isSolid || res.obj.name == "heroe"))) {
-
-	if (res && res.obj.name == "heroe" ) {
-		me.game.HUD.updateItemValue(this.projectilData.atualizarHUD.tipo, 
-									-(parseInt(this.projectilData.atualizarHUD.valor)));
-	}								
-		me.game.remove(this);
-	}
+	
+		if (this.timeToDestroy >  this.projectilData.tempoDeVida ){
+			this.timeToDestroy = 0;
+			//Remove object
+			me.game.remove(this);
+			return;
+		}
+		var res = me.game.collide(this);
 		
-		 
-    }
+		if ((this.vel.x === 0 && this.vel.y === 0) || res) {
+
+			if (res && res.obj.name == "heroe" ) {
+				me.game.HUD.updateItemValue(this.projectilData.atualizarHUD.tipo, 
+											-(parseInt(this.projectilData.atualizarHUD.valor)));
+											console.log('Destroy object...' , res.obj.isSolid);
+											
+				//Remove object
+				me.game.remove(this);
+				return;
+			}
+			
+			if (res && res.obj.name != "heroe" ){
+				return;
+			}
+			
+
+			//Remove object if velocity == 0
+			me.game.remove(this);
+			
+			return;
+		} 
+		
+		
+		var myLayer = me.game.currentLevel.getLayerByName("collision");
+		
+		
+		var multiplierX = 0;
+		var multiplierY = 0;
+		
+		if (this.vel.x > 0) {
+			multiplierX = 1;
+		}else{
+			multiplierX = -1;
+		}
+		
+		if (this.vel.y > 0) {
+			multiplierY = 1;
+		}else{
+			multiplierY = -1;
+		}
+		
+		
+		var posX = (this.projectilData.configuracoes.spritewidth * multiplierX ) + this.pos.x;
+		var posY = (this.projectilData.configuracoes.spriteheight * multiplierY ) + this.pos.y;
+			
+		
+		var myTile = myLayer.getTile( posX , posY);
+		
+		
+		if (myTile != null){
+			if(this.projectilData.movimento === "random"){
+				this.randomMovement();			
+			}else{
+				//Remove object
+				me.game.remove(this);
+				console.log( 'remove' );
+			}
+			
+		}		
+    },
+
+    randomMovement: function () {	
+	
+		this.vel.x = randomInt(-this.projectilData.velocity , this.projectilData.velocity , 10);
+		this.vel.y = randomInt(-this.projectilData.velocity , this.projectilData.velocity , 10);
+		
+		if ((this.vel.x < 0 && this.vel.y < 0) || 
+			(this.vel.x < 0 && this.vel.y > 0) ||
+			(this.vel.x < 0 && this.vel.y == 0)){
+			this.currentAnimation = "left";
+		}else if((this.vel.x > 0 && this.vel.y < 0) || 
+			(this.vel.x > 0 && this.vel.y > 0) ||
+			(this.vel.x > 0 && this.vel.y == 0)){
+			this.currentAnimation = "right";
+		} else if(this.vel.x == 0 && this.vel.y < 0){
+			this.currentAnimation = "up";
+		}  else {
+			this.currentAnimation = "down";
+		}
+	}
     
   });
   

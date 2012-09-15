@@ -1,4 +1,45 @@
-321
+	{
+	"coordenadas": {"x":32,"y":43},
+	"nome": "skull",
+	"configuracoes" : {"image": "thrower01", "spritewidth": 32, "spriteheight": 32},
+	"animacoes": {"parado": [0] , "animado": [0,1], "velocidade" : 1},
+	"intervaloTempoDisparo" : [10,100],
+	"nomeProjectil" : "fogo",
+	"velocidade" : [0.5,2],
+	"movimento" : "down"
+	},
+	{
+	"coordenadas": {"x":29,"y":43},
+	"nome": "skull",
+	"configuracoes" : {"image": "thrower01", "spritewidth": 32, "spriteheight": 32},
+	"animacoes": {"parado": [0] , "animado": [0,1], "velocidade" : 1},
+	"intervaloTempoDisparo" : [10,100],
+	"nomeProjectil" : "fogo",
+	"velocidade" : [0.5,2],
+	"movimento" : "left"
+	},
+
+		switch (this.projectilData.movimento){
+			case "down":
+				this.vel.y = this.projectilData.velocity;
+			break;
+			
+			case "up":
+				this.vel.y = -this.projectilData.velocity;
+			break;
+			
+			case "left":
+				this.vel.x = -this.projectilData.velocity;
+				console.log('this.vel.x:' , this.vel.x)
+			break;
+			
+			case "right":
+				this.vel.x = this.projectilData.velocity;
+			break;	
+			
+			default:
+			break;
+		}
 
 //************************************************************
 //*	Trying to implement mouse movement - Pass - 09-07-2012
