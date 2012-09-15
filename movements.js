@@ -52,6 +52,43 @@ function moveObject( object )
 }
 
 /**
+ * move bee in circle
+ *
+ * @param object
+ * @return bool / check, if object reached it's goal
+ */
+function moveObjectBeeHavior( object )
+{
+
+	if (object !== null){
+        // Update the object     
+        // this.vel.y += this.gravity ;
+		if (object.launchAngle == 360) me.game.remove(object);;
+		// if (object.changeRadius == 110) object.changeRadius = 0;
+		
+		var x_pos = object.pos.x + (object.changeRadius * Math.sin(Number.prototype.degToRad(object.launchAngle)));
+		var y_pos = object.pos.y + (object.changeRadius * Math.cos(Number.prototype.degToRad(object.launchAngle)));
+		var x_pos_add = object.pos.x + (object.changeRadius * Math.sin(Number.prototype.degToRad(object.launchAngle + 1)));
+		var y_pos_add = object.pos.y + (object.changeRadius * Math.cos(Number.prototype.degToRad(object.launchAngle + 1)));
+		x_pos = Math.round(x_pos_add) - Math.round(x_pos);
+		y_pos = Math.round(y_pos_add) - Math.round(y_pos);
+		
+		// **** temos que ver a direção e andar em x em y positivo ou negativo
+ 		
+		// console.log("x: " + x_pos + " Y: " + y_pos); 
+		object.vel.x = (object.accel.x * me.timer.tick) + x_pos;
+		object.vel.y = (object.accel.y * me.timer.tick) + y_pos;
+		
+		object.launchAngle += 1;
+		// object.changeRadius+= 0.5 ;
+		
+		return true;
+	}else{
+		return false;
+	}
+}
+
+/**
  * move object in circle
  *
  * @param object
@@ -62,12 +99,12 @@ function moveObjectCircle( object )
 	if (object !== null){
         // Update the object     
         // this.vel.y += this.gravity ;
-		if (launchAngle == 360) launchAngle = 0;
-
-		var x_pos = object.pos.x + (90 * Math.sin(Number.prototype.degToRad(launchAngle)));
-		var y_pos = object.pos.y + (90 * Math.cos(Number.prototype.degToRad(launchAngle)));
-		var x_pos_add = object.pos.x + (90 * Math.sin(Number.prototype.degToRad(launchAngle + 1)));
-		var y_pos_add = object.pos.y + (90 * Math.cos(Number.prototype.degToRad(launchAngle + 1)));
+		if (object.launchAngle == 360) object.launchAngle = 0;
+		// 30 radius
+		var x_pos = object.pos.x + (30 * Math.sin(Number.prototype.degToRad(object.launchAngle)));
+		var y_pos = object.pos.y + (30 * Math.cos(Number.prototype.degToRad(object.launchAngle)));
+		var x_pos_add = object.pos.x + (30 * Math.sin(Number.prototype.degToRad(object.launchAngle + 1)));
+		var y_pos_add = object.pos.y + (30 * Math.cos(Number.prototype.degToRad(object.launchAngle + 1)));
 		x_pos = Math.round(x_pos_add) - Math.round(x_pos);
 		y_pos = Math.round(y_pos_add) - Math.round(y_pos);
 		
@@ -76,7 +113,7 @@ function moveObjectCircle( object )
 		// console.log("x: " + x_pos + " Y: " + y_pos); 
 		object.vel.x = (object.accel.x * me.timer.tick) + x_pos;
 		object.vel.y = (object.accel.y * me.timer.tick) + y_pos;
-		launchAngle += 1;
+		object.launchAngle += 1;
 		
 		return true;
 	}else{

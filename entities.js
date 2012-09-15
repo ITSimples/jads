@@ -31,8 +31,8 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		//Debug Position
 		
-		this.pos.x = 36 * 32;
-		this.pos.y = 48 * 32;
+		this.pos.x = 20 * 32;
+		this.pos.y = 44 * 32;
 		
 		// This move
 		this.movemouse = false;
@@ -550,6 +550,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		this.animationspeed = this.throwerData.animacoes.velocidade ;
 
 		this.resetThrowDurationAndTimer();
+		
+		//Put solid tile in this place
+		this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
+		this.collisionLayer.setTile(this.throwerData.coordenadas.x,this.throwerData.coordenadas.y,226);
+		
 	},
     
 	update: function () {
@@ -595,7 +600,15 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		//Receive witch type of path the projectil must follow
 		projectilsData[this.throwerData.nomeProjectil].movimento = this.throwerData.movimento;
 		
-		var projectil = new projectilEntity(this.pos.x + 9 , this.pos.y + 33, projectilsData[this.throwerData.nomeProjectil]);
+		// Calculate trigger position on (X=middle of thrower - middle of projectil) and (Y = projectil height)
+		var triggerPositionX = ~~(this.throwerData.configuracoes.spritewidth / 2) - 
+								~~(projectilsData[this.throwerData.nomeProjectil].configuracoes.spritewidth / 2);
+								
+		var triggerPositionY = this.throwerData.configuracoes.spriteheight ;
+		
+		var projectil = new projectilEntity(this.pos.x + triggerPositionX , 
+											this.pos.y + triggerPositionY, 
+											projectilsData[this.throwerData.nomeProjectil]);
 		me.game.add(projectil, 6);
 		me.game.sort.defer();
     }
@@ -665,7 +678,13 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			case "random":
 					this.randomMovement();
 			break;
-
+			
+			case "BeeHavior":
+					this.currentAnimation = "default";
+					this.launchAngle = 0;
+					
+					this.changeRadius = -50;
+			break;
 			
 			default:
 			break;
@@ -673,18 +692,22 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		// console.log('Create object...');
 		// If you want add time before destroy object must be interesting
-		this.timeToDestroy = 0;
+		// this.timeToDestroy = 0;
     },
     
     update: function () {
 	
-		this.timeToDestroy++;
+		// this.timeToDestroy++;
 	
 		//Update animation
 		if (this.testDirection){
 			this.setCurrentAnimation(this.currentAnimation);
 		}else{
 			this.setCurrentAnimation("anime");
+		}
+		
+		if(this.projectilData.movimento  === "BeeHavior"){
+			moveObjectBeeHavior( this );
 		}
 		
 		this.handleCollisions();
@@ -704,37 +727,22 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
     
     handleCollisions: function () {
 	
-		if (this.timeToDestroy >  this.projectilData.tempoDeVida ){
-			this.timeToDestroy = 0;
+		// if (this.timeToDestroy >  this.projectilData.tempoDeVida ){
+			// this.timeToDestroy = 0;
+			// //Remove object
+			// me.game.remove(this);
+			// return;
+		// }
+		
+		var res = me.game.collide(this);
+
+		if (res && res.obj.name == "heroe" ) {
+			me.game.HUD.updateItemValue(this.projectilData.atualizarHUD.tipo, 
+										-(parseInt(this.projectilData.atualizarHUD.valor)));					
 			//Remove object
 			me.game.remove(this);
 			return;
 		}
-		var res = me.game.collide(this);
-		
-		if ((this.vel.x === 0 && this.vel.y === 0) || res) {
-
-			if (res && res.obj.name == "heroe" ) {
-				me.game.HUD.updateItemValue(this.projectilData.atualizarHUD.tipo, 
-											-(parseInt(this.projectilData.atualizarHUD.valor)));
-											console.log('Destroy object...' , res.obj.isSolid);
-											
-				//Remove object
-				me.game.remove(this);
-				return;
-			}
-			
-			if (res && res.obj.name != "heroe" ){
-				return;
-			}
-			
-
-			//Remove object if velocity == 0
-			me.game.remove(this);
-			
-			return;
-		} 
-		
 		
 		var myLayer = me.game.currentLevel.getLayerByName("collision");
 		
@@ -754,43 +762,51 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			multiplierY = -1;
 		}
 		
-		
-		var posX = (this.projectilData.configuracoes.spritewidth * multiplierX ) + this.pos.x;
-		var posY = (this.projectilData.configuracoes.spriteheight * multiplierY ) + this.pos.y;
-			
+
+		var posX = ( (this.projectilData.configuracoes.spritewidth * multiplierX ) + this.vel.x ) + this.pos.x;
+		var posY = ( (this.projectilData.configuracoes.spriteheight * multiplierY) + this.vel.y ) + this.pos.y;		
 		
 		var myTile = myLayer.getTile( posX , posY);
 		
-		
-		if (myTile != null){
+		// Remove bees only when do complet circle
+		if (myTile != null && (this.projectilData.movimento  !== "BeeHavior") ){
 			if(this.projectilData.movimento === "random"){
-				this.randomMovement();			
+			
+			//Remove object
+				me.game.remove(this);
+				// this.randomMovement();			
 			}else{
 				//Remove object
-				me.game.remove(this);
-				console.log( 'remove' );
+				me.game.remove(this);				
 			}
 			
 		}		
     },
 
     randomMovement: function () {	
-	
-		this.vel.x = randomInt(-this.projectilData.velocity , this.projectilData.velocity , 10);
-		this.vel.y = randomInt(-this.projectilData.velocity , this.projectilData.velocity , 10);
 		
-		if ((this.vel.x < 0 && this.vel.y < 0) || 
-			(this.vel.x < 0 && this.vel.y > 0) ||
-			(this.vel.x < 0 && this.vel.y == 0)){
-			this.currentAnimation = "left";
-		}else if((this.vel.x > 0 && this.vel.y < 0) || 
-			(this.vel.x > 0 && this.vel.y > 0) ||
-			(this.vel.x > 0 && this.vel.y == 0)){
-			this.currentAnimation = "right";
-		} else if(this.vel.x == 0 && this.vel.y < 0){
-			this.currentAnimation = "up";
+		do{
+			this.vel.x = randomInt(-this.projectilData.velocity , this.projectilData.velocity , 10);
+			this.vel.y = randomInt(-this.projectilData.velocity , this.projectilData.velocity , 10);
+		} while (this.vel.x === 0 && this.vel.y === 0);
+		
+		this.setMyAnimation( this );
+		
+	},
+	
+	setMyAnimation: function(  object){
+		if ((object.vel.x < 0 && object.vel.y < 0) || 
+			(object.vel.x < 0 && object.vel.y > 0) ||
+			(object.vel.x < 0 && object.vel.y == 0)){
+			object.currentAnimation = "left";
+		}else if((object.vel.x > 0 && object.vel.y < 0) || 
+			(object.vel.x > 0 && object.vel.y > 0) ||
+			(object.vel.x > 0 && object.vel.y == 0)){
+			object.currentAnimation = "right";
+		} else if(object.vel.x == 0 && object.vel.y < 0){
+			object.currentAnimation = "up";
 		}  else {
-			this.currentAnimation = "down";
+			object.currentAnimation = "down";
 		}
 	}
     

@@ -56,7 +56,7 @@ var adsGame =
 		
 		// ************ Configurações de DEBUG *************
 		//Ver caixa de colisão
-		me.debug.renderHitBox = true;
+		// me.debug.renderHitBox = true;
 		
 		//Create message box object
 		// adsGame.message = new adsGame.message();

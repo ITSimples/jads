@@ -1,13 +1,4 @@
-	{
-	"coordenadas": {"x":32,"y":43},
-	"nome": "skull",
-	"configuracoes" : {"image": "thrower01", "spritewidth": 32, "spriteheight": 32},
-	"animacoes": {"parado": [0] , "animado": [0,1], "velocidade" : 1},
-	"intervaloTempoDisparo" : [10,100],
-	"nomeProjectil" : "fogo",
-	"velocidade" : [0.5,2],
-	"movimento" : "down"
-	},
+,
 	{
 	"coordenadas": {"x":29,"y":43},
 	"nome": "skull",
@@ -15,9 +6,19 @@
 	"animacoes": {"parado": [0] , "animado": [0,1], "velocidade" : 1},
 	"intervaloTempoDisparo" : [10,100],
 	"nomeProjectil" : "fogo",
-	"velocidade" : [0.5,2],
-	"movimento" : "left"
+	"velocidade" : [0.5,2.5],
+	"movimento" : "down"
 	},
+	{
+	"coordenadas": {"x":23,"y":46},
+	"nome": "beehive",
+	"configuracoes" : {"image": "beehive", "spritewidth": 32, "spriteheight": 32},
+	"animacoes": {"parado": [0] , "animado": [0], "velocidade" : 0},
+	"intervaloTempoDisparo" : [10,100],
+	"nomeProjectil" : "abelha",
+	"velocidade" : [1,1],
+	"movimento" : "random"
+	}	
 
 		switch (this.projectilData.movimento){
 			case "down":
