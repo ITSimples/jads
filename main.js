@@ -255,6 +255,20 @@ function randomInt( min, max )
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/*
+-----------------------------------
+File: main.js
+Function: randomFloat
+Comment: get a random float number between min and max value
+-----------------------------------
+*/
+function randomFloat(minValue,maxValue,precision){
+    if(typeof(precision) == 'undefined'){
+        precision = 2;
+    }
+    return parseFloat(Math.min(minValue + (Math.random() * (maxValue - minValue)),maxValue).toFixed(precision));
+}
+
 //bootstrap :)
 //window.onReady(function(){
 	var init_game = function(data)

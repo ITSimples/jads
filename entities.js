@@ -594,21 +594,21 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
     
     createProjectil: function () {
 	
-		//Create a random velocity for each projectil created
-		projectilsData[this.throwerData.nomeProjectil].velocity = randomInt(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
+		// //Create a random velocity for each projectil created
+		// projectilsData[this.throwerData.nomeProjectil].velocity = randomInt(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
 		
-		//Receive witch type of path the projectil must follow
-		projectilsData[this.throwerData.nomeProjectil].movimento = this.throwerData.movimento;
+		// //Receive witch type of path the projectil must follow
+		// projectilsData[this.throwerData.nomeProjectil].movimento = this.throwerData.movimento;
 		
 		// Calculate trigger position on (X=middle of thrower - middle of projectil) and (Y = projectil height)
 		var triggerPositionX = ~~(this.throwerData.configuracoes.spritewidth / 2) - 
 								~~(projectilsData[this.throwerData.nomeProjectil].configuracoes.spritewidth / 2);
 								
-		var triggerPositionY = this.throwerData.configuracoes.spriteheight ;
+		var triggerPositionY = this.throwerData.posicaoDisparo.y ;
 		
 		var projectil = new projectilEntity(this.pos.x + triggerPositionX , 
 											this.pos.y + triggerPositionY, 
-											projectilsData[this.throwerData.nomeProjectil]);
+											projectilsData[this.throwerData.nomeProjectil], this.throwerData);
 		me.game.add(projectil, 6);
 		me.game.sort.defer();
     }
@@ -624,9 +624,12 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 // ************************************** 
    var projectilEntity = me.ObjectEntity.extend({
     
-    init: function (x, y, projectilData) {
+    init: function (x, y, projectilData, throwerData ) {
 		
 		this.projectilData = projectilData;
+		
+		this.throwerData = throwerData;
+		
 		// console.debug( "Projectil", projectilData );
 		var settings = this.projectilData.configuracoes;
 		
@@ -658,24 +661,14 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		this.setCurrentAnimation("default");
 		
-		switch (this.projectilData.movimento){
-			case "down":
-				this.vel.y = this.projectilData.velocity;
+		switch (this.throwerData.movimento){
+			case "line":
+					this.lineMovement();
 			break;
-			
-			case "up":
-				this.vel.y = -this.projectilData.velocity;
-			break;
-			
-			case "left":
-				this.vel.x = -this.projectilData.velocity;
-			break;
-			
-			case "right":
-				this.vel.x = this.projectilData.velocity;
-			break;	
 
 			case "random":
+					this.randomDirection = "";
+					this.initialDirection = true;
 					this.randomMovement();
 			break;
 			
@@ -706,7 +699,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			this.setCurrentAnimation("anime");
 		}
 		
-		if(this.projectilData.movimento  === "BeeHavior"){
+		if(this.throwerData.movimento  === "BeeHavior"){
 			moveObjectBeeHavior( this );
 		}
 		
@@ -744,9 +737,27 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			return;
 		}
 		
-		var myLayer = me.game.currentLevel.getLayerByName("collision");
+		// Remove bees only when do complet circle
+		if (this.checkWallCollision() && (this.throwerData.movimento  !== "BeeHavior") ){
+			if(this.throwerData.movimento === "random"){
+				console.log ('this.vel.x:' ,this.vel.x , '| this.vel.y:' , this.vel.y);				
+				this.randomMovement();			
+				console.log ('AFTER : this.vel.x:' ,this.vel.x , '| this.vel.y:' , this.vel.y);
+			}else{
+				//Remove object
+				me.game.remove(this);				
+			}
+			
+		}
+		
+    },
+	
+	checkWallCollision: function () {
+		//get collision Layer
+		var myCollisionLayer = me.game.currentLevel.getLayerByName("collision");
 		
 		
+		// Get direction of the projectil in x and y
 		var multiplierX = 0;
 		var multiplierY = 0;
 		
@@ -761,37 +772,80 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		}else{
 			multiplierY = -1;
 		}
-		
-
+	
+		// Get where is the next position for projectil and see if tile is a wall if yes return true
 		var posX = ( (this.projectilData.configuracoes.spritewidth * multiplierX ) + this.vel.x ) + this.pos.x;
 		var posY = ( (this.projectilData.configuracoes.spriteheight * multiplierY) + this.vel.y ) + this.pos.y;		
 		
-		var myTile = myLayer.getTile( posX , posY);
+		var myTileIsWall = myCollisionLayer.getTile( posX , posY);
 		
-		// Remove bees only when do complet circle
-		if (myTile != null && (this.projectilData.movimento  !== "BeeHavior") ){
-			if(this.projectilData.movimento === "random"){
-			
-			//Remove object
-				me.game.remove(this);
-				// this.randomMovement();			
-			}else{
-				//Remove object
-				me.game.remove(this);				
-			}
-			
-		}		
-    },
+		// If is wall return true
+		if (myTileIsWall !== null){
+			return true;
+		}else{
+			return false;
+		}
+	},
 
     randomMovement: function () {	
+
+		var randomVelocity = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
+		var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
 		
-		do{
-			this.vel.x = randomInt(-this.projectilData.velocity , this.projectilData.velocity , 10);
-			this.vel.y = randomInt(-this.projectilData.velocity , this.projectilData.velocity , 10);
-		} while (this.vel.x === 0 && this.vel.y === 0);
+		
+		if (this.initialDirection){
+			this.randomDirection = this.throwerData.direcao;
+			this.initialDirection = false;
+		}else{
+			if(this.randomDirection == "down"){
+				this.randomDirection = "up";
+			}else{
+				this.randomDirection = "down";
+			}
+		}
+		
+		switch (this.randomDirection){
+		
+			case "down":
+				this.vel.x = randomVelocity * plusOrMinus;
+				this.vel.y = randomVelocity;
+			break;
+			
+			case "up":
+				this.vel.x = randomVelocity * plusOrMinus;
+				this.vel.y = -randomVelocity;
+			break;
+			
+			case "all":
+				this.vel.x = randomVelocity * plusOrMinus;
+				plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+				this.vel.y = randomVelocity * plusOrMinus;
+			break;
+		}
 		
 		this.setMyAnimation( this );
 		
+	},
+    
+	lineMovement: function () {	
+		switch (this.throwerData.direcao){
+		
+			case "down":
+				this.vel.y = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
+			break;
+			
+			case "up":
+				this.vel.y = -randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
+			break;
+			
+			case "left":
+				this.vel.x = -randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
+			break;
+			
+			case "right":
+				this.vel.x = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
+			break;
+		}
 	},
 	
 	setMyAnimation: function(  object){
