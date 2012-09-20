@@ -120,3 +120,26 @@ function moveObjectCircle( object )
 		return false;
 	}
 }
+
+
+/**
+ * move object in circle
+ *
+ * @param object
+ * @return bool / check, if object reached it's goal
+ */
+function followHeroe( object )
+{
+	if (object !== null){
+			var player = me.game.getEntityByName('Heroe');
+						
+			var playerPosX = player[0].pos.x;
+			var playerPosY = player[0].pos.y;
+			var angle = Math.atan2(playerPosY - object.pos.y, playerPosX - object.pos.x);
+			object.vel.set(Math.cos(angle) * object.velocityFollow, Math.sin(angle) * object.velocityFollow);
+		
+		return true;
+	}else{
+		return false;
+	}
+}

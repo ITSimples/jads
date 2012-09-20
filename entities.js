@@ -31,8 +31,8 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		//Debug Position
 		
-		this.pos.x = 23 * 32;
-		this.pos.y = 44 * 32;
+		this.pos.x = 9 * 32;
+		this.pos.y = 47 * 32;
 		
 		// This move
 		this.movemouse = false;
@@ -616,11 +616,22 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		this.throwerData.GUID = this.GUID;
 		
-		// Calculate trigger position on (X=middle of thrower - middle of projectil) and (Y = projectil height)
-		var triggerPositionX = ~~(this.throwerData.configuracoes.spritewidth / 2) - 
-								~~(projectilsData[this.throwerData.nomeProjectil].configuracoes.spritewidth / 2);
-								
-		var triggerPositionY = this.throwerData.posicaoDisparo.y ;
+		if (this.throwerData.direcao == "up" || this.throwerData.direcao == "down"){
+			// Calculate trigger position on (X=middle of thrower - middle of projectil) and (Y = projectil height)
+			var triggerPositionX = ~~(this.throwerData.configuracoes.spritewidth / 2) - 
+									~~(projectilsData[this.throwerData.nomeProjectil].configuracoes.spritewidth / 2);
+			var triggerPositionY = this.throwerData.posicaoDisparo.y ;									
+		}else if (this.throwerData.direcao == "right" || this.throwerData.direcao == "left"){
+			var triggerPositionX = this.throwerData.posicaoDisparo.x ;
+			var triggerPositionY = ~~(this.throwerData.configuracoes.spriteheight / 2) - 
+									~~(projectilsData[this.throwerData.nomeProjectil].configuracoes.spriteheight / 2);
+		}else{
+			var triggerPositionX = this.throwerData.posicaoDisparo.x ;
+			var triggerPositionY = this.throwerData.posicaoDisparo.y ;
+		}
+			
+		
+		
 		
 		var projectil = new projectilEntity(this.pos.x + triggerPositionX , 
 											this.pos.y + triggerPositionY, 
@@ -706,6 +717,13 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 					this.changeRadius = -50;
 			break;
 			
+			case "followHeroe":
+					this.currentAnimation = "default";
+					
+					this.velocityFollow = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);;
+					
+			break;
+			
 			default:
 			break;
 		}
@@ -726,7 +744,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		if(this.throwerData.movimento  === "BeeHavior"){
 			moveObjectBeeHavior( this );
 		}
-
+		
+		if(this.throwerData.movimento  === "followHeroe"){
+			followHeroe( this );
+		}
+		
 		// Destroy object if the livetime has been exceeded
 		if ( typeof(this.throwerData.tempoDeVida) !== 'undefined' ){
 			this.liveTime();
@@ -852,6 +874,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			
 			case "right":
 				this.vel.x = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
+				console.log('What...' , this.pos.x);
 			break;
 		}
 	},
