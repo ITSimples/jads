@@ -31,7 +31,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		//Debug Position
 		
-		this.pos.x = 20 * 32;
+		this.pos.x = 23 * 32;
 		this.pos.y = 44 * 32;
 		
 		// This move
@@ -558,6 +558,9 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
 			this.collisionLayer.setTile(this.throwerData.coordenadas.x,this.throwerData.coordenadas.y,226);
 		}
+		
+		//Debug variable
+		this.createOneSnake = true;
 	},
     
 	update: function () {
@@ -585,7 +588,15 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
     
     throwProjectil: function () {
       this.setCurrentAnimation("throw", "default");
-      this.createProjectil();
+	  
+	  // DEBUG
+	  if (this.throwerData.nomeProjectil === 'snake'){
+		if(this.createOneSnake)	this.createProjectil();
+		this.createOneSnake = true;
+	  }else{
+		this.createProjectil();
+	  }
+      
       // me.audio.play("shot1");
     },
     
@@ -706,7 +717,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			moveObjectBeeHavior( this );
 		}
 		
-		this.handleCollisions();
+		// this.handleCollisions();
 		
 		// check & update player movement
 		updated = this.updateMovement();
@@ -714,14 +725,17 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		// update animation
 		if (updated)
 		{
+			this.handleCollisions(updated);
 			// Actualizar animação
 			this.parent(this);
 		}
 		
+		
+		 
 		return updated;
     },
     
-    handleCollisions: function () {
+    handleCollisions: function (updated) {
 	
 		// if (this.timeToDestroy >  this.projectilData.tempoDeVida ){
 			// this.timeToDestroy = 0;
@@ -741,7 +755,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		}
 		
 		// Remove bees only when do complet circle
-		if (this.checkWallCollision() && (this.throwerData.movimento  !== "BeeHavior") ){
+		if (this.checkWallCollision(updated) && (this.throwerData.movimento  !== "BeeHavior") ){
 			if(this.throwerData.movimento === "random"){
 				console.log ('this.randomDirection:' ,this.randomDirection , '| this.vel.y:' , this.vel.y);				
 				this.randomMovement();			
@@ -755,40 +769,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
     },
 	
-	checkWallCollision: function () {
-		//get collision Layer
-		var myCollisionLayer = me.game.currentLevel.getLayerByName("collision");
+	checkWallCollision: function (updated) {
 		
-		
-		// Get direction of the projectil in x and y
-		var multiplierX = this.vel.x > 0 ? 1 : -1;
-		var multiplierY = this.vel.y > 0 ? 1 : -1;
-		
-		// if (this.vel.x > 0) {
-			// multiplierX = 1;
-		// }else{
-			// multiplierX = -1;
-		// }
-		
-		// if (this.vel.y > 0) {
-			// multiplierY = 1;
-		// }else{
-			// multiplierY = -1;
-		// } 
-		
+		var wallCollision = updated.x != 0 || updated.y!= 0 ? true : false;
 
-		// Get where is the next position for projectil and see if tile is a wall if yes return true
-		var posX =  this.pos.x + ( (this.projectilData.configuracoes.spritewidth * multiplierX ) + this.vel.x);
-		var posY =  this.pos.y + ( (this.projectilData.configuracoes.spriteheight * multiplierY) + this.vel.y);
-	
-		var myTileIsWall = myCollisionLayer.getTile( posX , posY);
-		
-		// If is wall return true
-		if (myTileIsWall !== null){
-			return true;
-		}else{
-			return false;
-		}
+		return wallCollision;	
 	},
 
     randomMovement: function () {	

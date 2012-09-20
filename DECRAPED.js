@@ -1,3 +1,41 @@
+		
+		// //get collision Layer
+		// var myCollisionLayer = me.game.currentLevel.getLayerByName("collision");
+		
+		
+		// // Get direction of the projectil in x and y
+		// var multiplierX = this.vel.x > 0 ? 1 : -1;
+		// var multiplierY = this.vel.y > 0 ? 1 : -1;
+		
+		// // if (this.vel.x > 0) {
+			// // multiplierX = 1;
+		// // }else{
+			// // multiplierX = -1;
+		// // }
+		
+		// // if (this.vel.y > 0) {
+			// // multiplierY = 1;
+		// // }else{
+			// // multiplierY = -1;
+		// // } 
+		
+
+		// // Get where is the next position for projectil and see if tile is a wall if yes return true
+		// var posX =  this.pos.x + ( (this.projectilData.configuracoes.spritewidth * multiplierX ) + this.vel.x);
+		// var posY =  this.pos.y + ( (this.projectilData.configuracoes.spriteheight * multiplierY) + this.vel.y);
+		
+		// if (this.projectilData.configuracoes.image === 'snake'){
+			// // console.log('multiplierY:',this.pos.y + (this.projectilData.configuracoes.spriteheight * multiplierY), 'this.vel.y:' ,this.vel.y , 'posY:',posY);
+		// }
+		// var myTileIsWall = myCollisionLayer.getTile( posX , posY);
+		
+		// // If is wall return true
+		// if (myTileIsWall !== null){
+			// return true;
+		// }else{
+			// return false;
+		// }
+
 ,
 	{
 	"coordenadas": {"x":29,"y":43},
