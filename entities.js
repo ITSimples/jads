@@ -559,8 +559,8 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			this.collisionLayer.setTile(this.throwerData.coordenadas.x,this.throwerData.coordenadas.y,226);
 		}
 		
-		//Debug variable
-		this.createOneSnake = true;
+		// Create a maximum number of projectil objects
+		this.numberProjectils = 0;
 	},
     
 	update: function () {
@@ -590,9 +590,9 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
       this.setCurrentAnimation("throw", "default");
 	  
 	  // DEBUG
-	  if (this.throwerData.nomeProjectil === 'snake'){
-		if(this.createOneSnake)	this.createProjectil();
-		this.createOneSnake = true;
+	  if (typeof(this.throwerData.numeroDeProjeteis) !== 'undefined' ){
+		// Create a maximum number of projectil objects
+		this.createMaxProjectils(this.throwerData.numeroDeProjeteis);
 	  }else{
 		this.createProjectil();
 	  }
@@ -614,6 +614,8 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		// //Receive witch type of path the projectil must follow
 		// projectilsData[this.throwerData.nomeProjectil].movimento = this.throwerData.movimento;
 		
+		this.throwerData.GUID = this.GUID;
+		
 		// Calculate trigger position on (X=middle of thrower - middle of projectil) and (Y = projectil height)
 		var triggerPositionX = ~~(this.throwerData.configuracoes.spritewidth / 2) - 
 								~~(projectilsData[this.throwerData.nomeProjectil].configuracoes.spritewidth / 2);
@@ -623,10 +625,21 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		var projectil = new projectilEntity(this.pos.x + triggerPositionX , 
 											this.pos.y + triggerPositionY, 
 											projectilsData[this.throwerData.nomeProjectil], this.throwerData);
+		
 		me.game.add(projectil, 6);
 		me.game.sort.defer();
-    }
-    
+    },
+	
+	// Max of prjectils if there is a max
+	createMaxProjectils: function (maxNumberProjectils){
+		if (this.numberProjectils <  maxNumberProjectils ){
+			//Create projectil
+			this.createProjectil();
+			this.numberProjectils++;
+			console.log('numberProjectils' , this.numberProjectils);
+			return;
+		}
+	},
   });
   
 // **************************************
@@ -697,14 +710,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			break;
 		}
 		
-		// console.log('Create object...');
 		// If you want add time before destroy object must be interesting
-		// this.timeToDestroy = 0;
+		this.timeToDestroy = 0;
     },
     
     update: function () {
-	
-		// this.timeToDestroy++;
 	
 		//Update animation
 		if (this.testDirection){
@@ -716,8 +726,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		if(this.throwerData.movimento  === "BeeHavior"){
 			moveObjectBeeHavior( this );
 		}
-		
-		// this.handleCollisions();
+
+		// Destroy object if the livetime has been exceeded
+		if ( typeof(this.throwerData.tempoDeVida) !== 'undefined' ){
+			this.liveTime();
+		}
 		
 		// check & update player movement
 		updated = this.updateMovement();
@@ -729,21 +742,22 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			// Actualizar animação
 			this.parent(this);
 		}
-		
-		
-		 
+	 
 		return updated;
-    },
-    
-    handleCollisions: function (updated) {
-	
-		// if (this.timeToDestroy >  this.projectilData.tempoDeVida ){
-			// this.timeToDestroy = 0;
-			// //Remove object
-			// me.game.remove(this);
-			// return;
-		// }
 		
+		
+    },
+	
+	liveTime: function (){
+		this.timeToDestroy++;
+		if (this.timeToDestroy >  this.throwerData.tempoDeVida ){
+			//Remove object
+			me.game.remove(this);
+			return;
+		}
+	},
+    
+    handleCollisions: function (updated) {	
 		var res = me.game.collide(this);
 
 		if (res && res.obj.name == "heroe" ) {
@@ -751,18 +765,23 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 										-(parseInt(this.projectilData.atualizarHUD.valor)));					
 			//Remove object
 			me.game.remove(this);
+			
+			//if there is a maximum number of projectils then when one die another is created
+			if (typeof(this.throwerData.numeroDeProjeteis) !== 'undefined' ){
+				var throwerEntity = me.game.getEntityByGUID(this.throwerData.GUID);
+				throwerEntity.numberProjectils--;
+			}	
+				
 			return;
 		}
 		
 		// Remove bees only when do complet circle
-		if (this.checkWallCollision(updated) && (this.throwerData.movimento  !== "BeeHavior") ){
-			if(this.throwerData.movimento === "random"){
-				console.log ('this.randomDirection:' ,this.randomDirection , '| this.vel.y:' , this.vel.y);				
-				this.randomMovement();			
-				console.log ('AFTER : this.randomDirection:' ,this.randomDirection , '| this.vel.y:' , this.vel.y);
+		if (this.checkWallCollision(updated)){
+			if(this.throwerData.movimento === "random"){			
+				this.randomMovement();
 			}else{
 				//Remove object
-				me.game.remove(this);				
+				me.game.remove(this);
 			}
 			
 		}
