@@ -137,3 +137,9 @@ Boysano :
 fire.png
 
 
+
+Some sprites on tiles.png Acknowledgement of copyright: 
+This game/project IS NOT affiliated with, licensed or endorsed by Camelot software 
+planning in any way!!! It is a fan made project. Some sprites rights are reserved 
+by Nintendo/Camelot software and have the right to request removal at any time!
+Sprites taken from http://www.goldensun-syndicate.net/

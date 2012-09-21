@@ -7,6 +7,9 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -72,6 +75,7 @@ Heroe Configuration
 -------------------------------- */
 
 var heroeVelocity = 2 ;
+var heroeInitialVelocity = 2 ;
 
 var itemLucky = 20;
 

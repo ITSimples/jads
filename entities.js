@@ -7,6 +7,9 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -234,7 +237,12 @@ var ItemEntity = me.CollectableEntity.extend({
 					}						
 					hideQuestionLayer('C');
 				}else if(heroeAnswer !== 0){ // if heroe answer to the question but it's not the correct one
-					me.game.HUD.updateItemValue(this.items_data.categoria, -(parseInt(this.items_data.valor,10)));
+					var valueRemoved = -(parseInt(this.items_data.valor,10));
+					
+					//If is velocity then don't remove points
+					if (this.items_data.categoria != 'velocidade'){
+						me.game.HUD.updateItemValue(this.items_data.categoria, valueRemoved);
+					}	
 					hideQuestionLayer('W');
 				}else{ // If heroe doesn't answer to the question
 					hideQuestionLayer('D');
@@ -546,9 +554,9 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		this.addAnimation("default", this.throwerData.animacoes.parado );
 		this.addAnimation("throw", this.throwerData.animacoes.animado );
 		this.setCurrentAnimation("default");
-
-		this.animationspeed = this.throwerData.animacoes.velocidade ;
-
+		
+		this.animationspeed = me.sys.fps / (me.sys.fps / this.throwerData.animacoes.velocidade);
+		
 		this.resetThrowDurationAndTimer();
 		
 		console.log('this.throwerData.solido:',this.throwerData.solido ,  'this.throwerData.nome:', this.throwerData.nome)
