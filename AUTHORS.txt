@@ -21,15 +21,18 @@ Asset attribution
 
 Assets were authored by the following people:
 
-Must be on credits when game finished
+Must be on credits when game finished ************** REMOVE THIS LINE
 
 Interior Tile Set:
 
 "Art Collection Title" art by Daniel Cook (Lostgarden.com)
 
 
-author name "REFMAP":
-website (http://www.tekepon.net/fsm) 
+"Some of graphic data in this software are free game resources 
+distributed by REFMAP(http://www.tekepon.net/fsm).
+You must not use the graphic data which is in this software, 
+for the purpose except playing this game. When you want 
+to get these resources, go to the website above."
 Resources REFMAP used in game:
 
 -bee.png
@@ -105,7 +108,7 @@ Resources REFMAP used in game:
 
 
 
-medievil stuff tileset pack by benja6678
+medievil stuff tileset pack by benja6678 (http://sandbox.yoyogames.com/users/benja6678)
 download from http://sandbox.yoyogames.com/resources?cat_id=3
 
 -items\banana.png
@@ -135,11 +138,3 @@ download from http://sandbox.yoyogames.com/resources?cat_id=3
 Boysano :
 
 fire.png
-
-
-
-Some sprites on tiles.png Acknowledgement of copyright: 
-This game/project IS NOT affiliated with, licensed or endorsed by Camelot software 
-planning in any way!!! It is a fan made project. Some sprites rights are reserved 
-by Nintendo/Camelot software and have the right to request removal at any time!
-Sprites taken from http://www.goldensun-syndicate.net/
