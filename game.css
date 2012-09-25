@@ -1,6 +1,5 @@
 #adsGame{
 	position: relative;
-  width: 800px ;
   margin-left: auto ;
   margin-right: auto ;
 }
@@ -30,11 +29,10 @@
 
 #messageLayer {
 	position: absolute;
-	top: 490px;
-	left: 395px;
+	bottom: 0px;
+	right: 0px;
 	width: 400px;
 	height: 110px;
-	padding: 10px;
 	background: url('content/images/dialoguebox.png') no-repeat;
 	font-family: 'MedievalSharp', serif;
 	display: none;
@@ -78,11 +76,10 @@
 /* Question layer configuration */
 #questionLayer {
 	position: absolute;
-	top: 300px;
+	bottom: 0px;
 	left: 0px;
 	width: 366px;
 	height: 308px;
-	padding: 10px;
 	background: url('content/images/questionbox.png') no-repeat;
 	font-family: 'MedievalSharp', serif;
 	display: none;

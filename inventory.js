@@ -7,9 +7,6 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -327,7 +324,7 @@
 					//Use item with double click
 					if (itemCategory == 'vida'){
 						slot.bind('dblclick' , function () {
-							console.log((me.game.HUD.getItemValue(itemCategory) + itemValue) , ' < ' ,maxHudValue['live']);
+							// console.log((me.game.HUD.getItemValue(itemCategory) + itemValue) , ' < ' ,maxHudValue['live']);
 							// Check if live is full
 							if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= maxHudValue['live']){
 								adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
@@ -336,6 +333,7 @@
 								$('.invComment').css("color", hudColorLive);
 								$('.invComment,#hiddenText').html(this.invComment);
 							}
+							console.log('Vida:' , me.game.HUD.getItemValue(itemCategory));
 						});
 					}
 				}

@@ -7,9 +7,6 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -22,16 +19,16 @@
 /*------------------- 
 START hud border entity
 -------------------------------- */
-var HUDBorder = me.HUD_Item.extend({
-    init: function(x, y) {
-        this.parent(x, y);
-        this.image = me.loader.getImage("hudbg");
-    },
+// var HUDBorder = me.HUD_Item.extend({
+    // init: function(x, y) {
+        // this.parent(x, y);
+        // this.image = me.loader.getImage("hudbg");
+    // },
 
-    draw: function(context, x, y) {
-        context.drawImage(this.image, 0, 0);
-    }
-});
+    // draw: function(context, x, y) {
+        // context.drawImage(this.image, 0, 0);
+    // }
+// });
 /*--- END hud border entity ---*/
 
 /*------------------- 
@@ -48,8 +45,7 @@ var HUDLive = me.HUD_Item.extend({
     },
 	
 	hudLength : function(){
-		return ( this.itemHUDLength + ads_HUD_font_size );
-		
+		return ( this.itemHUDLength + ads_HUD_font_size ); 
 	},
 
     draw: function(context, x, y) {

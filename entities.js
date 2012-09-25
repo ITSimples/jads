@@ -34,9 +34,9 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		//Debug Position
 		
-		this.pos.x = 9 * 32;
-		this.pos.y = 47 * 32;
-		
+		this.pos.x = 26 * ads_tile_size;
+		this.pos.y = 20 * ads_tile_size;
+
 		// This move
 		this.movemouse = false;
 		
@@ -320,7 +320,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 						
 						if (!isCollide)
 						{
-							item[count] = new ItemEntity(parseInt(32*x ,10), parseInt(32*y ,10), 
+							item[count] = new ItemEntity(parseInt(ads_tile_size*x ,10), parseInt(ads_tile_size*y ,10), 
 									{image: ads_items_data[random_item].imagem.replace(".png",""),
 									spritewidth: 32, spriteheight: 32}, ads_items_data[random_item]);
 							count++;
@@ -346,7 +346,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 				// console.log('dataSpecialItem.value: ' + dataSpecialItem.value + '  ads_item_data.valor: ' + ads_item_data.valor);
 				if ( dataSpecialItem.value == ads_item_data.valor)
 				{
-					item = new ItemEntity(parseInt(32*dataSpecialItem.coordinates.x , 10), parseInt(32*dataSpecialItem.coordinates.y ,10), 
+					item = new ItemEntity(parseInt(ads_tile_size*dataSpecialItem.coordinates.x , 10), parseInt(ads_tile_size*dataSpecialItem.coordinates.y ,10), 
 					{image: ads_item_data.imagem.replace(".png",""),
 					spritewidth: 32, spriteheight: 32}, ads_item_data);
 					me.game.add(item,5);
@@ -465,8 +465,8 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						//***** TEST TELEPORT AND FADE MAP
 						var player = me.game.getEntityByName('Heroe');
 						
-						player[0].pos.x = this.targX * 32;
-						player[0].pos.y = this.targY * 32;
+						player[0].pos.x = this.targX * ads_tile_size;
+						player[0].pos.y = this.targY * ads_tile_size;
 						//TODO - Fade out /in viewport 
 						me.game.viewport.fadeOut('#000000',1000);
 						
@@ -515,7 +515,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		// Adicionar items na camada 4
 		$.each(triggersData, function(i, triggerData){
-			trigger = new TriggerEntity( triggerData.coordinates.x * 32 , triggerData.coordinates.y * 32
+			trigger = new TriggerEntity( triggerData.coordinates.x * ads_tile_size , triggerData.coordinates.y * ads_tile_size
 										, settings , triggerData);
 			me.game.add(trigger,4);
 			me.game.sort();
@@ -559,7 +559,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		this.resetThrowDurationAndTimer();
 		
-		console.log('this.throwerData.solido:',this.throwerData.solido ,  'this.throwerData.nome:', this.throwerData.nome)
+		// console.log('this.throwerData.solido:',this.throwerData.solido ,  'this.throwerData.nome:', this.throwerData.nome)
 		
 		//Put solid tile in this place if thrower is solid
 		if (this.throwerData.solido){
@@ -882,7 +882,6 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			
 			case "right":
 				this.vel.x = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
-				console.log('What...' , this.pos.x);
 			break;
 		}
 	},
@@ -922,7 +921,7 @@ var ThrowersSpawnEntity = me.InvisibleEntity.extend({
 		
 		// Adicionar items na camada 4
 		$.each( throwersData, function(i, throwerData){
-			thrower = new throwersEntity( throwerData.coordenadas.x * 32 , throwerData.coordenadas.y * 32, throwerData);
+			thrower = new throwersEntity( throwerData.coordenadas.x * ads_tile_size , throwerData.coordenadas.y * ads_tile_size, throwerData);
 			me.game.add(thrower,5);
 			me.game.sort.defer();
 		});	

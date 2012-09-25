@@ -7,9 +7,6 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -60,6 +57,8 @@ var NpcEntity = me.ObjectEntity.extend({
 		// Config NPC acceleration 
 		this.accel.x = this.accel.y = this.npcData.velocidade;
 		
+		//Set animation speed
+		this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 						
 		// adjust the bounding box
 		// this.updateColRect(4,24,20,23); 
@@ -161,17 +160,17 @@ var NpcEntity = me.ObjectEntity.extend({
 				}
 			}
 			
-			//*32 to convert tile position to map coordinates
+			//*ads_tile_size to convert tile position to map coordinates
 			// First destination on array path
-			this.destX = this.path[0][0][0] * 32;
-			this.destY = this.path[0][0][1] * 32;	
+			this.destX = this.path[0][0][0] * ads_tile_size;
+			this.destY = this.path[0][0][1] * ads_tile_size;	
 		}else if (this.npcData.tipoMovimento == "circle"){
 			
 		}else{
-			//*32 to convert tile position to map coordinates
+			//*ads_tile_size to convert tile position to map coordinates
 			// If NPC movement is between two points only
-			this.destX = this.npcData.coordenadas[0].initDestX  * 32;
-			this.destY = this.npcData.coordenadas[0].initDestY  * 32;
+			this.destX = this.npcData.coordenadas[0].initDestX  * ads_tile_size;
+			this.destY = this.npcData.coordenadas[0].initDestY  * ads_tile_size;
 		}
 	},
 	
@@ -189,10 +188,7 @@ var NpcEntity = me.ObjectEntity.extend({
 	
 	//Update npc position.
 	update : function ()
-	{	
-		//Set animation speed
-		this.animationspeed = me.sys.fps / (me.sys.fps / 3);
-			
+	{		
 		// Check collision
 		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************
 		var res = me.game.collide( this );
@@ -256,8 +252,8 @@ var NpcEntity = me.ObjectEntity.extend({
 					this.accel.x = this.accel.y = this.npcData.velocidade;
 					this.setCurrentAnimation( this.direction );
 					
-					this.destX = this.path[this.currentPath][this.countPath ][0] * 32;
-					this.destY = this.path[this.currentPath][this.countPath ][1] * 32;
+					this.destX = this.path[this.currentPath][this.countPath ][0] * ads_tile_size;
+					this.destY = this.path[this.currentPath][this.countPath ][1] * ads_tile_size;
 					
 					this.countPath ++;
 					this.setDirection();
@@ -371,8 +367,8 @@ var NpcEntity = me.ObjectEntity.extend({
 			
 			//Call one time function explode
 			console.log('Explode...');
-			// (this.currentEvent.coordenadasAlvo[0] * 32)- 16 to center the explosion in the midle of tile
-			var boom = new effect((this.currentEvent.coordenadasAlvo[0] * 32)- 16, (this.currentEvent.coordenadasAlvo[1] * 32) - 16, me.loader.getImage("explosion_64x64"), 64, 64);
+			// (this.currentEvent.coordenadasAlvo[0] * ads_tile_size)- 16 to center the explosion in the midle of tile
+			var boom = new effect((this.currentEvent.coordenadasAlvo[0] * ads_tile_size)- 16, (this.currentEvent.coordenadasAlvo[1] * ads_tile_size) - 16, me.loader.getImage("explosion_64x64"), 64, 64);
 			me.game.add(boom, 5);
 			me.game.sort();
 			
@@ -408,8 +404,8 @@ var NpcEntity = me.ObjectEntity.extend({
 			case "talk":
 				//**** CHANGE THIS FOR COORDINATES INSTEAD PATH
 				// if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
-				if( (this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && 
-					 this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)) ||
+				if( (this.currentEvent.coordenadas[0] == Math.round(this.pos.x/ads_tile_size) && 
+					 this.currentEvent.coordenadas[1] == Math.round(this.pos.y/ads_tile_size)) ||
 					 prisonDoorTrigger[this.npcData.prisao.numero]){
 					if (this.npcTalkEvent()){
 						return true;
@@ -420,7 +416,7 @@ var NpcEntity = me.ObjectEntity.extend({
 				break;
 			case "wait":
 				// if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
-				if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)){	
+				if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/ads_tile_size) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/ads_tile_size)){	
 					if (this.npcWaitEvent()){
 						return true;
 					}else{
@@ -430,7 +426,7 @@ var NpcEntity = me.ObjectEntity.extend({
 				break;
 			case "effect":
 				// if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
-				if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/32) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/32)){	
+				if( this.currentEvent.coordenadas[0] == Math.round(this.pos.x/ads_tile_size) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y/ads_tile_size)){	
 					if (this.npceffectEvent()){
 						return true;
 					}else{
@@ -449,7 +445,7 @@ var NpcEntity = me.ObjectEntity.extend({
 					this.currentPath = this.path.length - 1 ;
 					
 					this.countPath = 0;
-					var start = [ Math.round(this.pos.x/32), Math.round(this.pos.y/32)];
+					var start = [ Math.round(this.pos.x/ads_tile_size), Math.round(this.pos.y/ads_tile_size)];
 					var end = this.currentEvent.coordenadas;
 					this.path[this.currentPath] = adsGame.pathFinder.getPath(start,end,"collision");
 					
@@ -497,22 +493,22 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
 
 		this.parent(x, y, settings);
 		
-		// Create a new npc *32 to transform map coordinates to tile coordinates
-		npc = new NpcEntity(adsNpcData[5].coordenadas[0].initStartX * 32, adsNpcData[5].coordenadas[0].initStartY * 32 , 
+		// Create a new npc *ads_tile_size to transform map coordinates to tile coordinates
+		npc = new NpcEntity(adsNpcData[5].coordenadas[0].initStartX * ads_tile_size, adsNpcData[5].coordenadas[0].initStartY * ads_tile_size , 
 								{image: adsNpcData[5].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 43}, adsNpcData[5]);
 
 		me.game.add(npc,6);
 		me.game.sort();
 		
-		npc = new NpcEntity(adsNpcData[6].coordenadas[0].initStartX * 32, adsNpcData[6].coordenadas[0].initStartY * 32 , 
+		npc = new NpcEntity(adsNpcData[6].coordenadas[0].initStartX * ads_tile_size, adsNpcData[6].coordenadas[0].initStartY * ads_tile_size , 
 								{image: adsNpcData[6].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 43}, adsNpcData[6]);
 
 		me.game.add(npc,6);
 		me.game.sort();
 		
-		npc = new NpcEntity(adsNpcData[4].coordenadas[0].initStartX * 32, adsNpcData[4].coordenadas[0].initStartY * 32 , 
+		npc = new NpcEntity(adsNpcData[4].coordenadas[0].initStartX * ads_tile_size, adsNpcData[4].coordenadas[0].initStartY * ads_tile_size , 
 								{image: adsNpcData[4].imagem.replace(".png",""),
 								spritewidth: 32, spriteheight: 43}, adsNpcData[4]);
 

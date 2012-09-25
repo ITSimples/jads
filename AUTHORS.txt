@@ -27,6 +27,7 @@ Interior Tile Set:
 
 "Art Collection Title" art by Daniel Cook (Lostgarden.com)
 
+http://opengameart.org/content/a-load-of-overworld-34-rpg-sprites
 
 "Some of graphic data in this software are free game resources 
 distributed by REFMAP(http://www.tekepon.net/fsm).

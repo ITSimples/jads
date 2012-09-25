@@ -77,13 +77,22 @@ var PlayScreen = me.ScreenObject.extend(
 		// Ler o primeiro nível
 		me.levelDirector.loadLevel("map01");
 		
+		// ----- Set DIV width to fit the inventory, message and question box
+		$('#adsGame').css("width", ads_width);
+		
 		// Show inventory when game start
 		adsGame.Inventory.show();
 
 		// Setup HUD
-		var hudSpace= 80 - ads_HUD_font_size;
-		me.game.addHUD(0,0,ads_width,34,"#111111");
+		me.game.addHUD(0,0,ads_width,33,"#222222");
+		
+		
+		var hudSpace= ~~(ads_width / 16);
+		
 		var hudLive = new HUDLive(ads_HUD_X_Position ,ads_HUD_Y_Position);
+
+
+		
 		var hudKnowledge = new HUDKnowledge( hudLive.hudLength() + 
 											(hudSpace * 1),ads_HUD_Y_Position);
 		var hudVelocity = new HUDVelocity(	hudLive.hudLength() + 
@@ -97,6 +106,8 @@ var PlayScreen = me.ScreenObject.extend(
 										hudKnowledge.hudLength() + 
 										hudVelocity.hudLength() + 
 										hudGold.hudLength() + (hudSpace * 4),ads_HUD_Y_Position);
+		
+		
 		
 		me.game.HUD.addItem("vida", hudLive );
 		me.game.HUD.addItem("conhecimento", hudKnowledge );
@@ -114,7 +125,7 @@ var PlayScreen = me.ScreenObject.extend(
 
 	onDestroyEvent: function()
 	{
-	
+		me.game.disableHUD();
 	}
 
 });

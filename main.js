@@ -7,9 +7,6 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -36,11 +33,12 @@ var adsGame =
 	onload:function()
 	{
 		//Inicializar resolução e teste se browser suporta o jogo
-		if(!me.video.init('adsGame',ads_width,ads_height,false,1.0)){
+		if(!me.video.init('adsGame',ads_width,ads_height,true,1.0)){
 			alert("O seu browser não suporta o jogo * Aventura do saber \n Use o Firefox, Chrome ou IE9+ para poder jogar. *");
 			return;
 		}
 
+		
 		
 		//Inicializar formato de música a utilizar
 		me.audio.init("mp3");

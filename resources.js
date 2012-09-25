@@ -7,9 +7,6 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -26,8 +23,8 @@ Gobal Variables
 /*------------------- 
 Game engine system Configuration
 -------------------------------- */
-me.sys.fps = 60;
-me.sys.useNativeAnimFrame = false;
+me.sys.fps = 30;
+// me.sys.useNativeAnimFrame = true;
 me.sys.cacheImage = true;
 /*--- END Game engine system Configuration ---*/
 
@@ -37,14 +34,15 @@ START Global Variables
 
 
 // Configurações do Jogo - Variáveis Globais:
-var ads_width = 800;
-var ads_height = 600;
+var ads_width = 700;
+var ads_height = 500;
 var ads_images_path='content/images/';
 var ads_sprites_path='content/sprites/';
 var ads_effects_path='content/effects/';
 var ads_items_path='content/sprites/items/';
 var ads_music_path='content/music/';
 var ads_json_files='content/jsondata/';
+var ads_tile_size = 32;
 
 
 /*------------------- 
@@ -74,8 +72,7 @@ var maxHudValue = {"live":10,"velocity":10};
 Heroe Configuration
 -------------------------------- */
 
-var heroeVelocity = 2 ;
-var heroeInitialVelocity = 2 ;
+var heroeVelocity = 3 ;
 
 var itemLucky = 20;
 
@@ -159,8 +156,6 @@ var ads_resources =
 	// ---- Mapas ----
 	{name: "tiles",type: "image",src: "content/maps/area01_tileset/tiles.png"},
 	{name: "tiles02", type: "image", src: "content/maps/area01_tileset/tiles02.png"},
-	{name: "area01_bkg0", type: "image", src: "content/maps/area01_parallax/area01_bkg0.png"},
-	{name: "area01_bkg1", type: "image", src: "content/maps/area01_parallax/area01_bkg1.png"},
 	{name: "map01", type: "tmx", src: "content/maps/map01.tmx"},
 	
 	// ---- Imagens ----
