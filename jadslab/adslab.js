@@ -8,13 +8,20 @@ HTTP://www.itsimples.com  - change to ITSimples Games
 -----------------------------------
 */
 
+var TestingGlobalOnLevelChange = "Level 0";
+var currentLevel = "";
+var playerPos = new me.Vector2d(0, 0);
+var changeLevel = false;
+
 // Game resources
 var jadsTestResources = 
 [
 	// ---- Mapas ----
 	{name: "bee",type: "image",src: "bee.png"},
+	{name: "player",type: "image",src: "h_female01.png"},
 	{name: "tiles",type: "image",src: "maps/maptest_tileset/tiles.png"},
-	{name: "maptest", type: "tmx", src: "maps/maptest.tmx"}
+	{name: "maptest01", type: "tmx", src: "maps/maptest.tmx"},
+	{name: "maptest02", type: "tmx", src: "maps/maptest02.tmx"}
 ];
 
 
@@ -47,18 +54,26 @@ var adsTest =
 		me.debug.renderHitBox = true;
 		
 		var result;
-
+		
 	},
 	
 	loaded:function()
 	{	
+	
 		// Definir estado jogo 
 		me.state.set(me.state.PLAY,new PlayScreen());		
 
 		// Configurar entidades do mapasw
 		// Class HeroeEntity em entities
 		//"Heroe" - Nome no mapa .tmx
-		me.entityPool.add("bee", beeEntity); 
+		me.entityPool.add("bee", beeEntity);
+		me.entityPool.add("player", playerEntity);
+		me.entityPool.add('MapExit', MapExit );
+		
+		me.input.bindKey(me.input.KEY.A, "left");
+		me.input.bindKey(me.input.KEY.D, "right");
+		me.input.bindKey(me.input.KEY.W, "up");
+		me.input.bindKey(me.input.KEY.S, "down");
 		
 		// Debug Mode
 		me.state.change(me.state.PLAY);
@@ -87,7 +102,7 @@ var adsTest =
 	result = AStar(myLayer, startPoint, endPoint, "Manhattan");
 	
 	$.each ( result, function (i, results ){
-		console.log ("- " + results);
+		// console.log ("- " + results);
 	});
 	// console.log ("- " + result);
 	
@@ -106,7 +121,7 @@ var PlayScreen = me.ScreenObject.extend(
 	onResetEvent: function()
 	{	
 		// Ler o primeiro nível
-		me.levelDirector.loadLevel("maptest");
+		me.levelDirector.loadLevel("maptest01");
 	},
 
 	update: function () 
@@ -124,6 +139,7 @@ var PlayScreen = me.ScreenObject.extend(
 var beeEntity = me.ObjectEntity.extend({
 	//Construtor:
 	init:	function (x , y , settings){
+	
 		//Definir propriedades do objecto heroi na classe em vez de no mapa:
 		settings.image="bee"; 
 		settings.spritewidth=32;
@@ -181,7 +197,7 @@ var beeEntity = me.ObjectEntity.extend({
         this.distanceX = Math.abs( this.destX - this.pos.x );
         this.distanceY = Math.abs( this.destY - this.pos.y );
 
-		if ( this.distanceX == 0 && this.distanceY == 0){
+		if ( this.distanceX < 0.5 && this.distanceY < 0.5){
 			this.stop = true;
 		} else if( this.distanceX > this.distanceY ) {
             this.direction = this.destX < this.pos.x ? 'left' : 'right' ;
@@ -199,7 +215,6 @@ var beeEntity = me.ObjectEntity.extend({
 		this.setCurrentAnimation( this.direction );
 		this.animationspeed = me.sys.fps / 23;
 		
-
 		if ( this.stop )
 		{
 			this.vel.x = 0;
@@ -233,12 +248,12 @@ var beeEntity = me.ObjectEntity.extend({
 		{
 			this.vel.y = this.accel.y * me.timer.tick;
 		}
-
+		
 		// check & update player movement
 		updated = this.updateMovement();
 
-			// Actualizar animação
-			this.parent(this);
+		// Actualizar animação
+		this.parent(this);
 
 		this.setDirection();
 		
@@ -246,8 +261,154 @@ var beeEntity = me.ObjectEntity.extend({
 	}
 });
 // *****************************
-// ****  Fim Entidade Heroi ****
+// ****  Fim Entidade bee ****
 // *****************************
+
+// *************************
+// ****  Entidade player ****
+// *************************
+var playerEntity = me.ObjectEntity.extend({
+	//Construtor:
+	init:	function (x , y , settings){
+	
+	console.log('If the second or more time in that map init will be different call new initsecond and return...');
+	
+	
+		//Definir propriedades do objecto heroi na classe em vez de no mapa:
+		settings.image="player"; 
+		settings.spritewidth=32;
+
+		// Chamar o contrutor
+		this.parent(x, y , settings);
+		
+		//Debug Position
+		var ads_tile_size = 32;
+		
+			this.pos.x = 2 * ads_tile_size;
+			this.pos.y = 7 * ads_tile_size;
+
+		// Configurar velocidade do jogador
+		this.setVelocity(3, 3);
+		
+		// Configurar velocidade de travagem
+		// Valores maiores tempo de travagem menor
+		this.setFriction(0.5, 0.5);
+		
+		// adjust the bounding box
+		this.updateColRect(4,24,20,23); 
+		
+		// disable gravity
+		this.gravity = 0;
+		
+		//Direção inicial
+		this.direction = 'down';
+		
+		this.collidable= true;
+
+		//Config npc's animation
+		this.addAnimation("stand-down", [4]);
+		this.addAnimation("stand-left", [8]);
+		this.addAnimation("stand-up", [1]);
+		this.addAnimation("stand-right", [11]);
+		this.addAnimation("down", [3,4,5,4]);
+		this.addAnimation("left", [6,7,8]);
+		this.addAnimation("up", [0,1,2,1]);
+		this.addAnimation("right", [9,10,11]);
+		
+	
+		// Viewport follow heroe
+		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+		
+	},
+	
+	//Update player position.
+	update : function ()
+	{		
+		
+		if (me.input.isKeyPressed('left'))
+		{
+			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
+
+			this.vel.x = -this.accel.x * me.timer.tick;
+			this.setCurrentAnimation('left');
+			this.direction = 'left';			
+		}
+		else if (me.input.isKeyPressed('right'))
+		{
+			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
+			this.vel.x = this.accel.x * me.timer.tick; 
+			this.setCurrentAnimation('right');
+			this.direction = 'right';
+		}
+
+		if (me.input.isKeyPressed('up'))
+		{
+			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
+			this.vel.y = -this.accel.y * me.timer.tick; 
+			this.setCurrentAnimation('up');
+			this.direction = 'up';
+		}
+		else if (me.input.isKeyPressed('down'))
+		{
+			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
+			this.vel.y = this.accel.y * me.timer.tick; 
+			this.setCurrentAnimation('down');
+			this.direction = 'down';
+		}
+		
+		// If player Stop set stand animationa
+		if (this.vel.y === 0 && this.vel.x === 0)
+		{
+			this.setCurrentAnimation('stand-' + this.direction);
+		}
+	
+		// check & update player movement
+		updated = this.updateMovement();
+
+		// update animation
+		if (updated)
+		{
+			// Actualizar animação
+			this.parent(this);
+		}
+
+		var res = me.game.collide(this);
+		
+		return updated;
+		
+	},
+	
+	onDestroyEvent: function()
+	{
+		playerPos = this.pos;
+		changeLevel = true;
+	}
+});
+// *****************************
+// ****  Fim Entidade player ****
+// *****************************
+
+var MapExit = me.LevelEntity.extend({
+
+    init : function( x, y, settings ) {
+        settings.duration = 250;
+        settings.fade = '#000000';
+		this.x = 32;
+		this.y = 64;
+		
+		// var player = me.game.getEntityByName('player');
+		// playerPos = player[0].pos;
+		// player[0].pos.x ;
+		// player[0].pos.y ; 
+		
+		console.log(TestingGlobalOnLevelChange +  ' playerPos:'  + playerPos);
+		
+		TestingGlobalOnLevelChange = TestingGlobalOnLevelChange + settings.to;
+		
+        this.parent( x, y, settings );
+    }
+});
+
 
 
 //bootstrap :)
