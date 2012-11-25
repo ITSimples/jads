@@ -76,6 +76,9 @@ var heroeVelocity = 3 ;
 
 var itemLucky = 20;
 
+var startHeroe = [5,5];
+
+
 /*--- END Heroe Configuration ---*/
 
 

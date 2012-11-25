@@ -34,8 +34,8 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		//Debug Position
 		
-		this.pos.x = 26 * ads_tile_size;
-		this.pos.y = 20 * ads_tile_size;
+		this.pos.x = startHeroe[0] * ads_tile_size;
+		this.pos.y = startHeroe[1] * ads_tile_size;
 
 		// This move
 		this.movemouse = false;
