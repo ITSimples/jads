@@ -368,15 +368,27 @@ var NpcEntity = me.ObjectEntity.extend({
 			//Call one time function explode
 			console.log('Explode...');
 			// (this.currentEvent.coordenadasAlvo[0] * ads_tile_size)- 16 to center the explosion in the midle of tile
-			var boom = new effect((this.currentEvent.coordenadasAlvo[0] * ads_tile_size)- 16, (this.currentEvent.coordenadasAlvo[1] * ads_tile_size) - 16, me.loader.getImage("explosion_64x64"), 64, 64);
-			me.game.add(boom, 5);
+			var boom = new effect((this.currentEvent.coordenadasAlvo[0] * ads_tile_size)+ 16, (this.currentEvent.coordenadasAlvo[1] * ads_tile_size) - 32, me.loader.getImage("explosion_64x64"), 64, 64);
+			me.game.add(boom, 7);
 			me.game.sort();
 			
 			// if is a door Open it
 			this.doorLayer = me.game.currentLevel.getLayerByName("door");
+			this.upperObjectsLayer = me.game.currentLevel.getLayerByName("upper objects");
 			this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
+			
+			//Remove door:
+			// - Upper
+			this.upperObjectsLayer.clearTile(this.currentEvent.coordenadasAlvo[0],this.currentEvent.coordenadasAlvo[1] - 1);
+			this.upperObjectsLayer.clearTile(this.currentEvent.coordenadasAlvo[0] + 1,this.currentEvent.coordenadasAlvo[1] - 1);
+			// - Lower
 			this.doorLayer.clearTile(this.currentEvent.coordenadasAlvo[0],this.currentEvent.coordenadasAlvo[1]);
+			this.doorLayer.clearTile(this.currentEvent.coordenadasAlvo[0] + 1,this.currentEvent.coordenadasAlvo[1]);
+			
+			// Remove collision tiles on layer
 			this.collisionLayer.clearTile(this.currentEvent.coordenadasAlvo[0],this.currentEvent.coordenadasAlvo[1]);
+			this.collisionLayer.clearTile(this.currentEvent.coordenadasAlvo[0] + 1,this.currentEvent.coordenadasAlvo[1]);
+			
 			this.doorLayer = undefined;
 			this.collisionLayer = undefined;
 		}

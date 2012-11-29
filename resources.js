@@ -157,8 +157,18 @@ var fullInventory = false;
 var ads_resources = 
 [
 	// ---- Mapas ----
-	{name: "tiles",type: "image",src: "content/maps/area01_tileset/tiles.png"},
-	{name: "tiles02", type: "image", src: "content/maps/area01_tileset/tiles02.png"},
+	
+	// *** Tiles for Map 01 ***	
+	
+	//Implement the new map with the tiles
+	{name: "metatiles32x32",type: "image",src: "content/maps/map01_tileset/metatiles32x32.png"},	
+	{name: "TileB",type: "image",src: "content/maps/map01_tileset/TileB.png"},
+	{name: "TileC",type: "image",src: "content/maps/map01_tileset/TileC.png"},
+	{name: "TileD",type: "image",src: "content/maps/map01_tileset/TileD.png"},
+	{name: "TileE",type: "image",src: "content/maps/map01_tileset/TileE.png"},
+	{name: "tiles",type: "image",src: "content/maps/map01_tileset/tiles.png"},
+	
+	// *** Map 01 ***
 	{name: "map01", type: "tmx", src: "content/maps/map01.tmx"},
 	
 	// ---- Imagens ----

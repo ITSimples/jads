@@ -639,13 +639,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		}
 			
 		
-		
-		
 		var projectil = new projectilEntity(this.pos.x + triggerPositionX , 
 											this.pos.y + triggerPositionY, 
 											projectilsData[this.throwerData.nomeProjectil], this.throwerData);
 		
-		me.game.add(projectil, 6);
+		me.game.add(projectil,7);
 		me.game.sort.defer();
     },
 	
@@ -655,7 +653,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			//Create projectil
 			this.createProjectil();
 			this.numberProjectils++;
-			console.log('numberProjectils' , this.numberProjectils);
+			// console.log('numberProjectils' , this.numberProjectils);
 			return;
 		}
 	},
@@ -666,7 +664,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 // **************************************  
   
 // **************************************
-// ****  PROJECTIL ENTITY 			 ****
+// ****  PROJECTIL ENTITY 	     	 ****
 // ************************************** 
    var projectilEntity = me.ObjectEntity.extend({
     
@@ -762,7 +760,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			this.liveTime();
 		}
 		
-		// check & update player movement
+		// check & update movement
 		updated = this.updateMovement();
 
 		// update animation
@@ -788,6 +786,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 	},
     
     handleCollisions: function (updated) {	
+		
 		var res = me.game.collide(this);
 
 		if (res && res.obj.name == "heroe" ) {
@@ -922,7 +921,7 @@ var ThrowersSpawnEntity = me.InvisibleEntity.extend({
 		// Adicionar items na camada 4
 		$.each( throwersData, function(i, throwerData){
 			thrower = new throwersEntity( throwerData.coordenadas.x * ads_tile_size , throwerData.coordenadas.y * ads_tile_size, throwerData);
-			me.game.add(thrower,5);
+			me.game.add(thrower,6);
 			me.game.sort.defer();
 		});	
 

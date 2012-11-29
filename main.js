@@ -354,7 +354,7 @@ function randomFloat(minValue,maxValue,precision){
 		adsGame.onload();
 	};
 $( function(){
-	$.get( ads_json_files + "gamedata.json" )
+	$.get( ads_json_files + "gamedata01.json" )
 		.done( function( data ){
 			if( typeof data != "object" ){
 				alert( "Data is invalid" );
