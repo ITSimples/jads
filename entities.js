@@ -561,7 +561,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		// console.log('this.throwerData.solido:',this.throwerData.solido ,  'this.throwerData.nome:', this.throwerData.nome)
 		
-		//Put solid tile in this place if thrower is solid
+		//Put solid tile in this place if thrower is solid 226 number
 		if (this.throwerData.solido){
 			this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
 			this.collisionLayer.setTile(this.throwerData.coordenadas.x,this.throwerData.coordenadas.y,226);
@@ -628,7 +628,10 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			// Calculate trigger position on (X=middle of thrower - middle of projectil) and (Y = projectil height)
 			var triggerPositionX = ~~(this.throwerData.configuracoes.spritewidth / 2) - 
 									~~(projectilsData[this.throwerData.nomeProjectil].configuracoes.spritewidth / 2);
-			var triggerPositionY = this.throwerData.posicaoDisparo.y ;									
+			var triggerPositionY = this.throwerData.posicaoDisparo.y ;	
+				
+			console.log("triggerPositionY + this.pos.y:" , triggerPositionY , "+", this.pos.y)
+			
 		}else if (this.throwerData.direcao == "right" || this.throwerData.direcao == "left"){
 			var triggerPositionX = this.throwerData.posicaoDisparo.x ;
 			var triggerPositionY = ~~(this.throwerData.configuracoes.spriteheight / 2) - 
@@ -809,7 +812,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			if(this.throwerData.movimento === "random"){			
 				this.randomMovement();
 			}else{
-				//Remove object
+				//Remove object if there is a distance up 32 pixels
 				me.game.remove(this);
 			}
 			
