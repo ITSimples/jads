@@ -1,7 +1,16 @@
 #adsGame{
 	position: relative;
-  margin-left: auto ;
-  margin-right: auto ;
+	top: 80px; /* Top from border*/
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
+#gameBorder {
+    position: relative;
+    width: 880px; 
+    height: 640px;
+    background:url('content/gui/game_border.png') transparent no-repeat;
+    float: left;
 }
 
 #fps{

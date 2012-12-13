@@ -21,7 +21,7 @@ Gobal Variables
 -------------------------------- */
 
 /*------------------- 
-Game engine system Configuration
+Game engine system Configuration 
 -------------------------------- */
 me.sys.fps = 30;
 // me.sys.useNativeAnimFrame = true;
@@ -34,8 +34,8 @@ START Global Variables
 
 
 // Configurações do Jogo - Variáveis Globais:
-var ads_width = 700;
-var ads_height = 500;
+var ads_width = 800;
+var ads_height = 520;
 var ads_images_path='content/images/';
 var ads_sprites_path='content/sprites/';
 var ads_effects_path='content/effects/';
@@ -76,7 +76,7 @@ var heroeVelocity = 3 ;
 
 var itemLucky = 20;
 
-var startHeroe = [1,23];
+var startHeroe = [8,7];
 
 
 /*--- END Heroe Configuration ---*/
