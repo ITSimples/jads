@@ -1,3 +1,10 @@
+#adsPage{
+	position: relative;
+	width: 880px;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
 #adsGame{
 	position: relative;
 	top: 80px; /* Top from border*/
@@ -7,27 +14,69 @@
 
 #gameBorder {
     position: relative;
-    width: 880px; 
+    width: 880px;
     height: 640px;
     background:url('content/gui/game_border.png') transparent no-repeat;
     float: left;
 }
 
-#fps{
-	width: 60px;
-	height:20px;
-	margin: 0px auto;
-	border: 2px outset #FFFFFF;
-	float:left;
+#msgAuthor {
+	position: absolute;
+	bottom: 10px;
+	right: 20px;
+	text-align:left;
+	z-index:0;
+	font-family: 'MedievalSharp', serif;
+	color : #996600;
+	font-weight: bold;
 }
 
-#information{
+#msgGameName {
 	position: absolute;
-	top: 650px;
-	left: 0px;
-	text-align:left;
-	width:50;
-	z-index:-1;
+	top: 20px;
+	left: 250px;
+	z-index:0;
+	font-family: 'MedievalSharp', serif;
+	color : #5F4C0B;
+	font-size:40px;
+}
+
+#flag_en {
+	width: 40px;
+	height: 20px;
+	background:url('content/gui/en_flag.png') no-repeat;
+	z-index:0;
+	position: absolute;
+	top: 42px;
+	right: 40px;
+}
+
+#flag_pt {
+	width: 40px;
+	height: 20px;
+	background:url('content/gui/pt_flag.png') no-repeat;
+	z-index:0;
+	position: absolute;
+	top: 20px;
+	right: 40px;
+}
+
+#sound {
+	width: 32px;
+	height: 32px;
+	background:url('content/gui/sound.png') no-repeat;
+	z-index:0;
+	position: absolute;
+	top: 20px;
+	left: 40px;
+	border-style:none;
+}
+
+#fpsInfo{
+	position: absolute;
+	width: 200px;
+	bottom: 10px;
+	left: 10px;	
 }
 
 #hiddenText {
