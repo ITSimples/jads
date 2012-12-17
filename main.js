@@ -69,6 +69,9 @@ var adsGame =
 		adsGame.Inventory = new adsGame.Inventory();
 		
 		adsGame.pathFinder = new  adsGame.pathFinder();
+		
+		//Create object from prisondoor classe
+		adsGame.prisonDoors =  new adsGame.PrisonDoors();
 
 	},
 	reboot:function(){

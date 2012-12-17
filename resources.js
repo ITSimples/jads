@@ -76,27 +76,10 @@ var heroeVelocity = 3 ;
 
 var itemLucky = 20;
 
-var startHeroe = [8,7];
+var startHeroe = [7,5];
 
 
 /*--- END Heroe Configuration ---*/
-
-
-
-/*------------------- 
-Prison Configuration
--------------------------------- */
-
-//Create global variable to check if prison door is opened or closed
-var prisonBreak = [false,false,false,false];
-
-var prisonDoorTrigger = [false,false,false,false];
-
-/*------------------- 
-End Prison Configuration
--------------------------------- */
-
-
 
 /*------------------- 
 KEEP DATA IN ARRAY FROM JSON FILE
@@ -228,7 +211,8 @@ var ads_resources =
 	{name: "fire01", 	type: "image",src: ads_sprites_path + "fire01.png"},
 	{name: "thrower01", 	type: "image",src: ads_sprites_path + "thrower01.png"},
 	{name: "explosion_32x32", 	type: "image",src: ads_effects_path + "explosion_32x32.png"},
-	{name: "explosion_64x64", 	type: "image",src: ads_effects_path + "explosion_64x64.png"}
+	{name: "explosion_64x64", 	type: "image",src: ads_effects_path + "explosion_64x64.png"},
+	{name: "prisiondooropen", 	type: "image",src: ads_effects_path + "prisiondooropen.png"}
 	
 ];
 

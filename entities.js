@@ -85,6 +85,10 @@ var HeroeEntity = me.ObjectEntity.extend({
 		//Check if is showing the inventory enable/disable
 		this.isShowInv = false;
 		
+		
+		// DEBUG GET KEY TO HERO
+		//adsGame.Inventory.addItem(  ads_items_data[14] );
+		
 	},
 	
 	//Update player position.
@@ -390,13 +394,13 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		
 
 		// If trigger is a door get layer door and coolision. Set where the door open
-		if (this.type == 'DOOR_OBJECT'){
-			this.doorLayer = me.game.currentLevel.getLayerByName("door");
-			this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
+		// if (this.type == 'DOOR_OBJECT'){
+			// this.doorLayer = me.game.currentLevel.getLayerByName("door");
+			// this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
 		
-			//Check if door is open
-			this.tileTarget = false;
-		}
+			// //Check if door is open
+			// this.tileTarget = false;
+		// }
 	},
 
 	update : function (){
@@ -434,18 +438,29 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					if (itemIndex !== null)
 						adsGame.Inventory.removeItem( 'Slot0' + (itemIndex + 1) );
 				}
+				
 				// If trigger is a door object
 				if (this.type == 'DOOR_OBJECT'){
 					if (this.checkSolution){
-						// Open the door
-						this.doorLayer.clearTile(this.targX,this.targY);
-						this.collisionLayer.clearTile(this.targX,this.targY);
+					
+						// // Open the door
+						// this.doorLayer.clearTile(this.targX,this.targY);
+						// this.collisionLayer.clearTile(this.targX,this.targY);
 
-						//Remove this object
-						me.game.remove(this);
+						// //Remove this object
+						// me.game.remove(this);
+						
+						var doorCoord = new Array();
+						doorCoord[0] = this.targX;
+						doorCoord[1] = this.targY;
+						
+						adsGame.prisonDoors.remove(doorCoord , "openDoor");
 						
 						//portaPrisao -- Set door open to the prison number
-						prisonBreak[this.triggerData.portaPrisao] = true;
+						adsGame.prisonDoors.prisonBreak[this.triggerData.portaPrisao] = true;
+						
+						// Remove Trigger
+						me.game.remove(this);
 						
 						// **** TODO - REMOVE KEY  FROM LIST OF ITEMS
 					}else{
@@ -456,7 +471,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					}	
 					
 					// Set if NPC prisoner talk to heore to avoid to talk again on npc.js
-					prisonDoorTrigger[this.triggerData.portaPrisao] = true;
+					adsGame.prisonDoors.prisonDoorTrigger[this.triggerData.portaPrisao] = true;
 				} // End door object
 				
 				// If trigger is a portal object
