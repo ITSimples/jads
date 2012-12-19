@@ -86,8 +86,8 @@ var HeroeEntity = me.ObjectEntity.extend({
 		this.isShowInv = false;
 		
 		
-		// DEBUG GET KEY TO HERO
-		//adsGame.Inventory.addItem(  ads_items_data[14] );
+		// DEBUG GET KEY TO HERO 
+		// adsGame.Inventory.addItem(  ads_items_data[14] );
 		
 	},
 	
@@ -153,7 +153,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 			this.vel.y = 0;
 		}		
 
-		// Actaualizar colisão
+		// update collision
 		var res = me.game.collide(this);
 		
 		
@@ -457,20 +457,25 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						adsGame.prisonDoors.remove(doorCoord , "openDoor");
 						
 						//portaPrisao -- Set door open to the prison number
-						adsGame.prisonDoors.prisonBreak[this.triggerData.portaPrisao] = true;
+						// adsGame.prisonDoors.prisonBreak[this.triggerData.portaPrisao] = true;
+						adsGame.prisonDoors.openPrisonDoor( this.triggerData.portaPrisao );
+						
+						console.log("prisonBreak Heroe: " , adsGame.prisonDoors.getPrisonDoorState( this.triggerData.portaPrisao ) );
 						
 						// Remove Trigger
 						me.game.remove(this);
 						
 						// **** TODO - REMOVE KEY  FROM LIST OF ITEMS
 					}else{
-						// console.log("Heroe don't have the key.");
-						this.message.show(this.msgData);
-						msgShowing = true;
-
+						// console.log("Heroe don't have the key. npcTalking:" , npcTalking);
+						
+						if (!npcTalking){
+							this.message.show(this.msgData);
+							msgShowing = true;
+						}
 					}	
 					
-					// Set if NPC prisoner talk to heore to avoid to talk again on npc.js
+					// Set if NPC prisoner talk to hero to avoid to talk again on npc.js
 					adsGame.prisonDoors.prisonDoorTrigger[this.triggerData.portaPrisao] = true;
 				} // End door object
 				
@@ -524,14 +529,15 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		// triggerData.imageName = "chaveosso.png";
 		// triggerData.solution = "chaveosso";
 		
-		var settings = {};
-		settings.width = 32;
-		settings.height = 32;
+		// //var settings = {};
+		// var settings = triggerData.settings;
+		// settings.width = 32;
+		// settings.height = 32;
 		
 		// Adicionar items na camada 4
 		$.each(triggersData, function(i, triggerData){
 			trigger = new TriggerEntity( triggerData.coordinates.x * ads_tile_size , triggerData.coordinates.y * ads_tile_size
-										, settings , triggerData);
+										, triggerData.settings , triggerData);
 			me.game.add(trigger,4);
 			me.game.sort();
 		});	

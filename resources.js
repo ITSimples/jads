@@ -115,6 +115,10 @@ var projectilsData = [];
 // also setup in NPC - set allways when message is showinf
 var msgShowing = false;
 
+// NPC is talking - Test if NPC Event talk is true
+// Used to avoid show prison door triggers messages to show when NPC is talking
+var npcTalking = false;
+
 // Keep all items found by heroe
 var heroeItems = [];
 

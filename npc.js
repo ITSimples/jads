@@ -227,27 +227,30 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.readOneTimeEvent = false;
 			}
 		}
-
-		if( moveObject( this ) && !this.stop) {
+		
+		if (this.prisoner){
+			if( adsGame.prisonDoors.getPrisonDoorState( this.npcData.prisao.numero ) ){
+				
+				// console.log ('Says thx to heroe and.. ');
+				// console.log ('Calculate path to freedom... :)');
+				// console.log ('Stop being a prisoner...');
+				//Stop being a prisoner...
+				this.prisoner = false;
+				
+				//reset event number and execute escape events
+				this.CurrentEventNumber = 0;
+				this.npcEvents = this.npcEscapeEvents;
+				
+				console.log ("What a fuck...");
+			}
+			
+			// console.log ('Prisoner ' , this.npcData.nome , ' is arrested at cell ' , this.npcData.prisao.numero ,
+				// ' and this cell is ' , prisonBreak[this.npcData.prisao.numero] ? 'open' : 'closed' );
+		}
+		
+		// Move NPC
+		if( moveObject( this ) && !this.stop) {			
 			if (this.countPath != this.path[this.currentPath].length){
-
-					if (this.prisoner){
-						if( adsGame.prisonDoors.prisonBreak[this.npcData.prisao.numero] ){
-							
-							// console.log ('Says thx to heroe and.. ');
-							// console.log ('Calculate path to freedom... :)');
-							// console.log ('Stop being a prisoner...');
-							//Stop being a prisoner...
-							this.prisoner = false;
-							
-							//reset event number and execute escape events
-							this.CurrentEventNumber = 0;
-							this.npcEvents = this.npcEscapeEvents;
-						}
-						
-						// console.log ('Prisoner ' , this.npcData.nome , ' is arrested at cell ' , this.npcData.prisao.numero ,
-							// ' and this cell is ' , prisonBreak[this.npcData.prisao.numero] ? 'open' : 'closed' );
-					}
 					//return movement
 					this.accel.x = this.accel.y = this.npcData.velocidade;
 					this.setCurrentAnimation( this.direction );
@@ -400,10 +403,14 @@ var NpcEntity = me.ObjectEntity.extend({
 				// if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
 				if( (this.currentEvent.coordenadas[0] == Math.round(this.pos.x/ads_tile_size) && 
 					 this.currentEvent.coordenadas[1] == Math.round(this.pos.y/ads_tile_size)) ||
-					 adsGame.prisonDoors.prisonDoorTrigger[this.npcData.prisao.numero]){
+					 adsGame.prisonDoors.prisonDoorTrigger[this.npcData.prisao.numero]){ // to talk to prisoner if hero pull the trigger
 					if (this.npcTalkEvent()){
+						// event talking is happening
+						npcTalking = true;
 						return true;
 					}else{
+						// event talking is over
+						npcTalking = false;
 						return false;
 					}
 				}

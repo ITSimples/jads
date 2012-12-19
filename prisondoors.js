@@ -42,6 +42,15 @@
 		
 
 	},
+	
+	"openPrisonDoor" : function openPrisonDoor ( prisonNumber ){
+							this.prisonBreak[ prisonNumber ] = true;
+	},
+	
+	"getPrisonDoorState" : function getPrisonDoorState ( prisonNumber ){
+							return this.prisonBreak[ prisonNumber ];
+	},
+	
 	"remove" : function remove( initCoord , effectName ) {
 	
 				var doorLayer = me.game.currentLevel.getLayerByName("doors");
