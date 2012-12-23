@@ -17,17 +17,42 @@
  */
 
 var effect = me.AnimationSheet.extend({
-    init: function(x, y, Image, spritewidth, spriteheight , animation , speed) {
+    init: function(x, y, Image, spritewidth, spriteheight , animation , speed, repeat) {
 	
         this.parent(x, y, Image, spritewidth, spriteheight);
  
         this.addAnimation("sprite", animation);
  
         this.animationspeed = me.sys.fps / speed;
+		
+		//Repeat the animation or not
+		if( typeof repeat !== 'undefined' ) {
+			this.repeat = repeat;
+		}else
+		{
+			this.repeat = false;
+			
+		}
+		
+		//Wait between animations
+		this.waitBetweenAnimations = 10 * 60;
+		
     },
     
     update: function() {
-        this.setCurrentAnimation("sprite", function(){ me.game.remove(this) });
+				if (this.repeat){
+					this.setCurrentAnimation("sprite", function(){ 
+					if ( --this.waitBetweenAnimations < 0 ){
+						this.animationpause = true;
+					}else{
+						this.animationpause = false;
+					}
+			
+			});
+		}else
+		{
+			this.setCurrentAnimation("sprite", function(){ me.game.remove(this) });
+		}
         this.parent(this);
         return true;
     },

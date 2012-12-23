@@ -324,6 +324,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 						
 						if (!isCollide)
 						{
+							// Item Image
 							item[count] = new ItemEntity(parseInt(ads_tile_size*x ,10), parseInt(ads_tile_size*y ,10), 
 									{image: ads_items_data[random_item].imagem.replace(".png",""),
 									spritewidth: 32, spriteheight: 32}, ads_items_data[random_item]);
@@ -338,11 +339,25 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 			}
 		}
 		
-		// Adicionar items na camada 3
+		// add items on layer 5
 		$.each(item, function(i, item){
 			me.game.add(item,5);
 			me.game.sort();
+			
+			// Item animation
+			var itemanimation = new effect(
+				item.pos.x - 8 , item.pos.y - 8, // Coordinates
+				me.loader.getImage("itemanimation"),	// Image
+				45, 45, // Size
+				[0,1,2,3,4,5,6,7,8], //Animation sheet
+				30, // Speed between 0 - Slowest and 60 - fastest
+				true // Repeat animation
+				);
+
+			me.game.add(itemanimation, 6);
+			me.game.sort();
 		});
+		
 
 		//Spawn special items
 		$.each(specialItemsData, function(i, dataSpecialItem){
