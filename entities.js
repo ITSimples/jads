@@ -347,9 +347,9 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 			// Item animation
 			var itemanimation = new effect(
 				item.pos.x - 8 , item.pos.y - 8, // Coordinates
-				me.loader.getImage("itemanimation"),	// Image
-				45, 45, // Size
-				[0,1,2,3,4,5,6,7,8], //Animation sheet
+				me.loader.getImage("sparkle"),	// Image
+				40, 40, // Size
+				[0,1,2,3,4,5,6,7,8,9,10,11,12,13], //Animation sheet
 				30, // Speed between 0 - Slowest and 60 - fastest
 				true // Repeat animation
 				);

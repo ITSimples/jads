@@ -40,19 +40,21 @@ var effect = me.AnimationSheet.extend({
     },
     
     update: function() {
-				if (this.repeat){
-					this.setCurrentAnimation("sprite", function(){ 
-					if ( --this.waitBetweenAnimations < 0 ){
-						this.animationpause = true;
-					}else{
-						this.animationpause = false;
-					}
-			
+		if (this.repeat){
+			this.setCurrentAnimation("sprite", function(){ 
+				this.animationpause = true;
 			});
+			
+			//If pause between animations
+			//Put in the function the time between animations or random time
+			if (this.animationpause && !Math.floor(Math.random() * 100)) {
+				this.animationpause = false;
+			}
 		}else
 		{
 			this.setCurrentAnimation("sprite", function(){ me.game.remove(this) });
 		}
+		
         this.parent(this);
         return true;
     },
