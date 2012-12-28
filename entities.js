@@ -212,7 +212,19 @@ var ItemEntity = me.CollectableEntity.extend({
 		this.rndQtnData = adsQtnData[rndQuestion];
 		
 		this.type = 'ITEM_OBJECT';
+		
+		// Item sparkle animation
+		this.itemAnimation = new effect(
+			this.pos.x - 8 , this.pos.y - 8, // Coordinates
+			me.loader.getImage("sparkle"),	// Image
+			40, 40, // Size
+			[0,1,2,3,4,5,6,7,8,9,10,11,12,13], //Animation sheet
+			30, // Speed between 0 - Slowest and 60 - fastest
+			true // Repeat animation
+			);
 
+		me.game.add(this.itemAnimation, 6);
+		me.game.sort();
 	},
 	
 	
@@ -237,7 +249,8 @@ var ItemEntity = me.CollectableEntity.extend({
 						this.items_data.categoria == 'conhecimento'){
 						me.game.HUD.updateItemValue(this.items_data.categoria , parseInt(this.items_data.valor, 10));
 					}else{
-						adsGame.Inventory.addItem( this.items_data );
+				
+				adsGame.Inventory.addItem( this.items_data );
 					}						
 					hideQuestionLayer('C');
 				}else if(heroeAnswer !== 0){ // if heroe answer to the question but it's not the correct one
@@ -251,7 +264,13 @@ var ItemEntity = me.CollectableEntity.extend({
 				}else{ // If heroe doesn't answer to the question
 					hideQuestionLayer('D');
 				}
+				
+				// Remove Item 
 				me.game.remove(this);
+				
+				// Remove sparkle item animation
+				me.game.remove(this.itemAnimation);
+						
 			}
 		}else if(fullInventory) {
 			adsGame.Inventory.show();
@@ -319,7 +338,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 						});	
 						
 						//Heroe born
-						if (x == 6 && y == 5)
+						if (x == startHeroe[0] && y == startHeroe[1])
 								isCollide = true;
 						
 						if (!isCollide)
@@ -342,19 +361,6 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		// add items on layer 5
 		$.each(item, function(i, item){
 			me.game.add(item,5);
-			me.game.sort();
-			
-			// Item animation
-			var itemanimation = new effect(
-				item.pos.x - 8 , item.pos.y - 8, // Coordinates
-				me.loader.getImage("sparkle"),	// Image
-				40, 40, // Size
-				[0,1,2,3,4,5,6,7,8,9,10,11,12,13], //Animation sheet
-				30, // Speed between 0 - Slowest and 60 - fastest
-				true // Repeat animation
-				);
-
-			me.game.add(itemanimation, 6);
 			me.game.sort();
 		});
 		
