@@ -84,7 +84,7 @@
 			
 			// Show invComment
 			if (fullInventory){
-				this.invComment = 'Inventario cheio.';
+				this.invComment = 'Inventario cheio. Remove um item.';
 			}
 			$('.invComment,#hiddenText').html(this.invComment);
 			

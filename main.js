@@ -160,8 +160,13 @@ function showQuestionLayer(itemData, adsQtnData)
 		$('.r2').html('(2) ' + rndQtnData.r2 );
 		$('.r3').html('(3) ' + rndQtnData.r3 );
 		$('.r0').html('(0) Não responder..');
-		$('.answerValue').html('+/-' + itemData.valor + ' de ' + itemData.categoria + '.');
 		
+		// if is a special item them show the value you can lose and not the name
+		if (!itemData.specialItem){
+			$('.answerValue').html('+/-' + itemData.valor + ' de ' + itemData.categoria + '.');
+		}else{
+			$('.answerValue').html('Resposta errada perdes ' + itemData.quantidade + ' de ' + itemData.remover + '.');
+		}
 		// Create event listener to get answer from player
 		$(document).keyup(function(event) {
 			var keyPressed = (String.fromCharCode(event.keyCode)).toUpperCase();

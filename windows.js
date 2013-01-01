@@ -42,11 +42,16 @@ adsGame.message =  Object.extend({
 	"show": function show(msgData) {
 			if (!this.messageShowing){
 			
+				// If item them resize image to 64x64
+				
 				//Fill fields from question box with msgData
 				$('.msgImage').attr({
 				'src' : 'content/' + msgData.msgImage,
-				'alt' : 'Testing...' 
+				'alt' : 'Testing...',
+				'height' : '48px',
+				'width' : '48px'
 				});
+				
 				$('.titleText,#hiddenText').html( msgData.msgName );
 				$('.msgText,#hiddenText').html( msgData.msg );
 

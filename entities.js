@@ -34,9 +34,10 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		//Debug Position
 		
-		this.pos.x = startHeroe[0] * ads_tile_size;
-		this.pos.y = startHeroe[1] * ads_tile_size;
-
+		this.pos.x = this.posBeforeCollideX = startHeroe[0] * ads_tile_size;
+		this.pos.y = this.posBeforeCollideY = startHeroe[1] * ads_tile_size;
+		
+		
 		// This move
 		this.movemouse = false;
 		
@@ -166,13 +167,23 @@ var HeroeEntity = me.ObjectEntity.extend({
 				// this.setCurrentAnimation('stand-' + this.direction);
 			// }
 			
-			if (res.obj.type == 'ITEM_OBJECT'  && !fullInventory) {
+			if (res.obj.type == 'ITEM_OBJECT') {
 				// console.log('Heroe Collide with Item...' , res.obj.items_data);
 				// this.setCurrentAnimation('stand-' + this.direction);
-				this.vel.x = 0;
-				this.vel.y = 0;
-				res.obj.getItem();
+				// this.pos.x = this.posBeforeCollideX;
+				// this.pos.y = this.posBeforeCollideY;
+				if (!fullInventory){
+					this.vel.x = 0;
+					this.vel.y = 0;
+					res.obj.getItem();
+				}else{
+					adsGame.Inventory.show();
+				}
 			}
+		}else{
+			// Save the last hero coordinates before collide with something
+			this.posBeforeCollideX = this.pos.x;
+			this.posBeforeCollideY = this.pos.y;
 		}
 
 		// check & update player movement
@@ -207,6 +218,14 @@ var ItemEntity = me.CollectableEntity.extend({
 		// Item data
 		this.items_data = items_data;
 		
+		if (typeof this.items_data.specialItem !== 'undefined') {
+			this.specialItem = true;
+		}else{
+			this.specialItem = false;
+		}
+		
+		// console.log ("Item name:", this.items_data.nome , " - Special Item:" , this.specialItem);
+		
 		// Random question number between 0 and number of question less one 
 		var rndQuestion = randomInt( 0 , (countQtn - 1) );
 		this.rndQtnData = adsQtnData[rndQuestion];
@@ -230,51 +249,61 @@ var ItemEntity = me.CollectableEntity.extend({
 	
 	getItem : function ()
 	{
-		if(!fullInventory) {
-			//Stop player
-			var player = me.game.getEntityByName('Heroe');
-			player[0].vel.x = 0;
-			player[0].vel.y = 0;
-			player = undefined;
+		//Stop player
+		var player = me.game.getEntityByName('Heroe');
+		player[0].vel.x = 0;
+		player[0].vel.y = 0;
+		
+		
+		// If the answer is correct then update HUD and remove item
+		heroeAnswer = showQuestionLayer(this.items_data , this.rndQtnData);
+		if (heroeAnswer != -1)
+		{
+			if ( heroeAnswer == this.rndQtnData.correta){ // if heroe correct answer			
+				// me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
+				
+				//Keep data for all items found by the heroe less gold and knowledge increment right away
+				if (this.items_data.categoria == 'ouro' ||
+					this.items_data.categoria == 'conhecimento'){
+					me.game.HUD.updateItemValue(this.items_data.categoria , parseInt(this.items_data.valor, 10));
+				}else{
 			
-			// If the answer is correct then update HUD and remove item
-			heroeAnswer = showQuestionLayer(this.items_data , this.rndQtnData);
-			if (heroeAnswer != -1)
-			{
-				if ( heroeAnswer == this.rndQtnData.correta){ // if heroe correct answer			
-					// me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
-					
-					//Keep data for all items found by the heroe less gold and knowledge increment right away
-					if (this.items_data.categoria == 'ouro' ||
-						this.items_data.categoria == 'conhecimento'){
-						me.game.HUD.updateItemValue(this.items_data.categoria , parseInt(this.items_data.valor, 10));
-					}else{
+			adsGame.Inventory.addItem( this.items_data );
+				}						
+				hideQuestionLayer('C');
+			}else if(heroeAnswer !== 0){ // if heroe answer to the question but it's not the correct one
+				var valueRemoved = -(parseInt(this.items_data.valor,10));
 				
-				adsGame.Inventory.addItem( this.items_data );
-					}						
-					hideQuestionLayer('C');
-				}else if(heroeAnswer !== 0){ // if heroe answer to the question but it's not the correct one
-					var valueRemoved = -(parseInt(this.items_data.valor,10));
-					
-					//If is velocity then don't remove points
-					if (this.items_data.categoria != 'velocidade'){
-						me.game.HUD.updateItemValue(this.items_data.categoria, valueRemoved);
-					}	
-					hideQuestionLayer('W');
-				}else{ // If heroe doesn't answer to the question
-					hideQuestionLayer('D');
-				}
-				
+				//If is velocity then don't remove points
+				if (this.items_data.categoria != 'velocidade'){
+					me.game.HUD.updateItemValue(this.items_data.categoria, valueRemoved);
+				}	
+				hideQuestionLayer('W');
+			}else{ // If heroe doesn't answer to the question
+				hideQuestionLayer('D');
+			}
+			
+			//If correct answer and specialitem remove item - If not special item remove always the item
+			if ( (!this.specialItem) || (this.specialItem &&  heroeAnswer == this.rndQtnData.correta) ){
 				// Remove Item 
 				me.game.remove(this);
 				
 				// Remove sparkle item animation
 				me.game.remove(this.itemAnimation);
-						
+			}else{ 
+				// If is a Special item and the answer is not the correct 
+				// then position heroe to last position with no collition with item
+				player[0].pos.x = player[0].posBeforeCollideX;
+				player[0].pos.y = player[0].posBeforeCollideY;
+				
+				// Remove special item value
+				var valueRemoved = -(parseInt(this.items_data.quantidade,10));
+				me.game.HUD.updateItemValue(this.items_data.remover, valueRemoved);
 			}
-		}else if(fullInventory) {
-			adsGame.Inventory.show();
 		}
+		
+		//Destroy player variable
+		player = undefined;
 	}
 });
 
@@ -371,6 +400,9 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 				// console.log('dataSpecialItem.value: ' + dataSpecialItem.value + '  ads_item_data.valor: ' + ads_item_data.valor);
 				if ( dataSpecialItem.value == ads_item_data.valor)
 				{
+					ads_item_data.remover = dataSpecialItem.remover;
+					ads_item_data.quantidade = dataSpecialItem.quantidade;
+					ads_item_data.specialItem = true;
 					item = new ItemEntity(parseInt(ads_tile_size*dataSpecialItem.coordinates.x , 10), parseInt(ads_tile_size*dataSpecialItem.coordinates.y ,10), 
 					{image: ads_item_data.imagem.replace(".png",""),
 					spritewidth: 32, spriteheight: 32}, ads_item_data);
@@ -383,7 +415,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 });
 
 // **************************************
-// ****  TEST INVISIBLE ENTITY  ****
+// ****  TRIGGER INVISIBLE ENTITY  ****
 // **************************************
 var TriggerEntity = me.InvisibleEntity.extend({
 	
@@ -402,26 +434,16 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		this.msgData.msgName = "Mensagem:";
 		this.msgData.msg = triggerData.message;		
 		this.type = triggerData.type;
-		
+
 		this.targX = triggerData.target.x;
 		this.targY = triggerData.target.y;
-		
+
 		this.solution = this.triggerData.solution;
 		this.checkSolution = false;
 		this.isChecked = false;
-		
+
 		// Create message box for object
 		this.message = new adsGame.message();
-		
-
-		// If trigger is a door get layer door and coolision. Set where the door open
-		// if (this.type == 'DOOR_OBJECT'){
-			// this.doorLayer = me.game.currentLevel.getLayerByName("door");
-			// this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
-		
-			// //Check if door is open
-			// this.tileTarget = false;
-		// }
 	},
 
 	update : function (){
