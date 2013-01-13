@@ -239,7 +239,8 @@ var ItemEntity = me.CollectableEntity.extend({
 			40, 40, // Size
 			[0,1,2,3,4,5,6,7,8,9,10,11,12,13], //Animation sheet
 			30, // Speed between 0 - Slowest and 60 - fastest
-			true // Repeat animation
+			true, // Repeat animation
+			100 // Wait between animations 10 milliseconds
 			);
 
 		me.game.add(this.itemAnimation, 6);
@@ -996,4 +997,35 @@ var ThrowersSpawnEntity = me.InvisibleEntity.extend({
 });
 // **************************************
 // ****  END THROWERS ENTITY SPAWN ****
-// **************************************   
+// **************************************
+
+// **************************************
+// ****  MAP EFFECTS ENTITY SPAWN ****
+// **************************************
+var MapEffectsSpawnEntity = me.InvisibleEntity.extend({
+	//Constructor
+	init: function( x , y , settings){
+		// call the parent constructor
+		this.parent(x, y, settings);
+		
+		
+		// Add effects on map
+		$.each( mapEffectsData, function(i, mapEffectData){
+			var mapEffect = new effect(
+				mapEffectData.coordenadas.x * 32 , mapEffectData.coordenadas.y * 32 , // Coordinates
+				me.loader.getImage(mapEffectData.imagem),	// Image
+				mapEffectData.largura, mapEffectData.altura, // Size
+				mapEffectData.animacao, //Animation sheet
+				mapEffectData.velocidade, // Speed between 0 - Slowest and 60 - fastest
+				mapEffectData.repetir, // Repeat animation
+				0 // time between animations
+				);
+			me.game.add(mapEffect,7);
+			me.game.sort.defer();
+		});	
+
+	}
+});
+// **************************************
+// ****  END MAP EFFECTS ENTITY SPAWN ****
+// **************************************  

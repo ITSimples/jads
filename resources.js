@@ -76,7 +76,7 @@ var heroeVelocity = 3 ;
 
 var itemLucky = 20;
 
-var startHeroe = [8,46];
+var startHeroe = [37,21];
 
 
 /*--- END Heroe Configuration ---*/
@@ -107,7 +107,8 @@ var throwersData = [];
 // Keep all information where to place the Throwers 
 var projectilsData = [];
 
-
+// Keep all information about map effects
+var mapEffectsData = [];
 
 
 
@@ -218,7 +219,8 @@ var ads_resources =
 	{name: "explosion_64x64", 	type: "image",src: ads_effects_path + "explosion_64x64.png"},
 	{name: "prisiondooropen", 	type: "image",src: ads_effects_path + "prisiondooropen.png"},
 	{name: "itemanimation", 	type: "image",src: ads_effects_path + "itemanimation.png"},
-	{name: "sparkle", 	type: "image",src: ads_effects_path + "sparkle.png"}
+	{name: "sparkle", 	type: "image",src: ads_effects_path + "sparkle.png"},
+	{name: "fireplace", 	type: "image",src: ads_effects_path + "fireplace.png"}
 ];
 
 

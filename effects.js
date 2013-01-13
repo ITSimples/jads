@@ -17,7 +17,7 @@
  */
 
 var effect = me.AnimationSheet.extend({
-    init: function(x, y, Image, spritewidth, spriteheight , animation , speed, repeat) {
+    init: function(x, y, Image, spritewidth, spriteheight , animation , speed, repeat, wait) {
 	
         this.parent(x, y, Image, spritewidth, spriteheight);
  
@@ -30,12 +30,11 @@ var effect = me.AnimationSheet.extend({
 			this.repeat = repeat;
 		}else
 		{
-			this.repeat = false;
-			
+			this.repeat = false;			
 		}
 		
 		//Wait between animations
-		this.waitBetweenAnimations = 10 * 60;
+		this.waitBetweenAnimations = wait;
 		
     },
     
@@ -47,7 +46,7 @@ var effect = me.AnimationSheet.extend({
 			
 			//If pause between animations
 			//Put in the function the time between animations or random time
-			if (this.animationpause && !Math.floor(Math.random() * 100)) {
+			if (this.animationpause && !Math.floor(Math.random() * this.waitBetweenAnimations)) {
 				this.animationpause = false;
 			}
 		}else

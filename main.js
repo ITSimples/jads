@@ -94,6 +94,7 @@ var adsGame =
 		me.entityPool.add("npc_spawn", NpcSpawnEntity);
 		me.entityPool.add("doors_spawn", TriggerSpawnEntity);
 		me.entityPool.add("throwers_spawn", ThrowersSpawnEntity);
+		me.entityPool.add("map_effects_spawn", MapEffectsSpawnEntity);
 		
 		// Configurar teclas a usar, False - Lê mais que uma vez True - Lê várias vezes.
 		// Usar true por exemplo para lutar...
@@ -345,6 +346,9 @@ function randomFloat(minValue,maxValue,precision){
 		
 		//Get projectilData data - It's not necessary $.each
 		projectilsData = data.projectils;
+		
+		//Get data to map effects - It's not necessary $.each without []
+		mapEffectsData = data.mapEffects;
 		
 
 		// console.log("Carregados " + countItems + " Items");
