@@ -126,6 +126,20 @@ var HeroeEntity = me.ObjectEntity.extend({
 			this.setCurrentAnimation('down');
 			this.direction = 'down';
 		}
+		
+		// Debug mode speed up player
+		if (me.input.isKeyPressed('ctrl')){
+			if (me.input.isKeyPressed('speedup')){			
+				heroeVelocity = heroeVelocity + 1;
+				this.setVelocity(heroeVelocity, heroeVelocity);
+				me.game.HUD.updateItemValue('velocidade' , parseInt(1, 10));
+			}else if (me.input.isKeyPressed('speeddown')){
+				heroeVelocity = heroeVelocity - 1;
+				this.setVelocity(heroeVelocity, heroeVelocity);
+				me.game.HUD.updateItemValue('velocidade' , parseInt(-1, 10));
+			}
+		}
+		
 			
 		// If keypressed I then open the inventory
 		if (me.input.isKeyPressed('inventory'))

@@ -109,6 +109,11 @@ var adsGame =
 		me.input.bindKey(me.input.KEY.W, "up");
 		me.input.bindKey(me.input.KEY.S, "down");
 		
+		// For debug mode
+		me.input.bindKey(me.input.KEY.CTRL, "ctrl", false);
+		me.input.bindKey(me.input.KEY.P, "speedup", true);
+		me.input.bindKey(me.input.KEY.L, "speeddown", true);
+		
 		//Create inventory key
 		me.input.bindKey(me.input.KEY.I, "inventory", true);
 		
