@@ -640,10 +640,15 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		// console.log('this.throwerData.solido:',this.throwerData.solido ,  'this.throwerData.nome:', this.throwerData.nome)
 		
-		//Put solid tile in this place if thrower is solid 226 number
+		//Put solid tile in this place if thrower is solid this.collisionLayer.getTileId( 0 , 0 ) number
+		// In this case in the map 0,0 coordinates must be an solid tile
 		if (this.throwerData.solido){
 			this.collisionLayer = me.game.currentLevel.getLayerByName("collision");
-			this.collisionLayer.setTile(this.throwerData.coordenadas.x,this.throwerData.coordenadas.y,226);
+			this.collisionLayer.setTile(this.throwerData.coordenadas.x,this.throwerData.coordenadas.y, this.collisionLayer.getTileId( 0 , 0 ));
+			
+			// Debug get solid tile number - Improve
+			// console.log(" Solid tile number :", this.collisionLayer.getTileId( 0 , 0 ) );
+			
 		}
 		
 		// Create a maximum number of projectil objects
@@ -703,23 +708,27 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		this.throwerData.GUID = this.GUID;
 		
-		if (this.throwerData.direcao == "up" || this.throwerData.direcao == "down"){
-			// Calculate trigger position on (X=middle of thrower - middle of projectil) and (Y = projectil height)
-			var triggerPositionX = ~~(this.throwerData.configuracoes.spritewidth / 2) - 
-									~~(projectilsData[this.throwerData.nomeProjectil].configuracoes.spritewidth / 2);
-			var triggerPositionY = this.throwerData.posicaoDisparo.y ;	
+		// if (this.throwerData.direcao == "up" || this.throwerData.direcao == "down"){
+			// // Calculate trigger position on (X=middle of thrower - middle of projectil) and (Y = projectil height)
+			// var triggerPositionX = ~~(this.throwerData.configuracoes.spritewidth / 2) - 
+									// ~~(projectilsData[this.throwerData.nomeProjectil].configuracoes.spritewidth / 2);
+			// var triggerPositionY = this.throwerData.posicaoDisparo.y ;	
 				
-			console.log("triggerPositionY + this.pos.y:" , triggerPositionY , "+", this.pos.y)
+			// console.log("triggerPositionY + this.pos.y:" , triggerPositionY , "+", this.pos.y)
 			
-		}else if (this.throwerData.direcao == "right" || this.throwerData.direcao == "left"){
-			var triggerPositionX = this.throwerData.posicaoDisparo.x ;
-			var triggerPositionY = ~~(this.throwerData.configuracoes.spriteheight / 2) - 
-									~~(projectilsData[this.throwerData.nomeProjectil].configuracoes.spriteheight / 2);
-		}else{
+		// }else if (this.throwerData.direcao == "right" || this.throwerData.direcao == "left"){
+			// var triggerPositionX = this.throwerData.posicaoDisparo.x ;
+			// var triggerPositionY = ~~(this.throwerData.configuracoes.spriteheight / 2) - 
+									// ~~(projectilsData[this.throwerData.nomeProjectil].configuracoes.spriteheight / 2);
+		// }else{
+			
+			//  posicaoDisparo - give the launch position added to current positon of thrower
 			var triggerPositionX = this.throwerData.posicaoDisparo.x ;
 			var triggerPositionY = this.throwerData.posicaoDisparo.y ;
-		}
+		// }
 			
+		// Debug - Console
+		console.log("triggerPositionX :", triggerPositionX , " triggerPositionY :" , triggerPositionY );
 		
 		var projectil = new projectilEntity(this.pos.x + triggerPositionX , 
 											this.pos.y + triggerPositionY, 

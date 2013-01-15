@@ -76,7 +76,7 @@ var heroeVelocity = 3 ;
 
 var itemLucky = 20;
 
-var startHeroe = [37,21];
+var startHeroe = [1,21];
 
 
 /*--- END Heroe Configuration ---*/
@@ -214,7 +214,12 @@ var ads_resources =
 	// {name: "wolf",	type: "image",	src: ads_sprites_path + "wolf.png"},
 	{name: "items1",	type: "image",	src: ads_items_path + "fruta.png"},
 	{name: "fire01", 	type: "image",src: ads_sprites_path + "fire01.png"},
+	
+	// **** Throwers
 	{name: "thrower01", 	type: "image",src: ads_sprites_path + "thrower01.png"},
+	{name: "throwerfire", 	type: "image",src: ads_sprites_path + "throwerfire.png"},
+	{name: "throwerfire02", 	type: "image",src: ads_sprites_path + "throwerfire02.png"},
+	//**** Effects
 	{name: "explosion_32x32", 	type: "image",src: ads_effects_path + "explosion_32x32.png"},
 	{name: "explosion_64x64", 	type: "image",src: ads_effects_path + "explosion_64x64.png"},
 	{name: "prisiondooropen", 	type: "image",src: ads_effects_path + "prisiondooropen.png"},
