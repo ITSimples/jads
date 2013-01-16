@@ -682,13 +682,24 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
       this.setCurrentAnimation("throw", "default");
 	  
 	  // DEBUG
-	  if (typeof(this.throwerData.numeroDeProjeteis) !== 'undefined' ){
-		// Create a maximum number of projectil objects
-		this.createMaxProjectils(this.throwerData.numeroDeProjeteis);
-	  }else{
-		this.createProjectil();
-	  }
-      
+	  // If distancia exists then verify distance between thrower and hero
+	  if (typeof(this.throwerData.distancia) !== 'undefined' ){
+	  
+		var player = me.game.getEntityByName('Heroe');
+		console.log("Distance between hero and thrower : " , this.distanceTo(player[0]));
+		
+	  
+		if (this.throwerData.distancia > this.distanceTo(player[0]) ){
+			if (typeof(this.throwerData.numeroDeProjeteis) !== 'undefined' ){
+				// Create a maximum number of projectil objects
+				this.createMaxProjectils(this.throwerData.numeroDeProjeteis);
+			}else{
+				this.createProjectil();
+			}
+		}
+		// destroy player variable
+		player = undefined;
+      }
       // me.audio.play("shot1");
     },
     
@@ -729,7 +740,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			
 		// Debug - Console
 		console.log("triggerPositionX :", triggerPositionX , " triggerPositionY :" , triggerPositionY );
-		
+				
 		var projectil = new projectilEntity(this.pos.x + triggerPositionX , 
 											this.pos.y + triggerPositionY, 
 											projectilsData[this.throwerData.nomeProjectil], this.throwerData);
