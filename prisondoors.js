@@ -55,7 +55,6 @@
 	
 				var doorLayer = me.game.currentLevel.getLayerByName("doors");
 				var upperObjectsLayer = me.game.currentLevel.getLayerByName("upper objects");
-				var collisionLayer = me.game.currentLevel.getLayerByName("collision");
 
 				console.log("Passed here...");
 				
@@ -66,11 +65,7 @@
 
 				// - Lower
 				doorLayer.clearTile(initCoord[0]     , initCoord[1]);
-				doorLayer.clearTile(initCoord[0] + 1 , initCoord[1]);			
-
-				// Remove collision tiles on layer
-				collisionLayer.clearTile(initCoord[0],initCoord[1]);
-				collisionLayer.clearTile(initCoord[0] + 1,initCoord[1]);
+				doorLayer.clearTile(initCoord[0] + 1 , initCoord[1]);
 				
 				// Effect
 				if ( !(effectName === undefined || effectName == null || effectName.length <= 0) )
@@ -83,7 +78,9 @@
 									me.loader.getImage("explosion_64x64"),	// Image
 									64, 64, // Size
 									[0,1,2,3,4,5,6,7,8,9,10,11,12], //Animation sheet
-									30 // Speed between 0 - Slowest and 60 - fastest
+									30, // Speed between 0 - Slowest and 60 - fastest
+									false, // Repeat
+									0 // Wait between
 									);
 									
 						me.game.add(boom, 8);
@@ -106,16 +103,23 @@
 									5 // Speed between 0 - Slowest and 60 - fastest
 									);			
 									 
-						me.game.add(openDoor, 8);
+						me.game.add(openDoor, 9);
 						me.game.sort();
 					}
 					
 				doorLayer = undefined;
-				collisionLayer = undefined;
+				this.removeDoorCollision( initCoord );
 			}
-	}
-	// "hide" : function hide() {
+	},
+	"removeDoorCollision" : function removeDoorCollision( initCoord ) {
 		
-	// }
+		var collisionLayer = me.game.currentLevel.getLayerByName("collision");
+		
+		// Remove collision tiles on layer
+		collisionLayer.clearTile(initCoord[0],initCoord[1]);
+		collisionLayer.clearTile(initCoord[0] + 1,initCoord[1]);
+		
+		collisionLayer = undefined;
+	}
 
  });

@@ -36,6 +36,8 @@ var effect = me.AnimationSheet.extend({
 		//Wait between animations
 		this.waitBetweenAnimations = wait;
 		
+		this.funcao = funcao;
+		
     },
     
     update: function() {
@@ -51,7 +53,7 @@ var effect = me.AnimationSheet.extend({
 			}
 		}else
 		{
-			this.setCurrentAnimation("sprite", function(){ me.game.remove(this) });
+			this.setCurrentAnimation("sprite", function(){ me.game.remove(this); });
 		}
 		
         this.parent(this);

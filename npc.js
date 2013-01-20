@@ -468,6 +468,11 @@ var NpcEntity = me.ObjectEntity.extend({
 						console.log('Inventory is not showing...');
 					}
 					
+					// If npc give to hero a mission item then set as special item to go the rigth slot (Map items)
+					if (ads_items_data[this.currentEvent.item].categoria == 'itemMissao'){
+						ads_items_data[this.currentEvent.item].specialItem = true;
+					}
+					
 					// Add item to heroe
 					adsGame.Inventory.addItem( ads_items_data[this.currentEvent.item] );
 					
