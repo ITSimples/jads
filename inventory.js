@@ -34,14 +34,21 @@
 		this.slotNumber = 0;
 		
 		//Map of slots -1 - empty  index of ads_items_data  full
-		this.slotsMap = [-1,-1,-1,-1,-1,-1,-1,-1,-1];
+		// -1 => Normal Item
+		// -2 => Special Item
+		this.slotsMap = [-1,-1,-1,-1,-1,-1,-2,-2,-2];
 		
 		//Comment on inventory
 		this.invComment = " 'I' Esconder inventário.";
 		
+		// Special items name
+		// Improve - Make this multilingual
+		this.specialItemsStr = "Items Especiais";
+		
 		// Create html in inventoryLayer DIV
 		var $messageBoxHtml = (	'<img class="invImage" src="" alt="">' +
 								'<div class="invText"></div>' +
+								'<div class="invSpecialItems"></div>' +								
 								'<div class="invComment"></div>' +
 								'<div id="Slot01"><img class="invSlot01" src="content/gui/32x32Trans.png"/></div>' + 
 								'<div id="Slot02"><img class="invSlot02" src="content/gui/32x32Trans.png"/></div>' + 
@@ -86,7 +93,10 @@
 			if (fullInventory){
 				this.invComment = 'Inventario cheio. Remove um item.';
 			}
+			
 			$('.invComment,#hiddenText').html(this.invComment);
+			
+			$('.invSpecialItems,#hiddenText').html(this.specialItemsStr);
 			
 			// Show inventory window with a fade
 			$('#inventoryLayer').fadeIn( 250, function() {
@@ -133,7 +143,13 @@
 		var itemIndex = ( parseInt(slot.substr(slot.length - 1)) - 1);
 		
 		// Make this slot available
-		this.slotsMap[ itemIndex ] = -1
+		if (!heroeItems[itemIndex].specialItem){
+			this.slotsMap[ itemIndex ] = -1;
+			//The heroe use or drop one normal item
+			fullInventory = false;
+		}else{
+			this.slotsMap[ itemIndex ] = -2;
+		}
 		
 		// Mask the removed item with a transparent image
 		$( '.inv' + slot ).attr({
@@ -157,10 +173,7 @@
 			if ( itemCategory == 'velocidade' || itemCategory == 'sorte' ){
 				me.game.HUD.updateItemValue(itemCategory,  -(parseInt(itemValue)) );
 			}
-		}
-				
-		//The heroe drop one 
-		fullInventory = false;
+		}				
 		
 		//Delete item from heroeItems array
 		// console.log(heroeItems.splice(itemIndex,1));
@@ -183,12 +196,30 @@
 	},
 	
 	"addItem" : function addItem( item ) {
-		// Check empty slots - if no empty slots then return -1
-		this.slotNumber = jQuery.inArray(-1, this.slotsMap);
 
-		if (this.slotNumber != -1) {
+		
+		//Test if is a special item
+		if (typeof item.specialItem !== 'undefined') {
+			console.log ('Special item...', item.valor);
+			// Check empty slots - if no empty slots then return -1
+			this.slotNumber = jQuery.inArray(-2, this.slotsMap);
+			
+			console.log ("Special Item :", this.slotNumber );
+		}else{
+			// Check empty slots - if no empty slots then return -1
+			this.slotNumber = jQuery.inArray(-1, this.slotsMap);
+		}
+		
+		
+		// if (this.slotNumber != -1) {
 			// Add the new item to heroeItems data
 			heroeItems[this.slotNumber] = item;
+			
+			$.each(heroeItems, function(i,data)
+			{
+				console.log('heroeItems[' , i , '].valor:', data);
+			});
+			
 			
 			//The data slot in the position of new item keep the number of the item index in the array
 			this.slotsMap[this.slotNumber] = ( item.itemIndex );
@@ -213,7 +244,7 @@
 			// Test again if slots are full after add new item
 			this.slotNumber = jQuery.inArray( -1 , this.slotsMap);
 			
-			if (this.slotNumber == -1) {
+			if ( this.slotNumber == -1 ) {
 				//*** IMPROVE - Update invComment
 				this.invComment = 'Inventario cheio.';
 				$('.invComment,#hiddenText').html(this.invComment);
@@ -224,7 +255,7 @@
 			// $.each(heroeItems , function (i, heroeItem) {
 				// console.log ('heroeItem[' + i + ']: ' + heroeItem.nome);
 			// });
-		}
+		// }
 	},
 	
 	"dragStart" : function dragStart(e){

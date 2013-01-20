@@ -182,11 +182,11 @@ var HeroeEntity = me.ObjectEntity.extend({
 			// }
 			
 			if (res.obj.type == 'ITEM_OBJECT') {
-				// console.log('Heroe Collide with Item...' , res.obj.items_data);
+				console.log('Heroe Collide with Item...' , res.obj.items_data);
 				// this.setCurrentAnimation('stand-' + this.direction);
 				// this.pos.x = this.posBeforeCollideX;
 				// this.pos.y = this.posBeforeCollideY;
-				if (!fullInventory){
+				if (!fullInventory  || res.obj.items_data.specialItem){
 					this.vel.x = 0;
 					this.vel.y = 0;
 					res.obj.getItem();
@@ -246,16 +246,29 @@ var ItemEntity = me.CollectableEntity.extend({
 		
 		this.type = 'ITEM_OBJECT';
 		
-		// Item sparkle animation
-		this.itemAnimation = new effect(
-			this.pos.x - 8 , this.pos.y - 8, // Coordinates
-			me.loader.getImage("sparkle"),	// Image
-			40, 40, // Size
-			[0,1,2,3,4,5,6,7,8,9,10,11,12,13], //Animation sheet
-			30, // Speed between 0 - Slowest and 60 - fastest
-			true, // Repeat animation
-			100 // Wait between animations 10 milliseconds
-			);
+		//Change animation if is a special item or not
+		if (!this.specialItem) {
+			// Item sparkle animation
+			this.itemAnimation = new effect(
+				this.pos.x - 8 , this.pos.y - 8, // Coordinates
+				me.loader.getImage("sparkle"),	// Image
+				40, 40, // Size
+				[0,1,2,3,4,5,6,7,8,9,10,11,12,13], //Animation sheet
+				30, // Speed between 0 - Slowest and 60 - fastest
+				true, // Repeat animation
+				100 // Wait between animations 10 milliseconds
+				);
+		}else{
+			// Item sparkle animation
+			this.itemAnimation = new effect(
+				this.pos.x - 8 , this.pos.y - 8 , // Coordinates
+				me.loader.getImage("questitem"),	// Image
+				45, 45, // Size
+				[0,1,2,3,4,5,6,7,8], //Animation sheet
+				20, // Speed between 0 - Slowest and 60 - fastest
+				true
+				);
+		}
 
 		me.game.add(this.itemAnimation, 6);
 		me.game.sort();
@@ -479,11 +492,14 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					//check if heroe have the Solution			
 					$.each(heroeItems, function(i,data)
 					{
+						//Check if array is undefined to avoid error (may have empty slots)
+						if (typeof data !== 'undefined'){
 							if (data.valor == solution){
-								console.log('Heroe have the key.');
+								console.log('Heroe have the key.', i);
 								checkSolution = true;
 								itemIndex = i;
 							}
+						}
 					});
 					
 					this.checkSolution = checkSolution;
@@ -686,7 +702,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 	  if (typeof(this.throwerData.distancia) !== 'undefined' ){
 	  
 		var player = me.game.getEntityByName('Heroe');
-		console.log("Distance between hero and thrower : " , this.distanceTo(player[0]));
+		// console.log("Distance between hero and thrower : " , this.distanceTo(player[0]));
 		
 	  
 		if (this.throwerData.distancia > this.distanceTo(player[0]) ){

@@ -246,7 +246,7 @@
 	top: 34px;
 	right: 0px;
 	width: 180px;
-	height: 300px;
+	height: 325px;
 	padding: 0px;
 	background: url('content/gui/inventory.png') no-repeat; 
 	font-family: 'MedievalSharp', serif;
@@ -274,12 +274,24 @@
 	z-index:1;
 }
 
+
+/* Comment inventory*/
+#inventoryLayer .invSpecialItems {
+	position: absolute;
+	bottom: 122px;
+	left: 40px;
+	color : #eeecde;
+	font-size: 14px;
+	overflow: hidden;
+	z-index:1;
+}
+
 /* Comment inventory*/
 #inventoryLayer .invComment {
 	position: absolute;
 	bottom: 15px;
 	left: 13px;
-	color : #996600;
+	color : #FAFAFA;
 	font-weight: bold;
 	font-size: 13px;
 	overflow: hidden;
@@ -343,7 +355,7 @@
 	/* Slots inventory*/
 #inventoryLayer img.invSlot07 {
 	position: absolute;
-	top: 193px;
+	top: 218px;
 	left: 14px;
 	width: 32px;
 	height: 32px;
@@ -352,7 +364,7 @@
 	/* Slots inventory*/
 #inventoryLayer img.invSlot08 {
 	position: absolute;
-	top: 193px;
+	top: 218px;
 	left: 74px;
 	width: 32px;
 	height: 32px;
@@ -361,7 +373,7 @@
 /* Slots inventory*/
 #inventoryLayer img.invSlot09 {
 	position: absolute;
-	top: 193px;
+	top: 218px;
 	left: 134px;
 	width: 32px;
 	height: 32px;
