@@ -36,8 +36,6 @@ var effect = me.AnimationSheet.extend({
 		//Wait between animations
 		this.waitBetweenAnimations = wait;
 		
-		this.funcao = funcao;
-		
     },
     
     update: function() {
