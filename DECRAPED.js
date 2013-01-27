@@ -1,4 +1,4 @@
-DECRAPED CODE
+DECRAPED CODE new
 		// //get collision Layerdfdfdfd
 		// var myCollisionLayer = me.game.currentLevel.getLayerByName("collision");
 		
@@ -159,7 +159,7 @@ else if (me.input.isKeyPressed('fire') || this.movemouse)
 // {
 	// $.getJSON(ads_json_files + "items.json",function(data)
 	// {
-		// // Inicializar variável para ler recursos dos items
+		// // Inicializar variï¿½vel para ler recursos dos items
 		// var count_items;
 		// var ads_items_tmp=[];
 		// console.log("Loaded...");
@@ -213,7 +213,7 @@ var ThrownEntity = me.CollectableEntity.extend(
 		x_pos = Math.round(x_pos_add) - Math.round(x_pos);
 		y_pos = Math.round(y_pos_add) - Math.round(y_pos);
 		
-		// **** temos que ver a direção e andar em x em y positivo ou negativo
+		// **** temos que ver a direï¿½ï¿½o e andar em x em y positivo ou negativo
  		
 		// console.log("x: " + x_pos + " Y: " + y_pos); 
 		this.vel.x = (this.accel.x * me.timer.tick) + x_pos;
@@ -226,9 +226,9 @@ var ThrownEntity = me.CollectableEntity.extend(
 		// update animation
 		if (updated)
 		{
-			// Actualizar colisão
+			// Actualizar colisï¿½o
 			me.game.collide(this);
-			// Actualizar animação
+			// Actualizar animaï¿½ï¿½o
 			this.parent(this);
 		}
 		return updated;
@@ -243,7 +243,7 @@ var ThrownEntity = me.CollectableEntity.extend(
 	"categoria": "amigos",
 	"imagem": "f_male04.png",
 	"nome": "Sr. Lei",
-	"mensagem": "Olá eu sou o senhor lei. \n Por isso tudo na ordem.",
+	"mensagem": "Olï¿½ eu sou o senhor lei. \n Por isso tudo na ordem.",
 	}
 ]
 }
