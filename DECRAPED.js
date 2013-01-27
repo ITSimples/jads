@@ -1,4 +1,4 @@
-DECRAPED CODE new 
+DECRAPED CODE
 		// //get collision Layerdfdfdfd
 		// var myCollisionLayer = me.game.currentLevel.getLayerByName("collision");
 		
