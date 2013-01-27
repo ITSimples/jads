@@ -120,7 +120,7 @@ var PlayScreen = me.ScreenObject.extend(
 		//Config mouse cursor over game div with jquery
 		$('#adsGame').css('cursor', "url('content/gui/point_cur.cur')");
 		//Config mouse cursor over inventory div with jquery
-		$('#inventoryLayer').css('cursor', "url('content/gui/point_cur.cur')");
+		$('#inventoryLayer').css('cursor', "url('content/gui/inv_cur.gif')");
 		// me.loader.getImage("sparkle")
 	},
 
