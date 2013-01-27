@@ -1,4 +1,4 @@
-DECRAPED CODE new change	testing 	
+DECRAPED CODE new change	testing   cc	
 		// //get collision Layer
 		// var myCollisionLayer = me.game.currentLevel.getLayerByName("collision");
 		
