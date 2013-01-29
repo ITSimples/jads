@@ -10,7 +10,7 @@ DECRAPED CODE DECRAPED CODE
 		// // if (this.vel.x > 0) {
 			// // multiplierX = 1;
 		// // }else{
-			// // multiplierX = -1;
+			// // multiplierX = -1; 
 		// // }
 		
 		// // if (this.vel.y > 0) {
