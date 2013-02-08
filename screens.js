@@ -117,10 +117,11 @@ var PlayScreen = me.ScreenObject.extend(
 		// HUD border must be last so it is on the bottom
 		// me.game.HUD.addItem("HUDborder", new HUDBorder(0,0));
 		
+		
 		//Config mouse cursor over game div with jquery
-		$('#adsGame').css('cursor', "url('content/gui/point_cur.cur')");
+		$('#adsGame').css('cursor', "url('content/gui/point_cur.cur'),crosshair");
 		//Config mouse cursor over inventory div with jquery
-		$('#inventoryLayer').css('cursor', "url('content/gui/inv_cur.gif')");
+		$('#inventoryLayer').css('cursor', "url('content/gui/inv_cur.gif'),pointer");
 		// me.loader.getImage("sparkle")
 	},
 

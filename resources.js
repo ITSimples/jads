@@ -24,7 +24,9 @@ Gobal Variables
 Game engine system Configuration 
 -------------------------------- */
 me.sys.fps = 30;
-// me.sys.useNativeAnimFrame = true;
+
+//me.sys.useNativeAnimFrame = true;
+
 me.sys.cacheImage = true;
 /*--- END Game engine system Configuration ---*/
 
@@ -72,12 +74,11 @@ var maxHudValue = {"live":10,"velocity":10};
 Heroe Configuration
 -------------------------------- */
 
-var heroeVelocity = 3 ;
+var heroeVelocity = 3;
 
 var itemLucky = 20;
 
-var startHeroe = [1,21];
-
+var startHeroe = [7,5];
 
 /*--- END Heroe Configuration ---*/
 
@@ -163,7 +164,7 @@ var ads_resources =
 	{name: "initialscreen",type: "image",src: ads_images_path + "initialscreen.png"},
 	
 	// ---- Audio ----
-	{name: "mfh", type: "audio",  src: "content/music/", channel: 1},
+	//{name: "mfh", type: "audio",  src: "content/music/", channel: 1},
 	
 	// ---- Sprites ----
 	{name: "bee",		type: "image",	src: ads_sprites_path + "bee.png"},
