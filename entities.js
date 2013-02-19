@@ -349,8 +349,34 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		
 		var count = 0;
 		
+		//Create array to store coordinates data
+		var checkTriggersData = [];
+		
 		var collision_layer = me.game.currentLevel.getLayerByName("collision");		
 		var background_layer = me.game.currentLevel.getLayerByName("background");
+		
+		//Improve this to not spwan items on triggers points
+        //Triggers Points
+        $.each(triggersData, function(i, data){
+            // create a array to store de tiles that belong to trigger
+            // create the array outside this cicle because don't repeat the same code several times'            
+            var finalHeight = ( data.settings.height / 32 );
+            var finalWidth  = ( data.settings.width  / 32 );
+
+            for ( x = 0; x < finalHeight; x++) 
+            {
+                for ( y = 0; y < finalWidth; y++) 
+                { 
+                    //Store data coordinates
+                    var triggersCoordinates = {};
+                    triggersCoordinates.x = ( data.coordinates.x + x);
+                    triggersCoordinates.y = ( data.coordinates.y + y);
+                    
+                    console.log("triggers data:", triggersCoordinates);
+                    checkTriggersData.push(triggersCoordinates);
+                }
+            }
+        }); 
 		
 		// parse all the collision layer tiles 
 		for ( x = 0; x < collision_layer.width; x++) 
@@ -387,12 +413,18 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 						
 						
 						
-						//Improve thi is to not spwan items on mission tiles
+						//Improve this to not spwan items on mission tiles
 						//special item
 						$.each(specialItemsData, function(i, data){
 							if (data.coordinates.x == x && data.coordinates.y == y)
 								isCollide = true;
 						});	
+						
+                        // If is a trigger don't put object
+                        $.each(checkTriggersData, function(i, data){
+                            if (data.x == x && data.y == y)
+                                isCollide = true;
+                        }); 
 						
 						//Heroe born
 						if (x == startHeroe[0] && y == startHeroe[1])
