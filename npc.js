@@ -216,7 +216,7 @@ var NpcEntity = me.ObjectEntity.extend({
 		
 		
 		// *** IMPROVE THIS ONE - MAKE IT DINAMIC IF IS PRISONER OR NOT
-		if ( this.npcData.nome == "John" || (this.npcData.nome == "Lief" && adsGame.prisonDoors.prisonDoorTrigger[this.npcData.prisao.numero]) ){
+		if ( this.npcData.categoria == "friends" || (this.npcData.categoria == "prisoner" && adsGame.prisonDoors.prisonDoorTrigger[this.npcData.prisao.numero]) ){
 			//if return true then wait else no wait time then can readwaittime again
 			this.eventHappening = this.npcEvent( this.npcEvents );
 			

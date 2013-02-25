@@ -32,15 +32,13 @@ var adsGame =
 	// Inicializar o Jogo
 	onload:function()
 	{
-		//Inicializar resolução e teste se browser suporta o jogo
+		//Inicializar resoluï¿½ï¿½o e teste se browser suporta o jogo
 		if(!me.video.init('adsGame',ads_width,ads_height,true,1.0)){
-			alert("O seu browser não suporta o jogo * Aventura do saber \n Use o Firefox, Chrome ou IE9+ para poder jogar. *");
+			alert("O seu browser nï¿½o suporta o jogo * Aventura do saber \n Use o Firefox, Chrome ou IE9+ para poder jogar. *");
 			return;
 		}
 
-		
-		
-		//Inicializar formato de música a utilizar
+		//Inicializar formato de mï¿½sica a utilizar
 		me.audio.init("mp3");
 		
 		//Callback - Carregar os recursos do jogo quando tudo estiver preparado
@@ -52,11 +50,11 @@ var adsGame =
 
 		//me.loader.preload(ads_resources);
 		
-		//Mudar estado para ecrã de carregamento do jogo. 
+		//Mudar estado para ecrï¿½ de carregamento do jogo. 
 		me.state.change(me.state.LOADING);
 		
-		// ************ Configurações de DEBUG *************
-		//Ver caixa de colisão
+		// ************ Configuraï¿½ï¿½es de DEBUG *************
+		//Ver caixa de colisï¿½o
 		// me.debug.renderHitBox = true;
 		
 		//Create message box object
@@ -96,7 +94,7 @@ var adsGame =
 		me.entityPool.add("throwers_spawn", ThrowersSpawnEntity);
 		me.entityPool.add("map_effects_spawn", MapEffectsSpawnEntity);
 		
-		// Configurar teclas a usar, False - Lê mais que uma vez True - Lê várias vezes.
+		// Configurar teclas a usar, False - Lï¿½ mais que uma vez True - Lï¿½ vï¿½rias vezes.
 		// Usar true por exemplo para lutar...
 		// me.input.bindKey(me.input.KEY.UP, "up", false);
 		// me.input.bindKey(me.input.KEY.DOWN, "down", false);
@@ -165,7 +163,7 @@ function showQuestionLayer(itemData, adsQtnData)
 		$('.r1').html('(1) ' + rndQtnData.r1 );
 		$('.r2').html('(2) ' + rndQtnData.r2 );
 		$('.r3').html('(3) ' + rndQtnData.r3 );
-		$('.r0').html('(0) Não responder..');
+		$('.r0').html('(0) Nï¿½o responder..');
 		
 		// if is a special item them show the value you can lose and not the name
 		if (!itemData.specialItem){
@@ -210,13 +208,13 @@ function hideQuestionLayer(answer)
 	
 	if(answer == 'C')
 	{
-		answerResult ='Parabéns resposta certa...';
+		answerResult ='Parabï¿½ns resposta certa...';
 	}else if(answer == 'W')
 	{
 		answerResult ='Resposta errada...';
 	}
 	else{		
-		answerResult ='Tenta para a próxima...';
+		answerResult ='Tenta para a prï¿½xima...';
 	}
 
 	//Hide Question fields
@@ -289,7 +287,7 @@ function randomFloat(minValue,maxValue,precision){
 	var init_game = function(data)
 	{
 
-		// Inicializar variável para ler recursos dos items
+		// Inicializar variï¿½vel para ler recursos dos items
 		var countNpc = 0;
 		var countItems = 0;
 		var countTrg = 0;
@@ -301,17 +299,20 @@ function randomFloat(minValue,maxValue,precision){
 		//Get data Items
 		$.each(data.items, function(i,data)
 		{
-			// To load automatic the items - it´s not necessary in the load resources
+			// To load automatic the items - itï¿½s not necessary in the load resources
 			ads_items_tmp.push({name: data.imagem.replace(".png",""),	type: "image",	
 			src: ""+ ads_items_path + "" + data.imagem + ""});
 			countItems++;
 			// Add index of item in de array to use in inventory
 			data.itemIndex = i;
-			ads_items_data.push(data);
+			
+			//ads_items_data.push(data);
 		});
 		
+		//Get data to items - It's not necessary $.each without []
+		ads_items_data = data.items;
 		
-		// Copy array ads_items_tmp to ads_items_final to load resouce items
+		// Copy array ads_items_tmp to ads_items_final to load resource items
 		load_ads_items = ads_items_tmp.slice();
 		
 		//Get NPC data

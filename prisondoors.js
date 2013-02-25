@@ -39,9 +39,6 @@
 				/*------------------- 
 				End Prison Configuration
 				-------------------------------- */
-				
-		
-
 	},
 	
 	"openPrisonDoor" : function openPrisonDoor ( prisonNumber ){

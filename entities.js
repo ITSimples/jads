@@ -388,20 +388,22 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 
 				// If tile of layer collision is null then we can put an item
 				if (testTileCollision === null && testTileBackground !== null){
+					
+					//returns an array of all enumerable property names defined by a given object
+					var item_keys = Object.keys(ads_items_data);
 					// Item probability
 					var item_probability = Number.prototype.random(0, itemLucky);
 					// Total of items
-					total_items = ads_items_data.length - 1;
+					total_items = item_keys.length - 1;
 					
 					// If is a mission item don't spawn
-					do
-					{
-						//random a item
-						random_item = Number.prototype.random(0, total_items);
-					}
-					while ( ads_items_data[random_item].categoria == "itemMissao" );
-					
-					
+					do{	// If mission item then random new item				    
+					    //random a item
+                        var randomNumber = Number.prototype.random(0, total_items);
+                        var random_item = item_keys[randomNumber];                        
+                    
+                        console.log("randomNumber:", randomNumber, "random_item:", random_item);
+					}while ( ads_items_data[random_item].categoria == "itemMissao" );	
 
 					if ( item_probability == Math.round(itemLucky / 2) ){						
 						//Test if not a trigger or special item or born heroe
@@ -410,8 +412,6 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 							if (data.coordinates.x == x && data.coordinates.y == y)
 								isCollide = true;
 						});
-						
-						
 						
 						//Improve this to not spwan items on mission tiles
 						//special item
@@ -583,6 +583,10 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					
 					// Set if NPC prisoner talk to hero to avoid to talk again on npc.js
 					adsGame.prisonDoors.prisonDoorTrigger[this.triggerData.portaPrisao] = true;
+					
+					//Testing prisondoorTrigger
+					console.log("Cell number ", this.triggerData.portaPrisao , " is :", adsGame.prisonDoors.prisonDoorTrigger[this.triggerData.portaPrisao]);
+					
 				} // End door object
 				
 				// If trigger is a portal object
