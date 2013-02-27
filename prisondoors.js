@@ -49,7 +49,7 @@
 							return this.prisonBreak[ prisonNumber ];
 	},
 	
-	"remove" : function remove( initCoord , effectName ) {
+	"remove" : function remove( initCoord , effectName , animation) {
 	
 				var doorLayer = me.game.currentLevel.getLayerByName("doors");
 				var upperObjectsLayer = me.game.currentLevel.getLayerByName("upper objects");
@@ -95,7 +95,7 @@
 					}else if (effectName == "openDoor"){		
 						var openDoor = new effect(
 									(initCoord[0] * ads_tile_size) , (initCoord[1] * ads_tile_size) - 32, // Coordinates
-									me.loader.getImage("prisiondooropen"),	// Image
+									me.loader.getImage(animation),	// Image
 									64, 64, // Size
 									[0,1,2,3,4], //Animation sheet
 									5 // Speed between 0 - Slowest and 60 - fastest

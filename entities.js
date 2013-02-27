@@ -182,7 +182,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 			// }
 			
 			if (res.obj.type == 'ITEM_OBJECT') {
-				console.log('Heroe Collide with Item...' , res.obj.items_data);
+				// console.log('Heroe Collide with Item...' , res.obj.items_data);
 				// this.setCurrentAnimation('stand-' + this.direction);
 				// this.pos.x = this.posBeforeCollideX;
 				// this.pos.y = this.posBeforeCollideY;
@@ -355,6 +355,9 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		var collision_layer = me.game.currentLevel.getLayerByName("collision");		
 		var background_layer = me.game.currentLevel.getLayerByName("background");
 		
+		//returns an array of all enumerable property names defined by a given object
+        var item_keys = Object.keys(ads_items_data);
+		
 		//Improve this to not spwan items on triggers points
         //Triggers Points
         $.each(triggersData, function(i, data){
@@ -372,7 +375,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
                     triggersCoordinates.x = ( data.coordinates.x + x);
                     triggersCoordinates.y = ( data.coordinates.y + y);
                     
-                    console.log("triggers data:", triggersCoordinates);
+                    // console.log("triggers data:", triggersCoordinates);
                     checkTriggersData.push(triggersCoordinates);
                 }
             }
@@ -387,10 +390,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 				var testTileBackground = background_layer.layerData[x][y];
 
 				// If tile of layer collision is null then we can put an item
-				if (testTileCollision === null && testTileBackground !== null){
-					
-					//returns an array of all enumerable property names defined by a given object
-					var item_keys = Object.keys(ads_items_data);
+				if (testTileCollision === null && testTileBackground !== null){					
 					// Item probability
 					var item_probability = Number.prototype.random(0, itemLucky);
 					// Total of items
@@ -400,9 +400,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					do{	// If mission item then random new item				    
 					    //random a item
                         var randomNumber = Number.prototype.random(0, total_items);
-                        var random_item = item_keys[randomNumber];                        
-                    
-                        console.log("randomNumber:", randomNumber, "random_item:", random_item);
+                        var random_item = item_keys[randomNumber];
 					}while ( ads_items_data[random_item].categoria == "itemMissao" );	
 
 					if ( item_probability == Math.round(itemLucky / 2) ){						
@@ -560,7 +558,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						doorCoord[0] = this.targX;
 						doorCoord[1] = this.targY;
 						
-						adsGame.prisonDoors.remove(doorCoord , "openDoor");
+						adsGame.prisonDoors.remove(doorCoord , "openDoor", this.triggerData.animation);
 						
 						//portaPrisao -- Set door open to the prison number
 						// adsGame.prisonDoors.prisonBreak[this.triggerData.portaPrisao] = true;
@@ -583,9 +581,6 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					
 					// Set if NPC prisoner talk to hero to avoid to talk again on npc.js
 					adsGame.prisonDoors.prisonDoorTrigger[this.triggerData.portaPrisao] = true;
-					
-					//Testing prisondoorTrigger
-					console.log("Cell number ", this.triggerData.portaPrisao , " is :", adsGame.prisonDoors.prisonDoorTrigger[this.triggerData.portaPrisao]);
 					
 				} // End door object
 				
