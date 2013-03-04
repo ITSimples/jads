@@ -240,9 +240,13 @@ var ItemEntity = me.CollectableEntity.extend({
 		
 		// console.log ("Item name:", this.items_data.nome , " - Special Item:" , this.specialItem);
 		
+		// La
+		adsQtnDataKeys = Object.keys(adsQtnData);
+		countQtn = adsQtnDataKeys.length;
+		
 		// Random question number between 0 and number of question less one 
 		var rndQuestion = randomInt( 0 , (countQtn - 1) );
-		this.rndQtnData = adsQtnData[rndQuestion];
+		this.rndQtnData = adsQtnData[adsQtnDataKeys[rndQuestion]];
 		
 		this.type = 'ITEM_OBJECT';
 		

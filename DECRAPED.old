@@ -496,3 +496,212 @@ function hideMessageLayer()
 							
 							
 							{"tipo":"trigger","alvo":[6,10], "caminho": 1,"tempo":0}
+							
+							
+	{
+	"categoria": "friends",
+	"imagem": "f_female01.png",
+	"nome": "Jacquelyn",
+	"mensagem": ""
+	},
+	{
+	"categoria": "friends",
+	"imagem": "f_female02.png",
+	"nome": "Malkyn",
+	"mensagem": ""
+	},
+	{
+	"categoria": "friends",
+	"imagem": "f_male01.png",
+	"nome": "Fendrel",
+	"mensagem": ""
+	},
+	{
+	"categoria": "friends",
+	"imagem": "f_male02.png",
+	"nome": "Tybalt",
+	"mensagem": ""
+	},
+	,	
+	{
+	"categoria": "heroes",
+	"imagem": "h_female02.png",
+	"nome": "Ayleth",
+	"mensagem": ""
+	},	
+	{
+	"categoria": "heroes",
+	"imagem": "h_female03.png",
+	"nome": "Ellyn",
+	"mensagem": ""
+	},	
+	{
+	"categoria": "heroes",
+	"imagem": "h_female04.png",
+	"nome": "Anne of Cleves",
+	"mensagem": ""
+	},	
+	{
+	"categoria": "heroes",
+	"imagem": "h_male01.png",
+	"nome": "Merek",
+	"mensagem": ""
+	},		
+	{
+	"categoria": "heroes",
+	"imagem": "h_male02.png",
+	"nome": "Carac",
+	"mensagem": ""
+	},		
+	{
+	"categoria": "heroes",
+	"imagem": "h_male03.png",
+	"nome": "Tybalt",
+	"mensagem": ""
+	},		
+	{
+	"categoria": "heroes",
+	"imagem": "h_male04.png",
+	"nome": "Althalos",
+	"mensagem": ""
+	},
+	{
+	"categoria": "neutral",
+	"imagem": "kid_female.png",
+	"nome": "Angmar",
+	"mensagem": ""
+	},
+	{
+	"categoria": "neutral",
+	"imagem": "kid_male.png",
+	"nome": "Gavin",
+	"mensagem": ""
+	},
+	{
+	"categoria": "neutral",
+	"imagem": "mushroom.png",
+	"nome": "Mushroom",
+	"mensagem": ""
+	},
+	{
+	"categoria": "neutral",
+	"imagem": "goblin.png",
+	"nome": "Goblin",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"nome": "Bee",
+	"imagem": "bee.png",
+	"tipoMovimento": "circle",
+	"velocidade": 0.5,
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "eye.png",
+	"nome": "Eye",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "flame.png",
+	"nome": "Fire",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "goblin02.png",
+	"nome": "Globad",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "golem.png",
+	"nome": "Golem",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "iceman.png",
+	"nome": "Iceman",
+	"mensagem": ""
+	},	
+	{
+	"categoria": "enemies",
+	"imagem": "death.png",
+	"nome": "Death",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "diablo.png",
+	"nome": "Diablo",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "diablo02.png",
+	"nome": "Verm",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "diablo03.png",
+	"nome": "Daemon",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "e_female01.png",
+	"nome": "Gwendolynn",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "e_male01.png",
+	"nome": "Barda",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "e_male02.png",
+	"nome": "Ronald",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "e_male03.png",
+	"nome": "Lord Rulf",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "sleleton.png",
+	"nome": "Skeleton",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "snake.png",
+	"nome": "Snake",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "stoneman.png",
+	"nome": "Stoneman",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "villain.png",
+	"nome": "Duke Cornwallis",
+	"mensagem": ""
+	},
+	{
+	"categoria": "enemies",
+	"imagem": "wolf.png",
+	"nome": "Wolf",
+	"mensagem": ""
+	}				

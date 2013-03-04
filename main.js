@@ -290,9 +290,9 @@ function randomFloat(minValue,maxValue,precision){
 		// Inicializar vari�vel para ler recursos dos items
 		var countNpc = 0;
 		var countItems = 0;
-		var countTrg = 0;
-		var countSI = 0;
-		var countThrow = 0;
+		// var countTrg = 0;
+		// var countSI = 0;
+		// var countThrow = 0;
 		var ads_items_tmp=[];
 		// console.log("Loaded... A");
 		
@@ -316,45 +316,57 @@ function randomFloat(minValue,maxValue,precision){
 		load_ads_items = ads_items_tmp.slice();
 		
 		//Get NPC data
-		$.each(data.npc, function(i,data)
-		{
-			countNpc++;
-			adsNpcData.push(data);		
-		});
+		// $.each(data.npc, function(i,data)
+		// {
+			// countNpc++;
+			// adsNpcData.push(data);		
+		// });
 		
 		//Get questions data
-		$.each(data.questions, function(i,data)
-		{
-			countQtn++;
-			adsQtnData.push(data);		
-		});
+		// $.each(data.questions, function(i,data)
+		// {
+			// countQtn++;
+			// adsQtnData.push(data);		
+		// });
 		
 		//Get triggers data
-		$.each(data.triggers, function(i,data)
-		{
-			countTrg++;
-			triggersData.push(data);		
-		});
+		// $.each(data.triggers, function(i,data)
+		// {
+			// countTrg++;
+			// triggersData.push(data);		
+		// });
 		
-		//Get specialItems data
-		$.each(data.specialItems, function(i,data)
-		{
-			countSI++;
-			specialItemsData.push(data);		
-		});
+		// //Get specialItems data
+		// $.each(data.specialItems, function(i,data)
+		// {
+			// countSI++;
+			// specialItemsData.push(data);		
+		// });
 
 		//Get throwers data
-		$.each(data.throwers, function(i,data)
-		{
-			countThrow++;
-			throwersData.push(data);		
-		});
+		// $.each(data.throwers, function(i,data)
+		// {
+			// countThrow++;
+			// throwersData.push(data);		
+		// });
+		
+		//Get npcData data - It's not necessary $.each
+		specialItemsData = data.specialItems;
+		
+		//Get npcData data - It's not necessary $.each
+		adsNpcData = data.npc;
 		
 		//Get projectilData data - It's not necessary $.each
 		projectilsData = data.projectils;
 		
 		//Get data to map effects - It's not necessary $.each without []
 		mapEffectsData = data.mapEffects;
+		
+		//Get data to triggers - It's not necessary $.each without []
+		triggersData = data.triggers;
+		
+		//Get data to throwers - It's not necessary $.each without []
+		throwersData = data.throwers;
 		
 
 		// console.log("Carregados " + countItems + " Items");
@@ -372,16 +384,40 @@ function randomFloat(minValue,maxValue,precision){
 		adsGame.onload();
 	};
 $( function(){
-	$.get( ads_json_files + "gamedata01.json" )
-		.done( function( data ){
-			if( typeof data != "object" ){
-				alert( "Data is invalid" );
-			}
-			// console.debug( "recebi o seguinte", data );
-			init_game( data );
-			
-		})
-		.fail( function(){
-			alert( "Invalid DATA file!" );
-		});
+    $.when(
+    	$.get( ads_json_files + "gamedata01.json" )
+    		.done( function( data ){
+    			if( typeof data != "object" ){
+    				alert( "Data is invalid --- gamedata01.json ---" );
+    			}
+    			// console.debug( "recebi o seguinte", data );
+    			lvlData = data; 
+    		})
+    		.fail( function(){
+    			alert( "Invalid DATA file! --- gamedata01.json ---" );
+    		}),
+    		
+    	// Load questions jason data
+        $.get( ads_json_files + "questions.json" )
+            .done( function( data ){
+                if( typeof data != "object" ){
+                    alert( "Data is invalid --- question.json ---" );
+                }
+                // console.debug( "recebi o seguinte", data );
+                // init_game( data );
+                
+                //Get Questions to variable
+                adsQtnData = data.questions;
+               
+            })
+            .fail( function(){
+                alert( "Invalid DATA file! --- question.json ---" );
+            })    		
+	).done(function(){
+
+        //place your code here, the scripts are all loaded
+        init_game( lvlData );
+         console.log("Questions Loaded..", adsQtnData);
+        
+    });
 });

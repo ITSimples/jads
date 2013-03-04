@@ -499,27 +499,38 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
 
 		this.parent(x, y, settings);
 		
-		// Create a new npc *ads_tile_size to transform map coordinates to tile coordinates
-		npc = new NpcEntity(adsNpcData[5].coordenadas[0].initStartX * ads_tile_size, adsNpcData[5].coordenadas[0].initStartY * ads_tile_size , 
-								{image: adsNpcData[5].imagem.replace(".png",""),
-								spritewidth: 32, spriteheight: 43}, adsNpcData[5]);
-
-		me.game.add(npc,6);
-		me.game.sort();
+		//returns an array of all enumerable property names defined by a given object
+        var npcKeys = Object.keys(adsNpcData);
+        
+        // Total of NPC
+        countNpc = npcKeys.length;
+        
+        console.log("NPC count:" , countNpc);
+        
 		
-		npc = new NpcEntity(adsNpcData[6].coordenadas[0].initStartX * ads_tile_size, adsNpcData[6].coordenadas[0].initStartY * ads_tile_size , 
-								{image: adsNpcData[6].imagem.replace(".png",""),
-								spritewidth: 32, spriteheight: 43}, adsNpcData[6]);
-
-		me.game.add(npc,6);
-		me.game.sort();
+		for ( var x = 0; x < countNpc; x++){
+    		// Create a new npc *ads_tile_size to transform map coordinates to tile coordinates
+    		npc = new NpcEntity(adsNpcData[npcKeys[x]].coordenadas[0].initStartX * ads_tile_size, adsNpcData[npcKeys[x]].coordenadas[0].initStartY * ads_tile_size , 
+    								{image: adsNpcData[npcKeys[x]].imagem.replace(".png",""),
+    								spritewidth: 32, spriteheight: 43}, adsNpcData[npcKeys[x]]);
+    
+    		me.game.add(npc,6);
+    		me.game.sort();
+		}
 		
-		npc = new NpcEntity(adsNpcData[4].coordenadas[0].initStartX * ads_tile_size, adsNpcData[4].coordenadas[0].initStartY * ads_tile_size , 
-								{image: adsNpcData[4].imagem.replace(".png",""),
-								spritewidth: 32, spriteheight: 43}, adsNpcData[4]);
-
-		me.game.add(npc,6);
-		me.game.sort();
+		// npc = new NpcEntity(adsNpcData[1].coordenadas[0].initStartX * ads_tile_size, adsNpcData[1].coordenadas[0].initStartY * ads_tile_size , 
+								// {image: adsNpcData[1].imagem.replace(".png",""),
+								// spritewidth: 32, spriteheight: 43}, adsNpcData[1]);
+// 
+		// me.game.add(npc,6);
+		// me.game.sort();
+// 		
+		// npc = new NpcEntity(adsNpcData[2].coordenadas[0].initStartX * ads_tile_size, adsNpcData[2].coordenadas[0].initStartY * ads_tile_size , 
+								// {image: adsNpcData[2].imagem.replace(".png",""),
+								// spritewidth: 32, spriteheight: 43}, adsNpcData[2]);
+// 
+		// me.game.add(npc,6);
+		// me.game.sort();
 	},
 	
 	update: function() {	
