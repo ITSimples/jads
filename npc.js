@@ -506,13 +506,23 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
         countNpc = npcKeys.length;
         
         console.log("NPC count:" , countNpc);
+        console.log("NPC name:" , adsNpcData["dragonlvl01"].nome
+                    ,": Spritewidth:" , adsNpcData["dragonlvl01"].tamanhoImagem.largura ,
+                    " Sprite Height:" , adsNpcData["dragonlvl01"].tamanhoImagem.altura);
         
-		
+
 		for ( var x = 0; x < countNpc; x++){
+		    //Get sprite width and height
+		    
+		    var settings ={};
+		    settings.image = adsNpcData[npcKeys[x]].imagem.replace(".png","");
+		    settings.spritewidth = adsNpcData[npcKeys[x]].tamanhoImagem.largura;
+            settings.spriteheight = adsNpcData[npcKeys[x]].tamanhoImagem.altura; 
+                        
     		// Create a new npc *ads_tile_size to transform map coordinates to tile coordinates
-    		npc = new NpcEntity(adsNpcData[npcKeys[x]].coordenadas[0].initStartX * ads_tile_size, adsNpcData[npcKeys[x]].coordenadas[0].initStartY * ads_tile_size , 
-    								{image: adsNpcData[npcKeys[x]].imagem.replace(".png",""),
-    								spritewidth: 32, spriteheight: 43}, adsNpcData[npcKeys[x]]);
+    		npc = new NpcEntity(adsNpcData[npcKeys[x]].coordenadas[0].initStartX * ads_tile_size, 
+    		                    adsNpcData[npcKeys[x]].coordenadas[0].initStartY * ads_tile_size , 
+    						    settings, adsNpcData[npcKeys[x]]);
     
     		me.game.add(npc,6);
     		me.game.sort();
