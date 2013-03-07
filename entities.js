@@ -37,7 +37,6 @@ var HeroeEntity = me.ObjectEntity.extend({
 		this.pos.x = this.posBeforeCollideX = startHeroe[0] * ads_tile_size;
 		this.pos.y = this.posBeforeCollideY = startHeroe[1] * ads_tile_size;
 		
-		
 		// This move
 		this.movemouse = false;
 		
@@ -508,6 +507,18 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		this.targY = triggerData.target.y;
 
 		this.solution = this.triggerData.solution;
+		
+		//add remove option
+		this.remove = this.triggerData.remove;
+		//check first time pull the trigger
+		this.oneTime = false;
+		
+		//Get data from trigger new NPC
+		if(this.type == "NEW_NPC"){
+		    //Get data that only exists on NEW_NPC trigger
+		    this.npcName = triggerData.npcName;
+		}
+		
 		this.checkSolution = false;
 		this.isChecked = false;
 
@@ -520,6 +531,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'heroe' ) {
+			    
 				// Verify if heroe have the item only one time
 				if (!this.isChecked)
 				{
@@ -556,7 +568,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 				
 				// If trigger is a door object
 				if (this.type == 'DOOR_OBJECT'){
-					if (this.checkSolution){
+				    if (this.checkSolution){
 					
 						// // Open the door
 						// this.doorLayer.clearTile(this.targX,this.targY);
@@ -612,7 +624,21 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						this.message.show(this.msgData);
 						msgShowing = true;
 					}
-				} // End portal object
+				} // End portal object				
+                
+				// If trigger is a npc object object
+                if (this.type == 'NEW_NPC'){                        
+                        this.message.show(this.msgData);
+                        msgShowing = true;
+                        
+                        //Create the new NPC only one time
+                        if ( !this.oneTime ){
+                            adsGame.Npc.create(adsNpcData[this.npcName]);
+                        }
+                }
+                
+                //If hero pull the trigger set onetime to true - pull one time atfer test triggers type
+                this.oneTime = true;
 				
 			} // End heroe collision
 		}else{
@@ -623,7 +649,15 @@ var TriggerEntity = me.InvisibleEntity.extend({
 			msgShowing = false;
 			// Reset check for items
 			this.isChecked = false;
-		}
+			
+			//Remove item from game if remove = true:
+            if (this.remove && this.oneTime){          
+                  // Remove this object 
+                  me.game.remove(this);
+                  
+                  console.log("Trigger Removed.....");
+            }
+		}		
 	} // End Update
 	
 });

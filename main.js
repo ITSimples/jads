@@ -70,6 +70,9 @@ var adsGame =
 		
 		//Create object from prisondoor classe
 		adsGame.prisonDoors =  new adsGame.PrisonDoors();
+		
+		// Create object to NPC
+		adsGame.Npc = new adsGame.NPC();
 
 	},
 	reboot:function(){
