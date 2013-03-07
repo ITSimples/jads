@@ -369,10 +369,14 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
             // create the array outside this cicle because don't repeat the same code several times'            
             var finalHeight = ( data.settings.height / 32 );
             var finalWidth  = ( data.settings.width  / 32 );
+            
+            // console.log("Trigger:", data);
+            // console.log("Width:", finalWidth);
+            // console.log("Height:", finalHeight);
 
-            for ( x = 0; x < finalHeight; x++) 
+            for ( x = 0; x < finalWidth ; x++) 
             {
-                for ( y = 0; y < finalWidth; y++) 
+                for ( y = 0; y < finalHeight ; y++) 
                 { 
                     //Store data coordinates
                     var triggersCoordinates = {};
@@ -418,14 +422,17 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 						//Improve this to not spwan items on mission tiles
 						//special item
 						$.each(specialItemsData, function(i, data){
-							if (data.coordinates.x == x && data.coordinates.y == y)
+							if (data.coordinates.x == x && data.coordinates.y == y){
 								isCollide = true;
+							}
 						});	
 						
                         // If is a trigger don't put object
                         $.each(checkTriggersData, function(i, data){
-                            if (data.x == x && data.y == y)
+                            if (data.x == x && data.y == y){
                                 isCollide = true;
+                                console.log("Collide with trigger tile!");
+                            }
                         }); 
 						
 						//Heroe born
