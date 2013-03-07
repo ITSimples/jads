@@ -166,6 +166,10 @@ var ads_resources =
 	// ---- Audio ----
 	//{name: "mfh", type: "audio",  src: "content/music/", channel: 1},
 	
+	// ---- Enemies ----
+	{name: "dragon_lvl_01", type: "image",  src: ads_sprites_path + "dragon_lvl_01.png"},
+	
+	
 	// ---- Sprites ----
 	{name: "bee",		type: "image",	src: ads_sprites_path + "bee.png"},
 	{name: "beehive",		type: "image",	src: ads_sprites_path + "beehive.png"},
