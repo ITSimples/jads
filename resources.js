@@ -78,7 +78,7 @@ var heroeVelocity = 3;
 
 var itemLucky = 20;
 
-var startHeroe = [8,45];
+var startHeroe = [7,46];
 
 /*--- END Heroe Configuration ---*/
 
@@ -224,6 +224,7 @@ var ads_resources =
 	{name: "thrower01", 	type: "image",src: ads_sprites_path + "thrower01.png"},
 	{name: "throwerfire", 	type: "image",src: ads_sprites_path + "throwerfire.png"},
 	{name: "throwerfire02", 	type: "image",src: ads_sprites_path + "throwerfire02.png"},
+	
 	//**** Effects
 	{name: "explosion_32x32", 	type: "image",src: ads_effects_path + "explosion_32x32.png"},
 	{name: "explosion_64x64", 	type: "image",src: ads_effects_path + "explosion_64x64.png"},
@@ -231,7 +232,8 @@ var ads_resources =
 	{name: "dragondooropen",  type: "image",src: ads_effects_path + "dragondooropen.png"},
 	{name: "questitem", 	type: "image",src: ads_effects_path + "questitem.png"},
 	{name: "sparkle", 	type: "image",src: ads_effects_path + "sparkle.png"},
-	{name: "fireplace", 	type: "image",src: ads_effects_path + "fireplace.png"}
+	{name: "fireplace", 	type: "image",src: ads_effects_path + "fireplace.png"},
+	{name: "risesfire",    type: "image",src: ads_effects_path + "risesfire.png"}
 ];
 
 

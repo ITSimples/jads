@@ -216,7 +216,7 @@ var NpcEntity = me.ObjectEntity.extend({
 		
 		
 		// *** IMPROVE THIS ONE - MAKE IT DINAMIC IF IS PRISONER OR NOT
-		if ( this.npcData.categoria == "friends" || (this.npcData.categoria == "prisoner" && adsGame.prisonDoors.prisonDoorTrigger[this.npcData.prisao.numero]) ){
+		if ( this.npcData.categoria == "enemies" || this.npcData.categoria == "friends" || (this.npcData.categoria == "prisoner" && adsGame.prisonDoors.prisonDoorTrigger[this.npcData.prisao.numero]) ){
 			//if return true then wait else no wait time then can readwaittime again
 			this.eventHappening = this.npcEvent( this.npcEvents );
 			
@@ -248,47 +248,59 @@ var NpcEntity = me.ObjectEntity.extend({
 				// ' and this cell is ' , prisonBreak[this.npcData.prisao.numero] ? 'open' : 'closed' );
 		}
 		
-		// Move NPC
-		if( moveObject( this ) && !this.stop) {			
-			if (this.countPath != this.path[this.currentPath].length){
-					//return movement
-					this.accel.x = this.accel.y = this.npcData.velocidade;
-					this.setCurrentAnimation( this.direction );
-					
-					this.destX = this.path[this.currentPath][this.countPath ][0] * ads_tile_size;
-					this.destY = this.path[this.currentPath][this.countPath ][1] * ads_tile_size;
-					
-					this.countPath ++;
-					this.setDirection();
-					this.setCurrentAnimation( this.direction );
-			}else {
-				this.countPath = 0;
-				this.currentPath++ ;
-				
-				//Test if there is reverse path
-				if (this.reversePathNumber == this.currentPath){
-					console.log('Reverse path...');
-
-					this.currentPath = 0;					
-					
-					// if (this.cachepath[this.currentPath] == this.path[this.currentPath]){
-						// console.log('Reverse path...');
-						// this.path[this.currentPath] = this.reversePath[this.currentPath];
-					// }else{
-						// console.log('Normal Path...');
-						// this.path[this.currentPath] = this.cachepath[this.currentPath];
-					// }					
-				}
-				// Stop the player
-				if (this.currentPath == this.path.length){
-					this.stop = true;
-					this.setCurrentAnimation( "stand-" + this.direction );
-				}
-			}
-		}
+		//If NPC movement is path
+		if (this.npcData.tipoMovimento == "path"){
+    		// Move NPC
+    		if( moveObject( this ) && !this.stop) {			
+    			if (this.countPath != this.path[this.currentPath].length){
+    					//return movement
+    					this.accel.x = this.accel.y = this.npcData.velocidade;
+    					this.setCurrentAnimation( this.direction );
+    					
+    					this.destX = this.path[this.currentPath][this.countPath ][0] * ads_tile_size;
+    					this.destY = this.path[this.currentPath][this.countPath ][1] * ads_tile_size;
+    					
+    					this.countPath ++;
+    					this.setDirection();
+    					this.setCurrentAnimation( this.direction );
+    			}else {
+    				this.countPath = 0;
+    				this.currentPath++ ;
+    				
+    				//Test if there is reverse path
+    				if (this.reversePathNumber == this.currentPath){
+    					console.log('Reverse path...');
+    
+    					this.currentPath = 0;					
+    					
+    					// if (this.cachepath[this.currentPath] == this.path[this.currentPath]){
+    						// console.log('Reverse path...');
+    						// this.path[this.currentPath] = this.reversePath[this.currentPath];
+    					// }else{
+    						// console.log('Normal Path...');
+    						// this.path[this.currentPath] = this.cachepath[this.currentPath];
+    					// }					
+    				}
+    				// Stop the player
+    				if (this.currentPath == this.path.length){
+    					this.stop = true;
+    					this.setCurrentAnimation( "stand-" + this.direction );
+    				}
+    			}
+    			
+    			
+    		}
+    	}else if (this.npcData.tipoMovimento == "followhero"){
+    	    
+    	   this.velocityFollow = this.npcData.velocidade;
+    	   followHeroe( this ); // Wrong - Correct heroe to hero
+           
+           this.setDirection();
+           this.setCurrentAnimation( this.direction );
+    	}
 		
 		// check and update movement - Update animation
-		this.updateMovement();
+        this.updateMovement();
 		this.parent(this);
 	}, // end update
 
@@ -533,7 +545,10 @@ adsGame.NPC =   Object.extend({
         settings.image = npcData.imagem.replace(".png","");
         settings.spritewidth = npcData.tamanhoImagem.largura;
         settings.spriteheight = npcData.tamanhoImagem.altura; 
-                    
+        
+        
+        console.log("npcData.coordenadas[0].initStartX:", npcData.coordenadas[0].initStartX);
+        
         // Create a new npc *ads_tile_size to transform map coordinates to tile coordinates
         npc = new NpcEntity(npcData.coordenadas[0].initStartX * ads_tile_size, 
                             npcData.coordenadas[0].initStartY * ads_tile_size , 

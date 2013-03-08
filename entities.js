@@ -517,6 +517,9 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		if(this.type == "NEW_NPC"){
 		    //Get data that only exists on NEW_NPC trigger
 		    this.npcName = triggerData.npcName;
+		    
+		    //Get effect to rise the new NPC
+		    this.appearEffect = triggerData.appearEffect;
 		}
 		
 		this.checkSolution = false;
@@ -633,6 +636,21 @@ var TriggerEntity = me.InvisibleEntity.extend({
                         
                         //Create the new NPC only one time
                         if ( !this.oneTime ){
+                            //Rises effect goes here if exist
+                            var risesNPC = new effect(
+                                    (this.appearEffect.coordinates.x * ads_tile_size) , 
+                                    (this.appearEffect.coordinates.y * ads_tile_size) , // Coordinates
+                                    me.loader.getImage(this.appearEffect.name),  // Image
+                                    this.appearEffect.size.width,this.appearEffect.size.height, // Size
+                                    this.appearEffect.animationSheet, //Animation sheet
+                                    this.appearEffect.speed, // Speed between 0 - Slowest and 60 - fastest
+                                    this.appearEffect.repeat, // Repeat
+                                    this.appearEffect.waitBetween // Wait between
+                                    );
+                            me.game.add(risesNPC, 8);
+                            me.game.sort();
+                                                        
+                            //Create new NPC
                             adsGame.Npc.create(adsNpcData[this.npcName]);
                         }
                 }
