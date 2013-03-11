@@ -199,6 +199,7 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.showMessage = true;
 				msgShowing = true;
 				//Stop npc when he talk with heroe
+				console.log ("Why player don't stop...")
 				this.setCurrentAnimation( "stand-" + this.direction );
 				this.accel.x = this.accel.y = 0;
 				this.vel.x = this.vel.y = 0;
@@ -292,16 +293,44 @@ var NpcEntity = me.ObjectEntity.extend({
     		}
     	}else if (this.npcData.tipoMovimento == "followhero"){
     	    
-    	   this.velocityFollow = this.npcData.velocidade;
-    	   followHeroe( this ); // Wrong - Correct heroe to hero
+    	   this.velocityFollow = this.npcData.velocidade;    	   
            
-           this.setDirection();
-           this.setCurrentAnimation( this.direction );
+           followHeroe( this ); // Wrong - Correct heroe to hero
+           
+            var player = me.game.getEntityByName('Heroe');
+                        
+            var playerPosX = player[0].pos.x;
+            var playerPosY = player[0].pos.y;
+            
+            this.distanceX = Math.abs( playerPosX - this.pos.x );
+            this.distanceY = Math.abs( playerPosY - this.pos.y );
+            
+            // console.log("Distance x:" , this.distanceX, " Distance y:", this.distanceY);
+           
+            // console.log("Distance x:" , this.distanceX, " Distance y:", this.distanceY);
+            
+            if( this.distanceX > this.distanceY ) {
+                this.direction = playerPosX < this.pos.x ? 'left' : 'right' ;
+            } else {
+                this.direction = playerPosY < this.pos.y ? 'up' : 'down';
+            }
+            
+            // Stop the player
+            if (this.npcData.paraDistancia > this.distanceTo( player[0] ) ){
+                this.setCurrentAnimation( "stand-" + this.direction );
+                this.accel.x = this.accel.y = 0;
+                this.vel.x = this.vel.y = 0;
+                
+            }else{ // if distance between player bigger than defined on json                
+                // check and update movement - Update animation
+                this.setCurrentAnimation( this.direction );
+                this.accel.x = this.accel.y = this.npcData.velocidade;
+            }
     	}
+    	    	
+		this.updateMovement();
+        this.parent(this);
 		
-		// check and update movement - Update animation
-        this.updateMovement();
-		this.parent(this);
 	}, // end update
 
 	// *** npcTalkEvent Managment
