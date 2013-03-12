@@ -143,3 +143,5 @@ download from http://sandbox.yoyogames.com/resources?cat_id=3
 Boysano :
 
 fire.png
+
+campfire02 - Credit goes to Zabin and Jetrel from OGA (http://opengameart.org/content/camp-fire-animation-for-rpgs-finished)

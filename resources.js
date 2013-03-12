@@ -77,7 +77,7 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [7,46];
+var startHero = [2,32];
 
 /*--- END Hero Configuration ---*/
 
@@ -188,7 +188,8 @@ var ads_resources =
 	{name: "f_male03",	type: "image",	src: ads_sprites_path + "f_male03.png"},
 	{name: "f_male04",	type: "image",	src: ads_sprites_path + "f_male04.png"},
 	{name: "flame",	type: "image",	src: ads_sprites_path + "flame.png"},
-	{name: "campfire",	type: "image",	src: ads_sprites_path + "campfire.png"},
+	{name: "campfire01",	type: "image",	src: ads_sprites_path + "campfire01.png"},
+	{name: "campfire02",    type: "image",  src: ads_sprites_path + "campfire02.png"},
 	// {name: "goblin",	type: "image",	src: ads_sprites_path + "goblin.png"},
 	// {name: "goblin02",	type: "image",	src: ads_sprites_path + "goblin02.png"},
 	// {name: "golem",	type: "image",	src: ads_sprites_path + "golem.png"},
