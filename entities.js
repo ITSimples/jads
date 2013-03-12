@@ -280,11 +280,10 @@ var ItemEntity = me.CollectableEntity.extend({
 	
 	getItem : function ()
 	{
-		//Stop player
-		var player = me.game.getEntityByName('Heroe');
-		player[0].vel.x = 0;
-		player[0].vel.y = 0;
-		
+		//When player collide with item Stop player and ask question
+		// var player = me.game.getEntityByName('Heroe');
+		// player[0].vel.x = 0;
+		// player[0].vel.y = 0;
 		
 		// If the answer is correct then update HUD and remove item
 		heroeAnswer = showQuestionLayer(this.items_data , this.rndQtnData);
@@ -614,10 +613,14 @@ var TriggerEntity = me.InvisibleEntity.extend({
 				if (this.type == 'PORTAL_OBJECT'){
 					if (this.checkSolution){
 						//***** TEST TELEPORT AND FADE MAP
-						var player = me.game.getEntityByName('Heroe');
+						// var player = me.game.getEntityByName('Heroe');
+// 						
+						// player[0].pos.x = this.targX * ads_tile_size;
+						// player[0].pos.y = this.targY * ads_tile_size;
 						
-						player[0].pos.x = this.targX * ads_tile_size;
-						player[0].pos.y = this.targY * ads_tile_size;
+						adsGame.heroEntity().pos.x = this.targX * ads_tile_size;
+						adsGame.heroEntity().pos.y = this.targY * ads_tile_size;
+						
 						//TODO - Fade out /in viewport 
 						me.game.viewport.fadeOut('#000000',1000);
 						
@@ -795,11 +798,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 	  // If distancia exists then verify distance between thrower and hero
 	  if (typeof(this.throwerData.distancia) !== 'undefined' ){
 	  
-		var player = me.game.getEntityByName('Heroe');
+		var player = adsGame.heroEntity();
 		// console.log("Distance between hero and thrower : " , this.distanceTo(player[0]));
 		
 	  
-		if (this.throwerData.distancia > this.distanceTo(player[0]) ){
+		if (this.throwerData.distancia > this.distanceTo(player) ){
 			if (typeof(this.throwerData.numeroDeProjeteis) !== 'undefined' ){
 				// Create a maximum number of projectil objects
 				this.createMaxProjectils(this.throwerData.numeroDeProjeteis);

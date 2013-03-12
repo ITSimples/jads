@@ -34,7 +34,6 @@ me.sys.cacheImage = true;
 START Global Variables
 -------------------------------- */
 
-
 // Configurações do Jogo - Variáveis Globais:
 var ads_width = 800;
 var ads_height = 520;

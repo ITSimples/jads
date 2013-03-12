@@ -106,8 +106,8 @@ var HUDVelocity = me.HUD_Item.extend({
 		console.log ('heroeVelocity:', heroeVelocity)
 		
 		// Update heroe velocity
-		var player = me.game.getEntityByName('Heroe');
-		player[0].setVelocity(heroeVelocity, heroeVelocity);
+		var player = adsGame.heroEntity();
+		player.setVelocity(heroeVelocity, heroeVelocity);
 		player = undefined;
     }
 });

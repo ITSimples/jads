@@ -72,12 +72,20 @@ var adsGame =
 		adsGame.prisonDoors =  new adsGame.PrisonDoors();
 		
 		// Create object to NPC
-		adsGame.Npc = new adsGame.NPC();
+		adsGame.Npc = new adsGame.NPC();	
 
 	},
 	reboot:function(){
 		this.data = null;
 	},
+	
+	//Create a global identity for player as hero 
+    heroEntity :function(){
+        var heroEntityAux = me.game.getEntityByName('Heroe');
+        
+        return heroEntityAux[0];
+    }, 
+    
 	loaded:function()
 	{
 		// Definir estado Menu 
@@ -95,7 +103,7 @@ var adsGame =
 		me.entityPool.add("npc_spawn", NpcSpawnEntity);
 		me.entityPool.add("doors_spawn", TriggerSpawnEntity);
 		me.entityPool.add("throwers_spawn", ThrowersSpawnEntity);
-		me.entityPool.add("map_effects_spawn", MapEffectsSpawnEntity);
+		me.entityPool.add("map_effects_spawn", MapEffectsSpawnEntity);		
 		
 		// Configurar teclas a usar, False - L� mais que uma vez True - L� v�rias vezes.
 		// Usar true por exemplo para lutar...

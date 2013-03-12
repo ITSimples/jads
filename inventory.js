@@ -39,7 +39,7 @@
 		this.slotsMap = [-1,-1,-1,-1,-1,-1,-2,-2,-2];
 		
 		//Comment on inventory
-		this.invComment = " 'I' Esconder inventário.";
+		this.invComment = " 'I' Esconder inventï¿½rio.";
 		
 		// Special items name
 		// Improve - Make this multilingual
@@ -107,8 +107,8 @@
 			
 			// Set inventory key I when inventory is open without I key
 			// Set isShowInv to true in heroe to avoid double pressed key I 
-			var player = me.game.getEntityByName('Heroe');
-			player[0].isShowInv = true;
+			var player = adsGame.heroEntity();
+			player.isShowInv = true;
 			player = undefined;
 			}
 	},
@@ -233,7 +233,7 @@
 			this.eventListener ('add' , this.slotNumber + 1);
 			
 			//*** IMPROVE - Update invComment
-			this.invComment = "Parabéns novo item.";
+			this.invComment = "Parabï¿½ns novo item.";
 			$('.invComment,#hiddenText').html(this.invComment);
 			
 			// If added item is velocity or lucky update Hud 
@@ -280,7 +280,7 @@
 			$('.invComment').html('Item destruido.');
 		}else{ // Item not removed
 
-			$('.invComment').html('Item da missão, não pode ser destruido.');
+			$('.invComment').html('Item da missï¿½o, nï¿½o pode ser destruido.');
 		}
 	},
 	
@@ -318,9 +318,9 @@
 						break;
 							
 			default:  infValueColor = "white"; // Mission items
-					  itemInfUse = 'Não podes usar nem destruir';
+					  itemInfUse = 'Nï¿½o podes usar nem destruir';
 					  // If mission item then change value 
-					  iteminfValue= "Item da missão.";
+					  iteminfValue= "Item da missï¿½o.";
 		}	
 			
 		
@@ -360,7 +360,7 @@
 							if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= maxHudValue['live']){
 								adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
 							}else {
-								this.invComment = 'Supera o máximo de vida. Não podes usar.';
+								this.invComment = 'Supera o mï¿½ximo de vida. Nï¿½o podes usar.';
 								$('.invComment').css("color", hudColorLive);
 								$('.invComment,#hiddenText').html(this.invComment);
 							}

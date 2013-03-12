@@ -73,7 +73,7 @@ function moveObjectBeeHavior( object )
 		x_pos = Math.round(x_pos_add) - Math.round(x_pos);
 		y_pos = Math.round(y_pos_add) - Math.round(y_pos);
 		
-		// **** temos que ver a direção e andar em x em y positivo ou negativo
+		// **** temos que ver a direï¿½ï¿½o e andar em x em y positivo ou negativo
  		
 		// console.log("x: " + x_pos + " Y: " + y_pos); 
 		object.vel.x = (object.accel.x * me.timer.tick) + x_pos;
@@ -108,7 +108,7 @@ function moveObjectCircle( object )
 		x_pos = Math.round(x_pos_add) - Math.round(x_pos);
 		y_pos = Math.round(y_pos_add) - Math.round(y_pos);
 		
-		// **** temos que ver a direção e andar em x em y positivo ou negativo
+		// **** temos que ver a direï¿½ï¿½o e andar em x em y positivo ou negativo
  		
 		// console.log("x: " + x_pos + " Y: " + y_pos); 
 		object.vel.x = (object.accel.x * me.timer.tick) + x_pos;
@@ -131,10 +131,10 @@ function moveObjectCircle( object )
 function followHeroe( object )
 {
 	if (object !== null){
-			var player = me.game.getEntityByName('Heroe');
+			var player = adsGame.heroEntity();
 						
-			var playerPosX = player[0].pos.x;
-			var playerPosY = player[0].pos.y;
+			var playerPosX = player.pos.x;
+			var playerPosY = player.pos.y;
 			var angle = Math.atan2(playerPosY - object.pos.y, playerPosX - object.pos.x);
 			object.vel.set(Math.cos(angle) * object.velocityFollow, Math.sin(angle) * object.velocityFollow);
 		
