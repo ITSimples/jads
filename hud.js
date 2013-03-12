@@ -88,7 +88,7 @@ var HUDVelocity = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorVelocity,"left");
-		this.value = heroeVelocity * 2 ; //Hud information
+		this.value = heroVelocity * 2 ; //Hud information
 		this.name = "Velocidade:";
 		// calculate value position
 		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
@@ -102,12 +102,12 @@ var HUDVelocity = me.HUD_Item.extend({
     draw: function(context, x, y) {
 		this.font.draw(context, this.name, this.pos.x , this.pos.y);
         this.font.draw(context, this.value, this.pos.x + this.itemHUDLength, this.pos.y);
-		heroeVelocity = this.value / 2;
-		console.log ('heroeVelocity:', heroeVelocity)
+		heroVelocity = this.value / 2;
+		console.log ('heroVelocity:', heroVelocity)
 		
-		// Update heroe velocity
+		// Update hero velocity
 		var player = adsGame.heroEntity();
-		player.setVelocity(heroeVelocity, heroeVelocity);
+		player.setVelocity(heroVelocity, heroVelocity);
 		player = undefined;
     }
 });

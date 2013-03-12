@@ -81,7 +81,7 @@
 			//Disable event drop on game window
 			this.eventDrop(true);
 						
-			//Heroe face
+			//Hero face
 			$('.invImage').attr({
 			'src' : 'content/sprites/h_male01_face.png',
 			'alt' : 'Testing...'});
@@ -106,7 +106,7 @@
 			this.isShowing = true;
 			
 			// Set inventory key I when inventory is open without I key
-			// Set isShowInv to true in heroe to avoid double pressed key I 
+			// Set isShowInv to true in hero to avoid double pressed key I 
 			var player = adsGame.heroEntity();
 			player.isShowInv = true;
 			player = undefined;
@@ -143,9 +143,9 @@
 		var itemIndex = ( parseInt(slot.substr(slot.length - 1)) - 1);
 		
 		// Make this slot available
-		if (!heroeItems[itemIndex].specialItem){
+		if (!heroItems[itemIndex].specialItem){
 			this.slotsMap[ itemIndex ] = -1;
-			//The heroe use or drop one normal item
+			//The hero use or drop one normal item
 			fullInventory = false;
 		}else{
 			this.slotsMap[ itemIndex ] = -2;
@@ -158,8 +158,8 @@
 		
 		
 		// If option is to use the item
-		var itemCategory = heroeItems[itemIndex].categoria;
-		var itemValue = heroeItems[itemIndex].valor;
+		var itemCategory = heroItems[itemIndex].categoria;
+		var itemValue = heroItems[itemIndex].valor;
 			
 		if (itemTarget == 'use'){
 			console.log (' Use this item...');
@@ -175,16 +175,16 @@
 			}
 		}				
 		
-		//Delete item from heroeItems array
-		// console.log(heroeItems.splice(itemIndex,1));
+		//Delete item from heroItems array
+		// console.log(heroItems.splice(itemIndex,1));
 		
-		// Empty item from heroeItems array
-		heroeItems[itemIndex] = [];
+		// Empty item from heroItems array
+		heroItems[itemIndex] = [];
 		
-		// console.log ('Test after remove item. heroeItems:');
+		// console.log ('Test after remove item. heroItems:');
 		
-		// $.each(heroeItems , function (i, heroeItem) {
-			// console.log ('heroeItem[' + i + ']: ' + heroeItem.nome);
+		// $.each(heroItems , function (i, heroItem) {
+			// console.log ('heroItem[' + i + ']: ' + heroItem.nome);
 		// });
 			
 		// Reset inComment
@@ -212,12 +212,12 @@
 		
 		
 		// if (this.slotNumber != -1) {
-			// Add the new item to heroeItems data
-			heroeItems[this.slotNumber] = item;
+			// Add the new item to heroItems data
+			heroItems[this.slotNumber] = item;
 			
-			$.each(heroeItems, function(i,data)
+			$.each(heroItems, function(i,data)
 			{
-				console.log('heroeItems[' , i , '].valor:', data);
+				console.log('heroItems[' , i , '].valor:', data);
 			});
 			
 			
@@ -251,9 +251,9 @@
 				fullInventory = true; 
 			}
 			
-			// console.log ('Test heroeItems:');
-			// $.each(heroeItems , function (i, heroeItem) {
-				// console.log ('heroeItem[' + i + ']: ' + heroeItem.nome);
+			// console.log ('Test heroItems:');
+			// $.each(heroItems , function (i, heroItem) {
+				// console.log ('heroItem[' + i + ']: ' + heroItem.nome);
 			// });
 		// }
 	},
@@ -289,21 +289,21 @@
 		// slot variable return 'Slot0*' substr function return the last character * like 0,1 the slot dropped
 		var itemIndex = ( parseInt(slot.substr(slot.length - 1)) - 1);
 		
-		// this.invComment = heroeItems[itemIndex].nome;
+		// this.invComment = heroItems[itemIndex].nome;
 		// $('.invComment,#hiddenText').html(this.invComment);
 		 
 		
 		// Show inventory window with a fade
-		$('.infName').html( heroeItems[itemIndex].nome + ':' );
-		$('.infDesc').html( heroeItems[itemIndex].descricao );
+		$('.infName').html( heroItems[itemIndex].nome + ':' );
+		$('.infDesc').html( heroItems[itemIndex].descricao );
 		
 		var itemInfUse;
 		
-		var iteminfValue = '+' + heroeItems[itemIndex].valor + ' ' +  heroeItems[itemIndex].categoria
+		var iteminfValue = '+' + heroItems[itemIndex].valor + ' ' +  heroItems[itemIndex].categoria
 		
 		// select information value color		
 		var infValueColor;
-		switch (heroeItems[itemIndex].categoria)
+		switch (heroItems[itemIndex].categoria)
 		{
 			case 'vida': infValueColor = hudColorLive;
 						itemInfUse  = 'Duplo click para usares.';
@@ -338,8 +338,8 @@
 		var slot = $("#Slot0" + slotNumber );
 		
 		//Get item category and value
-		var itemCategory = heroeItems[slotNumber - 1].categoria;
-		var itemValue = parseInt(heroeItems[slotNumber - 1].valor);
+		var itemCategory = heroItems[slotNumber - 1].categoria;
+		var itemValue = parseInt(heroItems[slotNumber - 1].valor);
 
 		if ( option == 'remove'){
 			slot.unbind();

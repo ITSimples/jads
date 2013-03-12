@@ -81,7 +81,7 @@ var adsGame =
 	
 	//Create a global identity for player as hero 
     heroEntity :function(){
-        var heroEntityAux = me.game.getEntityByName('Heroe');
+        var heroEntityAux = me.game.getEntityByName('Hero');
         
         return heroEntityAux[0];
     }, 
@@ -95,9 +95,9 @@ var adsGame =
 		me.state.set(me.state.PLAY,new PlayScreen());		
 
 		// Configurar entidades do mapasw
-		// Class HeroeEntity em entities
-		//"Heroe" - Nome no mapa .tmx
-		me.entityPool.add("Heroe", HeroeEntity);		
+		// Class HeroEntity em entities
+		//"Hero" - Nome no mapa .tmx
+		me.entityPool.add("Hero", HeroEntity);		
 		me.entityPool.add("items", ItemEntity);
 		me.entityPool.add("items_spawn", ItemSpawnEntity);
 		me.entityPool.add("npc_spawn", NpcSpawnEntity);
@@ -150,7 +150,7 @@ Comment: Display an question box in the game
 function showQuestionLayer(itemData, adsQtnData)
 {
 	if (!showingQuestion){
-		heroeAnswer = -1;
+		heroAnswer = -1;
 		var $questionBoxHtml = ('<img class="qtnImage" src="" alt="">' + 
 							'<div class="itemText"></div>' +
 							'<div class="questionText"></div>' + 
@@ -188,7 +188,7 @@ function showQuestionLayer(itemData, adsQtnData)
 			// If correct answer return true else return false
 			if (keyPressed =='0' || keyPressed =='1' || keyPressed =='2'|| keyPressed =='3'  ) {	
 				// Return player answer
-				heroeAnswer = keyPressed;
+				heroAnswer = keyPressed;
 			}
 		});
 		
@@ -196,7 +196,7 @@ function showQuestionLayer(itemData, adsQtnData)
 		showingQuestion = true;
 	}
 
-	return heroeAnswer;
+	return heroAnswer;
 }
 
 /*
@@ -208,9 +208,9 @@ Comment: hide an question box in the game
 */
 function hideQuestionLayer(answer)
 {
-	// C -  if heroe correct answer
-	// W -  if heroe answer to the question but it's not the correct one
-	// D -  If heroe doesn't answer to the question
+	// C -  if hero correct answer
+	// W -  if hero answer to the question but it's not the correct one
+	// D -  If hero doesn't answer to the question
 	
 	// **** TO MAKE - Keep information to the player until press space key
 	//				- Show in box question the result of the answer

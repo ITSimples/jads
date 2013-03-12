@@ -128,7 +128,7 @@ function moveObjectCircle( object )
  * @param object
  * @return bool / check, if object reached it's goal
  */
-function followHeroe( object )
+function followHero( object )
 {
 	if (object !== null){
 			var player = adsGame.heroEntity();

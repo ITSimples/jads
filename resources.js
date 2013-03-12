@@ -70,16 +70,16 @@ var maxHudValue = {"live":10,"velocity":10};
 
 
 /*------------------- 
-Heroe Configuration
+Hero Configuration
 -------------------------------- */
 
-var heroeVelocity = 3;
+var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHeroe = [7,46];
+var startHero = [7,46];
 
-/*--- END Heroe Configuration ---*/
+/*--- END Hero Configuration ---*/
 
 /*------------------- 
 KEEP DATA IN ARRAY FROM JSON FILE
@@ -120,8 +120,8 @@ var msgShowing = false;
 // Used to avoid show prison door triggers messages to show when NPC is talking
 var npcTalking = false;
 
-// Keep all items found by heroe
-var heroeItems = [];
+// Keep all items found by hero
+var heroItems = [];
 
 // *********** QUESTIONS SECTION ***********
 // Keep all information about the questions
@@ -130,7 +130,7 @@ var adsQtnData = [];
 var countQtn = 0;
 
 // Global variables to test answer
-var heroeAnswer = -1;
+var heroAnswer = -1;
 
 // If Question box is showing
 var showingQuestion = false;

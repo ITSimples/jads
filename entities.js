@@ -22,7 +22,7 @@
 // *************************
 // ****  Entidade Heroi ****
 // *************************
-var HeroeEntity = me.ObjectEntity.extend({
+var HeroEntity = me.ObjectEntity.extend({
 	//Construtor:
 	init:	function (x , y , settings){
 		//Definir propriedades do objecto heroi na classe em vez de no mapa:
@@ -34,8 +34,8 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 		//Debug Position
 		
-		this.pos.x = this.posBeforeCollideX = startHeroe[0] * ads_tile_size;
-		this.pos.y = this.posBeforeCollideY = startHeroe[1] * ads_tile_size;
+		this.pos.x = this.posBeforeCollideX = startHero[0] * ads_tile_size;
+		this.pos.y = this.posBeforeCollideY = startHero[1] * ads_tile_size;
 		
 		// This move
 		this.movemouse = false;
@@ -45,7 +45,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 		this.xydivision = 0;
 		
 		// Configurar velocidade do jogador
-		this.setVelocity(heroeVelocity, heroeVelocity);
+		this.setVelocity(heroVelocity, heroVelocity);
 		
 		// Configurar velocidade de travagem
 		// Valores maiores tempo de travagem menor
@@ -76,7 +76,7 @@ var HeroeEntity = me.ObjectEntity.extend({
 		this.dest_point_X = 0;
 		this.dest_point_Y = 0;
 		
-		// Viewport follow heroe
+		// Viewport follow hero
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 		
 		//TESTING.... 
@@ -129,12 +129,12 @@ var HeroeEntity = me.ObjectEntity.extend({
 		// Debug mode speed up player
 		if (me.input.isKeyPressed('ctrl')){
 			if (me.input.isKeyPressed('speedup')){			
-				heroeVelocity = heroeVelocity + 1;
-				this.setVelocity(heroeVelocity, heroeVelocity);
+				heroVelocity = heroVelocity + 1;
+				this.setVelocity(heroVelocity, heroVelocity);
 				me.game.HUD.updateItemValue('velocidade' , parseInt(1, 10));
 			}else if (me.input.isKeyPressed('speeddown')){
-				heroeVelocity = heroeVelocity - 1;
-				this.setVelocity(heroeVelocity, heroeVelocity);
+				heroVelocity = heroVelocity - 1;
+				this.setVelocity(heroVelocity, heroVelocity);
 				me.game.HUD.updateItemValue('velocidade' , parseInt(-1, 10));
 			}
 		}
@@ -176,12 +176,12 @@ var HeroeEntity = me.ObjectEntity.extend({
 		
 			// // Not needed anymore
 			// if (res.obj.type == 'NPC_OBJECT') {
-				// console.log('Heroe Collide with NPC...');
+				// console.log('Hero Collide with NPC...');
 				// this.setCurrentAnimation('stand-' + this.direction);
 			// }
 			
 			if (res.obj.type == 'ITEM_OBJECT') {
-				// console.log('Heroe Collide with Item...' , res.obj.items_data);
+				// console.log('Hero Collide with Item...' , res.obj.items_data);
 				// this.setCurrentAnimation('stand-' + this.direction);
 				// this.pos.x = this.posBeforeCollideX;
 				// this.pos.y = this.posBeforeCollideY;
@@ -281,18 +281,17 @@ var ItemEntity = me.CollectableEntity.extend({
 	getItem : function ()
 	{
 		//When player collide with item Stop player and ask question
-		// var player = me.game.getEntityByName('Heroe');
-		// player[0].vel.x = 0;
-		// player[0].vel.y = 0;
+		var player = adsGame.heroEntity();
+
 		
 		// If the answer is correct then update HUD and remove item
-		heroeAnswer = showQuestionLayer(this.items_data , this.rndQtnData);
-		if (heroeAnswer != -1)
+		heroAnswer = showQuestionLayer(this.items_data , this.rndQtnData);
+		if (heroAnswer != -1)
 		{
-			if ( heroeAnswer == this.rndQtnData.correta){ // if heroe correct answer			
+			if ( heroAnswer == this.rndQtnData.correta){ // if hero correct answer			
 				// me.game.HUD.updateItemValue(this.items_data.categoria, parseInt(this.items_data.valor));
 				
-				//Keep data for all items found by the heroe less gold and knowledge increment right away
+				//Keep data for all items found by the hero less gold and knowledge increment right away
 				if (this.items_data.categoria == 'ouro' ||
 					this.items_data.categoria == 'conhecimento'){
 					me.game.HUD.updateItemValue(this.items_data.categoria , parseInt(this.items_data.valor, 10));
@@ -301,7 +300,7 @@ var ItemEntity = me.CollectableEntity.extend({
 			adsGame.Inventory.addItem( this.items_data );
 				}						
 				hideQuestionLayer('C');
-			}else if(heroeAnswer !== 0){ // if heroe answer to the question but it's not the correct one
+			}else if(heroAnswer !== 0){ // if hero answer to the question but it's not the correct one
 				var valueRemoved = -(parseInt(this.items_data.valor,10));
 				
 				//If is velocity then don't remove points
@@ -309,12 +308,12 @@ var ItemEntity = me.CollectableEntity.extend({
 					me.game.HUD.updateItemValue(this.items_data.categoria, valueRemoved);
 				}	
 				hideQuestionLayer('W');
-			}else{ // If heroe doesn't answer to the question
+			}else{ // If hero doesn't answer to the question
 				hideQuestionLayer('D');
 			}
 			
 			//If correct answer and specialitem remove item - If not special item remove always the item
-			if ( (!this.specialItem) || (this.specialItem &&  heroeAnswer == this.rndQtnData.correta) ){
+			if ( (!this.specialItem) || (this.specialItem &&  heroAnswer == this.rndQtnData.correta) ){
 				// Remove Item 
 				me.game.remove(this);
 				
@@ -322,9 +321,9 @@ var ItemEntity = me.CollectableEntity.extend({
 				me.game.remove(this.itemAnimation);
 			}else{ 
 				// If is a Special item and the answer is not the correct 
-				// then position heroe to last position with no collition with item
-				player[0].pos.x = player[0].posBeforeCollideX;
-				player[0].pos.y = player[0].posBeforeCollideY;
+				// then position hero to last position with no collition with item
+				player.pos.x = player.posBeforeCollideX;
+				player.pos.y = player.posBeforeCollideY;
 				
 				// Remove special item value
 				var valueRemoved = -(parseInt(this.items_data.quantidade,10));
@@ -410,7 +409,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					}while ( ads_items_data[random_item].categoria == "itemMissao" );	
 
 					if ( item_probability == Math.round(itemLucky / 2) ){						
-						//Test if not a trigger or special item or born heroe
+						//Test if not a trigger or special item or born hero
 						var isCollide = false;
 						$.each(triggersData, function(i, data){
 							if (data.coordinates.x == x && data.coordinates.y == y)
@@ -433,8 +432,8 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
                             }
                         }); 
 						
-						//Heroe born
-						if (x == startHeroe[0] && y == startHeroe[1])
+						//Hero born
+						if (x == startHero[0] && y == startHero[1])
 								isCollide = true;
 						
 						if (!isCollide)
@@ -532,25 +531,25 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		// Check collision
 		var res = me.game.collide( this );
         if( res ) {
-			if( res.obj.name == 'heroe' ) {
+			if( res.obj.name == 'hero' ) {
 			    
-				// Verify if heroe have the item only one time
+				// Verify if hero have the item only one time
 				if (!this.isChecked)
 				{
 					//Create variable to work for each ?!?!?!?!?
 					var solution = this.solution;
 					var checkSolution = false;
-					// Get index where heroe have the key to remove that from the inventory
+					// Get index where hero have the key to remove that from the inventory
 					var itemIndex = null;
 					
 					//Make it check one time only - Problem var checkSolution = false; have to go inside if doorobject
-					//check if heroe have the Solution			
-					$.each(heroeItems, function(i,data)
+					//check if hero have the Solution			
+					$.each(heroItems, function(i,data)
 					{
 						//Check if array is undefined to avoid error (may have empty slots)
 						if (typeof data !== 'undefined'){
 							if (data.valor == solution){
-								console.log('Heroe have the key.', i);
+								console.log('Hero have the key.', i);
 								checkSolution = true;
 								itemIndex = i;
 							}
@@ -589,14 +588,14 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						// adsGame.prisonDoors.prisonBreak[this.triggerData.portaPrisao] = true;
 						adsGame.prisonDoors.openPrisonDoor( this.triggerData.portaPrisao );
 						
-						console.log("prisonBreak Heroe: " , adsGame.prisonDoors.getPrisonDoorState( this.triggerData.portaPrisao ) );
+						console.log("prisonBreak Hero: " , adsGame.prisonDoors.getPrisonDoorState( this.triggerData.portaPrisao ) );
 						
 						// Remove Trigger
 						me.game.remove(this);
 						
 						// **** TODO - REMOVE KEY  FROM LIST OF ITEMS
 					}else{
-						// console.log("Heroe don't have the key. npcTalking:" , npcTalking);
+						// console.log("Hero don't have the key. npcTalking:" , npcTalking);
 						
 						if (!npcTalking){
 							this.message.show(this.msgData);
@@ -613,7 +612,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 				if (this.type == 'PORTAL_OBJECT'){
 					if (this.checkSolution){
 						//***** TEST TELEPORT AND FADE MAP
-						// var player = me.game.getEntityByName('Heroe');
+						// var player = me.game.getEntityByName('Hero');
 // 						
 						// player[0].pos.x = this.targX * ads_tile_size;
 						// player[0].pos.y = this.targY * ads_tile_size;
@@ -626,7 +625,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						
 						// **** TODO - REMOVE SCROOLL OF PORTAL FROM LIST OF ITEMS
 					}else{
-						// console.log("Heroe don't have the key.");
+						// console.log("Hero don't have the key.");
 						this.message.show(this.msgData);
 						msgShowing = true;
 					}
@@ -661,7 +660,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
                 //If hero pull the trigger set onetime to true - pull one time atfer test triggers type
                 this.oneTime = true;
 				
-			} // End heroe collision
+			} // End hero collision
 		}else{
 			if (!msgShowing)
 			{
@@ -714,8 +713,8 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		});	
 		
 		// // Door = new DoorEntity( 6*32 , 9*32, {image: "doorcheck", spritewidth: 32, spriteheight: 32});
-		// heroeDoorCell = new TriggerEntity( 6*32 , 9*32, settings , triggersData[0]);
-		// me.game.add(heroeDoorCell,3);
+		// heroDoorCell = new TriggerEntity( 6*32 , 9*32, settings , triggersData[0]);
+		// me.game.add(heroDoorCell,3);
 		// me.game.sort();
 	}
 });
@@ -938,7 +937,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 					this.changeRadius = -50;
 			break;
 			
-			case "followHeroe":
+			case "followHero":
 					this.currentAnimation = "default";
 					
 					this.velocityFollow = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);;
@@ -966,8 +965,8 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			moveObjectBeeHavior( this );
 		}
 		
-		if(this.throwerData.movimento  === "followHeroe"){
-			followHeroe( this );
+		if(this.throwerData.movimento  === "followHero"){
+			followHero( this );
 		}
 		
 		// Destroy object if the livetime has been exceeded
@@ -1004,7 +1003,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		var res = me.game.collide(this);
 
-		if (res && res.obj.name == "heroe" ) {
+		if (res && res.obj.name == "hero" ) {
 			me.game.HUD.updateItemValue(this.projectilData.atualizarHUD.tipo, 
 										-(parseInt(this.projectilData.atualizarHUD.valor)));					
 			//Remove object

@@ -193,12 +193,12 @@ var NpcEntity = me.ObjectEntity.extend({
 		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************
 		var res = me.game.collide( this );
         if( res ) {
-			if( res.obj.name == 'heroe' && !this.eventHappening ) {
+			if( res.obj.name == 'hero' && !this.eventHappening ) {
 				// this.setCurrentAnimation( 'stand-' + this.direction );
 				this.message.show(this.msgData);
 				this.showMessage = true;
 				msgShowing = true;
-				//Stop npc when he talk with heroe
+				//Stop npc when he talk with hero
 				console.log ("Why player don't stop...")
 				this.setCurrentAnimation( "stand-" + this.direction );
 				this.accel.x = this.accel.y = 0;
@@ -208,7 +208,7 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.message.hide();
 				msgShowing = false;
 				this.showMessage = false;
-				//Move npc when he stop talk with heroe if is not stoped yet
+				//Move npc when he stop talk with hero if is not stoped yet
 				if (!this.stop){
 					this.accel.x = this.accel.y = this.npcData.velocidade;
 					this.setCurrentAnimation( this.direction );
@@ -232,7 +232,7 @@ var NpcEntity = me.ObjectEntity.extend({
 		if (this.prisoner){
 			if( adsGame.prisonDoors.getPrisonDoorState( this.npcData.prisao.numero ) ){
 				
-				// console.log ('Says thx to heroe and.. ');
+				// console.log ('Says thx to hero and.. ');
 				// console.log ('Calculate path to freedom... :)');
 				// console.log ('Stop being a prisoner...');
 				//Stop being a prisoner...
@@ -295,12 +295,12 @@ var NpcEntity = me.ObjectEntity.extend({
     	    
     	   this.velocityFollow = this.npcData.velocidade;    	   
            
-           followHeroe( this ); // Wrong - Correct heroe to hero
+           followHero( this ); 
            
-            var player = me.game.getEntityByName('Heroe');
+            var player = adsGame.heroEntity();
                         
-            var playerPosX = player[0].pos.x;
-            var playerPosY = player[0].pos.y;
+            var playerPosX = player.pos.x;
+            var playerPosY = player.pos.y;
             
             this.distanceX = Math.abs( playerPosX - this.pos.x );
             this.distanceY = Math.abs( playerPosY - this.pos.y );
@@ -316,7 +316,7 @@ var NpcEntity = me.ObjectEntity.extend({
             }
             
             // Stop the player
-            if (this.npcData.paraDistancia > this.distanceTo( player[0] ) ){
+            if (this.npcData.paraDistancia > this.distanceTo( player ) ){
                 this.setCurrentAnimation( "stand-" + this.direction );
                 this.accel.x = this.accel.y = 0;
                 this.vel.x = this.vel.y = 0;
@@ -514,7 +514,7 @@ var NpcEntity = me.ObjectEntity.extend({
 						ads_items_data[this.currentEvent.item].specialItem = true;
 					}
 					
-					// Add item to heroe
+					// Add item to hero
 					adsGame.Inventory.addItem( ads_items_data[this.currentEvent.item] );
 					
 					return false;

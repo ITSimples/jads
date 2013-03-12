@@ -4,22 +4,22 @@
   <property name="background_color" value="#000000"/>
  </properties>
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
-  <image source="map01_tileset/tiles.png" width="384" height="384"/>
+  <image source="../../../../Aventura do Saber research/Maps/Version 3/output/map01_tileset/tiles.png" width="384" height="384"/>
  </tileset>
  <tileset firstgid="145" name="TileB" tilewidth="32" tileheight="32">
-  <image source="map01_tileset/TileB.png" width="256" height="256"/>
+  <image source="../../../../Aventura do Saber research/Maps/Version 3/output/map01_tileset/TileB.png" width="256" height="256"/>
  </tileset>
  <tileset firstgid="209" name="TileC" tilewidth="32" tileheight="32">
-  <image source="map01_tileset/TileC.png" width="96" height="96"/>
+  <image source="../../../../Aventura do Saber research/Maps/Version 3/output/map01_tileset/TileC.png" width="96" height="96"/>
  </tileset>
  <tileset firstgid="218" name="TileD" tilewidth="32" tileheight="32">
-  <image source="map01_tileset/TileD.png" width="288" height="288"/>
+  <image source="../../../../Aventura do Saber research/Maps/Version 3/output/map01_tileset/TileD.png" width="288" height="288"/>
  </tileset>
  <tileset firstgid="299" name="TileE" tilewidth="32" tileheight="32">
-  <image source="map01_tileset/TileE.png" width="256" height="256"/>
+  <image source="../../../../Aventura do Saber research/Maps/Version 3/output/map01_tileset/TileE.png" width="256" height="256"/>
  </tileset>
  <tileset firstgid="363" name="metatiles32x32" tilewidth="32" tileheight="32">
-  <image source="map01_tileset/metatiles32x32.png" width="160" height="32"/>
+  <image source="../../../../Aventura do Saber research/Maps/Version 3/output/map01_tileset/metatiles32x32.png" width="160" height="32"/>
   <tile id="0">
    <properties>
     <property name="type" value="solid"/>
@@ -57,7 +57,7 @@
   </data>
  </layer>
  <objectgroup name="entities" width="50" height="50">
-  <object name="Heroe" x="548" y="341" width="38" height="34"/>
+  <object name="Hero" x="548" y="341" width="38" height="34"/>
   <object name="items_spawn" x="217" y="344" width="64" height="26"/>
   <object name="npc_spawn" x="288" y="340" width="53" height="32"/>
   <object name="doors_spawn" x="590" y="341" width="69" height="36"/>
