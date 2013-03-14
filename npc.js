@@ -172,6 +172,42 @@ var NpcEntity = me.ObjectEntity.extend({
 			this.destX = this.npcData.coordenadas[0].initDestX  * ads_tile_size;
 			this.destY = this.npcData.coordenadas[0].initDestY  * ads_tile_size;
 		}
+		
+		
+		// *****************************************************
+        // ** Testing dragon fire breath        
+        // *****************************************************
+        if(this.npcData.ataca){
+            
+            // Get data from NPC if attack is a projectil
+            this.attackData = {};
+            this.attackData.intervaloTempoDisparo = this.npcData.intervaloTempoDisparo;
+            this.attackData.nomeProjectil = this.npcData.nomeProjectil;
+            this.attackData.velocidade = this.npcData.velproj;
+            this.attackData.movimento = this.npcData.movimento;
+            this.attackData.distancia = this.npcData.distancia;
+            
+            var heroAux = adsGame.heroEntity();
+            
+            var angleToHero = this.angleTo(heroAux);
+            
+            console.log("this.angleTo hero:", angleToHero);
+            
+            var throwerData = throwersData["dragonattack"];
+            
+            
+            this.thrower = new throwersEntity( (this.pos.x + 24) * ads_tile_size , 
+                                               (this.pos.y + 20) * ads_tile_size, throwerData);
+            me.game.add(this.thrower,7);
+            me.game.sort.defer();
+            
+            // var projectil = new projectilEntity(this.pos.x  , this.pos.y , 
+                                    // projectilsData[this.npcData.nomeProjectil], 
+                                    // this.attackData);
+//         
+            // me.game.add(projectil,7);
+            // me.game.sort.defer();
+        }
 	},
 	
 	setDirection : function() {
@@ -188,7 +224,38 @@ var NpcEntity = me.ObjectEntity.extend({
 	
 	//Update npc position.
 	update : function ()
-	{		
+	{	
+	     // Update thrower position follow NPC
+	     if(this.npcData.ataca){
+	       // thrower position depends on NPC direction
+	       var addToPosX;
+	       var addToPosY;
+	       
+	       // But this values on Json to work with any NPC that attack
+	       switch (this.direction){
+	           	  case "left":
+	           	               addToPosX = -22;
+	           	               addToPosY = 22;
+	           	               break;
+                  case "right":
+                               addToPosX = 44;
+                               addToPosY = 22;
+                               break;
+                  case "up":
+                               addToPosX = 5;
+                               addToPosY = -22;
+                               break;
+                  case "down":
+                               addToPosX = 5;
+                               addToPosY = 30;
+                               break;                                
+	           	                        
+	       }
+	       this.thrower.pos.x = (this.pos.x + addToPosX);
+	       this.thrower.pos.y = (this.pos.y + addToPosY);
+	       console.log("NPC direction:", this.direction); 	         
+	     }
+        
 		// Check collision
 		// ***************** IMPROVE COLLISION TO COLIDE AND GO BACK *********************
 		var res = me.game.collide( this );
@@ -199,7 +266,6 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.showMessage = true;
 				msgShowing = true;
 				//Stop npc when he talk with hero
-				console.log ("Why player don't stop...")
 				this.setCurrentAnimation( "stand-" + this.direction );
 				this.accel.x = this.accel.y = 0;
 				this.vel.x = this.vel.y = 0;

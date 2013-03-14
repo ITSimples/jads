@@ -846,13 +846,17 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		// }else{
 			
 			//  posicaoDisparo - give the launch position added to current positon of thrower
-			var triggerPositionX = this.throwerData.posicaoDisparo.x ;
-			var triggerPositionY = this.throwerData.posicaoDisparo.y ;
+			// var triggerPositionX = this.throwerData.posicaoDisparo.x ;
+			// var triggerPositionY = this.throwerData.posicaoDisparo.y ;
 		// }
 			
 		// Debug - Console
-		console.log("triggerPositionX :", triggerPositionX , " triggerPositionY :" , triggerPositionY );
-				
+		console.log("throwerData.nome :", this.throwerData.nome );
+		
+        //  posicaoDisparo - give the launch position added to current positon of thrower
+        var triggerPositionX = this.throwerData.posicaoDisparo.x ;
+        var triggerPositionY = this.throwerData.posicaoDisparo.y ;
+            
 		var projectil = new projectilEntity(this.pos.x + triggerPositionX , 
 											this.pos.y + triggerPositionY, 
 											projectilsData[this.throwerData.nomeProjectil], this.throwerData);
@@ -871,6 +875,24 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			return;
 		}
 	},
+	    "draw" : function draw(context) {
+        this.parent(context);
+            this.parent(context);
+            
+            // this.tag = new me.Font("Verdana", 14, "white");
+            // this.tag.bold();
+            // this.tag.draw(context, "Player #" ,this.pos.x , this.pos.y );
+            
+          var radius = 3;
+
+          context.beginPath();
+          context.arc(this.pos.x, this.pos.y, radius, 0, 2 * Math.PI, false);
+          context.fillStyle = 'red';
+          context.fill();
+          context.lineWidth = 5;
+          context.strokeStyle = 'red';
+          context.stroke();
+    }
   });
   
 // **************************************
@@ -966,7 +988,13 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		}
 		
 		if(this.throwerData.movimento  === "followHero"){
-			followHero( this );
+            // Rotate projectil here if true
+            var heroAux = adsGame.heroEntity();
+            
+            followHero( this );
+            
+            var angleToHero = this.angleTo(heroAux);
+            this.angle = angleToHero;
 		}
 		
 		// Destroy object if the livetime has been exceeded
@@ -1134,9 +1162,11 @@ var ThrowersSpawnEntity = me.InvisibleEntity.extend({
 		
 		// Adicionar items na camada 4
 		$.each( throwersData, function(i, throwerData){
-			thrower = new throwersEntity( throwerData.coordenadas.x * ads_tile_size , throwerData.coordenadas.y * ads_tile_size, throwerData);
-			me.game.add(thrower,6);
-			me.game.sort.defer();
+		    if ( throwerData.nome !== "npcattack"){
+    			thrower = new throwersEntity( throwerData.coordenadas.x * ads_tile_size , throwerData.coordenadas.y * ads_tile_size, throwerData);
+    			me.game.add(thrower,6);
+    			me.game.sort.defer();
+			}
 		});	
 
 	}
