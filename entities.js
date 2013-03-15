@@ -52,7 +52,9 @@ var HeroEntity = me.ObjectEntity.extend({
 		this.setFriction(0.5, 0.5);
 		
 		// adjust the bounding box
-		this.updateColRect(4,24,20,23); 
+		this.updateColRect(4,24,20,23);
+		
+		// this.updateColRect(-1,0,20,27);
 		
 		// disable gravity
 		this.gravity = 0;
@@ -874,25 +876,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			// console.log('numberProjectils' , this.numberProjectils);
 			return;
 		}
-	},
-	    "draw" : function draw(context) {
-        this.parent(context);
-            this.parent(context);
-            
-            // this.tag = new me.Font("Verdana", 14, "white");
-            // this.tag.bold();
-            // this.tag.draw(context, "Player #" ,this.pos.x , this.pos.y );
-            
-          var radius = 3;
-
-          context.beginPath();
-          context.arc(this.pos.x, this.pos.y, radius, 0, 2 * Math.PI, false);
-          context.fillStyle = 'red';
-          context.fill();
-          context.lineWidth = 5;
-          context.strokeStyle = 'red';
-          context.stroke();
-    }
+	}
   });
   
 // **************************************
@@ -915,7 +899,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		this.parent(x, y, settings);
 
-		this.gravity = 0;
+		this.gravity = 0;		
 		
 		// this.collidable = true;
 		
@@ -976,11 +960,18 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
     
     update: function () {
 	
+	    var self = this;
+	    
 		//Update animation
 		if (this.testDirection){
 			this.setCurrentAnimation(this.currentAnimation);
 		}else{
-			this.setCurrentAnimation("anime");
+			this.setCurrentAnimation("anime" , 
+            function(){
+                if (typeof(self.throwerData.repetirAnimProj) != 'undefined' && !self.throwerData.repetirAnimProj){
+                    me.game.remove(this);
+                }
+            });
 		}
 		
 		if(this.throwerData.movimento  === "BeeHavior"){
@@ -993,8 +984,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
             
             followHero( this );
             
-            var angleToHero = this.angleTo(heroAux);
-            this.angle = angleToHero;
+            // Verify if projectil rotate
+            if (typeof(this.throwerData.rodarProjectil) !== 'undefined' && this.throwerData.rodarProjectil){
+                var angleToHero = this.angleTo(heroAux);
+                this.angle = angleToHero;
+            }
 		}
 		
 		// Destroy object if the livetime has been exceeded

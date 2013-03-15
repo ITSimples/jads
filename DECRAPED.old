@@ -704,4 +704,25 @@ function hideMessageLayer()
 	"imagem": "wolf.png",
 	"nome": "Wolf",
 	"mensagem": ""
-	}				
+	}			
+	
+	
+	,
+	    "draw" : function draw(context) {
+        this.parent(context);
+            this.parent(context);
+            
+            // this.tag = new me.Font("Verdana", 14, "white");
+            // this.tag.bold();
+            // this.tag.draw(context, "Player #" ,this.pos.x , this.pos.y );
+            
+          var radius = 3;
+
+          context.beginPath();
+          context.arc(this.pos.x, this.pos.y, radius, 0, 2 * Math.PI, false);
+          context.fillStyle = 'red';
+          context.fill();
+          context.lineWidth = 5;
+          context.strokeStyle = 'red';
+          context.stroke();
+    }	

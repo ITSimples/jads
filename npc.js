@@ -187,11 +187,11 @@ var NpcEntity = me.ObjectEntity.extend({
             this.attackData.movimento = this.npcData.movimento;
             this.attackData.distancia = this.npcData.distancia;
             
-            var heroAux = adsGame.heroEntity();
+            // var heroAux = adsGame.heroEntity();
+//             
+             // angleToHero = this.angleTo(heroAux);
             
-            var angleToHero = this.angleTo(heroAux);
-            
-            console.log("this.angleTo hero:", angleToHero);
+            // console.log("this.angleTo hero:", angleToHero);
             
             var throwerData = throwersData["dragonattack"];
             
@@ -230,7 +230,11 @@ var NpcEntity = me.ObjectEntity.extend({
 	       // thrower position depends on NPC direction
 	       var addToPosX;
 	       var addToPosY;
-	       
+            
+            var heroAux = adsGame.heroEntity();
+            angleToHero = this.angleTo(heroAux);
+            // console.log("this.angleTo hero:", angleToHero * 10);
+            
 	       // But this values on Json to work with any NPC that attack
 	       switch (this.direction){
 	           	  case "left":
@@ -239,7 +243,7 @@ var NpcEntity = me.ObjectEntity.extend({
 	           	               break;
                   case "right":
                                addToPosX = 44;
-                               addToPosY = 22;
+                               addToPosY = 18;
                                break;
                   case "up":
                                addToPosX = 5;

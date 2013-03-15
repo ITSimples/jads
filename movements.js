@@ -134,7 +134,12 @@ function followHero( object )
 			var player = adsGame.heroEntity();
 						
 			var playerPosX = player.pos.x;
-			var playerPosY = player.pos.y;
+			// plus 20 to enter in hero hitbox
+			var playerPosY = player.pos.y + 20;
+			
+			// console.log("playerPosX:", playerPosX);
+			// console.log("playerPosY:", playerPosY);
+			
 			var angle = Math.atan2(playerPosY - object.pos.y, playerPosX - object.pos.x);
 			object.vel.set(Math.cos(angle) * object.velocityFollow, Math.sin(angle) * object.velocityFollow);
 		
