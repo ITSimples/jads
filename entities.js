@@ -24,7 +24,7 @@
 // *************************
 var HeroEntity = me.ObjectEntity.extend({
 	//Construtor:
-	init:	function (x , y , settings){
+	init:	function (x , y , settings){ 
 		//Definir propriedades do objecto heroi na classe em vez de no mapa:
 		settings.image="h_male01"; 
 		settings.spritewidth=32;
