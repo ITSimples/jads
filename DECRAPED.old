@@ -691,7 +691,7 @@ function hideMessageLayer()
 	"categoria": "enemies",
 	"imagem": "stoneman.png",
 	"nome": "Stoneman",
-	"mensagem": ""
+	"mensagem": "" 
 	},
 	{
 	"categoria": "enemies",
