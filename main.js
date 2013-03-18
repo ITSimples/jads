@@ -55,7 +55,7 @@ var adsGame =
 		
 		// ************ Configura��es de DEBUG *************
 		//Ver caixa de colis�o
-		me.debug.renderHitBox = true;
+		// me.debug.renderHitBox = true;
 		
 		//Create message box object
 		// adsGame.message = new adsGame.message();
@@ -293,6 +293,7 @@ function randomFloat(minValue,maxValue,precision){
     return parseFloat(Math.min(minValue + (Math.random() * (maxValue - minValue)),maxValue).toFixed(precision));
 }
 
+
 //bootstrap :)
 //window.onReady(function(){
 	var init_game = function(data)
@@ -429,6 +430,6 @@ $( function(){
         //place your code here, the scripts are all loaded
         init_game( lvlData );
          console.log("Questions Loaded..", adsQtnData);
-        
+    
     });
 });

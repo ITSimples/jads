@@ -189,11 +189,7 @@ var ads_resources =
 	{name: "f_male03",	type: "image",	src: ads_sprites_path + "f_male03.png"},
 	{name: "f_male04",	type: "image",	src: ads_sprites_path + "f_male04.png"},
 	{name: "flame",	type: "image",	src: ads_sprites_path + "flame.png"},
-	
-	{name: "dragonfire",    type: "image",  src: ads_sprites_path + "dragonfire.png"},
-	
-	{name: "campfire01",	type: "image",	src: ads_sprites_path + "campfire01.png"},
-	{name: "campfire02",    type: "image",  src: ads_sprites_path + "campfire02.png"},
+
 	// {name: "goblin",	type: "image",	src: ads_sprites_path + "goblin.png"},
 	// {name: "goblin02",	type: "image",	src: ads_sprites_path + "goblin02.png"},
 	// {name: "golem",	type: "image",	src: ads_sprites_path + "golem.png"},
@@ -201,7 +197,7 @@ var ads_resources =
 	// {name: "h_female02",	type: "image",	src: ads_sprites_path + "h_female02.png"},
 	// {name: "h_female03",	type: "image",	src: ads_sprites_path + "h_female03.png"},
 	// {name: "h_female04",	type: "image",	src: ads_sprites_path + "h_female04.png"},
-	{name: "h_male01",	type: "image",	src: ads_sprites_path + "h_male01.png"},
+	{name: "h_male01",	type: "image",	src: ads_sprites_path + "h_male01_ice_staff.png"},
 	// {name: "h_male02",	type: "image",	src: ads_sprites_path + "h_male02.png"},
 	// {name: "h_male03",	type: "image",	src: ads_sprites_path + "h_male03.png"},
 	// {name: "h_male04",	type: "image",	src: ads_sprites_path + "h_male04.png"},
@@ -228,6 +224,10 @@ var ads_resources =
 	{name: "thrower01", 	type: "image",src: ads_sprites_path + "thrower01.png"},
 	{name: "throwerfire", 	type: "image",src: ads_sprites_path + "throwerfire.png"},
 	{name: "throwerfire02", 	type: "image",src: ads_sprites_path + "throwerfire02.png"},
+	{name: "ice_staff",    type: "image",src: ads_sprites_path + "ice_staff.png"},
+	{name: "dragonfire",    type: "image",  src: ads_sprites_path + "dragonfire.png"},    
+    {name: "campfire01",    type: "image",  src: ads_sprites_path + "campfire01.png"},
+    {name: "campfire02",    type: "image",  src: ads_sprites_path + "campfire02.png"},
 	
 	//**** Effects
 	{name: "explosion_32x32", 	type: "image",src: ads_effects_path + "explosion_32x32.png"},

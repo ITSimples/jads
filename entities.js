@@ -509,7 +509,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		this.targX = triggerData.target.x;
 		this.targY = triggerData.target.y;
 
-		this.solution = this.triggerData.solution;
+		this.solution = this.triggerData.solution;		
 		
 		//add remove option
 		this.remove = this.triggerData.remove;
@@ -572,10 +572,57 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						adsGame.Inventory.removeItem( 'Slot0' + (itemIndex + 1) );
 				}
 				
+
+				
+				// If trigger is a chest object
+                if (this.type == 'CHEST_OBJECT'){
+                    if (this.checkSolution){
+                        // Remove old chest to empty chest
+                        var lowerObjects = me.game.currentLevel.getLayerByName("lower objects");
+                        
+                        //Give tile number create a classe with good methods to the game
+                        // console.log("Tile number:" , lowerObjects.getTileId(this.targX * 32, (this.targY + 3) * 32));
+                        
+                        //Remove chest
+                        lowerObjects.clearTile(this.targX , this.targY);
+                        lowerObjects.clearTile(this.targX , this.targY + 1 );
+                        
+                        //New upper door exploded
+                        lowerObjects.setTile(this.targX , this.targY , 293);
+                        lowerObjects.setTile(this.targX , this.targY + 1 , 294);
+                        
+                        //Next Give Item
+                        // Show inventory window if is not open
+                        if (!adsGame.Inventory.isShowing){
+                            adsGame.Inventory.show();
+                        }
+                        
+                        // If is a mission item then set as special item to go the rigth slot (Map items)
+                        if (ads_items_data[this.triggerData.give].categoria == 'itemMissao'){
+                            ads_items_data[this.triggerData.give].specialItem = true;
+                        }
+                        
+                        // Add item to hero
+                        adsGame.Inventory.addItem( ads_items_data[this.triggerData.give] );
+                        
+                        
+                        // Remove Trigger
+                        me.game.remove(this);
+                    }else{
+                        //The hero doesn't have the item to open chest show a message to hero
+                        if (!npcTalking){
+                            this.message.show(this.msgData);
+                            msgShowing = true;
+                        }
+                    }   
+                } // End chest object
+				
 				// If trigger is a door object
 				if (this.type == 'DOOR_OBJECT'){
+				     console.log("Solution:" , this.solution);
 				    if (this.checkSolution){
 					
+					  
 						// // Open the door
 						// this.doorLayer.clearTile(this.targX,this.targY);
 						// this.collisionLayer.clearTile(this.targX,this.targY);
