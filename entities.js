@@ -23,7 +23,7 @@
 // ****  Entidade Heroi ****
 // *************************
 var HeroEntity = me.ObjectEntity.extend({
-	//Construtor:
+	//Construtor: test
 	init:	function (x , y , settings){ 
 		//Definir propriedades do objecto heroi na classe em vez de no mapa:
 		settings.image="h_male01"; 
