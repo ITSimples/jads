@@ -133,9 +133,9 @@ function followHero( object )
 	if (object !== null){
 			var player = adsGame.heroEntity();
 						
-			var playerPosX = player.pos.x;
+			var playerPosX = player.pos.x + 16;
 			// plus 20 to enter in hero hitbox
-			var playerPosY = player.pos.y + 20;
+			var playerPosY = player.pos.y + 23;
 			
 			// console.log("playerPosX:", playerPosX);
 			// console.log("playerPosY:", playerPosY);

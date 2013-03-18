@@ -91,6 +91,9 @@ var HeroEntity = me.ObjectEntity.extend({
 		// DEBUG GET KEY TO HERO 
 		// adsGame.Inventory.addItem(  ads_items_data[14] );
 		
+		// Set hero object type
+        this.type = 'HERO_OBJECT';
+		
 	},
 	
 	//Update player position.
@@ -1022,24 +1025,33 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 	},
     
     handleCollisions: function (updated) {	
-		
-		var res = me.game.collide(this);
-
-		if (res && res.obj.name == "hero" ) {
-			me.game.HUD.updateItemValue(this.projectilData.atualizarHUD.tipo, 
-										-(parseInt(this.projectilData.atualizarHUD.valor)));					
-			//Remove object
-			me.game.remove(this);
 			
-			//if there is a maximum number of projectils then when one die another is created
-			if (typeof(this.throwerData.numeroDeProjeteis) !== 'undefined' ){
-				var throwerEntity = me.game.getEntityByGUID(this.throwerData.GUID);
-				throwerEntity.numberProjectils--;
-			}	
-				
-			return;
-		}
-		
+		var res = me.game.collide(this , true);
+		var collideHero = false;
+
+		//Testing multiple collisions to verify if projectil collide with hero
+        $.each(res, function(i,data)
+        {
+    		if (data && data.obj.type == 'HERO_OBJECT' ) {
+    		      collideHero = true;
+    		}
+        });
+        
+        if ( collideHero ) {
+                me.game.HUD.updateItemValue(this.projectilData.atualizarHUD.tipo, 
+                                            -(parseInt(this.projectilData.atualizarHUD.valor)));                    
+                //Remove object
+                me.game.remove(this);
+                
+                //if there is a maximum number of projectils then when one die another is created
+                if (typeof(this.throwerData.numeroDeProjeteis) !== 'undefined' ){
+                    var throwerEntity = me.game.getEntityByGUID(this.throwerData.GUID);
+                    throwerEntity.numberProjectils--;
+                }   
+                    
+                return;
+        }
+        
 		// Remove bees only when do complet circle
 		if (this.checkWallCollision(updated)){
 			if(this.throwerData.movimento === "random"){			
