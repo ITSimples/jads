@@ -93,8 +93,30 @@ var HeroEntity = me.ObjectEntity.extend({
 		
 		// Set hero object type
         this.type = 'HERO_OBJECT';
+        
+        // Set to true if hero carries a weapon
+        this.heroCarryWeapon = false;
 		
 	},
+	
+	//Create weapon player position.
+    createWeapon : function ( weapon )
+    {
+        console.log("Weapon", weapon);
+        
+        // Create Thrower with the weapon to hero
+        var throwerData = throwersData["thr" + weapon.valor];
+        
+        this.heroWeapon = new throwersEntity( this.pos.x , this.pos.y , throwerData);
+        
+        me.game.add( this.heroWeapon , 9 );
+        me.game.sort.defer();
+        
+        // console.log("this.heroWeapon z: ", this.heroWeapon.z);
+        
+        // Hero was a weapon now
+        this.heroCarryWeapon = true;
+    },
 	
 	//Update player position.
 	update : function ()
@@ -170,7 +192,39 @@ var HeroEntity = me.ObjectEntity.extend({
 			this.setCurrentAnimation('stand-' + this.direction);
 			this.vel.x = 0;
 			this.vel.y = 0;
-		}		
+		}
+		
+		// If hero carry a weapon ?
+		if (this.heroCarryWeapon){
+		             // But this values on Json to work with any NPC that attack
+           switch (this.direction){
+                  case "left":
+                               addToPosX = 5;
+                               addToPosY = -15;
+                               // Flip weapon
+                               this.heroWeapon.flipX(true);
+                               break;
+                  case "right":
+                               addToPosX = 17;
+                               addToPosY = -15;
+                               this.heroWeapon.flipX(false);
+                               break;
+                  case "up":
+                               addToPosX = 20;
+                               addToPosY = -15;
+                               this.heroWeapon.flipX(false);
+                               break;
+                  case "down":
+                               addToPosX = 17;
+                               addToPosY = -15;
+                               this.heroWeapon.flipX(false);
+                               // TODO Must refresh the animation 
+                               break;                                
+                                        
+           }
+           this.heroWeapon.pos.x = (this.pos.x + addToPosX);
+           this.heroWeapon.pos.y = (this.pos.y + addToPosY);		    
+		}
 
 		// update collision
 		var res = me.game.collide(this);
@@ -216,7 +270,7 @@ var HeroEntity = me.ObjectEntity.extend({
 
 		return updated;
 
-	}
+	} // End update method
 });
 // *****************************
 // ****  Fim Entidade Heroi ****
@@ -1215,7 +1269,7 @@ var ThrowersSpawnEntity = me.InvisibleEntity.extend({
 		
 		// Adicionar items na camada 4
 		$.each( throwersData, function(i, throwerData){
-		    if ( throwerData.nome !== "npcattack"){
+		    if ( throwerData.criarinicio){
     			thrower = new throwersEntity( throwerData.coordenadas.x * ads_tile_size , throwerData.coordenadas.y * ads_tile_size, throwerData);
     			me.game.add(thrower,6);
     			me.game.sort.defer();

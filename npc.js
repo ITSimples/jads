@@ -178,35 +178,16 @@ var NpcEntity = me.ObjectEntity.extend({
         // ** Testing dragon fire breath        
         // *****************************************************
         if(this.npcData.ataca){
+
+            var npcThrower = this.npcData.nomeAtirador;
             
-            // Get data from NPC if attack is a projectil
-            this.attackData = {};
-            this.attackData.intervaloTempoDisparo = this.npcData.intervaloTempoDisparo;
-            this.attackData.nomeProjectil = this.npcData.nomeProjectil;
-            this.attackData.velocidade = this.npcData.velproj;
-            this.attackData.movimento = this.npcData.movimento;
-            this.attackData.distancia = this.npcData.distancia;
-            
-            // var heroAux = adsGame.heroEntity();
-//             
-             // angleToHero = this.angleTo(heroAux);
-            
-            // console.log("this.angleTo hero:", angleToHero);
-            
-            var throwerData = throwersData["dragonattack"];
+            var throwerData = throwersData[npcThrower];
             
             
             this.thrower = new throwersEntity( (this.pos.x + 24) * ads_tile_size , 
                                                (this.pos.y + 20) * ads_tile_size, throwerData);
             me.game.add(this.thrower,7);
             me.game.sort.defer();
-            
-            // var projectil = new projectilEntity(this.pos.x  , this.pos.y , 
-                                    // projectilsData[this.npcData.nomeProjectil], 
-                                    // this.attackData);
-//         
-            // me.game.add(projectil,7);
-            // me.game.sort.defer();
         }
 	},
 	
@@ -312,7 +293,6 @@ var NpcEntity = me.ObjectEntity.extend({
 				this.CurrentEventNumber = 0;
 				this.npcEvents = this.npcEscapeEvents;
 				
-				console.log ("What a fuck...");
 			}
 			
 			// console.log ('Prisoner ' , this.npcData.nome , ' is arrested at cell ' , this.npcData.prisao.numero ,

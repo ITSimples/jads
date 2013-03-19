@@ -205,6 +205,14 @@
 			this.slotNumber = jQuery.inArray(-2, this.slotsMap);
 			
 			console.log ("Special Item :", this.slotNumber );
+			
+			// if this special item is a weapon then call method on hero class to create a thrower that follow hero
+			if (item.subcategoria === "weapon"){
+			    var player = adsGame.heroEntity();
+			    
+			    player.createWeapon( item );
+			    console.log("This item is a weapon... !!! WATCH OUT !!!");
+			}
 		}else{
 			// Check empty slots - if no empty slots then return -1
 			this.slotNumber = jQuery.inArray(-1, this.slotsMap);

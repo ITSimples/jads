@@ -197,7 +197,7 @@ var ads_resources =
 	// {name: "h_female02",	type: "image",	src: ads_sprites_path + "h_female02.png"},
 	// {name: "h_female03",	type: "image",	src: ads_sprites_path + "h_female03.png"},
 	// {name: "h_female04",	type: "image",	src: ads_sprites_path + "h_female04.png"},
-	{name: "h_male01",	type: "image",	src: ads_sprites_path + "h_male01_ice_staff.png"},
+	{name: "h_male01",	type: "image",	src: ads_sprites_path + "h_male01.png"},
 	// {name: "h_male02",	type: "image",	src: ads_sprites_path + "h_male02.png"},
 	// {name: "h_male03",	type: "image",	src: ads_sprites_path + "h_male03.png"},
 	// {name: "h_male04",	type: "image",	src: ads_sprites_path + "h_male04.png"},
