@@ -228,6 +228,7 @@ var ads_resources =
 	{name: "dragonfire",    type: "image",  src: ads_sprites_path + "dragonfire.png"},    
     {name: "campfire01",    type: "image",  src: ads_sprites_path + "campfire01.png"},
     {name: "campfire02",    type: "image",  src: ads_sprites_path + "campfire02.png"},
+    {name: "iceprojectil",  type: "image",  src: ads_sprites_path + "iceprojectil.png"},
 	
 	//**** Effects
 	{name: "explosion_32x32", 	type: "image",src: ads_effects_path + "explosion_32x32.png"},
