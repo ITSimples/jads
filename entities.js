@@ -165,7 +165,6 @@ var HeroEntity = me.ObjectEntity.extend({
 				me.game.HUD.updateItemValue('velocidade' , parseInt(-1, 10));
 			}
 		}
-		
 			
 		// If keypressed I then open the inventory
 		if (me.input.isKeyPressed('inventory'))
@@ -874,7 +873,25 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 	},
     
 	update: function () {
-		this.updateThrowTimer();
+		//Create project by mouse click if thrower is controlled by mouse
+		// If keypressed I then open the inventory
+		if (this.throwerData.movimento == "mouseClickMovement"){
+            if (me.input.isKeyPressed('mouseOverride'))
+            {
+                console.log('Mouse click create projectil...');
+                console.log('me.input.mouse.pos :' , me.input.mouse.pos);
+                
+                this.throwerData.destX = me.input.mouse.pos.x;
+                this.throwerData.destY = me.input.mouse.pos.y;
+                
+                this.createProjectil();
+            }
+        }else { //Thrower by time
+            // Create projectil by interval time
+            this.updateThrowTimer(); 
+        }
+        
+        
 		// check & update player movement
 		updated = this.updateMovement();
 
@@ -1050,9 +1067,18 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			case "followHero":
 					this.currentAnimation = "default";
 					
-					this.velocityFollow = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);;
+					this.velocityFollow = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
 					
 			break;
+			
+			// Case mouseClickMovement then get the coordinates where is the point to move the projectil
+            case "mouseClickMovement":
+                    // Get mouse coordinates and save on this.destX and this.destY
+                     this.destX = this.throwerData.destX;
+                     this.destY = this.throwerData.destY; 
+                     
+                     this.accel.x = this.accel.y = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
+            break;			
 			
 			default:
 			break;
@@ -1078,9 +1104,15 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
             });
 		}
 		
+		
+		// for bees movement
 		if(this.throwerData.movimento  === "BeeHavior"){
 			moveObjectBeeHavior( this );
 		}
+		
+		if(this.throwerData.movimento  === "mouseClickMovement"){
+            moveObject( this );
+        }
 		
 		if(this.throwerData.movimento  === "followHero"){
             // Rotate projectil here if true
@@ -1160,9 +1192,10 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			}else{
 				//Remove object if there is a distance up 32 pixels
 				me.game.remove(this);
-			}
-			
+			}			
 		}
+		
+		
 		
     },
 	
@@ -1211,6 +1244,10 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		this.setMyAnimation( this );
 		
+	},
+	
+	mouseClickMovement: function () {
+	    	    
 	},
     
 	lineMovement: function () {	

@@ -129,6 +129,9 @@ var adsGame =
 		// enable the keyboard
 		me.input.bindKey(me.input.KEY.T, "touch");
 		
+		me.input.bindKey(me.input.KEY.X, "mouseOverride", true);
+        me.input.bindMouse(me.input.mouse.LEFT, me.input.KEY.X);
+		
 		// Iniciar o jogo com o Menu
         //me.state.change(me.state.MENU);
 		

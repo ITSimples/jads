@@ -30,22 +30,31 @@ function moveObject( object )
 {
 
     var dx  =  Math.abs( object.destX - object.pos.x ), sx = object.pos.x < object.destX ? object.accel.x : -object.accel.x,
-        dy  = -Math.abs( object.destY - object.pos.y ), sy = object.pos.y < object.destY ? object.accel.y : -object.accel.y,
+        dy  = -Math.abs( object.destY - object.pos.y ) , sy = object.pos.y < object.destY ? object.accel.y : -object.accel.y,
         err = dx + dy, e2 = 0;
-
+        
+     // if (object.npcData.nome == "John"){
+         // console.log ("object.pos.x:" , object.pos.x, " ----- object.destX:" , object.destX);
+        // console.log ("object.pos.y:" , object.pos.y,  " ----- object.destY:" , object.destY);
+        // console.log (" object.vel.x =" ,  object.vel.x, " ---  object.vel.y =" ,  object.vel.y );
+//           
+     // }
+  
     if( object.pos.x == object.destX && object.pos.y == object.destY ) {
         return true;
     }
-
+    
     e2 = 2 * err;
     if( e2 > dy ) {
         err += dy;
         object.pos.x += sx;
+        // object.vel.x = sx  * me.timer.tick;
     }
 
     if( e2 < dx ) {
         err += dx;
         object.pos.y += sy;
+         // object.vel.y = sy *  me.timer.tick;
     }
 
     return false;

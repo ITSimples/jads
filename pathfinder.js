@@ -103,6 +103,40 @@ adsGame.pathFinder =  Object.extend({
 			// console.log('pathArray:', i , '-' , point);
 		// });
 		return pathArray;
+	},
+	
+	"getPathTest" : function getPathTest( start, end){
+        // Get layer object
+        var layer = me.game.currentLevel.getLayerByName("collision");
+        
+        // set array to layer
+        var myLayerArray = new Array(layer.width);
+        
+        // parse all the layer tiles 
+        for ( var x = 0; x < layer.width; x++) 
+        { 
+            // create multidimensional array
+            myLayerArray[x] = new Array(layer.height);
+        
+            for ( var y = 0; y < layer.height; y++) 
+           { 
+                var testTile = layer.layerData[y][x];
+                
+                // if null not collide then 0 free path with Astar algoritm
+                if (testTile == null){
+                    myLayerArray[x][y] = 0;
+                }else { // 1 block the path
+                    myLayerArray[x][y] = 1;
+                }
+            }
+        }
+           var grid = new PF.Grid(50, 50, myLayerArray);
+           
+           var finder = new PF.AStarFinder();
+           
+           var path = finder.findPath(start[0], start[1], end[0], end[1], grid);
+           
+           return path;
 	}
 });
 	

@@ -148,7 +148,9 @@ var NpcEntity = me.ObjectEntity.extend({
 				var end = [this.npcData.coordenadas[pathNumber].initDestX,this.npcData.coordenadas[pathNumber].initDestY]; 
 			
 				// Calculate path 
-				this.path[pathNumber] = adsGame.pathFinder.getPath(start,end,"collision");
+				// this.path[pathNumber] = adsGame.pathFinder.getPath(start,end,"collision");
+				
+				this.path[pathNumber] = adsGame.pathFinder.getPathTest(start,end);
 				
 				// Calculate reverse path if event reverse
 				if (this.npcData.coordenadas[pathNumber].reverter){
