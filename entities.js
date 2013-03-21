@@ -879,10 +879,12 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
             if (me.input.isKeyPressed('mouseOverride'))
             {
                 console.log('Mouse click create projectil...');
-                console.log('me.input.mouse.pos :' , me.input.mouse.pos);
+                console.log('me.input.mouse.pos X:' , (me.input.mouse.pos.x + me.game.viewport.pos.x) );
                 
-                this.throwerData.destX = me.input.mouse.pos.x;
-                this.throwerData.destY = me.input.mouse.pos.y;
+                 console.log('Hero pos X=:' , adsGame.heroEntity().pos.x , "  wY=", adsGame.heroEntity().pos.y);
+                
+                this.throwerData.destX = me.input.mouse.pos.x + me.game.viewport.pos.x;
+                this.throwerData.destY = me.input.mouse.pos.y + me.game.viewport.pos.y;
                 
                 this.createProjectil();
             }
@@ -974,7 +976,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		// }
 			
 		// Debug - Console
-		console.log("throwerData.nome :", this.throwerData.nome );
+		// console.log("throwerData.nome :", this.throwerData.nome );
 		
         //  posicaoDisparo - give the launch position added to current positon of thrower
         var triggerPositionX = this.throwerData.posicaoDisparo.x ;
@@ -1022,7 +1024,8 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 
 		this.gravity = 0;		
 		
-		// this.collidable = true;
+		// Set NPC object type
+        this.type = 'PROJECTIL_OBJECT';
 		
 		//Define if object moves in all directions
 		this.testDirection = false;
@@ -1077,7 +1080,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                      this.destX = this.throwerData.destX;
                      this.destY = this.throwerData.destY; 
                      
-                     this.accel.x = this.accel.y = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
+                     this.velocityFollow = randomFloat(this.throwerData.velocidade[0], this.throwerData.velocidade[1]);
             break;			
 			
 			default:
@@ -1111,7 +1114,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		}
 		
 		if(this.throwerData.movimento  === "mouseClickMovement"){
-            moveObject( this );
+		   // Move the projectil to destination point
+           if( fireProjectil( this ) ){
+               // if reach the point remove projectil
+               me.game.remove(this);
+            }
         }
 		
 		if(this.throwerData.movimento  === "followHero"){
@@ -1161,13 +1168,16 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			
 		var res = me.game.collide(this , true);
 		var collideHero = false;
+		var self = this;
 
 		//Testing multiple collisions to verify if projectil collide with hero
         $.each(res, function(i,data)
-        {
-    		if (data && data.obj.type == 'HERO_OBJECT' ) {
-    		      collideHero = true;
-    		}
+        {                
+            if (data && data.obj.type == 'HERO_OBJECT' && self.throwerData.atacaObjeto == 'HERO_OBJECT') {
+                collideHero = true;
+            }else if  (data && data.obj.type == 'NPC_OBJECT' && self.throwerData.atacaObjeto == 'NPC_OBJECT') {
+                console.log("Hit NPC...");
+            }
         });
         
         if ( collideHero ) {

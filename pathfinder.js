@@ -134,8 +134,9 @@ adsGame.pathFinder =  Object.extend({
            
            var finder = new PF.AStarFinder();
            
-           var path = finder.findPath(start[0], start[1], end[0], end[1], grid);
            
+           var path = finder.findPath(start[0], start[1], end[0], end[1], grid);
+
            return path;
 	}
 });

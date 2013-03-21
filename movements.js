@@ -32,29 +32,28 @@ function moveObject( object )
     var dx  =  Math.abs( object.destX - object.pos.x ), sx = object.pos.x < object.destX ? object.accel.x : -object.accel.x,
         dy  = -Math.abs( object.destY - object.pos.y ) , sy = object.pos.y < object.destY ? object.accel.y : -object.accel.y,
         err = dx + dy, e2 = 0;
-        
-     // if (object.npcData.nome == "John"){
-         // console.log ("object.pos.x:" , object.pos.x, " ----- object.destX:" , object.destX);
-        // console.log ("object.pos.y:" , object.pos.y,  " ----- object.destY:" , object.destY);
-        // console.log (" object.vel.x =" ,  object.vel.x, " ---  object.vel.y =" ,  object.vel.y );
-//           
-     // }
   
-    if( object.pos.x == object.destX && object.pos.y == object.destY ) {
-        return true;
+    if( object.pos.x == ( object.destX ) && object.pos.y == ( object.destY) ) {            
+           return true;
     }
     
+    if (object.type == 'PROJECTIL_OBJECT'){       
+        console.log("err:",err);
+        if ( Math.abs(err) < 3 ) return true;
+     }
+     
     e2 = 2 * err;
     if( e2 > dy ) {
         err += dy;
         object.pos.x += sx;
         // object.vel.x = sx  * me.timer.tick;
+       
     }
 
     if( e2 < dx ) {
         err += dx;
         object.pos.y += sy;
-         // object.vel.y = sy *  me.timer.tick;
+        // object.vel.y = sy *  me.timer.tick;
     }
 
     return false;
@@ -132,7 +131,7 @@ function moveObjectCircle( object )
 
 
 /**
- * move object in circle
+ * followHero
  *
  * @param object
  * @return bool / check, if object reached it's goal
@@ -156,4 +155,28 @@ function followHero( object )
 	}else{
 		return false;
 	}
+}
+
+
+/**
+ * fire projectil
+ *
+ * @param object
+ * @return bool / check, if object reached it's goal
+ */
+function fireProjectil( object )
+{
+    if ( Math.abs(object.pos.x - object.destX) <= object.velocityFollow && Math.abs(object.pos.y - object.destY) <= object.velocityFollow ){                                                  
+            return true;
+    }else{
+        var destX = object.destX;
+        var destY =  object.destY;
+            
+        console.log("DestX:", destX , " DestY:" , destY);
+         console.log("object.pos.x:", object.pos.x , " object.pos.y :" , object.pos.y );
+        
+        var angle = Math.atan2(destY - object.pos.y, destX - object.pos.x);
+        object.vel.set(Math.cos(angle) * object.velocityFollow, Math.sin(angle) * object.velocityFollow);
+        return false;
+    }
 }

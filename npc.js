@@ -53,6 +53,11 @@ var NpcEntity = me.ObjectEntity.extend({
 		this.gravity = 0;
 		
 		this.friction = 0;
+		
+		//Diferrence between npc height and tilesize to avoid collision with wall
+		this.avoidWall = ( this.npcData.tamanhoImagem.altura - ads_tile_size) +1;
+		
+		console.log("this.avoidWall:", this.avoidWall);
 	
 		// Config NPC acceleration 
 		this.accel.x = this.accel.y = this.npcData.velocidade;
@@ -62,6 +67,9 @@ var NpcEntity = me.ObjectEntity.extend({
 						
 		// adjust the bounding box
 		// this.updateColRect(4,24,20,23); 
+		
+		 // adjust the bounding box
+        // this.updateColRect(0,32,19,20);
  
         // make him start from the right
         this.pos.x = x;
@@ -165,14 +173,14 @@ var NpcEntity = me.ObjectEntity.extend({
 			//*ads_tile_size to convert tile position to map coordinates
 			// First destination on array path
 			this.destX = this.path[0][0][0] * ads_tile_size;
-			this.destY = this.path[0][0][1] * ads_tile_size;	
+			this.destY = (this.path[0][0][1] * ads_tile_size) - this.avoidWall;	
 		}else if (this.npcData.tipoMovimento == "circle"){
 			
 		}else{
 			//*ads_tile_size to convert tile position to map coordinates
 			// If NPC movement is between two points only
 			this.destX = this.npcData.coordenadas[0].initDestX  * ads_tile_size;
-			this.destY = this.npcData.coordenadas[0].initDestY  * ads_tile_size;
+			this.destY = (this.npcData.coordenadas[0].initDestY  * ads_tile_size) - this.avoidWall;
 		}
 		
 		
@@ -311,7 +319,7 @@ var NpcEntity = me.ObjectEntity.extend({
     					this.setCurrentAnimation( this.direction );
     					
     					this.destX = this.path[this.currentPath][this.countPath ][0] * ads_tile_size;
-    					this.destY = this.path[this.currentPath][this.countPath ][1] * ads_tile_size;
+    					this.destY = (this.path[this.currentPath][this.countPath ][1] * ads_tile_size) - this.avoidWall;
     					
     					this.countPath ++;
     					this.setDirection();
