@@ -172,8 +172,8 @@ function fireProjectil( object )
         var destX = object.destX;
         var destY =  object.destY;
             
-        console.log("DestX:", destX , " DestY:" , destY);
-         console.log("object.pos.x:", object.pos.x , " object.pos.y :" , object.pos.y );
+        // console.log("DestX:", destX , " DestY:" , destY);
+         // console.log("object.pos.x:", object.pos.x , " object.pos.y :" , object.pos.y );
         
         var angle = Math.atan2(destY - object.pos.y, destX - object.pos.x);
         object.vel.set(Math.cos(angle) * object.velocityFollow, Math.sin(angle) * object.velocityFollow);

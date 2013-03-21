@@ -201,6 +201,11 @@ var NpcEntity = me.ObjectEntity.extend({
         }
 	},
 	
+	testMethod : function testMethod() {
+	    
+	    console.log("Call method in NPC...", this.npcData.nome);
+	},
+	
 	setDirection : function() {
 		// Get the distance between the two points to set the direction of NPC
         this.distanceX = Math.abs( this.destX - this.pos.x );

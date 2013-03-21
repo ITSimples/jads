@@ -878,10 +878,10 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		if (this.throwerData.movimento == "mouseClickMovement"){
             if (me.input.isKeyPressed('mouseOverride'))
             {
-                console.log('Mouse click create projectil...');
-                console.log('me.input.mouse.pos X:' , (me.input.mouse.pos.x + me.game.viewport.pos.x) );
-                
-                 console.log('Hero pos X=:' , adsGame.heroEntity().pos.x , "  wY=", adsGame.heroEntity().pos.y);
+                // console.log('Mouse click create projectil...');
+                // console.log('me.input.mouse.pos X:' , (me.input.mouse.pos.x + me.game.viewport.pos.x) );
+//                 
+                 // console.log('Hero pos X=:' , adsGame.heroEntity().pos.x , "  wY=", adsGame.heroEntity().pos.y);
                 
                 this.throwerData.destX = me.input.mouse.pos.x + me.game.viewport.pos.x;
                 this.throwerData.destY = me.input.mouse.pos.y + me.game.viewport.pos.y;
@@ -986,7 +986,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 											this.pos.y + triggerPositionY, 
 											projectilsData[this.throwerData.nomeProjectil], this.throwerData);
 		
-		me.game.add(projectil,7);
+		me.game.add(projectil,9);
 		me.game.sort.defer();
     },
 	
@@ -1176,7 +1176,10 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
             if (data && data.obj.type == 'HERO_OBJECT' && self.throwerData.atacaObjeto == 'HERO_OBJECT') {
                 collideHero = true;
             }else if  (data && data.obj.type == 'NPC_OBJECT' && self.throwerData.atacaObjeto == 'NPC_OBJECT') {
-                console.log("Hit NPC...");
+                
+                //Get NPC GUID
+                console.log("Hit NPC...", data.obj.GUID);
+                data.obj.testMethod();
             }
         });
         
