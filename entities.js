@@ -1179,7 +1179,10 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                 
                 //Get NPC GUID
                 console.log("Hit NPC...", data.obj.GUID);
-                data.obj.testMethod();
+                data.obj.removeHealth( self.projectilData.atualizarHUD.valor );
+                
+                //remove projectil when hits NPC
+                me.game.remove ( self );
             }
         });
         
