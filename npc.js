@@ -187,23 +187,37 @@ var NpcEntity = me.ObjectEntity.extend({
 		// *****************************************************
         // ** Testing dragon fire breath        
         // *****************************************************
-        if(this.npcData.ataca){
-
-            var npcThrower = this.npcData.nomeAtirador;
+        if ( this.npcData.categoria == "enemies"){
+            if(this.npcData.ataca){
+    
+                var npcThrower = this.npcData.nomeAtirador;
+                
+                this.throwerData = throwersData[npcThrower];
+                
+                
+                this.thrower = new throwersEntity( (this.pos.x + 24) * ads_tile_size , 
+                                                   (this.pos.y + 20) * ads_tile_size, this.throwerData);
+                me.game.add(this.thrower,7);
+                me.game.sort.defer();
+            }
             
-            var throwerData = throwersData[npcThrower];
+            // Setup NPC health bar
+            var config = {};
+            config.maxHealth = this.health = this.npcData.vida;
+            // Initial bar position
+            config.x = this.pos.x;
+            config.y = this.pos.y;
+            // Initial Width and Height for health bar
+            config.maxWidth = this.npcData.tamanhoImagem.largura;
             
-            
-            this.thrower = new throwersEntity( (this.pos.x + 24) * ads_tile_size , 
-                                               (this.pos.y + 20) * ads_tile_size, throwerData);
-            me.game.add(this.thrower,7);
-            me.game.sort.defer();
+            this.healthBar = new adsGame.HealthBar ( config );
         }
 	},
 	
-	testMethod : function testMethod() {
+	removeHealth : function removeHealth( hitPoints ) {
 	    
 	    console.log("Call method in NPC...", this.npcData.nome);
+	    this.health = this.health - hitPoints;
 	},
 	
 	setDirection : function() {
@@ -253,7 +267,8 @@ var NpcEntity = me.ObjectEntity.extend({
 	       }
 	       this.thrower.pos.x = (this.pos.x + addToPosX);
 	       this.thrower.pos.y = (this.pos.y + addToPosY);
-	       console.log("NPC direction:", this.direction); 	         
+	       // console.log("NPC direction:", this.direction); 	 
+	              
 	     }
         
 		// Check collision
@@ -588,8 +603,47 @@ var NpcEntity = me.ObjectEntity.extend({
 			default:
 				break;
 		}
-	}
+	},
 	
+	"draw" : function draw(context) {
+        if ( this.npcData.categoria == "enemies"){ 
+            this.parent(context);
+            
+            var pos = this.pos;
+            
+            this.healthBar.setHealth( this.health );
+            
+            // If true NPC dies
+            if ( this.healthBar.update( pos ) ) {
+                  // when defeat leave item
+                var item = new ItemEntity( pos.x , pos.y, 
+                    {image: this.npcData.deixaitem,
+                    spritewidth: 32, spriteheight: 32}, ads_items_data[this.npcData.deixaitem]);
+                    me.game.add(item,5);
+                    me.game.sort();
+                    
+                //remove NPC
+                me.game.remove( this );
+                // Remove Thrower associated with NPC
+                 me.game.remove( this.thrower );        
+            }
+             
+            this.healthBar.draw( context );
+        }
+            // this.tag = new me.Font("Verdana", 14, "white");
+            // this.tag.bold();
+            // this.tag.draw(context, "Player #" ,this.pos.x , this.pos.y );
+//             
+          // var radius = 3;
+// 
+          // context.beginPath();
+          // context.arc(this.pos.x, this.pos.y, radius, 0, 2 * Math.PI, false);
+          // context.fillStyle = 'red';
+          // context.fill();
+          // context.lineWidth = 5;
+          // context.strokeStyle = 'red';
+          // context.stroke();
+    }
 });
 // *************************
 // ****  End NPC entity ****
