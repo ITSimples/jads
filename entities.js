@@ -868,7 +868,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			
 		}
 		
-		// Create a maximum number of projectil objects
+		// Create a maximum number of projectile objects
 		this.numberProjectils = 0;
 	},
     
