@@ -17,11 +17,10 @@ var changeLevel = false;
 var jadsTestResources = 
 [
 	// ---- Mapas ----
-	{name: "bee",type: "image",src: "bee.png"},
-	{name: "player",type: "image",src: "h_female01.png"},
-	{name: "tiles",type: "image",src: "maps/maptest_tileset/tiles.png"},
-	{name: "maptest01", type: "tmx", src: "maps/maptest.tmx"},
-	{name: "maptest02", type: "tmx", src: "maps/maptest02.tmx"}
+	{name: "bee",type: "image",src: "../content/sprites/bee.png"},
+	{name: "player",type: "image",src: "../content/sprites/h_female01.png"},
+	{name: "tiles",type: "image",src: "maptest_tileset/tiles.png"},
+	{name: "maptest01", type: "tmx", src: "maptest.tmx"},
 ];
 
 
@@ -79,35 +78,6 @@ var adsTest =
 		me.state.change(me.state.PLAY);
 
 
-	var myLayer = [	
-	//     ------- X ->
-   //0  1  2  3  4  5  6  7  8  9
-	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //0
-	[1, 0, 0, 0, 1, 0, 0, 0, 0, 1], //1
-	[1, 0, 0, 0, 0, 0, 0, 1, 0, 1], //2
-	[1, 0, 0, 1, 1, 0, 0, 0, 0, 1], //3		 |
-	[1, 0, 0, 0, 0, 0, 0, 0, 0, 1], //4   Y \/
-	[1, 0, 1, 0, 1, 0, 0, 0, 0, 1], //5
-	[1, 0, 1, 0, 1, 0, 1, 0, 0, 1], //6
-	[1, 0, 0, 0, 0, 0, 0, 1, 0, 1], //7
-	[1, 0, 0, 0, 0, 0, 0, 0, 0, 1], //8
-	[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]  //9
-	];
-
-	
-	var	startPoint = [1,1];
-	var	endPoint = [8,8];
-	
-	
-	result = AStar(myLayer, startPoint, endPoint, "Manhattan");
-	
-	$.each ( result, function (i, results ){
-		// console.log ("- " + results);
-	});
-	// console.log ("- " + result);
-	
-
-		
 	}
 } // END ****  adsGame *******
 
@@ -166,14 +136,14 @@ var beeEntity = me.ObjectEntity.extend({
 		this.collidable= true;
 
 		//Config npc's animation
-		this.addAnimation("stand-down", [4]);
-		this.addAnimation("stand-left", [8]);
-		this.addAnimation("stand-up", [1]);
-		this.addAnimation("stand-right", [11]);
-		this.addAnimation("down", [3,4,5,4]);
-		this.addAnimation("left", [6,7,8]);
-		this.addAnimation("up", [0,1,2,1]);
-		this.addAnimation("right", [9,10,11]);
+		this.renderable.addAnimation("stand-down", [4]);
+		this.renderable.addAnimation("stand-left", [8]);
+		this.renderable.addAnimation("stand-up", [1]);
+		this.renderable.addAnimation("stand-right", [11]);
+		this.renderable.addAnimation("down", [3,4,5,4]);
+		this.renderable.addAnimation("left", [6,7,8]);
+		this.renderable.addAnimation("up", [0,1,2,1]);
+		this.renderable.addAnimation("right", [9,10,11]);
 		
 		//Direção inicial
 		this.direction = 'down';
@@ -181,81 +151,18 @@ var beeEntity = me.ObjectEntity.extend({
 		// set the display to follow our position on both axis
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 		
-		
-		this.i = 1;
-		
-				// x = result[i][0];
-		// y = result[i][1];
-			this.destX = result[1][0] * 32;
-			this.destY = result[1][1] * 32;
-		
-		this.stop = false;
-
 	},
-	
-	setDirection : function() {
-        this.distanceX = Math.abs( this.destX - this.pos.x );
-        this.distanceY = Math.abs( this.destY - this.pos.y );
-
-		if ( this.distanceX < 0.5 && this.distanceY < 0.5){
-			this.stop = true;
-		} else if( this.distanceX > this.distanceY ) {
-            this.direction = this.destX < this.pos.x ? 'left' : 'right' ;
-        } else {
-            this.direction = this.destY < this.pos.y ? 'up' : 'down';
-        }
-		
-
-    },	
-
-
 	//Update player position.
 	update : function ()
 	{		
-		this.setCurrentAnimation( this.direction );
+		this.renderable.setCurrentAnimation( this.direction );
 		this.animationspeed = me.sys.fps / 23;
-		
-		if ( this.stop )
-		{
-			this.vel.x = 0;
-			this.vel.y = 0;
-			
-			this.setCurrentAnimation( this.direction );
-
-			
-			if (this.i != result.length){
-				this.destX = result[this.i][0] * 32;
-				this.destY = result[this.i][1] * 32;
-				
-				this.i++;
-			}			
-			
-			this.stop = false;
-		} else if (this.direction == 'left')
-		{		
-			this.vel.x = -this.accel.x * me.timer.tick;			
-		}
-		else if (this.direction == 'right')
-		{		
-			this.vel.x = this.accel.x * me.timer.tick;
-		}
- 
-		if (this.direction == 'up')
-		{
-			this.vel.y = -this.accel.y * me.timer.tick; 
-		}
-		else if (this.direction == 'down')
-		{
-			this.vel.y = this.accel.y * me.timer.tick;
-		}
 		
 		// check & update player movement
 		updated = this.updateMovement();
 
 		// Actualizar animação
 		this.parent(this);
-
-		this.setDirection();
 		
 		return updated;
 	}
@@ -306,14 +213,14 @@ var playerEntity = me.ObjectEntity.extend({
 		this.collidable= true;
 
 		//Config npc's animation
-		this.addAnimation("stand-down", [4]);
-		this.addAnimation("stand-left", [8]);
-		this.addAnimation("stand-up", [1]);
-		this.addAnimation("stand-right", [11]);
-		this.addAnimation("down", [3,4,5,4]);
-		this.addAnimation("left", [6,7,8]);
-		this.addAnimation("up", [0,1,2,1]);
-		this.addAnimation("right", [9,10,11]);
+		this.renderable.addAnimation("stand-down", [4]);
+		this.renderable.addAnimation("stand-left", [8]);
+		this.renderable.addAnimation("stand-up", [1]);
+		this.renderable.addAnimation("stand-right", [11]);
+		this.renderable.addAnimation("down", [3,4,5,4]);
+		this.renderable.addAnimation("left", [6,7,8]);
+		this.renderable.addAnimation("up", [0,1,2,1]);
+		this.renderable.addAnimation("right", [9,10,11]);
 		
 	
 		// Viewport follow heroe
@@ -330,14 +237,14 @@ var playerEntity = me.ObjectEntity.extend({
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 
 			this.vel.x = -this.accel.x * me.timer.tick;
-			this.setCurrentAnimation('left');
+			this.renderable.setCurrentAnimation('left');
 			this.direction = 'left';			
 		}
 		else if (me.input.isKeyPressed('right'))
 		{
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 			this.vel.x = this.accel.x * me.timer.tick; 
-			this.setCurrentAnimation('right');
+			this.renderable.setCurrentAnimation('right');
 			this.direction = 'right';
 		}
 
@@ -345,21 +252,21 @@ var playerEntity = me.ObjectEntity.extend({
 		{
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 			this.vel.y = -this.accel.y * me.timer.tick; 
-			this.setCurrentAnimation('up');
+			this.renderable.setCurrentAnimation('up');
 			this.direction = 'up';
 		}
 		else if (me.input.isKeyPressed('down'))
 		{
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 			this.vel.y = this.accel.y * me.timer.tick; 
-			this.setCurrentAnimation('down');
+			this.renderable.setCurrentAnimation('down');
 			this.direction = 'down';
 		}
 		
 		// If player Stop set stand animationa
 		if (this.vel.y === 0 && this.vel.x === 0)
 		{
-			this.setCurrentAnimation('stand-' + this.direction);
+			this.renderable.setCurrentAnimation('stand-' + this.direction);
 		}
 	
 		// check & update player movement
