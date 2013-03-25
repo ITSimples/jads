@@ -121,8 +121,17 @@ var HeroEntity = me.ObjectEntity.extend({
 	//Update player position.
 	update : function ()
 	{		
-		
-		if (me.input.isKeyPressed('left'))
+	    
+	    // DEBUG MODE remove
+        if (DEBUG_MODE && this.makeOneTime){
+            ads_items_data[giveItemDebug].specialItem = true;
+            // Add item to hero
+            adsGame.Inventory.addItem(ads_items_data[giveItemDebug]);
+            
+            this.makeOneTime = false;
+        }
+        
+    	if (me.input.isKeyPressed('left'))
 		{
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 
@@ -882,9 +891,12 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                 // console.log('me.input.mouse.pos X:' , (me.input.mouse.pos.x + me.game.viewport.pos.x) );
 //                 
                  // console.log('Hero pos X=:' , adsGame.heroEntity().pos.x , "  wY=", adsGame.heroEntity().pos.y);
-                
-                this.throwerData.destX = me.input.mouse.pos.x + me.game.viewport.pos.x;
-                this.throwerData.destY = me.input.mouse.pos.y + me.game.viewport.pos.y;
+                 
+                var cursorWidth = me.loader.getImage("point_cur").width ;
+                 
+                // World Destination = mouse position - image mouse pointer size + viewport position
+                this.throwerData.destX = ( me.input.mouse.pos.x - cursorWidth ) + me.game.viewport.pos.x;
+                this.throwerData.destY = ( me.input.mouse.pos.y ) + me.game.viewport.pos.y;
                 
                 this.createProjectil();
             }

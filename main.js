@@ -72,7 +72,7 @@ var adsGame =
 		adsGame.prisonDoors =  new adsGame.PrisonDoors();
 		
 		// Create object to NPC
-		adsGame.Npc = new adsGame.NPC();	
+		adsGame.Npc = new adsGame.NPC();
 
 	},
 	reboot:function(){
@@ -137,6 +137,8 @@ var adsGame =
 		
 		// Debug Mode
 		me.state.change(me.state.PLAY);
+		
+
 		
 	}
 }; // END ****  adsGame *******

@@ -38,6 +38,7 @@ START Global Variables
 var ads_width = 800;
 var ads_height = 520;
 var ads_images_path='content/images/';
+var ads_images_gui='content/gui/';
 var ads_sprites_path='content/sprites/';
 var ads_effects_path='content/effects/';
 var ads_items_path='content/sprites/items/';
@@ -77,7 +78,12 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [7,46];
+var startHero = [15,45];
+
+var DEBUG_MODE = true;
+
+// Give item to hero to start in debug mode
+var giveItemDebug = "icestaff";
 
 /*--- END Hero Configuration ---*/
 
@@ -238,7 +244,10 @@ var ads_resources =
 	{name: "questitem", 	type: "image",src: ads_effects_path + "questitem.png"},
 	{name: "sparkle", 	type: "image",src: ads_effects_path + "sparkle.png"},
 	{name: "fireplace", 	type: "image",src: ads_effects_path + "fireplace.png"},
-	{name: "risesfire",    type: "image",src: ads_effects_path + "risesfire.png"}
+	{name: "risesfire",    type: "image",src: ads_effects_path + "risesfire.png"},
+	
+	//***** Mouse cursor
+	{name: "point_cur",    type: "image",src: ads_images_gui + "point_cur.cur"},
 ];
 
 

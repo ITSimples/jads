@@ -88,9 +88,17 @@ var NpcEntity = me.ObjectEntity.extend({
         this.addAnimation("left", [6, 7, 8]);
         this.addAnimation("up", [0, 1, 2, 1]);
         this.addAnimation("right", [9, 10, 11]);
+        
+        // Make animation to die
+        if (this.npcData.categoria == "enemies") {
+            this.addAnimation("die", [12]);
+        }
 
         // Check if this npc is a prisoner
         this.prisoner = this.npcData.prisioneiro;
+        
+        //Is NPC death
+        this.death = false;
 
         // Create message box for object to avoid blinking if is a global box
         this.message = new adsGame.message();
@@ -226,6 +234,10 @@ var NpcEntity = me.ObjectEntity.extend({
 
     //Update npc position.
     update : function() {
+        
+        if (this.death) {
+            return;
+        }
         // Update thrower position follow NPC
         if (this.npcData.ataca) {
             // thrower position depends on NPC direction
@@ -355,15 +367,22 @@ var NpcEntity = me.ObjectEntity.extend({
                     // Stop the player
                     if (this.currentPath == this.path.length) {
                         this.stop = true;
-                        this.setCurrentAnimation("stand-" + this.direction);
+                        // this.setCurrentAnimation("stand-" + this.direction);
+                        this.setCurrentAnimation( "stand-down" );
                     }
                 }
 
             }
         } else if (this.npcData.tipoMovimento == "followhero") {
-
-            this.velocityFollow = this.npcData.velocidade;
-
+            
+            if ( !this.stop ){
+                this.velocityFollow = this.npcData.velocidade;                
+            }
+            else{
+                this.velocityFollow = 0;
+                return;
+            }
+            
             followHero(this);
 
             var player = adsGame.heroEntity();
@@ -610,9 +629,13 @@ var NpcEntity = me.ObjectEntity.extend({
             this.healthBar.setHealth(this.health);
             
             // If true NPC dies
-            if (this.healthBar.update()) {
+            if (this.healthBar.update() && !this.death) {
+                // If is a mission item then set as special item to go the rigth slot (Map items)
+                if (ads_items_data[this.npcData.deixaitem].categoria == 'itemMissao'){
+                    ads_items_data[this.npcData.deixaitem].specialItem = true;
+                }
                 // when defeat leave item
-                var item = new ItemEntity(pos.x, pos.y, {
+                var item = new ItemEntity( this.pos.x , this.pos.y , {
                     image : this.npcData.deixaitem,
                     spritewidth : 32,
                     spriteheight : 32
@@ -621,7 +644,11 @@ var NpcEntity = me.ObjectEntity.extend({
                 me.game.sort();
 
                 //remove NPC
-                me.game.remove(this);
+                //me.game.remove(this);
+                
+                this.setCurrentAnimation( "die" );
+                this.death = true;
+                
                 // Remove Thrower associated with NPC
                 me.game.remove(this.thrower);
             }
