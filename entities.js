@@ -96,7 +96,7 @@ var HeroEntity = me.ObjectEntity.extend({
         
         // Set to true if hero carries a weapon
         this.heroCarryWeapon = false;
-		
+        
 	},
 	
 	//Create weapon player position.
@@ -235,36 +235,32 @@ var HeroEntity = me.ObjectEntity.extend({
 		}
 
 		// update collision
-		var res = me.game.collide(this);
+		var res = me.game.collide(this , true);
+		var self =this;
 		
-		
-		//  --- TESTING which OBJECT ---
-		if (res){
-		
-			// // Not needed anymore
-			// if (res.obj.type == 'NPC_OBJECT') {
-				// console.log('Hero Collide with NPC...');
-				// this.setCurrentAnimation('stand-' + this.direction);
-			// }
-			
-			if (res.obj.type == 'ITEM_OBJECT') {
-				// console.log('Hero Collide with Item...' , res.obj.items_data);
-				// this.setCurrentAnimation('stand-' + this.direction);
-				// this.pos.x = this.posBeforeCollideX;
-				// this.pos.y = this.posBeforeCollideY;
-				if (!fullInventory  || res.obj.items_data.specialItem){
-					this.vel.x = 0;
-					this.vel.y = 0;
-					res.obj.getItem();
-				}else{
-					adsGame.Inventory.show();
-				}
-			}
-		}else{
-			// Save the last hero coordinates before collide with something
-			this.posBeforeCollideX = this.pos.x;
-			this.posBeforeCollideY = this.pos.y;
-		}
+		//  --- TESTING which OBJECT --- multiple collisions
+        $.each(res, function(i,data)
+        {         
+		  if (data){		      			
+    			if (data.obj.type == 'ITEM_OBJECT') {
+    				// console.log('Hero Collide with Item...' , res.obj.items_data);
+    				// this.setCurrentAnimation('stand-' + this.direction);
+    				// this.pos.x = this.posBeforeCollideX;
+    				// this.pos.y = this.posBeforeCollideY;
+    				if (!fullInventory  || data.obj.items_data.specialItem){
+    					self.vel.x = 0;
+    					self.vel.y = 0;
+    					data.obj.getItem();
+    				}else{
+    					adsGame.Inventory.show();
+    				}
+    			}
+    		}else{
+                // Save the last hero coordinates before collide with something
+                this.posBeforeCollideX = this.pos.x;
+                this.posBeforeCollideY = this.pos.y;
+            }
+		});
 
 		// check & update player movement
 		updated = this.updateMovement();
@@ -1034,7 +1030,8 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		this.parent(x, y, settings);
 
-		this.gravity = 0;		
+		this.gravity = 0;
+		this.canBreakTile = true;
 		
 		// Set NPC object type
         this.type = 'PROJECTIL_OBJECT';
@@ -1111,6 +1108,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		if (this.testDirection){
 			this.setCurrentAnimation(this.currentAnimation);
 		}else{
+	       console.log("anime:" , this.getCurrentAnimationFrame()  );
 			this.setCurrentAnimation("anime" , 
             function(){
                 if (typeof(self.throwerData.repetirAnimProj) != 'undefined' && !self.throwerData.repetirAnimProj){
@@ -1118,8 +1116,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                 }
             });
 		}
-		
-		
+				
 		// for bees movement
 		if(this.throwerData.movimento  === "BeeHavior"){
 			moveObjectBeeHavior( this );
@@ -1151,20 +1148,28 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			this.liveTime();
 		}
 		
-		// check & update movement
-		updated = this.updateMovement();
-
-		// update animation
-		if (updated)
-		{
-			this.handleCollisions(updated);
-			// Actualizar animação
-			this.parent(this);
+		
+		        // If projectil ignore wall        
+        if( !this.throwerData.ignorasolido ){
+    		// check & update movement
+    		updated = this.updateMovement();
+    
+    		// update animation
+    		if (updated)
+    		{
+    			this.handleCollisions(updated);
+    			// Actualizar animação
+    			this.parent(this);
+    		}
+    	 
+    		return updated;		
+		}else{
+		    this.handleCollisions(updated);
+		    this.computeVelocity(this.vel);
+            this.pos.add(this.vel);
+              // Actualizar animação
+            this.parent(this);            
 		}
-	 
-		return updated;
-		
-		
     },
 	
 	liveTime: function (){
@@ -1176,15 +1181,14 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		}
 	},
     
-    handleCollisions: function (updated) {	
-			
+    handleCollisions: function (updated) {
 		var res = me.game.collide(this , true);
 		var collideHero = false;
 		var self = this;
 
 		//Testing multiple collisions to verify if projectil collide with hero
         $.each(res, function(i,data)
-        {                
+        {
             if (data && data.obj.type == 'HERO_OBJECT' && self.throwerData.atacaObjeto == 'HERO_OBJECT') {
                 collideHero = true;
             }else if  (data && data.obj.type == 'NPC_OBJECT' && self.throwerData.atacaObjeto == 'NPC_OBJECT') {
@@ -1213,14 +1217,17 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                 return;
         }
         
-		// Remove bees only when do complet circle
-		if (this.checkWallCollision(updated)){
-			if(this.throwerData.movimento === "random"){			
-				this.randomMovement();
-			}else{
-				//Remove object if there is a distance up 32 pixels
-				me.game.remove(this);
-			}			
+        // If projectil ignore wall        
+        if( !this.throwerData.ignorasolido ){
+    		// Remove bees only when do complet circle
+    		if (this.checkWallCollision(updated)){
+    			if(this.throwerData.movimento === "random"){			
+    				this.randomMovement();
+    			}else{
+    				//Remove object if there is a distance up 32 pixels
+    				me.game.remove(this);
+    			}			
+    		}
 		}
 		
 		

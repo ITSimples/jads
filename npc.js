@@ -91,14 +91,11 @@ var NpcEntity = me.ObjectEntity.extend({
         
         // Make animation to die
         if (this.npcData.categoria == "enemies") {
-            this.addAnimation("die", [12]);
+            this.addAnimation("die", this.npcData.morre.animacao);
         }
 
         // Check if this npc is a prisoner
-        this.prisoner = this.npcData.prisioneiro;
-        
-        //Is NPC death
-        this.death = false;
+        this.prisoner = this.npcData.prisioneiro;        
 
         // Create message box for object to avoid blinking if is a global box
         this.message = new adsGame.message();
@@ -211,6 +208,9 @@ var NpcEntity = me.ObjectEntity.extend({
             
             //test
             console.log("Testing this.healthBar.maxHealth:" , this.healthBar.maxHealth);
+            
+           // Remove NPC time after die
+            this.removeTime = 5000;
         }
     },
 
@@ -235,7 +235,8 @@ var NpcEntity = me.ObjectEntity.extend({
     //Update npc position.
     update : function() {
         
-        if (this.death) {
+        // If NPC is death but is in the map don't update movement
+        if (!this.alive) {
             return;
         }
         // Update thrower position follow NPC
@@ -628,46 +629,44 @@ var NpcEntity = me.ObjectEntity.extend({
             // Update health
             this.healthBar.setHealth(this.health);
             
-            // If true NPC dies
-            if (this.healthBar.update() && !this.death) {
-                // If is a mission item then set as special item to go the rigth slot (Map items)
-                if (ads_items_data[this.npcData.deixaitem].categoria == 'itemMissao'){
-                    ads_items_data[this.npcData.deixaitem].specialItem = true;
+            if (this.alive){
+                // If true NPC dies
+                if (this.healthBar.update() ) {
+                    // If is a mission item then set as special item to go the rigth slot (Map items)
+                    if (ads_items_data[this.npcData.deixaitem].categoria == 'itemMissao'){
+                        ads_items_data[this.npcData.deixaitem].specialItem = true;
+                    }
+                    // when defeat leave item
+                    var item = new ItemEntity( this.pos.x , this.pos.y , {
+                        image : this.npcData.deixaitem,
+                        spritewidth : 32,
+                        spriteheight : 32
+                    }, ads_items_data[this.npcData.deixaitem]);
+                    me.game.add(item, 5);
+                    me.game.sort();
+
+                    // Set NPC death
+                    this.setCurrentAnimation( "die" );
+                    this.alive = false;
+                    
+                    // Remove Thrower associated with NPC
+                    me.game.remove(this.thrower);
                 }
-                // when defeat leave item
-                var item = new ItemEntity( this.pos.x , this.pos.y , {
-                    image : this.npcData.deixaitem,
-                    spritewidth : 32,
-                    spriteheight : 32
-                }, ads_items_data[this.npcData.deixaitem]);
-                me.game.add(item, 5);
-                me.game.sort();
-
-                //remove NPC
-                //me.game.remove(this);
                 
-                this.setCurrentAnimation( "die" );
-                this.death = true;
+                // Draw Bar
+                this.healthBar.draw(context);
                 
-                // Remove Thrower associated with NPC
-                me.game.remove(this.thrower);
+            }else { // NPC is death
+                    var self = this;
+                    var tween = new me.Tween( { x: 1} )
+                        .to( { x: 0 }, self.removeTime ).onComplete(function(){ me.game.remove(self);})
+                        .easing( me.Tween.Easing.Quartic.EaseIn )
+                        .onUpdate( function () {            
+                           self.resize( this.x );            
+                        } )
+                        .start();
             }
-
-            this.healthBar.draw(context);
         }
-        // this.tag = new me.Font("Verdana", 14, "white");
-        // this.tag.bold();
-        // this.tag.draw(context, "Player #" ,this.pos.x , this.pos.y );
-        //
-        // var radius = 3;
-        //
-        // context.beginPath();
-        // context.arc(this.pos.x, this.pos.y, radius, 0, 2 * Math.PI, false);
-        // context.fillStyle = 'red';
-        // context.fill();
-        // context.lineWidth = 5;
-        // context.strokeStyle = 'red';
-        // context.stroke();
     }
 });
 // *************************

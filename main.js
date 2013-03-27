@@ -298,6 +298,29 @@ function randomFloat(minValue,maxValue,precision){
     return parseFloat(Math.min(minValue + (Math.random() * (maxValue - minValue)),maxValue).toFixed(precision));
 }
 
+/**
+ * Create  solid tiles on collision layer
+ * @public
+ * @param {int} start position of tile x (in Pixels world coordinates)
+ * @param {int} start position of tile y  (in Pixels world coordinates)
+ * @param {int} blockWidth
+ * @param {int} blockHeight 
+ */     
+ function makeSolid( startX , startY , blockWidth , blockHeight ) {
+      // Map position 0,0 is always a solid tile - get number
+      var solidTileId = me.game.collisionMap.getTileId( 0 , 0)
+      
+      // World Coordinates to map Coordinates
+      var startX = Math.round(startX / 32);
+      var startY = Math.round(startY / 32);
+      
+      for (var x = 0 ; x < blockWidth ; x++ ){
+           for (var y = 0 ; y < blockHeight ; y++ ){
+               me.game.collisionMap.setTile ( startX + x  , startY + y , solidTileId );
+           }
+      }
+ }
+
 
 //bootstrap :)
 //window.onReady(function(){

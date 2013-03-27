@@ -78,9 +78,9 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [15,45];
+var startHero = [26,15];
 
-var DEBUG_MODE = true;
+var DEBUG_MODE = false;
 
 // Give item to hero to start in debug mode
 var giveItemDebug = "icestaff";
