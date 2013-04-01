@@ -90,9 +90,10 @@ var NpcEntity = me.ObjectEntity.extend({
         this.addAnimation("right", [9, 10, 11]);
         
         // Make animation to die
-        if (this.npcData.categoria == "enemies") {
-            this.addAnimation("die", this.npcData.morre.animacao);
-        }
+        // Json "morre" : {"animacao" : [12] },
+        // if (this.npcData.categoria == "enemies") {
+            // this.addAnimation("die", this.npcData.morre.animacao);
+        // }
 
         // Check if this npc is a prisoner
         this.prisoner = this.npcData.prisioneiro;        
@@ -646,7 +647,7 @@ var NpcEntity = me.ObjectEntity.extend({
                     me.game.sort();
 
                     // Set NPC death
-                    this.setCurrentAnimation( "die" );
+                    // this.setCurrentAnimation( "die" );
                     this.alive = false;
                     
                     // Remove Thrower associated with NPC
@@ -657,14 +658,31 @@ var NpcEntity = me.ObjectEntity.extend({
                 this.healthBar.draw(context);
                 
             }else { // NPC is death
-                    var self = this;
-                    var tween = new me.Tween( { x: 1} )
-                        .to( { x: 0 }, self.removeTime ).onComplete(function(){ me.game.remove(self);})
-                        .easing( me.Tween.Easing.Quartic.EaseIn )
-                        .onUpdate( function () {            
-                           self.resize( this.x );            
-                        } )
-                        .start();
+                    // var self = this;
+                    // var tween = new me.Tween( { x: 1} )
+                        // .to( { x: 0 }, self.removeTime ).onComplete(function(){ me.game.remove(self);})
+                        // .easing( me.Tween.Easing.Quartic.EaseIn )
+                        // .onUpdate( function () {            
+                           // self.resize( this.x );            
+                        // } )
+                        // .start();
+                        
+                        // Remove the NPC
+                        me.game.remove( this );
+                        
+                        // Make npc die animation 
+                        var risesNPC = new effect(
+                                ( this.pos.x ) , 
+                                ( this.pos.y ) , // Coordinates
+                                me.loader.getImage(this.npcData.dieEffect.name),  // Image
+                                this.npcData.dieEffect.size.width,this.npcData.dieEffect.size.height, // Size
+                                this.npcData.dieEffect.animationSheet, //Animation sheet
+                                this.npcData.dieEffect.speed, // Speed between 0 - Slowest and 60 - fastest
+                                this.npcData.dieEffect.repeat, // Repeat
+                                this.npcData.dieEffect.waitBetween // Wait between
+                                );
+                        me.game.add(risesNPC, 8);
+                        me.game.sort();
             }
         }
     }

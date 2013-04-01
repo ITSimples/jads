@@ -78,7 +78,7 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [26,15];
+var startHero = [24,15];
 
 var DEBUG_MODE = false;
 
@@ -245,6 +245,7 @@ var ads_resources =
 	{name: "sparkle", 	type: "image",src: ads_effects_path + "sparkle.png"},
 	{name: "fireplace", 	type: "image",src: ads_effects_path + "fireplace.png"},
 	{name: "risesfire",    type: "image",src: ads_effects_path + "risesfire.png"},
+	{name: "frozendragon",    type: "image",src: ads_effects_path + "frozendragon.png"},
 	
 	//***** Mouse cursor
 	{name: "point_cur",    type: "image",src: ads_images_gui + "point_cur.cur"},

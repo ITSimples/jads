@@ -18,7 +18,7 @@
 
 var effect = me.AnimationSheet.extend({
     init: function(x, y, Image, spritewidth, spriteheight , animation , speed, repeat, wait) {
-	
+
         this.parent(x, y, Image, spritewidth, spriteheight);
  
         this.addAnimation("sprite", animation);

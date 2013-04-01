@@ -580,7 +580,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		    this.npcName = triggerData.npcName;
 		    
 		    //Get effect to rise the new NPC
-		    this.appearEffect = triggerData.appearEffect;
+		    this.appearEffect = adsNpcData[ this.npcName].appearEffect;
 		}
 		
 		this.checkSolution = false;
