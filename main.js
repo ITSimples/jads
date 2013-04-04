@@ -179,7 +179,7 @@ function showQuestionLayer(itemData, adsQtnData)
 		$('.r1').html('(1) ' + rndQtnData.r1 );
 		$('.r2').html('(2) ' + rndQtnData.r2 );
 		$('.r3').html('(3) ' + rndQtnData.r3 );
-		$('.r0').html('(0) N�o responder..');
+		$('.r0').html('(0) Não responder..');
 		
 		// if is a special item them show the value you can lose and not the name
 		if (!itemData.specialItem){
@@ -196,6 +196,21 @@ function showQuestionLayer(itemData, adsQtnData)
 				heroAnswer = keyPressed;
 			}
 		});
+		
+		// Create a event listener to get the ansewer from the mouse 
+        // $('#questionLayer  > div') same as $('#questionLayer').children("div")
+        $('#questionLayer  > div').bind('click', function() {
+            var answer = this.className;
+            console.log( "this.className:", answer );
+            // If class start with r then is a answer get the answer from player
+            if (answer.indexOf("r") == 0){
+                console.log("This is a answer...", answer.substr(1,1));
+                heroAnswer = answer.substr(1,1);
+                
+                //Remove event listener
+                $('#questionLayer  > div').unbind('click');
+            }
+        });
 		
 		//Message box is showing - avoid call over and over again
 		showingQuestion = true;
@@ -224,13 +239,13 @@ function hideQuestionLayer(answer)
 	
 	if(answer == 'C')
 	{
-		answerResult ='Parab�ns resposta certa...';
+		answerResult ='Parabéns resposta certa...';
 	}else if(answer == 'W')
 	{
 		answerResult ='Resposta errada...';
 	}
 	else{		
-		answerResult ='Tenta para a pr�xima...';
+		answerResult ='Tenta para a próxima...';
 	}
 
 	//Hide Question fields
@@ -256,19 +271,19 @@ function hideQuestionLayer(answer)
 	$('.answerResult').html(answerResult);
 	$('.answerResult').fadeIn();
 	
-	
-	$(document).keyup(function(event) {		
-		$('.answerResult').fadeOut();
-		$('.answerResult').remove();
-		$('#target').remove();
-		$('#questionLayer').fadeOut( 50 , function(){
-			// When finish to fade out 
-			showingQuestion = false;
-		});
-		// event.stopPropagation();
-		// Remove event listener to get answer from player
-		$(document).unbind();
-	});
+	// Remove questions window
+    $(document).bind('keyup click', function(event) {     
+        $('.answerResult').fadeOut();
+        $('.answerResult').remove();
+        $('#target').remove();
+        $('#questionLayer').fadeOut( 50 , function(){
+            // When finish to fade out 
+            showingQuestion = false;
+        });
+        // event.stopPropagation();
+        // Remove event listener to get answer from player
+        $(document).unbind();
+    });		
 }
 
 
