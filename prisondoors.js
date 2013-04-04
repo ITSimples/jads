@@ -53,8 +53,6 @@
 	
 				var doorLayer = me.game.currentLevel.getLayerByName("doors");
 				var upperObjectsLayer = me.game.currentLevel.getLayerByName("upper objects");
-
-				console.log("Passed here...");
 				
 				// - Upper Door
 				//Remove door:

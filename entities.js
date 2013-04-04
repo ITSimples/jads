@@ -625,9 +625,11 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					// console.log('Test times...' + this.checkSolution);
 					// console.log('Remove the item number : ' + itemIndex);
 					
-					// Remove item from inventory - Index + 1 Slot number
-					if (itemIndex !== null)
-						adsGame.Inventory.removeItem( 'Slot0' + (itemIndex + 1) );
+					// If hero have the solution and if the solution is not a subcategoria weapon
+					// Remove item from inventory - Index + 1 Slot number 					
+					if (itemIndex !== null && heroItems[itemIndex].subcategoria !== "weapon"){
+					   adsGame.Inventory.removeItem( 'Slot0' + (itemIndex + 1) );
+					}
 				}
 				
 
@@ -677,7 +679,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 				
 				// If trigger is a door object
 				if (this.type == 'DOOR_OBJECT'){
-				     console.log("Solution:" , this.solution);
+				    // console.log("Solution:" , this.solution);
 				    if (this.checkSolution){
 					
 					  
@@ -698,7 +700,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 						// adsGame.prisonDoors.prisonBreak[this.triggerData.portaPrisao] = true;
 						adsGame.prisonDoors.openPrisonDoor( this.triggerData.portaPrisao );
 						
-						console.log("prisonBreak Hero: " , adsGame.prisonDoors.getPrisonDoorState( this.triggerData.portaPrisao ) );
+						// console.log("prisonBreak Hero: " , adsGame.prisonDoors.getPrisonDoorState( this.triggerData.portaPrisao ) );
 						
 						// Remove Trigger
 						me.game.remove(this);
@@ -994,7 +996,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 											this.pos.y + triggerPositionY, 
 											projectilsData[this.throwerData.nomeProjectil], this.throwerData);
 		
-		me.game.add(projectil,9);
+		me.game.add(projectil,10);
 		me.game.sort.defer();
     },
 	
@@ -1108,8 +1110,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		if (this.testDirection){
 			this.setCurrentAnimation(this.currentAnimation);
 		}else{
-	       console.log("anime:" , this.getCurrentAnimationFrame()  );
-			this.setCurrentAnimation("anime" , 
+	       	this.setCurrentAnimation("anime" , 
             function(){
                 if (typeof(self.throwerData.repetirAnimProj) != 'undefined' && !self.throwerData.repetirAnimProj){
                     me.game.remove(this);

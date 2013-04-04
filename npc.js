@@ -671,7 +671,7 @@ var NpcEntity = me.ObjectEntity.extend({
                         me.game.remove( this );
                         
                         // Make npc die animation 
-                        var risesNPC = new effect(
+                        var dieNPCEffect = new effect(
                                 ( this.pos.x ) , 
                                 ( this.pos.y ) , // Coordinates
                                 me.loader.getImage(this.npcData.dieEffect.name),  // Image
@@ -681,7 +681,7 @@ var NpcEntity = me.ObjectEntity.extend({
                                 this.npcData.dieEffect.repeat, // Repeat
                                 this.npcData.dieEffect.waitBetween // Wait between
                                 );
-                        me.game.add(risesNPC, 8);
+                        me.game.add(dieNPCEffect, 8);
                         me.game.sort();
             }
         }

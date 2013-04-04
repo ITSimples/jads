@@ -39,7 +39,7 @@
 		this.slotsMap = [-1,-1,-1,-1,-1,-1,-2,-2,-2];
 		
 		//Comment on inventory
-		this.invComment = " 'I' Esconder invent�rio.";
+		this.invComment = " 'I' Esconder inventário.";
 		
 		// Special items name
 		// Improve - Make this multilingual
@@ -241,7 +241,7 @@
 			this.eventListener ('add' , this.slotNumber + 1);
 			
 			//*** IMPROVE - Update invComment
-			this.invComment = "Parab�ns novo item.";
+			this.invComment = "Parabéns novo item.";
 			$('.invComment,#hiddenText').html(this.invComment);
 			
 			// If added item is velocity or lucky update Hud 
@@ -288,7 +288,7 @@
 			$('.invComment').html('Item destruido.');
 		}else{ // Item not removed
 
-			$('.invComment').html('Item da miss�o, n�o pode ser destruido.');
+			$('.invComment').html('Item da missão, não pode ser destruido.');
 		}
 	},
 	
@@ -326,9 +326,9 @@
 						break;
 							
 			default:  infValueColor = "white"; // Mission items
-					  itemInfUse = 'N�o podes usar nem destruir';
+					  itemInfUse = 'Não podes usar nem destruir';
 					  // If mission item then change value 
-					  iteminfValue= "Item da miss�o.";
+					  iteminfValue= "Item da missão.";
 		}	
 			
 		
@@ -368,7 +368,7 @@
 							if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= maxHudValue['live']){
 								adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
 							}else {
-								this.invComment = 'Supera o m�ximo de vida. N�o podes usar.';
+								this.invComment = 'Supera o máximo de vida. Não podes usar.';
 								$('.invComment').css("color", hudColorLive);
 								$('.invComment,#hiddenText').html(this.invComment);
 							}
