@@ -16,14 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// TODO - Document function
+
+// myFunc - Function when animation is over
+// self - Object where the animation is called
+
+
 var effect = me.AnimationSheet.extend({
-    init: function(x, y, Image, spritewidth, spriteheight , animation , speed, repeat, wait) {
+    init: function(x, y, Image, spritewidth, spriteheight , animation , speed, repeat, wait, myFunc, self) {
 
         this.parent(x, y, Image, spritewidth, spriteheight);
  
         this.addAnimation("sprite", animation);
  
         this.animationspeed = me.sys.fps / speed;
+
+        if (typeof myFunc != "undefined") 
+        {
+            this.self = self;
+            
+            this.myFunc = new Function( 'self' , myFunc);
+        }
 		
 		//Repeat the animation or not
 		if( typeof repeat !== 'undefined' ) {
@@ -51,7 +64,11 @@ var effect = me.AnimationSheet.extend({
 			}
 		}else
 		{
-			this.setCurrentAnimation("sprite", function(){ me.game.remove(this); });
+		    if (typeof this.myFunc == "undefined"){
+		        this.setCurrentAnimation("sprite", function(){ me.game.remove(this); });
+		    }else{
+		        this.setCurrentAnimation("sprite",   function(){this.myFunc( this.self ) });
+			}
 		}
 		
         this.parent(this);

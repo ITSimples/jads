@@ -102,7 +102,7 @@ var HeroEntity = me.ObjectEntity.extend({
 	//Create weapon player position.
     createWeapon : function ( weapon )
     {
-        console.log("Weapon", weapon);
+        console.log("Weapon:", weapon);
         
         // Create Thrower with the weapon to hero
         var throwerData = throwersData["thr" + weapon.valor];
@@ -116,6 +116,19 @@ var HeroEntity = me.ObjectEntity.extend({
         
         // Hero was a weapon now
         this.heroCarryWeapon = true;
+    },
+    
+    //Create weapon player position.
+    removeWeapon : function removeWeapon( weaponName )
+    {
+        // Remove hero wepon
+        me.game.remove(this.heroWeapon);
+        
+        // Remove weapon item from inventory
+        adsGame.Inventory.removeItem( weaponName );
+                
+        // Hero wasn't a weapon now
+        this.heroCarryWeapon = false;
     },
 	
 	//Update player position.
@@ -535,7 +548,7 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					item = new ItemEntity(parseInt(ads_tile_size*dataSpecialItem.coordinates.x , 10), parseInt(ads_tile_size*dataSpecialItem.coordinates.y ,10), 
 					{image: ads_item_data.imagem.replace(".png",""),
 					spritewidth: 32, spriteheight: 32}, ads_item_data);
-					me.game.add(item,5);
+					me.game.add(item,8);
 					me.game.sort();
 				}
 			});
@@ -669,7 +682,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
                         // Remove Trigger
                         me.game.remove(this);
                     }else{
-                        //The hero doesn't have the item to open chest show a message to hero
+                        //The hero hasn't  the item to open chest show a message to hero
                         if (!npcTalking){
                             this.message.show(this.msgData);
                             msgShowing = true;

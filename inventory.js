@@ -139,9 +139,25 @@
 	"removeItem" : function removeItem( slot , itemTarget ) {
 		// itemTarget have two options "drop" and "use"
 		
-		// slot variable return 'Slot0*' substr function return the last character * like 0,1 the slot dropped
-		var itemIndex = ( parseInt(slot.substr(slot.length - 1)) - 1);
+		// Variable to get the index number of inventory
+		var itemIndex = null;
 		
+		// If the varible slot of function isn't begin with "Slot" then the function is receiving the item index name
+		if ( slot.substr( 0 , 4) !== "Slot" ){
+		    // Find a index in heroItems for name index of item to remove
+            $.each(heroItems, function(i,data)
+            {
+                if (typeof data != "undefined"){                    
+                    if ( data.itemIndex == slot){
+                        itemIndex = parseInt( i , 10);
+                    }
+                }
+            });
+		}else{
+            // slot variable return 'Slot0*' substr function return the last character * like 0,1 the slot dropped
+            itemIndex = ( parseInt(slot.substr(slot.length - 1)) - 1);		    
+		}
+
 		// Make this slot available
 		if (!heroItems[itemIndex].specialItem){
 			this.slotsMap[ itemIndex ] = -1;
@@ -152,7 +168,8 @@
 		}
 		
 		// Mask the removed item with a transparent image
-		$( '.inv' + slot ).attr({
+		var htmlSlot = ".invSlot0" + ( itemIndex + 1 ).toString(); 
+		$( htmlSlot  ).attr({
 			'src' : 'content/gui/32x32Trans.png',
 			'alt' : ''});
 		
@@ -196,11 +213,9 @@
 	},
 	
 	"addItem" : function addItem( item ) {
-
-		
 		//Test if is a special item
 		if (typeof item.specialItem !== 'undefined') {
-			console.log ('Special item...', item.valor);
+			console.log ('Special item...', item);
 			// Check empty slots - if no empty slots then return -1
 			this.slotNumber = jQuery.inArray(-2, this.slotsMap);
 			

@@ -643,12 +643,36 @@ var NpcEntity = me.ObjectEntity.extend({
                         spritewidth : 32,
                         spriteheight : 32
                     }, ads_items_data[this.npcData.deixaitem]);
-                    me.game.add(item, 5);
+                    me.game.add(item, 6);
                     me.game.sort();
 
                     // Set NPC death
                     // this.setCurrentAnimation( "die" );
                     this.alive = false;
+                    
+                    // If message after die
+                    if ( typeof this.npcData.msgMorre != "undefined" ){
+                        // Message to player if npc die 
+                        var dieMsgData = {};
+                                            
+                        dieMsgData.msgImage = this.msgData.msgImage;
+                        dieMsgData.msgName = this.msgData.msgName;
+                        dieMsgData.msg = this.npcData.msgMorre;
+                        
+                        // // Show message
+                        this.message.show(dieMsgData);
+                        this.showMessage = true;
+                        msgShowing = true;
+                        
+                        var self = this;
+                        
+                        var tween = new me.Tween( { x: 1} )
+                        .to( { x: 0 }, 10000 ).onComplete(function(){ 
+                            console.log("Testing Tween..."); 
+                            self.message.hide();
+                            msgShowing = false;
+                            self.showMessage = false;}).start();
+                    }
                     
                     // Remove Thrower associated with NPC
                     me.game.remove(this.thrower);
@@ -667,22 +691,27 @@ var NpcEntity = me.ObjectEntity.extend({
                         // } )
                         // .start();
                         
-                        // Remove the NPC
-                        me.game.remove( this );
-                        
-                        // Make npc die animation 
+                        var self = this;
+ 
+                        // Make npc die animation one time only
                         var dieNPCEffect = new effect(
-                                ( this.pos.x ) , 
-                                ( this.pos.y ) , // Coordinates
-                                me.loader.getImage(this.npcData.dieEffect.name),  // Image
-                                this.npcData.dieEffect.size.width,this.npcData.dieEffect.size.height, // Size
-                                this.npcData.dieEffect.animationSheet, //Animation sheet
-                                this.npcData.dieEffect.speed, // Speed between 0 - Slowest and 60 - fastest
-                                this.npcData.dieEffect.repeat, // Repeat
-                                this.npcData.dieEffect.waitBetween // Wait between
-                                );
+                                ( self.pos.x ) , 
+                                ( self.pos.y ) , // Coordinates
+                                me.loader.getImage(self.npcData.dieEffect.name),  // Image
+                                self.npcData.dieEffect.size.width,self.npcData.dieEffect.size.height, // Size
+                                self.npcData.dieEffect.animationSheet, //Animation sheet
+                                self.npcData.dieEffect.speed, // Speed between 0 - Slowest and 60 - fastest
+                                self.npcData.dieEffect.repeat, // Repeat
+                                self.npcData.dieEffect.waitBetween, // Wait between
+                                self.npcData.dieEffect.funcOnComplete, // When animation is complete execute this code
+                                self // send parent object
+                        );
+                                
                         me.game.add(dieNPCEffect, 8);
                         me.game.sort();
+                        
+                        // Remove this NPC from game
+                        me.game.remove(self);
             }
         }
     }

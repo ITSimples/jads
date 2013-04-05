@@ -726,3 +726,22 @@ function hideMessageLayer()
           context.strokeStyle = 'red';
           context.stroke();
     }	
+    
+    
+                                    function(){
+                                    
+                                    //Hide dragon dead message
+                                    self.message.hide();
+                                    msgShowing = false;
+                                    self.showMessage = false;
+                                    
+                                    // Remove this animation
+                                    me.game.remove(this);
+                                    
+                                    // Remove Weapon
+                                    var player = adsGame.heroEntity();
+
+                                    //Remove item related with weapon
+                                    player.removeWeapon( "icestaff" );                                    
+                                    
+                                }
