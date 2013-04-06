@@ -251,28 +251,31 @@ var HeroEntity = me.ObjectEntity.extend({
 		var res = me.game.collide(this , true);
 		var self =this;
 		
+		// Keep hero position before collide
+		if( res.length == 0 ){
+                    // Save the last hero coordinates before collide with something
+                    self.posBeforeCollideX = self.pos.x;
+                    self.posBeforeCollideY = self.pos.y;
+            }
+		
 		//  --- TESTING which OBJECT --- multiple collisions
         $.each(res, function(i,data)
-        {         
-		  if (data){		      			
-    			if (data.obj.type == 'ITEM_OBJECT') {
-    				// console.log('Hero Collide with Item...' , res.obj.items_data);
-    				// this.setCurrentAnimation('stand-' + this.direction);
-    				// this.pos.x = this.posBeforeCollideX;
-    				// this.pos.y = this.posBeforeCollideY;
-    				if (!fullInventory  || data.obj.items_data.specialItem){
-    					self.vel.x = 0;
-    					self.vel.y = 0;
-    					data.obj.getItem();
-    				}else{
-    					adsGame.Inventory.show();
-    				}
-    			}
-    		}else{
-                // Save the last hero coordinates before collide with something
-                this.posBeforeCollideX = this.pos.x;
-                this.posBeforeCollideY = this.pos.y;
-            }
+        {
+    		if (data){		      			
+        			if (data.obj.type == 'ITEM_OBJECT') {
+        				// console.log('Hero Collide with Item...' , res.obj.items_data);
+        				// this.setCurrentAnimation('stand-' + this.direction);
+        				// this.pos.x = this.posBeforeCollideX;
+        				// this.pos.y = this.posBeforeCollideY;
+        				if (!fullInventory  || data.obj.items_data.specialItem){
+        					self.vel.x = 0;
+        					self.vel.y = 0;
+        					data.obj.getItem();
+        				}else{
+        					adsGame.Inventory.show();
+        				}
+        			}
+    		}
 		});
 
 		// check & update player movement
@@ -358,7 +361,6 @@ var ItemEntity = me.CollectableEntity.extend({
 	{
 		//When player collide with item Stop player and ask question
 		var player = adsGame.heroEntity();
-
 		
 		// If the answer is correct then update HUD and remove item
 		heroAnswer = showQuestionLayer(this.items_data , this.rndQtnData);

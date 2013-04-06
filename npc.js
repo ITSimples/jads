@@ -634,15 +634,21 @@ var NpcEntity = me.ObjectEntity.extend({
                 // If true NPC dies
                 if (this.healthBar.update() ) {
                     // If is a mission item then set as special item to go the rigth slot (Map items)
-                    if (ads_items_data[this.npcData.deixaitem].categoria == 'itemMissao'){
-                        ads_items_data[this.npcData.deixaitem].specialItem = true;
+                    if (ads_items_data[this.npcData.deixaitem.nome].categoria == 'itemMissao'){
+                        ads_items_data[this.npcData.deixaitem.nome].specialItem = true;
                     }
+                    
+                    // Set item to drop as special item and where remove points and quantity
+                    ads_items_data[this.npcData.deixaitem.nome].specialItem = true;
+                    ads_items_data[this.npcData.deixaitem.nome].remover = this.npcData.deixaitem.remover;
+                    ads_items_data[this.npcData.deixaitem.nome].quantidade = this.npcData.deixaitem.quantidade;
+                    
                     // when defeat leave item
                     var item = new ItemEntity( this.pos.x , this.pos.y , {
-                        image : this.npcData.deixaitem,
+                        image : this.npcData.deixaitem.nome,
                         spritewidth : 32,
                         spriteheight : 32
-                    }, ads_items_data[this.npcData.deixaitem]);
+                    }, ads_items_data[this.npcData.deixaitem.nome]);
                     me.game.add(item, 6);
                     me.game.sort();
 

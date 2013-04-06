@@ -134,8 +134,7 @@ adsGame.HealthBar = Object.extend ({
          
          context.beginPath();
             var width = this.maxWidth * self.health / this.maxHealth;
-            
-            console.log("this.height:" , this.height);
+
             context.rect( this.pos.x , this.pos.y , width , this.maxHeight);
             context.fillStyle = "red";
             context.fill();
