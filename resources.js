@@ -78,7 +78,7 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [5,5];
+var startHero = [37,17];
 
 var DEBUG_MODE = true;
 
@@ -186,10 +186,11 @@ var ads_resources =
 	// {name: "e_female01",	type: "image",	src: ads_sprites_path + "e_female01.png"},
 	// {name: "e_male01",	type: "image",	src: ads_sprites_path + "e_male01.png"},
 	// {name: "e_male02",	type: "image",	src: ads_sprites_path + "e_male02.png"},
-	// {name: "e_male03",	type: "image",	src: ads_sprites_path + "e_male03.png"},
+	{name: "e_male03", type: "image",  src: ads_sprites_path + "e_male03.png"},
+	
 	// {name: "eye",		type: "image",	src: ads_sprites_path + "eye.png"},
 	{name: "f_female01",	type: "image",	src: ads_sprites_path + "f_female01.png"},
-	// {name: "f_female02",	type: "image",	src: ads_sprites_path + "f_female02.png"},
+	{name: "f_female02",	type: "image",	src: ads_sprites_path + "f_female02.png"},
 	// {name: "f_male01",	type: "image",	src: ads_sprites_path + "f_male01.png"},
 	// {name: "f_male02",	type: "image",	src: ads_sprites_path + "f_male02.png"},
 	{name: "f_male03",	type: "image",	src: ads_sprites_path + "f_male03.png"},
