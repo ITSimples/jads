@@ -869,8 +869,19 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		// disable gravity
 		this.gravity = 0;
 
+        // If thrower is animated in all directions
+        if ( this.throwerData.animacoes.animaTodasPosicoes) {
+            this.addAnimation("right"  ,  this.throwerData.animacoes.direita );
+            this.addAnimation("left"    ,  this.throwerData.animacoes.esquerda );
+            this.addAnimation("up"     ,  this.throwerData.animacoes.cima );
+            this.addAnimation("down",  this.throwerData.animacoes.baixo );
+            
+            console.log("Set animations to NPC..." , this.throwerData.configuracoes.image);
+        }
+        
 		this.addAnimation("default", this.throwerData.animacoes.parado );
 		this.addAnimation("throw", this.throwerData.animacoes.animado );
+		
 		this.setCurrentAnimation("default");
 		
 		this.animationspeed = me.sys.fps / (me.sys.fps / this.throwerData.animacoes.velocidade);
@@ -941,8 +952,12 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
     },
     
     throwProjectil: function () {
-      this.setCurrentAnimation("throw", "default");
-	  
+       
+       // If animation was no direction else another class control that ( NPC for example)
+       if ( !this.throwerData.animacoes.animaTodasPosicoes) {
+           this.setCurrentAnimation("throw", "default");
+       }
+      	  
 	  // DEBUG
 	  // If distancia exists then verify distance between thrower and hero
 	  if (typeof(this.throwerData.distancia) !== 'undefined' ){

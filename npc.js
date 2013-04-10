@@ -250,26 +250,35 @@ var NpcEntity = me.ObjectEntity.extend({
             angleToHero = this.angleTo(heroAux);
             // console.log("this.angleTo hero:", angleToHero * 10);
 
+
             // But this values on Json to work with any NPC that attack
+             // TODO  - Make only when change direction to improve velocity
             switch (this.direction) {
                 case "left":
-                    addToPosX = -22;
-                    addToPosY = 22;
+                    addToPosX = this.npcData.posicaoAtirador.left[0];
+                    addToPosY = this.npcData.posicaoAtirador.left[1];
                     break;
                 case "right":
-                    addToPosX = 44;
-                    addToPosY = 18;
+                    addToPosX = this.npcData.posicaoAtirador.right[0];
+                    addToPosY = this.npcData.posicaoAtirador.right[1];
                     break;
                 case "up":
-                    addToPosX = 5;
-                    addToPosY = -22;
+                    addToPosX = this.npcData.posicaoAtirador.up[0];
+                    addToPosY = this.npcData.posicaoAtirador.up[1];
                     break;
                 case "down":
-                    addToPosX = 5;
-                    addToPosY = 30;
+                    addToPosX = this.npcData.posicaoAtirador.down[0];
+                    addToPosY = this.npcData.posicaoAtirador.down[1];
                     break;
 
             }
+            
+            
+            // TODO  - Make only when change direction to improve velocity
+            if ( this.thrower.throwerData.animacoes.animaTodasPosicoes ) {
+                    this.thrower.setCurrentAnimation(this.direction.toString(), "default");
+            }
+           
             this.thrower.pos.x = (this.pos.x + addToPosX);
             this.thrower.pos.y = (this.pos.y + addToPosY);
             // console.log("NPC direction:", this.direction);
@@ -417,7 +426,7 @@ var NpcEntity = me.ObjectEntity.extend({
                 this.accel.x = this.accel.y = this.npcData.velocidade;
             }
         }
-
+        
         this.updateMovement();
         this.parent(this);
 
@@ -677,7 +686,10 @@ var NpcEntity = me.ObjectEntity.extend({
                             console.log("Testing Tween..."); 
                             self.message.hide();
                             msgShowing = false;
-                            self.showMessage = false;}).start();
+                            self.showMessage = false;
+                            var player = adsGame.heroEntity();
+                            player.removeWeapon( 'icestaff' );
+                        }).start();
                     }
                     
                     // Remove Thrower associated with NPC
