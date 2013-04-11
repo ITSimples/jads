@@ -275,6 +275,12 @@ var HeroEntity = me.ObjectEntity.extend({
         					adsGame.Inventory.show();
         				}
         			}
+        			if (data.obj.type == 'NPC_OBJECT') {
+                         // NPC collide with hero - Don't change NPC direction otherwise NPC and hero stand back to back
+                         // If NPC collide with hero and have opposite directions then NPC don't change his direction
+                         if ( data.obj.heroChangeDirection )
+                            data.obj.changeNPCDirection = false;
+        			}
     		}
 		});
 

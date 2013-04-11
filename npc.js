@@ -145,6 +145,11 @@ var NpcEntity = me.ObjectEntity.extend({
 
         // Check if event talk is happening at the moment
         this.talkEventHappening = false;
+        
+        //Testing if NPC should change is direction when collide with hero
+        this.changeNPCDirection = true; 
+        // To test if is hero that collide with npc or the opposite
+        this.heroChangeDirection = false;
 
         this.npcEvents = this.npcData.evento;
 
@@ -232,17 +237,9 @@ var NpcEntity = me.ObjectEntity.extend({
             this.direction = this.destY < this.pos.y ? 'up' : 'down';
         }
     },
-
-    //Update npc position.
-    update : function() {
-        
-        // If NPC is death but is in the map don't update movement
-        if (!this.alive) {
-            return;
-        }
-        // Update thrower position follow NPC
-        if (this.npcData.ataca) {
-            // thrower position depends on NPC direction
+    
+     updateThrower : function updateThrower( direction ) {
+              // thrower position depends on NPC direction
             var addToPosX;
             var addToPosY;
 
@@ -250,10 +247,9 @@ var NpcEntity = me.ObjectEntity.extend({
             angleToHero = this.angleTo(heroAux);
             // console.log("this.angleTo hero:", angleToHero * 10);
 
-
             // But this values on Json to work with any NPC that attack
              // TODO  - Make only when change direction to improve velocity
-            switch (this.direction) {
+            switch ( direction ) {
                 case "left":
                     addToPosX = this.npcData.posicaoAtirador.left[0];
                     addToPosY = this.npcData.posicaoAtirador.left[1];
@@ -272,17 +268,26 @@ var NpcEntity = me.ObjectEntity.extend({
                     break;
 
             }
-            
-            
+                       
             // TODO  - Make only when change direction to improve velocity
             if ( this.thrower.throwerData.animacoes.animaTodasPosicoes ) {
-                    this.thrower.setCurrentAnimation(this.direction.toString(), "default");
+                    this.thrower.setCurrentAnimation( direction.toString(), "default");
             }
            
             this.thrower.pos.x = (this.pos.x + addToPosX);
             this.thrower.pos.y = (this.pos.y + addToPosY);
-            // console.log("NPC direction:", this.direction);
+     },
 
+    //Update npc position.
+    update : function() {
+        
+        // If NPC is death but is in the map don't update movement
+        if (!this.alive) {
+            return;
+        }
+        // Update thrower position follow NPC
+        if (this.npcData.ataca) {
+            this.updateThrower( this.direction );
         }
 
         // Check collision
@@ -290,23 +295,72 @@ var NpcEntity = me.ObjectEntity.extend({
         var res = me.game.collide(this);
         if (res) {
             if (res.obj.name == 'hero' && !this.eventHappening) {
-                // this.setCurrentAnimation( 'stand-' + this.direction );
-                this.message.show(this.msgData);
+                // TODO - Change NPC direction to opposite side of the hero
+                
+                // If json falaComHeroi == true then talk to hero if not skip this step
+                if (this.npcData.falaComHeroi){
+                    this.message.show(this.msgData);
+                }
+                
                 this.showMessage = true;
                 msgShowing = true;
+                
                 //Stop npc when he talk with hero
-                this.setCurrentAnimation("stand-" + this.direction);
+                // Change NPC direction to opposite side of the hero if hero collide with NPC
+                // If NPC collide with hero don't change that otherwise they are on his back
+               var auxNPCDirection = this.direction;
+                                    
+                if ( this.changeNPCDirection ){
+                    // Get hero direction
+                    var heroAux = adsGame.heroEntity();
+                    
+                    // Opposite direction of hero
+                    if ( heroAux.direction == "left" )
+                        auxNPCDirection = "right";
+                    else if (heroAux.direction == "right")
+                        auxNPCDirection = "left";
+                    else if ( heroAux.direction == "up" )
+                        auxNPCDirection = "down";
+                    else
+                        auxNPCDirection = "up";
+                    
+                    // If NPC have a weapon change this direction and position
+                    if (this.npcData.ataca){
+                        // Update thrower direction and position
+                        this.updateThrower( auxNPCDirection );
+                    }
+                    
+                    // To test if is hero that collide with npc or the opposite
+                    this.heroChangeDirection = false;
+                }
+                
+                // New NPC animation stand opposite direction of the hero
+                this.setCurrentAnimation("stand-" + auxNPCDirection);
+                    
                 this.accel.x = this.accel.y = 0;
                 this.vel.x = this.vel.y = 0;
+                
+                console.log("You collide with an HERO...");
+
             }
         } else if (this.showMessage && !this.talkEventHappening) {
-            this.message.hide();
+            // If json falaComHeroi == true then talk to hero if not skip this step
+            if (this.npcData.falaComHeroi){
+                this.message.hide();
+            }
+            
             msgShowing = false;
             this.showMessage = false;
+            
             //Move npc when he stop talk with hero if is not stoped yet
             if (!this.stop) {
                 this.accel.x = this.accel.y = this.npcData.velocidade;
                 this.setCurrentAnimation(this.direction);
+                
+                // Reset to the next collision
+                this.changeNPCDirection = true;
+                // To test if is hero that collide with npc or the opposite
+                this.heroChangeDirection = true;
             }
         }
 
@@ -546,6 +600,7 @@ var NpcEntity = me.ObjectEntity.extend({
             case "talk":
                 //**** CHANGE THIS FOR COORDINATES INSTEAD PATH
                 // if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
+                // TODO - Review npc talk event how it's trigged
                 if ((this.currentEvent.coordenadas[0] == Math.round(this.pos.x / ads_tile_size) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y / ads_tile_size)) || adsGame.prisonDoors.prisonDoorTrigger[this.npcData.prisao.numero]) {// to talk to prisoner if hero pull the trigger
                     if (this.npcTalkEvent()) {
                         // event talking is happening
