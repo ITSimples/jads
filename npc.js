@@ -339,9 +339,6 @@ var NpcEntity = me.ObjectEntity.extend({
                     
                 this.accel.x = this.accel.y = 0;
                 this.vel.x = this.vel.y = 0;
-                
-                console.log("You collide with an HERO...");
-
             }
         } else if (this.showMessage && !this.talkEventHappening) {
             // If json falaComHeroi == true then talk to hero if not skip this step
@@ -698,14 +695,17 @@ var NpcEntity = me.ObjectEntity.extend({
                 // If true NPC dies
                 if (this.healthBar.update() ) {
                     // If is a mission item then set as special item to go the rigth slot (Map items)
+                    console.log("ads_items_data[this.npcData.deixaitem.nome].categoria:", ads_items_data[this.npcData.deixaitem.nome].categoria);
                     if (ads_items_data[this.npcData.deixaitem.nome].categoria == 'itemMissao'){
                         ads_items_data[this.npcData.deixaitem.nome].specialItem = true;
+                        ads_items_data[this.npcData.deixaitem.nome].remover = this.npcData.deixaitem.remover;
+                        ads_items_data[this.npcData.deixaitem.nome].quantidade = this.npcData.deixaitem.quantidade;
+                    }else{
+                        ads_items_data[this.npcData.deixaitem.nome].specialItem = false;
                     }
-                    
+                    console.log("ads_items_data[this.npcData.deixaitem.nome].specialItem:" , ads_items_data[this.npcData.deixaitem.nome].specialItem);
                     // Set item to drop as special item and where remove points and quantity
-                    ads_items_data[this.npcData.deixaitem.nome].specialItem = true;
-                    ads_items_data[this.npcData.deixaitem.nome].remover = this.npcData.deixaitem.remover;
-                    ads_items_data[this.npcData.deixaitem.nome].quantidade = this.npcData.deixaitem.quantidade;
+
                     
                     // when defeat leave item
                     var item = new ItemEntity( this.pos.x , this.pos.y , {

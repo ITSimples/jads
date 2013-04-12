@@ -316,7 +316,7 @@ var ItemEntity = me.CollectableEntity.extend({
 		// Item data
 		this.items_data = items_data;
 		
-		if (typeof this.items_data.specialItem !== 'undefined') {
+		if (typeof this.items_data.specialItem !== 'undefined' && this.items_data.specialItem) {
 			this.specialItem = true;
 		}else{
 			this.specialItem = false;
@@ -595,6 +595,9 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		//check first time pull the trigger
 		this.oneTime = false;
 		
+		// Check if requirements are satisfied to pull the trigger default is true
+		this.pullTrigger = true;
+		
 		//Get data from trigger new NPC
 		if(this.type == "NEW_NPC"){
 		    //Get data that only exists on NEW_NPC trigger
@@ -700,45 +703,85 @@ var TriggerEntity = me.InvisibleEntity.extend({
 				
 				// If trigger is a door object
 				if (this.type == 'DOOR_OBJECT'){
-				    // console.log("Solution:" , this.solution);
-				    if (this.checkSolution){
-					
-					  
-						// // Open the door
-						// this.doorLayer.clearTile(this.targX,this.targY);
-						// this.collisionLayer.clearTile(this.targX,this.targY);
-
-						// //Remove this object
-						// me.game.remove(this);
-						
-						var doorCoord = new Array();
-						doorCoord[0] = this.targX;
-						doorCoord[1] = this.targY;
-						
-						adsGame.prisonDoors.remove(doorCoord , "openDoor", this.triggerData.animation);
-						
-						//portaPrisao -- Set door open to the prison number
-						// adsGame.prisonDoors.prisonBreak[this.triggerData.portaPrisao] = true;
-						adsGame.prisonDoors.openPrisonDoor( this.triggerData.portaPrisao );
-						
-						// console.log("prisonBreak Hero: " , adsGame.prisonDoors.getPrisonDoorState( this.triggerData.portaPrisao ) );
-						
-						// Remove Trigger
-						me.game.remove(this);
-						
-						// **** TODO - REMOVE KEY  FROM LIST OF ITEMS
-					}else{
-						// console.log("Hero don't have the key. npcTalking:" , npcTalking);
-						
-						if (!npcTalking){
-							this.message.show(this.msgData);
-							msgShowing = true;
-						}
-					}	
-					
-					// Set if NPC prisoner talk to hero to avoid to talk again on npc.js
-					adsGame.prisonDoors.prisonDoorTrigger[this.triggerData.portaPrisao] = true;
-					
+				    // Check solution only if requirement does't exist or is satisfied
+				    if ( typeof this.triggerData.requirement !== "undefined" ){
+                        // prepare data to message box
+                        var msgDataReq = {};
+                        msgDataReq.msgImage = 'sprites/information.png' ;
+                        msgDataReq.msgName = "Mensagem:";
+                        msgDataReq.msg = this.triggerData.requirementMsg; 
+                        
+				        if (typeof this.triggerData.requirement.salvarPrisao !== "undefined"){
+				            var self = this;
+				            // var reqSavePrisionerLenght = Object.keys( this.triggerData.requirement.salvarPrisao ).length ;
+				            var addAnd ="";
+				            var isFree = false;
+				            var allFree = true;
+				            
+				            $.each( this.triggerData.requirement.salvarPrisao, function( i , data ) {
+				                // TODO - Must check if hero save the prisoners before				                
+				                isFree = adsGame.prisonDoors.getPrisonDoorState( adsNpcData[data].prisao.numero );
+				                
+				                // Not free
+				                if ( !isFree ) { 
+				                    // One prisoner is not free opss
+                                    allFree = false;
+                                }
+				            });
+				            
+				            // If not all prisoners are free than show message
+				            if ( !allFree ){
+                                if (!npcTalking){
+                                    this.message.show(msgDataReq);
+                                    msgShowing = true;
+                                }
+				            }
+				            
+				            // If all prisioner not free then don't pull the trigger otherwise pull the trigger
+				            this.pullTrigger = allFree;
+				        }
+				    }
+				    
+				    if (this.pullTrigger){
+    				    if (this.checkSolution){
+    						// // Open the door
+    						// this.doorLayer.clearTile(this.targX,this.targY);
+    						// this.collisionLayer.clearTile(this.targX,this.targY);
+    
+    						// //Remove this object
+    						// me.game.remove(this);
+    						
+    						var doorCoord = new Array();
+    						doorCoord[0] = this.targX;
+    						doorCoord[1] = this.targY;
+    						
+    						adsGame.prisonDoors.remove(doorCoord , "openDoor", this.triggerData.animation);
+    						
+    						//portaPrisao -- Set door open to the prison number
+    						// adsGame.prisonDoors.prisonBreak[this.triggerData.portaPrisao] = true;
+    						adsGame.prisonDoors.openPrisonDoor( this.triggerData.portaPrisao );
+    						
+    						// console.log("prisonBreak Hero: " , adsGame.prisonDoors.getPrisonDoorState( this.triggerData.portaPrisao ) );
+    						
+    						
+    						// Remove Trigger
+    						me.game.remove(this);
+    						
+    						// **** TODO - REMOVE KEY  FROM LIST OF ITEMS
+    					}else{
+    						// console.log("Hero don't have the key. npcTalking:" , npcTalking);
+    						
+    						if (!npcTalking){
+    							this.message.show(this.msgData);
+    							msgShowing = true;
+    						}
+    					} // End checkSolution
+    					
+    					// Set if NPC prisoner talk to hero to avoid to talk again on npc.js
+                        adsGame.prisonDoors.prisonDoorTrigger[this.triggerData.portaPrisao] = true;
+                        
+					} // End pullTrigger check	
+	
 				} // End door object
 				
 				// If trigger is a portal object

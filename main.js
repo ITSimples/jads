@@ -55,7 +55,7 @@ var adsGame =
 		
 		// ************ Configura��es de DEBUG *************
 		//Ver caixa de colis�o
-		me.debug.renderHitBox = true;
+		me.debug.renderHitBox = DEBUG_MODE;
 		
 		//Create message box object
 		// adsGame.message = new adsGame.message();
