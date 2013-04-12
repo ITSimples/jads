@@ -63,8 +63,15 @@ var NpcEntity = me.ObjectEntity.extend({
         //Set animation speed
         this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 
-        // adjust the bounding box
-        // this.updateColRect(4,24,20,23);
+        if (typeof this.npcData.areaColisao !== "undefined"){
+             var xOffset = this.npcData.areaColisao.x ;   // x offset (-1 don't change the with)
+             var widthHitBox = this.npcData.areaColisao.w ; // width of the hit box
+             var yOffset = this.npcData.areaColisao.y ;  // y offset (-1 don't change the height)
+             var heightHitBox = this.npcData.areaColisao.h ; // height of the hit box
+             
+             // adjust the bounding box
+            this.updateColRect(xOffset,widthHitBox,yOffset,heightHitBox);
+        }
 
         // adjust the bounding box
         // this.updateColRect(0,32,19,20);
