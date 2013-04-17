@@ -68,9 +68,6 @@
 }
 
 #sound {
-	width: 32px;
-	height: 32px;
-	background:url('content/gui/sound.png') no-repeat;
 	z-index:0;
 	position: absolute;
 	top: 20px;

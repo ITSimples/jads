@@ -150,6 +150,9 @@ var showingQuestion = false;
 // If Question box is showing
 var fullInventory = false; 
 
+// Var background music
+var backgroundMusic = true;
+
 // *********** MESSAGE SECTION ***********
 // adsGame.messageShowing = false; 
 
@@ -175,7 +178,7 @@ var ads_resources =
 	{name: "initialscreen",type: "image",src: ads_images_path + "initialscreen.png"},
 	
 	// ---- Audio ----
-	//{name: "mfh", type: "audio",  src: "content/music/", channel: 1},
+	{name: "cornfields", type: "audio",  src: "content/music/", channel: 1},
 	
 	// ---- Enemies ----
 	{name: "dragon_lvl_01", type: "image",  src: ads_sprites_path + "dragon_lvl_01.png"},

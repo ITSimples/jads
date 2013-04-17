@@ -143,9 +143,6 @@ var adsGame =
 		
 		// Debug Mode
 		me.state.change(me.state.PLAY);
-		
-
-		
 	}
 }; // END ****  adsGame *******
 

@@ -46,7 +46,7 @@ var TileScreen = me.ScreenObject.extend(
 		}
 				
 		// Provisório até fazer menu (Para entra no jogo)
-        me.input.bindKey(me.input.KEY.ENTER, "enter", true);
+        me.input.bindKey(me.input.KEY.ENTER, "enter", true);      
 
 	},
 	// update function
@@ -126,6 +126,23 @@ var PlayScreen = me.ScreenObject.extend(
 		//Config mouse cursor over inventory div with jquery
 		$('#inventoryLayer').css('cursor', "url('content/gui/inv_cur.gif'),pointer");
 		// me.loader.getImage("sparkle")
+		
+		// Add background music
+		// play the audio track
+        me.audio.playTrack("cornfields");
+        
+        // Enable/Disable music
+        $("#sound_button").click(function() {
+          if ( backgroundMusic ){
+            $("#sound_button").attr({ src: "content/gui/no_sound.png" });
+            me.audio.pauseTrack();
+            backgroundMusic = false;
+          }else{
+            $("#sound_button").attr({ src: "content/gui/sound.png" });
+            me.audio.resumeTrack();
+            backgroundMusic = true;
+          }
+        });
 	},
 
 	update: function () 
@@ -136,6 +153,8 @@ var PlayScreen = me.ScreenObject.extend(
 	onDestroyEvent: function()
 	{
 		me.game.disableHUD();
+		// stop the current audio track
+        me.audio.stopTrack();
 	}
 
 });
