@@ -1,8 +1,9 @@
 Code authors
 ************
 
-This program was written by the following people:
- - Francisco Fernandes
+This program was written and developed by the following people:
+- Francisco Fernandes
+- Carla Ventura
 
 
 Libraries used
@@ -111,8 +112,6 @@ Resources REFMAP used in game:
 -villain_face.png
 -wolf.png
 
-
-
 medievil stuff tileset pack by benja6678 (http://sandbox.yoyogames.com/users/benja6678)
 download from http://sandbox.yoyogames.com/resources?cat_id=3
 
@@ -145,3 +144,9 @@ Boysano :
 fire.png
 
 campfire02 - Credit goes to Zabin and Jetrel from OGA (http://opengameart.org/content/camp-fire-animation-for-rpgs-finished)
+
+Level Editor
+------------
+
+Use [Tiled-QT](http://www.mapeditor.org/) to edit the maps. Version 0.9 was used
+to run the automapping rules, which as of this writing is still in beta.

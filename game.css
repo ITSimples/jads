@@ -12,6 +12,12 @@
 	margin-right: auto ;
 }
 
+#adsInformation{
+    position: relative;
+    top: 10 px; /* Top from border*/
+    float:left;
+}
+
 #gameBorder {
     position: relative;
     width: 880px;

@@ -1,19 +1,25 @@
-/*
-* Aventura do Saber , a educational fantasy action RPG
-* Copyright (C) 2012  Francisco Fernandes - ITSimples.com
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*This software is released under MIT License. Texts for  license are listed below:
+
+ * Aventura do Saber , a educational fantasy action RPG
+ * Copyright (c) 2012-2013, ITSimples Games
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 */
 
 /*
@@ -157,6 +163,9 @@ var NpcEntity = me.ObjectEntity.extend({
         this.changeNPCDirection = true; 
         // To test if is hero that collide with npc or the opposite
         this.heroChangeDirection = false;
+        
+        // Save initial Z index for this object
+        this.initialZIndex = this.z;
 
         this.npcEvents = this.npcData.evento;
 
@@ -267,18 +276,25 @@ var NpcEntity = me.ObjectEntity.extend({
                     break;
                 case "up":
                     addToPosX = this.npcData.posicaoAtirador.up[0];
-                    addToPosY = this.npcData.posicaoAtirador.up[1];
+                    addToPosY = this.npcData.posicaoAtirador.up[1];                   
                     break;
                 case "down":
                     addToPosX = this.npcData.posicaoAtirador.down[0];
-                    addToPosY = this.npcData.posicaoAtirador.down[1];
+                    addToPosY = this.npcData.posicaoAtirador.down[1];                    
                     break;
 
             }
                        
             // TODO  - Make only when change direction to improve velocity
             if ( this.thrower.throwerData.animacoes.animaTodasPosicoes ) {
-                    this.thrower.setCurrentAnimation( direction.toString(), "default");
+                 // Change Z index when NPC UP
+                 if ( direction == "up"){ 
+                     this.thrower.z = this.z - 1;
+                }else{
+                     this.thrower.z = this.z + 1 ;
+                }
+                     
+                 this.thrower.setCurrentAnimation( direction.toString() );                    
             }
            
             this.thrower.pos.x = (this.pos.x + addToPosX);

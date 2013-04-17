@@ -1,8 +1,12 @@
-This software is released under a dual license: GNU General Public License
-Version 3, or The MIT License. Texts for both licenses are listed below.
+
+========================
+Software and source code
+========================
+
+This software is released under a dual license: MIT License. Texts for  license are listed below.
 
  * Aventura do Saber , a educational fantasy action RPG
- * Copyright (C) 2012  Francisco Fernandes - ITSimples.com
+ * Copyright (C) 2012  ITSimples Games
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -23,40 +27,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-========================
-Software and source code
-========================
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-  For details on authorship, see AUTHORS.txt
-
-
 ========================================
 Artwork, music, and other assets/content
 ========================================
-
-Artwork, music, and other non-software assets/content in this
-repository are dual licensed under the Creative Commons
-Attribution-ShareAlike 3.0 Unported and the GNU General Public License
-as published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-You should have received a copy of the GNU General Public License
-along with this work.  If not, see <http://www.gnu.org/licenses/>.
-Likewise, you should have received a copy of the Creative Commons
-Attribution-ShareAlike 3.0 Unported legalcode with this work.  If not,
-see <http://creativecommons.org/licenses/by-sa/3.0/>.
 
 For details on authorship of various resources, see AUTHORS.txt

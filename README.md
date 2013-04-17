@@ -1,30 +1,24 @@
-Aventura do Saber
------------------
+Aventura do Saber (JADS)
+-------------------------
 
-Game by ITSimples - Francisco Fernandes
+Copyright (c) 2012-2013, ITSimples Games
+
+License
+------------
+
+JADS is licensed under the [MIT License](http://www.opensource.org/licenses/mit-license.php)
+
+For asset license information, please see AUTHORS.txt.
 
 Getting
 ------------
 
 $ git clone https://github.com/ITSimples/jads.git
 
-
-License
-------------
-
-This code is released to the public under a dual license. The full license texts
-are available as follows:
-
-* [GPL V3](gpl-3.0.txt)
-* [EXPAT (aka MIT)](COPYING.txt)
-
-For asset license information, please see AUTHORS.txt.
-
-
-Game Information
-----------------
+About JADS
+-------------------------
 PT:
-Este jogo é um RPG ( roleplaying game) com uma característica muito própria para o 
+Este jogo é um RPG ( roleplaying game) com uma característica muito própria, para o 
 jogador conseguir os seus objectivos terá que passar vários desafios tais como perguntas 
 ou resolver problemas. Ou seja é um RPG didáctico.
 
@@ -40,11 +34,9 @@ Requirements:
 
 * A browser supporting HTML5 canvas; Chromium, Firefox, Opera, Safari, ...
 
-GAME URL : http://jads.itsimples.pt/
+GAME URL : [Game URL 1](http://jads.itsimples.pt/) or [Game URL 1](http://itsimples.com/jads)
 
-
-Level Editor
-------------
-
-Use [Tiled-QT](http://www.mapeditor.org/) to edit the maps. Version 0.9 was used
-to run the automapping rules, which as of this writing is still in beta.
+Questions, need help ?
+-------------------------------------------------------------------------------
+You can visit us on [Our website](http://www.itsimples.com/),
+For any other questions, feel free to send us an [email](mailto:geral@itsimples.com).
