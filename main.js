@@ -139,10 +139,10 @@ var adsGame =
         me.input.bindMouse(me.input.mouse.LEFT, me.input.KEY.X);
 		
 		// Iniciar o jogo com o Menu
-        //me.state.change(me.state.MENU);
+        me.state.change(me.state.MENU);
 		
 		// Debug Mode
-		me.state.change(me.state.PLAY);
+		//me.state.change(me.state.PLAY);
 	}
 }; // END ****  adsGame *******
 

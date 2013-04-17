@@ -36,6 +36,9 @@ var TileScreen = me.ScreenObject.extend(
 		// Configurar fontes usadas no ecrã inicial - fonte,tamanho,cor,alinhamento
 		this.txtMedievalSharp = new me.Font("MedievalSharp",18,"white","right");
 		this.txtDevonshire = new me.Font("Devonshire",32,"red","left");
+		
+		// ----- Set DIV width to fit the inventory, message and question box
+        $('#adsGame').css("width", ads_width);
 	},
 	
 	onResetEvent: function()
@@ -46,8 +49,24 @@ var TileScreen = me.ScreenObject.extend(
 		}
 				
 		// Provisório até fazer menu (Para entra no jogo)
-        me.input.bindKey(me.input.KEY.ENTER, "enter", true);      
-
+        me.input.bindKey(me.input.KEY.ENTER, "enter", true);
+        
+        // Add background music
+        // play the audio track
+        me.audio.playTrack("cornfields");
+        
+        // Enable/Disable music
+        $("#sound_button").click(function() {
+          if ( backgroundMusic ){
+            $("#sound_button").attr({ src: "content/gui/no_sound.png" });
+            me.audio.pauseTrack();
+            backgroundMusic = false;
+          }else{
+            $("#sound_button").attr({ src: "content/gui/sound.png" });
+            me.audio.resumeTrack();
+            backgroundMusic = true;
+          }
+        });  
 	},
 	// update function
     update: function() {
@@ -60,8 +79,7 @@ var TileScreen = me.ScreenObject.extend(
 	draw: function(context)
 	{		
 		context.drawImage(this.title,0,0);
-		this.txtDevonshire.draw(context,"<ENTER> Inicio do jogo...",400,195);
-		this.txtMedievalSharp.draw(context,"Jogo desenvolvido por ITSimples.com ",450,590);
+		this.txtDevonshire.draw(context,"<ENTER> Iniciar jogo...",400,150);
 	},
 });
 
@@ -79,9 +97,6 @@ var PlayScreen = me.ScreenObject.extend(
 	{	
 		// Ler o primeiro nível
 		me.levelDirector.loadLevel("map01");
-		
-		// ----- Set DIV width to fit the inventory, message and question box
-		$('#adsGame').css("width", ads_width);
 		
 		// Show inventory when game start
 		adsGame.Inventory.show();
@@ -126,23 +141,6 @@ var PlayScreen = me.ScreenObject.extend(
 		//Config mouse cursor over inventory div with jquery
 		$('#inventoryLayer').css('cursor', "url('content/gui/inv_cur.gif'),pointer");
 		// me.loader.getImage("sparkle")
-		
-		// Add background music
-		// play the audio track
-        me.audio.playTrack("cornfields");
-        
-        // Enable/Disable music
-        $("#sound_button").click(function() {
-          if ( backgroundMusic ){
-            $("#sound_button").attr({ src: "content/gui/no_sound.png" });
-            me.audio.pauseTrack();
-            backgroundMusic = false;
-          }else{
-            $("#sound_button").attr({ src: "content/gui/sound.png" });
-            me.audio.resumeTrack();
-            backgroundMusic = true;
-          }
-        });
 	},
 
 	update: function () 
