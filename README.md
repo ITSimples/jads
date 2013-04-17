@@ -34,7 +34,7 @@ Requirements:
 
 * A browser supporting HTML5 canvas; Chromium, Firefox, Opera, Safari, ...
 
-GAME URL : [Game URL 1](http://jads.itsimples.pt/) or [Game URL 1](http://itsimples.com/jads)
+GAME URL : [Game URL 1](http://jads.itsimples.pt/) or [Game URL 2](http://itsimples.com/jads)
 
 Questions, need help ?
 -------------------------------------------------------------------------------

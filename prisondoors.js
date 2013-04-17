@@ -80,7 +80,7 @@ SOFTWARE.
 									me.loader.getImage("explosion_64x64"),	// Image
 									64, 64, // Size
 									[0,1,2,3,4,5,6,7,8,9,10,11,12], //Animation sheet
-									30, // Speed between 0 - Slowest and 60 - fastest
+									60, // Speed between 0 - Slowest and 60 - fastest
 									false, // Repeat
 									0 // Wait between
 									);

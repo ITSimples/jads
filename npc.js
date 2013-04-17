@@ -323,11 +323,10 @@ var NpcEntity = me.ObjectEntity.extend({
                 // If json falaComHeroi == true then talk to hero if not skip this step
                 if (this.npcData.falaComHeroi){
                     this.message.show(this.msgData);
-                }
-                
+
+                }               
                 this.showMessage = true;
                 msgShowing = true;
-                
                 //Stop npc when he talk with hero
                 // Change NPC direction to opposite side of the hero if hero collide with NPC
                 // If NPC collide with hero don't change that otherwise they are on his back
@@ -554,11 +553,11 @@ var NpcEntity = me.ObjectEntity.extend({
 
             // Event is not happening anymore
             this.talkEventHappening = false;
-
+    
             return false;
             // Event end...~~
-        } else {
-            return true;
+        } else {                
+            return true;    
             // Event happening
         }
     }, // end npcTalkEvent

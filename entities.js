@@ -845,7 +845,13 @@ var TriggerEntity = me.InvisibleEntity.extend({
 			{
 					this.message.hide();	
 			}
-			msgShowing = false;
+			
+			if (!npcTalking)
+            {
+                    msgShowing = false;
+            }
+			
+			
 			// Reset check for items
 			this.isChecked = false;
 			
