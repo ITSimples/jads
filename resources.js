@@ -84,7 +84,7 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [5,5];
+var startHero = [27,24];
 
 var DEBUG_MODE = false;
 

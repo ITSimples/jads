@@ -81,3 +81,94 @@ adsGame.message =  Object.extend({
 	}
 });
 
+adsGame.Shop =  Object.extend({
+    "init" : function init() {
+        this.showingShop = false;
+        
+        this.buyItem = -1;
+    },
+    
+    "show" : function show ( npcObject ){
+        if ( !this.showingShop ){
+            var $itemsBoxHtml = ('<img class="npcImage" src="" alt="">' + 
+                                '<div class="shopName"></div>' +
+                                '<div class="npcInfo"></div>' + 
+                                '<div class="buy1"></div>' + 
+                                '<div class="buy2"></div>' +
+                                '<div class="buy3"></div>' + 
+                                '<div class="buy4"></div>' + 
+                                '<div class="goldValue"></div>');
+                                
+            $('#shopLayer').append($itemsBoxHtml);
+            $('#shopLayer').fadeIn( 250 );
+            
+            //Show fields from question box with data
+            $('.npcImage').attr({
+            'src' : 'content/sprites/' + npcObject.imagem.replace(".png", "_face.png"),
+            'alt' : 'Testing...' 
+            });
+            $('.shopName').html( npcObject.loja.nome );
+            $('.npcInfo').html( npcObject.loja.bemVindo );
+            
+            var self = this;
+            
+             $.each(npcObject.loja.produtos, function(i, data){ 
+                var itemNumber = i + 1;
+                var itmName = ads_items_data[data.itemIndex].nome;
+                var itmValue = ads_items_data[data.itemIndex].valor;
+                var itmGive = ads_items_data[data.itemIndex].categoria;
+                var price = data.preco;
+                $('.buy' + itemNumber ).html(' (' + i + ') ' + itmName + ' + ' + itmValue + ' ' + itmGive + ' (' + price  + ' Moedas)');
+             });
+             
+             $('.goldValue').html('O que queres comprar?');
+             
+            // Create event listener to get answer from player
+            $(document).keyup(function(event) {
+                var keyPressed = (String.fromCharCode(event.keyCode)).toUpperCase();
+                // If correct answer return true else return false
+                if (keyPressed =='0' || keyPressed =='1' || keyPressed =='2'|| keyPressed =='3'  ) {    
+                    // Return player answer
+                    self.buyItem =Number(keyPressed);
+                }
+                self.buy( npcObject.loja.produtos[self.buyItem] );
+            });
+            
+            
+            // Create a event listener to get the ansewer from the mouse 
+            // $('#shopLayer  > div') same as $('#shopLayer').children("div")
+            $('#shopLayer  > div').bind('click', function() {
+                var buyItemNumber = this.className;
+                
+                // If class start with r then is a answer get the answer from player
+                if (buyItemNumber.indexOf("buy") == 0){
+                   
+                    self.buyItem = Number(buyItemNumber.substr(3,1) -1);
+                     console.log("This is a answer...", self.buyItem);
+                    //Remove event listener
+                    // $('#shopLayer  > div').unbind('click');
+                    
+                    // By item
+                    self.buy( npcObject.loja.produtos[self.buyItem] );
+                }
+            });
+            
+
+            
+            //Message box is showing - avoid call over and over again
+            this.showingShop = true;
+        } // Show shop only one time
+    },
+     "buy" : function buy( itemObject ){
+         console.log("Buy Item Object:" , itemObject);
+         // Get hero money
+         // if there is enough money add item to inventory
+         // else send a message to goldAnswer "hero doesn't have enough money"
+         // If item can buy only one time check if hero already have the item send a message if yes
+         // if inventory full send a message goldAnswer
+         // remove the value of item in gold from hud
+         // 
+     }
+
+});
+

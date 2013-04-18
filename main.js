@@ -79,6 +79,9 @@ var adsGame =
 		
 		// Create object to NPC
 		adsGame.Npc = new adsGame.NPC();
+		
+		// Create object to Shop
+        adsGame.Shop = new adsGame.Shop();
 
 	},
 	reboot:function(){

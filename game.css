@@ -440,3 +440,114 @@
 	overflow: hidden;
 	z-index:2;
 }
+
+/* Shop layer configuration */
+#shopLayer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 366px;
+    height: 308px;
+    background: url('content/images/questionbox.png') no-repeat;
+    font-family: 'MedievalSharp', serif;
+    display: none;
+}
+
+#shopLayer img.npcImage {
+    position: absolute;
+    top: 36px;
+    left: 45px;
+}
+
+#shopLayer .shopName {
+    position: absolute;
+    top: 45px;
+    left: 100px;
+    width: 250px;
+    height: 60px;
+    font-weight: bold;
+    color : #996600;
+    overflow: hidden;
+    z-index:1;
+}
+
+#shopLayer .npcInfo {
+    position: absolute;
+    top: 90px;
+    left: 45px;
+    width: 530px;
+    height: 60px;
+    font-weight: bold;
+    color : #0B610B;
+    overflow: hidden;
+    z-index:1;
+}
+
+#shopLayer .buy1 {
+    position: absolute;
+    top: 115px;
+    left: 50px;
+    width: 330px;
+    height: 40px;
+    color : #4B8A08;
+    overflow: hidden;
+    z-index:1;
+}
+
+#shopLayer .buy2 {
+    position: absolute;
+    top: 135px;
+    left: 50px;
+    width: 330px;
+    height: 40px;
+    color : #4B8A08;
+    overflow: hidden;
+    z-index:1;
+}
+
+#shopLayer .buy3 {
+    position: absolute;
+    top: 155px;
+    left: 50px;
+    width: 330px;
+    height: 40px;
+    color : #4B8A08;
+    overflow: hidden;
+    z-index:1;
+}
+
+#shopLayer .buy4 {
+    position: absolute;
+    top: 175px;
+    left: 50px;
+    width: 330px;
+    height: 40px;
+    color : #4B8A08;
+    overflow: hidden;
+    z-index:1;
+}
+
+#shopLayer .goldValue {
+    position: absolute;
+    top: 195px;
+    left: 50px;
+    width: 330px;
+    height: 40px;
+    color : #8A4B08;
+    overflow: hidden;
+    z-index:1;
+}
+
+#shopLayer .goldAnswer {
+    position: absolute;
+    top: 215px;
+    left: 50px;
+    width: 330px;
+    height: 40px;
+    color : #FF8000;
+    font-size:20px;
+    overflow: hidden;
+    z-index:1;
+}
+
+/* Shop layer configuration */

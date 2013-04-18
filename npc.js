@@ -166,6 +166,9 @@ var NpcEntity = me.ObjectEntity.extend({
         
         // Save initial Z index for this object
         this.initialZIndex = this.z;
+        
+        // Set variable to see if NPC is collide with NPC
+        this.collideHero = false;
 
         this.npcEvents = this.npcData.evento;
 
@@ -381,6 +384,13 @@ var NpcEntity = me.ObjectEntity.extend({
                 // To test if is hero that collide with npc or the opposite
                 this.heroChangeDirection = true;
             }
+        }
+        
+        // If NPC collide with hero set collideHero = true otherwise set false to use on sellItems event
+        if ( res && res.obj.name == 'hero' ){
+            this.collideHero = true;
+        }else {
+            this.collideHero = false;
         }
 
         // *** IMPROVE THIS ONE - MAKE IT DINAMIC IF IS PRISONER OR NOT
@@ -696,8 +706,19 @@ var NpcEntity = me.ObjectEntity.extend({
                     return false;
                 }
                 break;
+            case "sellItems":
+                if( this.collideHero ){
+                    adsGame.Shop.show( this.npcData );
+                    // console.log("Sell item to hero:");
+                }else{
+                    // console.log("Don't sell item to hero:");
+                    //adsGame.Shop.hide();
+                }
+                
+            break; // Sell talk
+            
             default:
-                break;
+            break;
         }
     },
 

@@ -53,7 +53,7 @@ var TileScreen = me.ScreenObject.extend(
         
         // Add background music
         // play the audio track
-        me.audio.playTrack("cornfields");
+        //me.audio.playTrack("cornfields");
         
         // Enable/Disable music
         $("#sound_button").click(function() {
