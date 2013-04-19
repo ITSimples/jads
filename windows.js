@@ -174,7 +174,7 @@ adsGame.Shop =  Object.extend({
              var heroGold = me.game.HUD.getItemValue("ouro");
              
              // if there is enough money add item to inventory
-             if ( heroGold > itemObject.preco){
+             if ( heroGold >= itemObject.preco){
                  // If item can buy only one time check if hero already have the item send a message if yes
                 if ( itemObject.soUm ){
                     $.each(heroItems, function(i,data)

@@ -788,12 +788,12 @@ var NpcEntity = me.ObjectEntity.extend({
                             msgShowing = false;
                             self.showMessage = false;
                             var player = adsGame.heroEntity();
-                            player.removeWeapon( 'icestaff' );
+                            player.removeWeapon( "icestaff" );
                         }).start();
                     }
                     
                     // Remove Thrower associated with NPC
-                    me.game.remove(this.thrower);
+                    me.game.remove( this.thrower );
                 }
                 
                 // Draw Bar

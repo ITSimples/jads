@@ -156,6 +156,9 @@ var fullInventory = false;
 // Var background music
 var backgroundMusic = true;
 
+// Get GUID of hero weapon
+var heroWeaponEnable = false;
+
 // *********** MESSAGE SECTION ***********
 // adsGame.messageShowing = false; 
 

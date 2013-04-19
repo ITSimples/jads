@@ -112,10 +112,11 @@ var HeroEntity = me.ObjectEntity.extend({
         
         this.heroWeapon = new throwersEntity( this.pos.x , this.pos.y , throwerData);
         
+        
         me.game.add( this.heroWeapon , 9 );
         me.game.sort.defer();
         
-        // console.log("this.heroWeapon z: ", this.heroWeapon.z);
+       // console.log("this.heroWeapon z: ", this.heroWeapon.z);
         
         // Hero was a weapon now
         this.heroCarryWeapon = true;
@@ -967,7 +968,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		//Create project by mouse click if thrower is controlled by mouse
 		// If keypressed I then open the inventory
 		if (this.throwerData.movimento == "mouseClickMovement"){
-            if (me.input.isKeyPressed('mouseOverride'))
+            if (me.input.isKeyPressed('mouseOverride') && heroWeaponEnable)
             {
                 // console.log('Mouse click create projectil...');
                 // console.log('me.input.mouse.pos X:' , (me.input.mouse.pos.x + me.game.viewport.pos.x) );
@@ -980,7 +981,24 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                 this.throwerData.destX = ( me.input.mouse.pos.x - cursorWidth ) + me.game.viewport.pos.x;
                 this.throwerData.destY = ( me.input.mouse.pos.y ) + me.game.viewport.pos.y;
                 
-                this.createProjectil();
+                // Define here how many projectils hero must create
+                if (typeof this.throwerData.numeroDisparos !== "undefined"){
+                    console.log("this.throwerData.numeroDisparos:", this.throwerData.numeroDisparos);
+
+                    if (this.throwerData.numeroDisparos >= 0){
+                        this.createProjectil();
+                    }else{
+                            // Remove thrower and send information to remove item from inventory
+                            var player = adsGame.heroEntity();
+                            player.removeWeapon( this.throwerData.nomeItem );
+                            me.game.remove(this);
+                    }
+                    
+                    this.throwerData.numeroDisparos--; // = this.throwerData.numeroDisparos - 1;
+                }else{
+                    this.createProjectil();
+                }
+                
             }
         }else { //Thrower by time
             // Create projectil by interval time

@@ -51,6 +51,9 @@ SOFTWARE.
 		// Improve - Make this multilingual
 		this.specialItemsStr = "Items Especiais";
 		
+		// Active weapon on inventory
+		this.activeWeapon = false;
+		
 		// Create html in inventoryLayer DIV
 		var $messageBoxHtml = (	'<img class="invImage" src="" alt="">' +
 								'<div class="invText"></div>' +
@@ -178,8 +181,14 @@ SOFTWARE.
 		$( htmlSlot  ).attr({
 			'src' : 'content/gui/32x32Trans.png',
 			'alt' : ''});
-		
-		
+
+        // Remove square if exists
+         $( htmlSlot ).css({
+            'border-width': '', /*Add 1px solid border, use any color you want*/
+            'border-style': '', /*Add a background color to the box*/
+            'border-color':'' /*Align the text to the center*/
+        });			
+
 		// If option is to use the item
 		var itemCategory = heroItems[itemIndex].categoria;
 		var itemValue = heroItems[itemIndex].valor;
@@ -399,21 +408,35 @@ SOFTWARE.
 				    slot.bind('click' , function () {
 				        if ( typeof heroItems[slotNumber - 1].subcategoria != "undefined" && heroItems[slotNumber - 1].subcategoria == "weapon")
 				        {    
-				            console.log("Special Item weapon" , heroItems[slotNumber - 1]);
+				            console.log("Special Item weapon" , heroItems[slotNumber - 1]);				           
+				            
+				            // If weapon enable then disable -- if disable then enable
+                            if (this.activeWeapon) 
+                                this.activeWeapon = false;
+                            else
+                                this.activeWeapon = true;
+
 				            // Active weapon here ...
 				             //Show item in the inventory slot
-                            $( '.invSlot07').css({
-                                'border-width': '2px', /*Add 1px solid border, use any color you want*/
-                                'border-style': 'solid', /*Add a background color to the box*/
-                                'border-color':'red' /*Align the text to the center*/
-                            });
-                            
-                            //Remove square
-                             $( '.invSlot07').css({
-                                'border-width': '', /*Add 1px solid border, use any color you want*/
-                                'border-style': '', /*Add a background color to the box*/
-                                'border-color':'' /*Align the text to the center*/
-                            });
+				             if ( this.activeWeapon ){
+                                $( '.invSlot0' + slotNumber ).css({
+                                    'border-width': '2px', /*Add 1px solid border, use any color you want*/
+                                    'border-style': 'groove', /*Add a background color to the box*/
+                                    'border-color':'red' /*Align the text to the center*/
+                                });
+                                // thrower must be commanded by mouse click or space and drop the bomb in hero location
+                                heroWeaponEnable = true;
+                            }else{                            
+                                // Remove square
+                                 $( '.invSlot0' + slotNumber ).css({
+                                    'border-width': '', /*Add 1px solid border, use any color you want*/
+                                    'border-style': '', /*Add a background color to the box*/
+                                    'border-color':'' /*Align the text to the center*/
+                                });
+                                
+                                //Thrower mouse click and space must be disabled
+                                heroWeaponEnable = false;
+                            }
                             
                             
 				        }
