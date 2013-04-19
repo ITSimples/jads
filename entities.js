@@ -984,17 +984,15 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                 // Define here how many projectils hero must create
                 if (typeof this.throwerData.numeroDisparos !== "undefined"){
                     console.log("this.throwerData.numeroDisparos:", this.throwerData.numeroDisparos);
-
+                    this.throwerData.numeroDisparos--; // = this.throwerData.numeroDisparos - 1;
                     if (this.throwerData.numeroDisparos >= 0){
                         this.createProjectil();
-                    }else{
+                    }else{   
                             // Remove thrower and send information to remove item from inventory
                             var player = adsGame.heroEntity();
                             player.removeWeapon( this.throwerData.nomeItem );
                             me.game.remove(this);
                     }
-                    
-                    this.throwerData.numeroDisparos--; // = this.throwerData.numeroDisparos - 1;
                 }else{
                     this.createProjectil();
                 }
