@@ -380,7 +380,6 @@ SOFTWARE.
 					// Drag and Drop event	
 					slot.bind("dragstart",this.dragStart);
 
-					
 					//Use item with double click
 					if (itemCategory == 'vida'){
 						slot.bind('dblclick' , function () {
@@ -396,6 +395,29 @@ SOFTWARE.
 							console.log('Vida:' , me.game.HUD.getItemValue(itemCategory));
 						});
 					}
+				}else{
+				    slot.bind('click' , function () {
+				        if ( typeof heroItems[slotNumber - 1].subcategoria != "undefined" && heroItems[slotNumber - 1].subcategoria == "weapon")
+				        {    
+				            console.log("Special Item weapon" , heroItems[slotNumber - 1]);
+				            // Active weapon here ...
+				             //Show item in the inventory slot
+                            $( '.invSlot07').css({
+                                'border-width': '2px', /*Add 1px solid border, use any color you want*/
+                                'border-style': 'solid', /*Add a background color to the box*/
+                                'border-color':'red' /*Align the text to the center*/
+                            });
+                            
+                            //Remove square
+                             $( '.invSlot07').css({
+                                'border-width': '', /*Add 1px solid border, use any color you want*/
+                                'border-style': '', /*Add a background color to the box*/
+                                'border-color':'' /*Align the text to the center*/
+                            });
+                            
+                            
+				        }
+				    });
 				}
 				
 				 // Mouse enter and leave to show item information

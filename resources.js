@@ -84,7 +84,7 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [27,24];
+var startHero = [28,28];
 
 var DEBUG_MODE = false;
 
@@ -146,6 +146,9 @@ var heroAnswer = -1;
 
 // If Question box is showing
 var showingQuestion = false;
+
+// If Shop box is showing
+var showingShop = false;        
 
 // If Question box is showing
 var fullInventory = false; 
@@ -246,6 +249,7 @@ var ads_resources =
     {name: "campfire02",    type: "image",  src: ads_sprites_path + "campfire02.png"},
     {name: "iceprojectil",  type: "image",  src: ads_sprites_path + "iceprojectil.png"},
     {name: "animsword",  type: "image",  src: ads_sprites_path + "animsword.png"},
+    {name: "bomb",  type: "image",  src: ads_sprites_path + "bomb.png"},
 	
 	//**** Effects
 	{name: "explosion_32x32", 	type: "image",src: ads_effects_path + "explosion_32x32.png"},

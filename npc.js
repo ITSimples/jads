@@ -712,7 +712,9 @@ var NpcEntity = me.ObjectEntity.extend({
                     // console.log("Sell item to hero:");
                 }else{
                     // console.log("Don't sell item to hero:");
-                    //adsGame.Shop.hide();
+                    if ( showingShop ){
+                        adsGame.Shop.hide();
+                    }
                 }
                 
             break; // Sell talk

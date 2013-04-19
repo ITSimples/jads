@@ -461,7 +461,7 @@
 
 #shopLayer .shopName {
     position: absolute;
-    top: 45px;
+    top: 40px;
     left: 100px;
     width: 250px;
     height: 60px;
@@ -473,8 +473,8 @@
 
 #shopLayer .npcInfo {
     position: absolute;
-    top: 90px;
-    left: 45px;
+    top: 65px;
+    left: 100px;
     width: 530px;
     height: 60px;
     font-weight: bold;
@@ -483,10 +483,21 @@
     z-index:1;
 }
 
+#shopLayer .goldValue {
+    position: absolute;
+    top: 95px;
+    left: 45px;
+    width: 330px;
+    height: 25px;
+    color : #8A4B08;
+    overflow: hidden;
+    z-index:1;
+}
+
 #shopLayer .buy1 {
     position: absolute;
-    top: 115px;
-    left: 50px;
+    top: 120px;
+    left: 45px;
     width: 330px;
     height: 40px;
     color : #4B8A08;
@@ -496,7 +507,7 @@
 
 #shopLayer .buy2 {
     position: absolute;
-    top: 135px;
+    top: 160px;
     left: 50px;
     width: 330px;
     height: 40px;
@@ -507,45 +518,23 @@
 
 #shopLayer .buy3 {
     position: absolute;
-    top: 155px;
+    top: 200px;
     left: 50px;
     width: 330px;
     height: 40px;
     color : #4B8A08;
-    overflow: hidden;
-    z-index:1;
-}
-
-#shopLayer .buy4 {
-    position: absolute;
-    top: 175px;
-    left: 50px;
-    width: 330px;
-    height: 40px;
-    color : #4B8A08;
-    overflow: hidden;
-    z-index:1;
-}
-
-#shopLayer .goldValue {
-    position: absolute;
-    top: 195px;
-    left: 50px;
-    width: 330px;
-    height: 40px;
-    color : #8A4B08;
     overflow: hidden;
     z-index:1;
 }
 
 #shopLayer .goldAnswer {
     position: absolute;
-    top: 215px;
+    top: 240px;
     left: 50px;
     width: 330px;
-    height: 40px;
+    height: 20px;
     color : #FF8000;
-    font-size:20px;
+    font-size:18px;
     overflow: hidden;
     z-index:1;
 }

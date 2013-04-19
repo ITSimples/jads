@@ -220,7 +220,7 @@ var HeroEntity = me.ObjectEntity.extend({
 		
 		// If hero carry a weapon ?
 		if (this.heroCarryWeapon){
-		             // But this values on Json to work with any NPC that attack
+		   // But this values on Json to work with any NPC that attack
            switch (this.direction){
                   case "left":
                                addToPosX = 5;
@@ -1196,7 +1196,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 	    
 		//Update animation
 		if (this.testDirection){
-			this.setCurrentAnimation(this.currentAnimation);
+			this.setCurrentAnimation( this.currentAnimation );
 		}else{
 	       	this.setCurrentAnimation("anime" , 
             function(){

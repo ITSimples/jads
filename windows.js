@@ -83,21 +83,19 @@ adsGame.message =  Object.extend({
 
 adsGame.Shop =  Object.extend({
     "init" : function init() {
-        this.showingShop = false;
-        
         this.buyItem = -1;
     },
     
     "show" : function show ( npcObject ){
-        if ( !this.showingShop ){
+        if ( !showingShop ){
             var $itemsBoxHtml = ('<img class="npcImage" src="" alt="">' + 
                                 '<div class="shopName"></div>' +
                                 '<div class="npcInfo"></div>' + 
                                 '<div class="buy1"></div>' + 
                                 '<div class="buy2"></div>' +
                                 '<div class="buy3"></div>' + 
-                                '<div class="buy4"></div>' + 
-                                '<div class="goldValue"></div>');
+                                '<div class="goldValue"></div>' +
+                                '<div class="goldAnswer"></div>');
                                 
             $('#shopLayer').append($itemsBoxHtml);
             $('#shopLayer').fadeIn( 250 );
@@ -118,7 +116,7 @@ adsGame.Shop =  Object.extend({
                 var itmValue = ads_items_data[data.itemIndex].valor;
                 var itmGive = ads_items_data[data.itemIndex].categoria;
                 var price = data.preco;
-                $('.buy' + itemNumber ).html(' (' + i + ') ' + itmName + ' + ' + itmValue + ' ' + itmGive + ' (' + price  + ' Moedas)');
+                $('.buy' + itemNumber ).html('(' + i + ') ' + itmName + ' + ' + itmValue + ' ' + itmGive + '</br>&emsp;&ensp; (' + price  + ' Moedas)');
              });
              
              $('.goldValue').html('O que queres comprar?');
@@ -127,7 +125,7 @@ adsGame.Shop =  Object.extend({
             $(document).keyup(function(event) {
                 var keyPressed = (String.fromCharCode(event.keyCode)).toUpperCase();
                 // If correct answer return true else return false
-                if (keyPressed =='0' || keyPressed =='1' || keyPressed =='2'|| keyPressed =='3'  ) {    
+                if (keyPressed =='0' || keyPressed =='1' || keyPressed =='2'  ) {    
                     // Return player answer
                     self.buyItem =Number(keyPressed);
                 }
@@ -152,23 +150,91 @@ adsGame.Shop =  Object.extend({
                     self.buy( npcObject.loja.produtos[self.buyItem] );
                 }
             });
-            
-
-            
             //Message box is showing - avoid call over and over again
-            this.showingShop = true;
+            showingShop = true;
         } // Show shop only one time
     },
+    "hide" : function hide (){
+        $('#shopLayer').fadeOut( 50 , function(){
+            // When finish to fade out 
+            showingShop = false;
+            //lears all the child divs, but leaves the master intact.
+            $("#shopLayer").children().remove();
+             // $('#shopLayer').remove();
+        });
+        // Remove event listener to get answer from player
+        $(document).unbind();   
+    },
      "buy" : function buy( itemObject ){
-         console.log("Buy Item Object:" , itemObject);
-         // Get hero money
-         // if there is enough money add item to inventory
-         // else send a message to goldAnswer "hero doesn't have enough money"
-         // If item can buy only one time check if hero already have the item send a message if yes
-         // if inventory full send a message goldAnswer
-         // remove the value of item in gold from hud
-         // 
-     }
-
+         if ( typeof itemObject !== "undefined"){
+             console.log("Buy Item Object:" , itemObject);
+             var testOptions = "";
+             var testOneItem = false;
+             // Get hero money
+             var heroGold = me.game.HUD.getItemValue("ouro");
+             
+             // if there is enough money add item to inventory
+             if ( heroGold > itemObject.preco){
+                 // If item can buy only one time check if hero already have the item send a message if yes
+                if ( itemObject.soUm ){
+                    $.each(heroItems, function(i,data)
+                    {
+                         console.log("Hero Items:::::" , data);
+                        if ( data.itemIndex == itemObject.itemIndex ){                       
+                            testOneItem = true;
+                        }
+                    });
+                    
+                    if ( testOneItem ){
+                        testOptions = "CHOO"//"Só podes ter um item destes.";
+                    }else{
+                        if ( fullInventory ) {
+                            testOptions = "IF";
+                        }else{  
+                            testOptions = "TD"; //"Obrihado.";
+                        }
+                    } 
+                }else  if ( fullInventory ) {
+                    testOptions = "IF";
+                 }else{               
+                    
+                    testOptions = "TD"; //"Obrigado.";
+                 }
+             }else{ // else send a message to goldAnswer "hero doesn't have enough money"
+                 testOptions = "NEG"; //Não tens ouro suficiente."
+             }
+             
+             var answerToHero = "";
+    
+             switch ( testOptions ){
+                 case "CHOO":
+                    answerToHero = "Só podes ter um item destes.";
+                 break;
+                 case "TD":
+                    answerToHero = "Obrigado";
+                     // remove the value of item in gold from hud
+                    me.game.HUD.updateItemValue("ouro", -itemObject.preco)
+                    
+                    // make the transaction - give item to hero
+                   // Add item to hero
+                   // if itemObject.soUm is true then is a special item
+                    if ( itemObject.soUm ) {
+                        ads_items_data[itemObject.itemIndex].specialItem = true;
+                   }
+                   
+                   adsGame.Inventory.addItem(ads_items_data[itemObject.itemIndex]);
+                    
+                 break;
+                 case "NEG":
+                    answerToHero = "Não tens ouro suficiente.";
+                 break;
+                 case "IF":
+                    answerToHero = "Inventário cheio";
+                 break;              
+             }
+             
+             $('.goldAnswer').html(answerToHero);
+         }
+    }
 });
 
