@@ -66,8 +66,8 @@ SOFTWARE.
 								'<div id="Slot05"><img class="invSlot05" src="content/gui/32x32Trans.png"/></div>' + 
 								'<div id="Slot06"><img class="invSlot06" src="content/gui/32x32Trans.png"/></div>' + 
 								'<div id="Slot07"><span class="textslot"></span><img class="invSlot07" src="content/gui/32x32Trans.png"/></div>' + 
-								'<div id="Slot08"><span class="textslot"><img class="invSlot08" src="content/gui/32x32Trans.png"/></div>' + 
-								'<div id="Slot09"><span class="textslot"><img class="invSlot09" src="content/gui/32x32Trans.png"/></div>');
+								'<div id="Slot08"><span class="textslot"></span><img class="invSlot08" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot09"><span class="textslot"></span><img class="invSlot09" src="content/gui/32x32Trans.png"/></div>');
 		
 		// attach to inventoryLayer
 		$('#inventoryLayer').append($messageBoxHtml);
@@ -166,7 +166,9 @@ SOFTWARE.
             // slot variable return 'Slot0*' substr function return the last character * like 0,1 the slot dropped
             itemIndex = ( parseInt(slot.substr(slot.length - 1)) - 1);		    
 		}
-
+        // DEBUG 
+        console.log("this.slotsMap before:", this.slotsMap);
+        
 		// Make this slot available
 		if (!heroItems[itemIndex].specialItem){
 			this.slotsMap[ itemIndex ] = -1;
@@ -174,7 +176,11 @@ SOFTWARE.
 			fullInventory = false;
 		}else{
 			this.slotsMap[ itemIndex ] = -2;
+			specialItemfullInventory = false;
 		}
+		
+		// DEBUG 
+		console.log("this.slotsMap after:", this.slotsMap);
 		
 		// Mask the removed item with a transparent image
 		var htmlSlot = ".invSlot0" + ( itemIndex + 1 ).toString(); 
@@ -233,6 +239,12 @@ SOFTWARE.
 			console.log ('Special item...', item);
 			// Check empty slots - if no empty slots then return -1
 			this.slotNumber = jQuery.inArray(-2, this.slotsMap);
+            
+            if ( this.slotNumber == -1 ) {
+                specialItemfullInventory = true; 
+            }else{
+                specialItemfullInventory = false; 
+            }
 			
 			console.log ("Special Item :", this.slotNumber );
 			
@@ -288,6 +300,18 @@ SOFTWARE.
 				$('.invComment,#hiddenText').html(this.invComment);
 				fullInventory = true; 
 			}
+			
+			// Test slots empty for special items
+            var testSpecialItem = jQuery.inArray( -2 , this.slotsMap);
+            
+            if ( testSpecialItem == -1 ) {
+                //*** IMPROVE - Update invComment
+                this.invComment = 'Inventario cheio.';
+                $('.invComment,#hiddenText').html(this.invComment);
+                specialItemfullInventory = true; 
+            }else{
+                specialItemfullInventory = false; 
+            }
 			
 			// console.log ('Test heroItems:');
 			// $.each(heroItems , function (i, heroItem) {

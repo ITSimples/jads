@@ -140,13 +140,13 @@ var HeroEntity = me.ObjectEntity.extend({
 	{		
 	    
 	    // DEBUG MODE remove
-        if (DEBUG_MODE && this.makeOneTime){
-            ads_items_data[giveItemDebug].specialItem = true;
-            // Add item to hero
-            adsGame.Inventory.addItem(ads_items_data[giveItemDebug]);
-            
-            this.makeOneTime = false;
-        }
+        // if (DEBUG_MODE && this.makeOneTime){
+            // ads_items_data[giveItemDebug].specialItem = true;
+            // // Add item to hero
+            // adsGame.Inventory.addItem(ads_items_data[giveItemDebug]);
+//             
+            // this.makeOneTime = false;
+        // }
         
     	if (me.input.isKeyPressed('left'))
 		{
@@ -927,7 +927,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		// disable gravity
 		this.gravity = 0;
-
+		
+		if (typeof this.throwerData.numeroDisparos !== "undefined"){
+		  this.numeroDisparos = this.throwerData.numeroDisparos;
+        }
+        
         // If thrower is animated in all directions
         if ( this.throwerData.animacoes.animaTodasPosicoes) {
             this.addAnimation("right"  ,  this.throwerData.animacoes.direita );
@@ -967,9 +971,9 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 	update: function () {
 		//Create project by mouse click if thrower is controlled by mouse
 		// If keypressed I then open the inventory
-		
-	    if (typeof this.throwerData.numeroDisparos !== "undefined"){
-		  $("#Slot07 span").text( this.throwerData.numeroDisparos );
+		var self = this;
+	    if (typeof this.numeroDisparos !== "undefined"){
+		  $("#Slot07 span").text( this.numeroDisparos );
 		}
 		
 		if (this.throwerData.movimento == "mouseClickMovement"){
@@ -987,18 +991,19 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                 this.throwerData.destY = ( me.input.mouse.pos.y ) + me.game.viewport.pos.y;
                 
                 // Define here how many projectils hero must create
-                if (typeof this.throwerData.numeroDisparos !== "undefined"){
-                    console.log("this.throwerData.numeroDisparos:", this.throwerData.numeroDisparos);
-                    this.throwerData.numeroDisparos--; // = this.throwerData.numeroDisparos - 1;
-                    if (this.throwerData.numeroDisparos > 0){
+                if (typeof this.numeroDisparos !== "undefined"){
+                    console.log("this.throwerData.numeroDisparos:", this.numeroDisparos);
+                    this.numeroDisparos--; // = this.throwerData.numeroDisparos - 1;
+                    if (this.numeroDisparos > 0){
                         this.createProjectil();
                          // Add text to div that contain weapon                        
-                    }else if ( this.throwerData.numeroDisparos == 0 ){   
+                    }else if ( this.numeroDisparos == 0 ){   
                             // Remove thrower and send information to remove item from inventory
                             this.createProjectil();
                             var player = adsGame.heroEntity();
                             player.removeWeapon( this.throwerData.nomeItem );
-                            me.game.remove(this);
+                            
+                            me.game.remove( self );
                             
                             $("#Slot07 span").empty()
                     }

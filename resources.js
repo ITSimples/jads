@@ -86,10 +86,10 @@ var itemLucky = 20;
 
 var startHero = [28,28];
 
-var DEBUG_MODE = false;
+var DEBUG_MODE = true;
 
 // Give item to hero to start in debug mode
-var giveItemDebug = "icestaff";
+// var giveItemDebug = "icestaff";
 
 /*--- END Hero Configuration ---*/
 
@@ -150,8 +150,11 @@ var showingQuestion = false;
 // If Shop box is showing
 var showingShop = false;        
 
-// If Question box is showing
+// full inventory
 var fullInventory = false; 
+
+// full inventory special items
+var specialItemfullInventory = false;
 
 // Var background music
 var backgroundMusic = true;

@@ -128,10 +128,9 @@ adsGame.Shop =  Object.extend({
                 if (keyPressed =='0' || keyPressed =='1' || keyPressed =='2'  ) {    
                     // Return player answer
                     self.buyItem =Number(keyPressed);
+                    self.buy( npcObject.loja.produtos[self.buyItem] );
                 }
-                self.buy( npcObject.loja.produtos[self.buyItem] );
             });
-            
             
             // Create a event listener to get the ansewer from the mouse 
             // $('#shopLayer  > div') same as $('#shopLayer').children("div")
@@ -163,7 +162,8 @@ adsGame.Shop =  Object.extend({
              // $('#shopLayer').remove();
         });
         // Remove event listener to get answer from player
-        $(document).unbind();   
+        $(document).unbind();
+        $("*", "#shopLayer").unbind("click");
     },
      "buy" : function buy( itemObject ){
          if ( typeof itemObject !== "undefined"){
@@ -179,8 +179,8 @@ adsGame.Shop =  Object.extend({
                 if ( itemObject.soUm ){
                     $.each(heroItems, function(i,data)
                     {
-                         console.log("Hero Items:::::" , data);
-                        if ( data.itemIndex == itemObject.itemIndex ){                       
+                         // console.log("Hero Items:::::" , data.itemIndex);
+                        if ( typeof data !== 'undefined'  && typeof data.specialItem !== 'undefined' && data.itemIndex == itemObject.itemIndex ){                       
                             testOneItem = true;
                         }
                     });
@@ -188,16 +188,15 @@ adsGame.Shop =  Object.extend({
                     if ( testOneItem ){
                         testOptions = "CHOO"//"Só podes ter um item destes.";
                     }else{
-                        if ( fullInventory ) {
+                        if ( specialItemfullInventory ) { // if only one then is a special item
                             testOptions = "IF";
                         }else{  
                             testOptions = "TD"; //"Obrihado.";
                         }
                     } 
-                }else  if ( fullInventory ) {
+                }else  if ( fullInventory  ) {
                     testOptions = "IF";
-                 }else{               
-                    
+                 }else{   
                     testOptions = "TD"; //"Obrigado.";
                  }
              }else{ // else send a message to goldAnswer "hero doesn't have enough money"
