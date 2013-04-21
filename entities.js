@@ -967,6 +967,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 	update: function () {
 		//Create project by mouse click if thrower is controlled by mouse
 		// If keypressed I then open the inventory
+		
+	    if (typeof this.throwerData.numeroDisparos !== "undefined"){
+		  $("#Slot07 span").text( this.throwerData.numeroDisparos );
+		}
+		
 		if (this.throwerData.movimento == "mouseClickMovement"){
             if (me.input.isKeyPressed('mouseOverride') && heroWeaponEnable)
             {
@@ -985,13 +990,17 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                 if (typeof this.throwerData.numeroDisparos !== "undefined"){
                     console.log("this.throwerData.numeroDisparos:", this.throwerData.numeroDisparos);
                     this.throwerData.numeroDisparos--; // = this.throwerData.numeroDisparos - 1;
-                    if (this.throwerData.numeroDisparos >= 0){
+                    if (this.throwerData.numeroDisparos > 0){
                         this.createProjectil();
-                    }else{   
+                         // Add text to div that contain weapon                        
+                    }else if ( this.throwerData.numeroDisparos == 0 ){   
                             // Remove thrower and send information to remove item from inventory
+                            this.createProjectil();
                             var player = adsGame.heroEntity();
                             player.removeWeapon( this.throwerData.nomeItem );
                             me.game.remove(this);
+                            
+                            $("#Slot07 span").empty()
                     }
                 }else{
                     this.createProjectil();

@@ -301,83 +301,176 @@
 	z-index:1;
 }
 
-/* Slots inventory*/
+/* Slots inventory  */
+#inventoryLayer #Slot01 {
+    position: absolute;
+    top: 73px; /* 60 + 13 */
+    left: 14px;
+    width: 32px;
+    height: 32px;   
+}
+
+/* Slots inventory Image */
 #inventoryLayer img.invSlot01 {
 	position: absolute;
-	top: 73px; /* 60 + 13 */
-	left: 14px;
+	/*top: 73px; 
+	left: 14px;*/
 	width: 32px;
-	height: 32px;
+	height: 32px;	
 }
 
-/* Slots inventory*/
+/* Slots inventory */
+#inventoryLayer #Slot02 {
+    position: absolute;
+    top: 73px;
+    left: 74px; /* 60 + 14 */
+    width: 32px;
+    height: 32px;
+}
+
+/* Slots inventory Image */
 #inventoryLayer img.invSlot02 {
 	position: absolute;
-	top: 73px;
-	left: 74px; /* 60 + 14 */
+	/*top: 73px;
+	left: 74px; */
 	width: 32px;
 	height: 32px;
 }
 
-	/* Slots inventory*/
+/* Slots inventory */
+#inventoryLayer #Slot03 {
+    position: absolute;
+    top: 73px;
+    left: 134px;
+    width: 32px;
+    height: 32px;
+}
+
+/* Slots inventory Image */
 #inventoryLayer img.invSlot03 {
 	position: absolute;
-	top: 73px;
-	left: 134px;
+	/*top: 73px;
+	left: 134px;*/
 	width: 32px;
 	height: 32px;
 }
 
-	/* Slots inventory*/
+/* Slots inventory */
+#inventoryLayer #Slot04 {
+    position: absolute;
+    top: 133px;
+    left: 14px;
+    width: 32px;
+    height: 32px;
+}
+
+/* Slots inventory Image */
 #inventoryLayer img.invSlot04 {
 	position: absolute;
-	top: 133px;
-	left: 14px;
+	/*top: 133px;
+	left: 14px;*/
 	width: 32px;
 	height: 32px;
 }
 
-	/* Slots inventory*/
+/* Slots inventory */
+#inventoryLayer #Slot05 {
+    position: absolute;
+    top: 133px;
+    left: 74px;
+    width: 32px;
+    height: 32px;
+}
+
+/* Slots inventory Image */
 #inventoryLayer img.invSlot05 {
 	position: absolute;
-	top: 133px;
-	left: 74px;
+	/*top: 133px;
+	left: 74px;*/
 	width: 32px;
 	height: 32px;
 }
 
-	/* Slots inventory*/
+/* Slots inventory */
+#inventoryLayer #Slot06 {
+    position: absolute;
+    top: 133px;
+    left: 134px;
+    width: 32px;
+    height: 32px;
+}
+
+/* Slots inventory Image */
 #inventoryLayer img.invSlot06 {
 	position: absolute;
-	top: 133px;
-	left: 134px;
-	width: 32px;
-	height: 32px;
-}
-
-	/* Slots inventory*/
-#inventoryLayer img.invSlot07 {
-	position: absolute;
-	top: 218px;
-	left: 14px;
-	width: 32px;
-	height: 32px;
-}
-
-	/* Slots inventory*/
-#inventoryLayer img.invSlot08 {
-	position: absolute;
-	top: 218px;
-	left: 74px;
+	/*top: 133px;
+	left: 134px;*/
 	width: 32px;
 	height: 32px;
 }
 
 /* Slots inventory*/
+#inventoryLayer #Slot07 {
+    position: absolute;
+    top: 218px;
+    left: 14px;
+    width: 32px;
+    height: 32px;
+    z-index:3;
+}
+
+/* Slots inventory Image */
+#inventoryLayer img.invSlot07 {
+	position: absolute;
+/*	top: 218px;
+	left: 14px; */
+	width: 32px;
+	height: 32px;
+	z-index:2;
+}
+
+/* Slots inventory Image */
+#inventoryLayer #Slot07 .textslot {
+    position:absolute;
+    color:white;
+    font-weight:bold;
+    top:4px;
+    left:3px;
+    z-index:3;
+}
+
+/* Slots inventory */
+#inventoryLayer #Slot08 {
+    position: absolute;
+    top: 218px;
+    left: 74px;
+    width: 32px;
+    height: 32px;
+}
+
+/* Slots inventory Image */
+#inventoryLayer img.invSlot08 {
+	position: absolute;
+	/*top: 218px;
+	left: 74px;*/
+	width: 32px;
+	height: 32px;
+}
+
+/* Slots inventory */
+#inventoryLayer #Slot09 {
+    position: absolute;
+    top: 218px;
+    left: 134px;
+    width: 32px;
+    height: 32px;
+}
+
+/* Slots inventory Image */
 #inventoryLayer img.invSlot09 {
 	position: absolute;
-	top: 218px;
-	left: 134px;
+	/*top: 218px;
+	left: 134px;*/
 	width: 32px;
 	height: 32px;
 }

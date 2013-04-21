@@ -65,9 +65,9 @@ SOFTWARE.
 								'<div id="Slot04"><img class="invSlot04" src="content/gui/32x32Trans.png"/></div>' + 
 								'<div id="Slot05"><img class="invSlot05" src="content/gui/32x32Trans.png"/></div>' + 
 								'<div id="Slot06"><img class="invSlot06" src="content/gui/32x32Trans.png"/></div>' + 
-								'<div id="Slot07"><img class="invSlot07" src="content/gui/32x32Trans.png"/></div>' + 
-								'<div id="Slot08"><img class="invSlot08" src="content/gui/32x32Trans.png"/></div>' + 
-								'<div id="Slot09"><img class="invSlot09" src="content/gui/32x32Trans.png"/></div>');
+								'<div id="Slot07"><span class="textslot"></span><img class="invSlot07" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot08"><span class="textslot"><img class="invSlot08" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot09"><span class="textslot"><img class="invSlot09" src="content/gui/32x32Trans.png"/></div>');
 		
 		// attach to inventoryLayer
 		$('#inventoryLayer').append($messageBoxHtml);
@@ -408,7 +408,7 @@ SOFTWARE.
 				    slot.bind('click' , function () {
 				        if ( typeof heroItems[slotNumber - 1].subcategoria != "undefined" && heroItems[slotNumber - 1].subcategoria == "weapon")
 				        {    
-				            console.log("Special Item weapon" , heroItems[slotNumber - 1]);				           
+				            console.log("Special Item weapon:" , heroItems[slotNumber - 1]);				           
 				            
 				            // If weapon enable then disable -- if disable then enable
                             if (this.activeWeapon) 
