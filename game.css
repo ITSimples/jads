@@ -430,7 +430,7 @@
 }
 
 /* Slots inventory Image */
-#inventoryLayer #Slot07 .textslot {
+#inventoryLayer .textslot {
     position:absolute;
     color:white;
     font-weight:bold;

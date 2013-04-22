@@ -120,6 +120,9 @@ var HeroEntity = me.ObjectEntity.extend({
         
         // Hero was a weapon now
         this.heroCarryWeapon = true;
+        
+        // Global hero don't have weapon anymore'
+        heroWeaponEnable = false;
     },
     
     //Create weapon player position.
@@ -133,6 +136,9 @@ var HeroEntity = me.ObjectEntity.extend({
                 
         // Hero wasn't a weapon now
         this.heroCarryWeapon = false;
+        
+        // Remove hero weapon slot
+        heroWeaponSlot = -1;
     },
 	
 	//Update player position.
@@ -224,31 +230,31 @@ var HeroEntity = me.ObjectEntity.extend({
 		   // But this values on Json to work with any NPC that attack
            switch (this.direction){
                   case "left":
-                               addToPosX = 5;
-                               addToPosY = -15;
+                                addToPosX = this.heroWeapon.throwerData.posicaoAtirador.left[0];
+                                addToPosY = this.heroWeapon.throwerData.posicaoAtirador.left[1];
                                // Flip weapon
                                this.heroWeapon.flipX(true);
                                break;
                   case "right":
-                               addToPosX = 17;
-                               addToPosY = -15;
+                                addToPosX = this.heroWeapon.throwerData.posicaoAtirador.right[0];
+                                addToPosY = this.heroWeapon.throwerData.posicaoAtirador.right[1];
                                this.heroWeapon.flipX(false);
                                break;
                   case "up":
-                               addToPosX = 20;
-                               addToPosY = -15;
+                                addToPosX = this.heroWeapon.throwerData.posicaoAtirador.up[0];
+                                addToPosY = this.heroWeapon.throwerData.posicaoAtirador.up[1];
                                this.heroWeapon.flipX(false);
                                break;
                   case "down":
-                               addToPosX = 17;
-                               addToPosY = -15;
+                                addToPosX = this.heroWeapon.throwerData.posicaoAtirador.down[0];
+                                addToPosY = this.heroWeapon.throwerData.posicaoAtirador.down[1];
                                this.heroWeapon.flipX(false);
                                // TODO Must refresh the animation 
                                break;                                
                                         
            }
            this.heroWeapon.pos.x = (this.pos.x + addToPosX);
-           this.heroWeapon.pos.y = (this.pos.y + addToPosY);		    
+           this.heroWeapon.pos.y = (this.pos.y + addToPosY);
 		}
 
 		// update collision
@@ -271,7 +277,8 @@ var HeroEntity = me.ObjectEntity.extend({
         				// this.setCurrentAnimation('stand-' + this.direction);
         				// this.pos.x = this.posBeforeCollideX;
         				// this.pos.y = this.posBeforeCollideY;
-        				if (!fullInventory  || data.obj.items_data.specialItem){
+        				if (!fullInventory  || data.obj.items_data.specialItem || data.obj.items_data.categoria == 'ouro' ||
+                            data.obj.items_data.categoria == 'conhecimento' ){
         					self.vel.x = 0;
         					self.vel.y = 0;
         					data.obj.getItem();
@@ -441,6 +448,8 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		//Create array to store coordinates data
 		var checkTriggersData = [];
 		
+		var checknoItemsData = [];
+		
 		var collision_layer = me.game.currentLevel.getLayerByName("collision");		
 		var background_layer = me.game.currentLevel.getLayerByName("background");
 		
@@ -473,6 +482,28 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
                 }
             }
         }); 
+        
+        //noItemsData Points
+        $.each(noItemsData, function(i, data){
+            // create a array to store de tiles that belong to trigger
+            // create the array outside this cicle because don't repeat the same code several times'            
+            var finalHeight = ( data.settings.height / 32 );
+            var finalWidth  = ( data.settings.width  / 32 );
+
+            for ( x = 0; x < finalWidth ; x++) 
+            {
+                for ( y = 0; y < finalHeight ; y++) 
+                { 
+                    //Store data coordinates
+                    var noItemsCoordinates = {};
+                    noItemsCoordinates.x = ( data.coordinates.x + x);
+                    noItemsCoordinates.y = ( data.coordinates.y + y);
+                    
+                    // console.log("triggers data:", triggersCoordinates);
+                    checknoItemsData.push(noItemsCoordinates);
+                }
+            }
+        });         
 		
 		// parse all the collision layer tiles 
 		for ( x = 0; x < collision_layer.width; x++) 
@@ -499,10 +530,11 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 					if ( item_probability == Math.round(itemLucky / 2) ){						
 						//Test if not a trigger or special item or born hero
 						var isCollide = false;
-						$.each(triggersData, function(i, data){
-							if (data.coordinates.x == x && data.coordinates.y == y)
-								isCollide = true;
-						});
+						
+						// $.each(triggersData, function(i, data){
+							// if (data.coordinates.x == x && data.coordinates.y == y)
+								// isCollide = true;
+						// });
 						
 						//Improve this to not spwan items on mission tiles
 						//special item
@@ -519,6 +551,14 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
                                 console.log("Collide with trigger tile!");
                             }
                         }); 
+                        
+                        // If is a noitems don't put object
+                        $.each(checknoItemsData, function(i, data){
+                            if (data.x == x && data.y == y){
+                                isCollide = true;
+                                console.log("Collide with noItems tile!");
+                            }
+                        });                         
 						
 						//Hero born
 						if (x == startHero[0] && y == startHero[1])
@@ -623,6 +663,11 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'hero' ) {
+			    // if (this.type == 'NO_ITEMS'){
+			        // console.log ( "What a fuck... ", this.type);
+			    // }
+			    
+			    console.log ( "What a fuck... ", this.type);
 			    
 				// Verify if hero have the item only one time
 				if (!this.isChecked)
@@ -972,8 +1017,11 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		//Create project by mouse click if thrower is controlled by mouse
 		// If keypressed I then open the inventory
 		var self = this;
+		
+		var htmlWeaponSlot = $("#Slot0" + heroWeaponSlot + " span");
+		
 	    if (typeof this.numeroDisparos !== "undefined"){
-		  $("#Slot07 span").text( this.numeroDisparos );
+		  htmlWeaponSlot.text( this.numeroDisparos );
 		}
 		
 		if (this.throwerData.movimento == "mouseClickMovement"){
@@ -1003,9 +1051,9 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                             var player = adsGame.heroEntity();
                             player.removeWeapon( this.throwerData.nomeItem );
                             
-                            me.game.remove( self );
+                            htmlWeaponSlot.empty();
                             
-                            $("#Slot07 span").empty()
+                            me.game.remove( self );
                     }
                 }else{
                     this.createProjectil();
@@ -1171,9 +1219,12 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 			this.testDirection = true;
 		}else{
 			this.addAnimation("anime", this.projectilData.animacoes.animaTodasDirecoes );
-			this.addAnimation("default", this.projectilData.animacoes.parado );
+			this.addAnimation("default", this.projectilData.animacoes.parado );			
 		}
 		
+		if (typeof(this.projectilData.animacoes.animacaoRemover) != "undefined"){
+            this.addAnimation("removeAnimation", this.projectilData.animacoes.animacaoRemover );
+        }
 		this.currentAnimation = "";
 		
 		this.setCurrentAnimation("default");
@@ -1230,7 +1281,9 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		}else{
 	       	this.setCurrentAnimation("anime" , 
             function(){
-                if (typeof(self.throwerData.repetirAnimProj) != 'undefined' && !self.throwerData.repetirAnimProj){
+                if (typeof(self.throwerData.repetirAnimProj) != 'undefined' && 
+                    !self.throwerData.repetirAnimProj &&
+                    typeof(self.throwerData.tempoDeVida) == 'undefined'){
                     me.game.remove(this);
                 }
             });
@@ -1244,8 +1297,13 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		if(this.throwerData.movimento  === "mouseClickMovement"){
 		   // Move the projectil to destination point
            if( fireProjectil( this ) ){
-               // if reach the point remove projectil
-               me.game.remove(this);
+               // If there is a live time then don't remove presently
+               // Make a tween with the time and remove after time with animation if exists
+               
+               // if reach the point remove projectil if no time to destroy
+               if (typeof(self.throwerData.tempoDeVida) == 'undefined'){
+                    me.game.remove(this);
+               }
             }
         }
 		
@@ -1294,13 +1352,20 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 	liveTime: function (){
 		this.timeToDestroy++;
 		if (this.timeToDestroy >  this.throwerData.tempoDeVida ){
-			//Remove object
-			me.game.remove(this);
+			//Remove object with removeAnimation animation
+			if (typeof(this.projectilData.animacoes.animacaoRemover) != "undefined"){
+                this.setCurrentAnimation("removeAnimation" , 
+                        function(){
+                                me.game.remove(this);
+                        });
+            }else{
+			     me.game.remove(this);
+			}
 			return;
 		}
 	},
     
-    handleCollisions: function (updated) {
+    handleCollisions: function ( updated ) {
 		var res = me.game.collide(this , true);
 		var collideHero = false;
 		var self = this;
@@ -1311,13 +1376,20 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
             if (data && data.obj.type == 'HERO_OBJECT' && self.throwerData.atacaObjeto == 'HERO_OBJECT') {
                 collideHero = true;
             }else if  (data && data.obj.type == 'NPC_OBJECT' && self.throwerData.atacaObjeto == 'NPC_OBJECT') {
-                
                 //Get NPC GUID
                 console.log("Hit NPC...", data.obj.GUID);
-                data.obj.removeHealth( self.projectilData.atualizarHUD.valor );
-                
-                //remove projectil when hits NPC
-                me.game.remove ( self );
+                //Remove object with removeAnimation if animation exists
+                if (typeof(self.projectilData.animacoes.animacaoRemover) != "undefined"){
+                    self.setCurrentAnimation("removeAnimation" , 
+                            function(){
+                                    data.obj.removeHealth( self.projectilData.atualizarHUD.valor );                             
+                                    me.game.remove( self );
+                            });
+                }else{
+                    data.obj.removeHealth( self.projectilData.atualizarHUD.valor );
+                     //remove projectil when hits NPC
+                     me.game.remove( self );
+                }
             }
         });
         

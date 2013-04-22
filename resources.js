@@ -82,7 +82,7 @@ Hero Configuration
 
 var heroVelocity = 3;
 
-var itemLucky = 20;
+var itemLucky = 40;
 
 var startHero = [28,28];
 
@@ -118,6 +118,9 @@ var throwersData = [];
 
 // Keep all information where to place the Throwers 
 var projectilsData = [];
+
+// Keep all information where not to place items on map
+var noItemsData = [];
 
 // Keep all information about map effects
 var mapEffectsData = [];
@@ -159,8 +162,11 @@ var specialItemfullInventory = false;
 // Var background music
 var backgroundMusic = true;
 
-// Get GUID of hero weapon
+// Enable/Disable hero weapon
 var heroWeaponEnable = false;
+
+// Get slot inventory of hero weapon
+var heroWeaponSlot = -1;
 
 // *********** MESSAGE SECTION ***********
 // adsGame.messageShowing = false; 

@@ -253,7 +253,8 @@ SOFTWARE.
 			    var player = adsGame.heroEntity();
 			    
 			    player.createWeapon( item );
-			    console.log("This item is a weapon... !!! WATCH OUT !!!");
+			    console.log("This item is a weapon... !!! WATCH OUT !!! On slot " , this.slotNumber);
+			    heroWeaponSlot = this.slotNumber + 1 ; // plus one because html div slot**
 			}
 		}else{
 			// Check empty slots - if no empty slots then return -1
@@ -435,7 +436,7 @@ SOFTWARE.
 				            console.log("Special Item weapon:" , heroItems[slotNumber - 1]);				           
 				            
 				            // If weapon enable then disable -- if disable then enable
-                            if (this.activeWeapon) 
+                            if (this.activeWeapon && heroWeaponEnable) 
                                 this.activeWeapon = false;
                             else
                                 this.activeWeapon = true;

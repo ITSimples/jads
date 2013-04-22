@@ -138,8 +138,8 @@ var adsGame =
 		// enable the keyboard
 		me.input.bindKey(me.input.KEY.T, "touch");
 		
-		me.input.bindKey(me.input.KEY.X, "mouseOverride", true);
-        me.input.bindMouse(me.input.mouse.LEFT, me.input.KEY.X);
+		me.input.bindKey(me.input.KEY.SPACE, "mouseOverride", true);
+        me.input.bindMouse(me.input.mouse.LEFT, me.input.KEY.SPACE);
 		
 		// Iniciar o jogo com o Menu
         me.state.change(me.state.MENU);
@@ -428,6 +428,11 @@ function randomFloat(minValue,maxValue,precision){
 		
 		//Get data to throwers - It's not necessary $.each without []
 		throwersData = data.throwers;
+        
+        //Get data where don't swamp items
+		noItemsData = data.noItems;
+		
+		console.log("noItemsData", noItemsData);
 		
 
 		// console.log("Carregados " + countItems + " Items");
