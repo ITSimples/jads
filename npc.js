@@ -185,7 +185,7 @@ var NpcEntity = me.ObjectEntity.extend({
                 // Calculate path
                 // this.path[pathNumber] = adsGame.pathFinder.getPath(start,end,"collision");
 
-                this.path[pathNumber] = adsGame.pathFinder.getPathTest(start, end);
+                this.path[pathNumber] = adsGame.pathFinder.getPath(start, end);
 
                 // Calculate reverse path if event reverse
                 if (this.npcData.coordenadas[pathNumber].reverter) {
@@ -477,7 +477,16 @@ var NpcEntity = me.ObjectEntity.extend({
                 return;
             }
             
-            followHero(this);
+            // DEBUG
+            
+            // Normal follow
+            //followHero(this);
+            
+            //Test npc follow
+            
+            
+            npcFollowHero(this);
+            
 
             var player = adsGame.heroEntity();
 
@@ -746,13 +755,11 @@ var NpcEntity = me.ObjectEntity.extend({
                         ads_items_data[this.npcData.deixaitem.nome].remover = this.npcData.deixaitem.remover;
                         ads_items_data[this.npcData.deixaitem.nome].quantidade = this.npcData.deixaitem.quantidade;
                     }else{
-                        ads_items_data[this.npcData.deixaitem.nome].specialItem = false;
+                        ads_items_data[this.npcData.deixaitem.nome].specialItem = undefined;
                     }
                     console.log("ads_items_data[this.npcData.deixaitem.nome].specialItem:" , ads_items_data[this.npcData.deixaitem.nome].specialItem);
                     // Set item to drop as special item and where remove points and quantity
 
-                    
-                    // when defeat leave item
                     var item = new ItemEntity( this.pos.x , this.pos.y , {
                         image : this.npcData.deixaitem.nome,
                         spritewidth : 32,
@@ -787,8 +794,10 @@ var NpcEntity = me.ObjectEntity.extend({
                             self.message.hide();
                             msgShowing = false;
                             self.showMessage = false;
-                            var player = adsGame.heroEntity();
-                            player.removeWeapon( "icestaff" );
+                            if ( typeof(self.npcData.dieEffect.removerArmaHeroi) && self.npcData.dieEffect.removerArmaHeroi){
+                                var player = adsGame.heroEntity();
+                                player.removeWeapon( heroWeaponName );
+                            }
                         }).start();
                     }
                     

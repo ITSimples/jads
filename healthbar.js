@@ -120,7 +120,7 @@ adsGame.HealthBar = Object.extend ({
      * @return {boolean} if TRUE then health bar is empty else if returns FALSE it's not empty
      */     
      "update": function update(){
-         if ( (this.maxWidth * self.health / this.maxHealth) < 0 ) 
+         if ( (this.maxWidth * self.health / this.maxHealth) <= 0 ) 
             return true;
          else
             return false

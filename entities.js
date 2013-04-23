@@ -107,6 +107,9 @@ var HeroEntity = me.ObjectEntity.extend({
     {
         console.log("Weapon:", weapon);
         
+        // Set global name of weapon
+        heroWeaponName = weapon.valor;
+        
         // Create Thrower with the weapon to hero
         var throwerData = throwersData["thr" + weapon.valor];
         
@@ -139,6 +142,9 @@ var HeroEntity = me.ObjectEntity.extend({
         
         // Remove hero weapon slot
         heroWeaponSlot = -1;
+        
+        // Remove hero weapon name
+        heroWeaponName = "";
     },
 	
 	//Update player position.

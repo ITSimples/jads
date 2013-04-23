@@ -186,3 +186,46 @@ function fireProjectil( object )
         return false;
     }
 }
+
+/**
+ * npcFollowHero
+ *
+ * @param object
+ * @return bool / check, if object reached it's goal
+ */
+function npcFollowHero( object )
+{
+    if (object !== null){
+            var player = adsGame.heroEntity();
+                        
+            var playerPosX = player.pos.x + 16;
+            // plus 20 to enter in hero hitbox
+            var playerPosY = player.pos.y + 23;
+            
+            var start = [ Math.round( object.pos.x / 32) , Math.round(object.pos.y / 32) ];
+            var end =  [ Math.round( (player.pos.x + 16) / 32) , Math.round( (player.pos.y + 40) / 32) ];
+            
+            var pathTest = adsGame.pathFinder.getPath(start, end);
+
+           
+            
+            var destX = pathTest[1][0] * 32;
+            var destY = pathTest[1][1] * 32;
+            
+             // console.log ("destX:", destX);
+             // console.log ("destY:", destY);
+            
+            // console.log("playerPosX:", playerPosX);
+            // console.log("playerPosY:", playerPosY);
+            
+            // var angle = Math.atan2(playerPosY - object.pos.y, playerPosX - object.pos.x);
+            // object.vel.set(Math.cos(angle) * object.velocityFollow, Math.sin(angle) * object.velocityFollow);
+            
+            var angle = Math.atan2(destY - object.pos.y, destX - object.pos.x);
+            object.vel.set(Math.cos(angle) * object.velocityFollow, Math.sin(angle) * object.velocityFollow);            
+        
+        return true;
+    }else{
+        return false;
+    }
+}

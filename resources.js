@@ -84,9 +84,9 @@ var heroVelocity = 3;
 
 var itemLucky = 40;
 
-var startHero = [28,28];
+var startHero = [33,44];
 
-var DEBUG_MODE = true;
+var DEBUG_MODE = false;
 
 // Give item to hero to start in debug mode
 // var giveItemDebug = "icestaff";
@@ -168,6 +168,9 @@ var heroWeaponEnable = false;
 // Get slot inventory of hero weapon
 var heroWeaponSlot = -1;
 
+// Hero weapon name
+var heroWeaponName = "";
+
 // *********** MESSAGE SECTION ***********
 // adsGame.messageShowing = false; 
 
@@ -211,6 +214,8 @@ var ads_resources =
 	// {name: "e_male01",	type: "image",	src: ads_sprites_path + "e_male01.png"},
 	// {name: "e_male02",	type: "image",	src: ads_sprites_path + "e_male02.png"},
 	{name: "e_male03", type: "image",  src: ads_sprites_path + "e_male03.png"},
+	{name: "e_male04", type: "image",  src: ads_sprites_path + "e_male04.png"},
+    {name: "e_male05", type: "image",  src: ads_sprites_path + "e_male05.png"},	
 	
 	// {name: "eye",		type: "image",	src: ads_sprites_path + "eye.png"},
 	{name: "f_female01",	type: "image",	src: ads_sprites_path + "f_female01.png"},
