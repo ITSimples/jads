@@ -123,6 +123,9 @@ var NpcEntity = me.ObjectEntity.extend({
 
         //Get the path from Astar algotithm from pathfinder.js
         this.path = [[]];
+        
+        //Get the path from Astar algotithm from pathfinder.js
+        this.heroFollowPath = [[]];
 
         //Get reverse path from Astar algotithm from pathfinder.js
         // this.reversePath = [[]];
@@ -427,6 +430,7 @@ var NpcEntity = me.ObjectEntity.extend({
 
         //If NPC movement is path
         if (this.npcData.tipoMovimento == "path") {
+
             // Move NPC
             if (moveObject(this) && !this.stop) {
                 if (this.countPath != this.path[this.currentPath].length) {
@@ -443,20 +447,15 @@ var NpcEntity = me.ObjectEntity.extend({
                 } else {
                     this.countPath = 0;
                     this.currentPath++;
-
+                    
+                    // if that happen then NPC follow hero and now return to initial path
+                    if ( this.currentPath == this.npcData.coordenadas.length + 2) {
+                        this.currentPath = 0;
+                    }
+                    
                     //Test if there is reverse path
                     if (this.reversePathNumber == this.currentPath) {
-                        console.log('Reverse path...');
-
                         this.currentPath = 0;
-
-                        // if (this.cachepath[this.currentPath] == this.path[this.currentPath]){
-                        // console.log('Reverse path...');
-                        // this.path[this.currentPath] = this.reversePath[this.currentPath];
-                        // }else{
-                        // console.log('Normal Path...');
-                        // this.path[this.currentPath] = this.cachepath[this.currentPath];
-                        // }
                     }
                     // Stop the player
                     if (this.currentPath == this.path.length) {
@@ -467,6 +466,14 @@ var NpcEntity = me.ObjectEntity.extend({
                 }
 
             }
+            
+            var player = adsGame.heroEntity();
+            
+            if ( typeof (this.npcData.atacaDistancia ) !== "undefined" && this.npcData.atacaDistancia >  this.distanceTo(player) ){
+                console.log(" follow - Distance to attack: " , this.distanceTo(player));
+                this.countPath = 0;
+                this.npcData.tipoMovimento = "npcFollowHero";
+            }
         } else if (this.npcData.tipoMovimento == "followhero") {
             
             if ( !this.stop ){
@@ -476,17 +483,8 @@ var NpcEntity = me.ObjectEntity.extend({
                 this.velocityFollow = 0;
                 return;
             }
-            
-            // DEBUG
-            
-            // Normal follow
-            //followHero(this);
-            
-            //Test npc follow
-            
-            
-            npcFollowHero(this);
-            
+
+            followHero(this);
 
             var player = adsGame.heroEntity();
 
@@ -517,10 +515,88 @@ var NpcEntity = me.ObjectEntity.extend({
                 this.setCurrentAnimation(this.direction);
                 this.accel.x = this.accel.y = this.npcData.velocidade;
             }
+        } else if (this.npcData.tipoMovimento == "npcFollowHero") {
+            
+            var player = adsGame.heroEntity();            
+            
+            if (this.countPath == 0){
+                
+                var initStartX = Math.round( this.pos.x / ads_tile_size);
+                var initStartY = Math.round( ( this.pos.y ) / ads_tile_size);
+                
+                var initDestX = Math.round( player.pos.x / ads_tile_size);
+                var initDestY = Math.round( ( player.pos.y + this.avoidWall ) / ads_tile_size);
+                
+                var start = [initStartX, initStartY];
+                var end = [initDestX, initDestY];
+
+                this.heroFollowPath = adsGame.pathFinder.getPath(start, end);
+            
+                this.destX = this.heroFollowPath[0][0] * ads_tile_size;
+                this.destY = this.heroFollowPath[0][1] * ads_tile_size - this.avoidWall;
+            }
+            
+            // Move NPC
+            
+            if (moveObject(this) && !this.stop) {
+                if (this.countPath != this.heroFollowPath.length) {
+                    //return movement
+                    this.accel.x = this.accel.y = this.npcData.velocidade;
+                    this.setCurrentAnimation(this.direction);
+
+                    this.destX = this.heroFollowPath[this.countPath ][0] * ads_tile_size;
+                    this.destY = (this.heroFollowPath[this.countPath ][1] * ads_tile_size) - this.avoidWall;
+
+                    this.countPath++;
+                    this.setDirection();
+                    this.setCurrentAnimation(this.direction);
+                } else {
+                    this.countPath = 0;
+                    // console.log("... Calculate new path follow hero---");
+                    this.setCurrentAnimation("stand-" + this.direction);
+                    // this.setCurrentAnimation( "stand-down" );
+                }
+
+            }
+
+            // - this.distanceTo(player) - this.npcData.tamanhoImagem.altura NPC height 
+            if ( typeof (this.npcData.atacaDistancia ) !== "undefined" && this.npcData.atacaDistancia < ( this.distanceTo(player) - this.npcData.tamanhoImagem.altura ) ){
+                console.log(" Not follow - Distance to attack: " , this.distanceTo(player));
+                this.countPath = 0;
+                this.currentPath = this.npcData.coordenadas.length + 1;
+                this.npcData.tipoMovimento = "path";
+                
+                var startX = Math.round( this.pos.x / ads_tile_size);
+                var startY = Math.round( ( this.pos.y ) / ads_tile_size);
+                
+
+                var destX = this.npcData.coordenadas[0].initStartX;
+                var destY = this.npcData.coordenadas[0].initStartY;
+                
+                var start = [startX, startY];
+                var end = [ destX , destY ];
+                
+                this.path[this.currentPath] = adsGame.pathFinder.getPath(start, end);
+                
+                console.log("pathlength:", this.path.length);
+                
+                this.destX = this.path[this.currentPath][0][0] * ads_tile_size;
+                this.destY = (this.path[this.currentPath][0][1] * ads_tile_size) - this.avoidWall;
+            }
         }
         
-        this.updateMovement();
-        this.parent(this);
+        // check & update NPC movement
+        updated = this.updateMovement();
+       
+
+        // update animation
+        if (updated)
+        {
+            // Actualizar animação
+            this.parent(this);
+        }
+
+        return updated;
 
     }, // end update
 
