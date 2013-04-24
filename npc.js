@@ -773,22 +773,27 @@ var NpcEntity = me.ObjectEntity.extend({
 
                     return true;
                 } else {
-
-                    // Show inventory window if is not open
-                    if (!adsGame.Inventory.isShowing) {
-                        adsGame.Inventory.show();
-                        console.log('Inventory is not showing...');
-                    }
-
-                    // If npc give to hero a mission item then set as special item to go the rigth slot (Map items)
-                    if (ads_items_data[this.currentEvent.item].categoria == 'itemMissao') {
-                        ads_items_data[this.currentEvent.item].specialItem = true;
-                    }
-
-                    // Add item to hero
-                    adsGame.Inventory.addItem(ads_items_data[this.currentEvent.item]);
-
-                    return false;
+                    //Keep data for all items found by the hero less gold and knowledge increment right away
+                    if (ads_items_data[this.currentEvent.item].categoria == 'ouro' ||
+                            ads_items_data[this.currentEvent.item].categoria == 'conhecimento'){
+                            me.game.HUD.updateItemValue(ads_items_data[this.currentEvent.item].categoria , parseInt(ads_items_data[this.currentEvent.item].valor, 10));
+                        }else{
+                            // Show inventory window if is not open
+                            if (!adsGame.Inventory.isShowing) {
+                                adsGame.Inventory.show();
+                                console.log('Inventory is not showing...');
+                            }
+        
+                            // If npc give to hero a mission item then set as special item to go the rigth slot (Map items)
+                            if (ads_items_data[this.currentEvent.item].categoria == 'itemMissao') {
+                                ads_items_data[this.currentEvent.item].specialItem = true;
+                            }
+        
+                            // Add item to hero
+                            adsGame.Inventory.addItem(ads_items_data[this.currentEvent.item]);
+        
+                            return false;
+                        }
                 }
                 break;
             case "sellItems":

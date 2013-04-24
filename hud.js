@@ -69,7 +69,7 @@ var HUDGold = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorGold,"left");
-		this.value = 420;
+		this.value = 20;
 		this.name = "Ouro:";
 		// calculate value position
 		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;

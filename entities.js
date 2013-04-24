@@ -669,11 +669,6 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'hero' ) {
-			    // if (this.type == 'NO_ITEMS'){
-			        // console.log ( "What a fuck... ", this.type);
-			    // }
-			    
-			    console.log ( "What a fuck... ", this.type);
 			    
 				// Verify if hero have the item only one time
 				if (!this.isChecked)
