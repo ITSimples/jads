@@ -166,10 +166,10 @@
 
 #questionLayer .questionText {
 	position: absolute;
-	top: 90px;
-	left: 45px;
-	width: 530px;
-	height: 60px;
+	top: 75px;
+	left: 43px;
+	width: 290px;
+	height: 120px;
 	font-weight: bold;
 	color : #0B610B;
 	overflow: hidden;
@@ -177,17 +177,6 @@
 }
 
 #questionLayer .r1 {
-	position: absolute;
-	top: 115px;
-	left: 50px;
-	width: 530px;
-	height: 60px;
-	color : #4B8A08;
-	overflow: hidden;
-	z-index:1;
-}
-
-#questionLayer .r2 {
 	position: absolute;
 	top: 135px;
 	left: 50px;
@@ -198,7 +187,7 @@
 	z-index:1;
 }
 
-#questionLayer .r3 {
+#questionLayer .r2 {
 	position: absolute;
 	top: 155px;
 	left: 50px;
@@ -209,7 +198,7 @@
 	z-index:1;
 }
 
-#questionLayer .r0 {
+#questionLayer .r3 {
 	position: absolute;
 	top: 175px;
 	left: 50px;
@@ -220,11 +209,22 @@
 	z-index:1;
 }
 
-#questionLayer .answerValue {
+#questionLayer .r0 {
 	position: absolute;
-	top: 200px;
+	top: 195px;
 	left: 50px;
 	width: 530px;
+	height: 60px;
+	color : #4B8A08;
+	overflow: hidden;
+	z-index:1;
+}
+
+#questionLayer .answerValue {
+	position: absolute;
+	top: 220px;
+	left: 50px;
+	width: 295px;
 	height: 60px;
 	color : #8A4B08;
 	overflow: hidden;
@@ -235,7 +235,7 @@
 	position: absolute;
 	top: 115px;
 	left: 50px;
-	width: 530px;
+	width: 295px;
 	height: 60px;
 	color : #FF8000;
 	font-size:20px;

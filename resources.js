@@ -82,7 +82,7 @@ Hero Configuration
 
 var heroVelocity = 3;
 
-var itemLucky = 40;
+var itemLucky = 20;
 
 var startHero = [5,5];
 

@@ -1,47 +1,125 @@
 {
-"_comment" : "Data File for questions on game.",
-
-"questions":
-{
-    "q01":{
-    "categoria": "matematica",
-    "pergunta": "Quanto e 4+4?",
-    "r1": "4",
-    "r2": "8",
-    "r3": "12",
-    "correta": "2"
-    },
-    "q02":{
-    "categoria": "matematica",
-    "pergunta": "Qual e a raiz quadrada de 100?",
-    "r1": "10",
-    "r2": "100",
-    "r3": "1000",
-    "correta": "1"
-    },
-    "q03":{
-    "categoria": "portugues",
-    "pergunta": "Pergunta teste 1?",
-    "r1": "Resposta 1",
-    "r2": "Resposta 2",
-    "r3": "Resposta 3",
-    "correta": "1"
-    },
-    "q04":{
-    "categoria": "portugues",
-    "pergunta": "Pergunta teste 2?",
-    "r1": "Resposta 1",
-    "r2": "Resposta 2",
-    "r3": "Resposta 3",
-    "correta": "2"
-    },
-    "q05":{
-    "categoria": "portugues",
-    "pergunta": "Pergunta teste 3?",
-    "r1": "Resposta 1",
-    "r2": "Resposta 2",
-    "r3": "Resposta 3",
-    "correta": "3"
+    "_comment": "Data File for questions on game.",
+    "questions": {
+        "q01": {
+            "categoria": "matematica",
+            "pergunta": "Tem-se nove velas acesas. Apagam-se 3, quantas ficam?",
+            "r1": "5 - 2",
+            "r2": "2 x 3",
+            "r3": "48 : 4",
+            "correta": "2"
+        },
+        "q02": {
+            "categoria": "matematica",
+            "pergunta": "Qual e a raiz quadrada de 100?",
+            "r1": "10",
+            "r2": "100",
+            "r3": "1000",
+            "correta": "1"
+        },
+        "q03": {
+            "categoria": "matematica",
+            "pergunta": "21  35  20  34  19  33  18  ?",
+            "r1": "40",
+            "r2": "32",
+            "r3": "27",
+            "correta": "2"
+        },
+        "q04": {
+            "categoria": "logica",
+            "pergunta": "Os carneiros pretos têm a lã negra. De que cor é o leite das vacas pretas?",
+            "r1": "Preto",
+            "r2": "Vermelho",
+            "r3": "Branco",
+            "correta": "3"
+        },
+        "q05": {
+            "categoria": "logica",
+            "pergunta": "Num quarto escuro tem-se um fósforo, um fogareiro, um lampião, uma vela e um cigarro, o que se acende primeiro?",
+            "r1": "O cigarro, é óbvio",
+            "r2": "A vela",
+            "r3": "O fósforo",
+            "correta": "3"
+        },
+        "q06": {
+            "categoria": "matematica",
+            "pergunta": "5    13    5    20    5    27    5    ?",
+            "r1": "34",
+            "r2": "27",
+            "r3": "10",
+            "correta": "1"
+        },
+        "q07": {
+            "categoria": "portugues",
+            "pergunta": "Método terapêutico que consiste na introdução de agulhas na carne.",
+            "r1": "Acupuntura",
+            "r2": "Agricultura",
+            "r3": "Suinocultura",
+            "correta": "1"
+        },
+        "q08": {
+            "categoria": "portugues",
+            "pergunta": "Para não ser reconhecido, usou o disfarce de uma:",
+            "r1": "Aliança",
+            "r2": "Máscara",
+            "r3": "Gravata",
+            "correta": "3"
+        },
+        "q09": {
+            "categoria": "matematica",
+            "pergunta": "4   12   4   20   4   28   ?",
+            "r1": "4",
+            "r2": "36",
+            "r3": "38",
+            "correta": "1"
+        },
+        "q10": {
+            "categoria": "logica",
+            "pergunta": "Teria se perdido na floresta, se não tivesse a ajuda de um:",
+            "r1": "Caminho",
+            "r2": "Guia",
+            "r3": "Cavalo",
+            "correta": "2"
+        },
+        "q11": {
+            "categoria": "matematica",
+            "pergunta": "23  7  27  11  31  ?",
+            "r1": "11",
+            "r2": "15",
+            "r3": "13",
+            "correta": "2"
+        },
+        "q12": {
+            "categoria": "logica",
+            "pergunta": "A cor do cavalo preto de Napoleão Bonaparte era:",
+            "r1": "Branca",
+            "r2": "Preta",
+            "r3": "Marrom",
+            "correta": "2"
+        },
+        "q13": {
+            "categoria": "matematica",
+            "pergunta": "O que é mais pesado, dois quilos de chumbo ou 3 de penas?",
+            "r1": "Equivalem-se",
+            "r2": "3 de penas",
+            "r3": "2 de chumbo, é claro",
+            "correta": "2"
+        },
+        "q14": {
+            "categoria": "matematica",
+            "pergunta": "Uma vela queima-se em 3 horas.Em quanto tempo se queimariam três velas iguais e acesas ao mesmo tempo?",
+            "r1": "9 horas",
+            "r2": "12 horas",
+            "r3": "3 horas",
+            "correta": "3"
+        },
+        "q15": {
+            "categoria": "logica",
+            "pergunta": "Se todas as ave fossem pretas:",
+            "r1": "O urubu poderia ser branco",
+            "r2": "Não haveria aves azuis",
+            "r3": "O gato preto seria ave",
+            "correta": "2"
+        }
     }
-}
 }
