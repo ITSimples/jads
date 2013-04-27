@@ -1,0 +1,320 @@
+{
+"_comment" : "Data File for map 1.",
+"items": 
+{
+    "fruta":{
+            "categoria": "vida",
+            "imagem": "fruta.png",
+            "nome": "Fruta",
+            "descricao": "Fruta fresca para restabelecer vida.",
+            "valor": "10",
+            "usable": "true"
+            },
+    "pao":{
+            "categoria": "vida",
+            "imagem": "pao.png",
+            "nome": "Pão",
+            "descricao": "Pão para restabelecer vida.",
+            "valor": "8",
+            "usable": "true"
+           },
+    "vegatais":{
+                "categoria": "vida",
+                "imagem": "vegetais.png",
+                "nome": "Vegetais",
+                "descricao": "Vegetais frescos para restabelecer vida.",
+                "valor": "10",
+                "usable": "true"
+                },
+    "presunto":{
+                "categoria": "vida",
+                "imagem": "presunto.png",
+                "nome": "Presunto",
+                "descricao": "Presunto para restabelecer vida.",
+                "valor": "5",
+                "usable": "true"
+                },
+    "pera":{
+                "categoria": "vida",
+                "imagem": "pera.png",
+                "nome": "Pêra",
+                "descricao": "Pêra rocha fresquinha para fazer crescer a vida.",
+                "valor": "3",
+                "usable": "true"
+                },
+    "maca":{
+                "categoria": "vida",
+                "imagem": "maca.png",
+                "nome": "Maça",
+                "descricao": "Maça bem apetitosa vamos lá ver a tua vida crescer.",
+                "valor": "4",
+                "usable": "true"
+                },
+    "cenoura":{
+                "categoria": "vida",
+                "imagem": "cenoura.png",
+                "nome": "Cenoura",
+                "descricao": "Uma cenoura para te recompores.",
+                "valor": "3",
+                "usable": "true"
+    },
+    "banana":{
+                "categoria": "vida",
+                "imagem": "banana.png",
+                "nome": "Banana",
+                "descricao": "Uma banana vai ajudar-te com a vida.",
+                "valor": "2",
+                "usable": "true"
+                },
+    "botas":{
+                "categoria": "velocidade",
+                "imagem": "botas.png",
+                "nome": "Botas",
+                "descricao": "Fantásticas botas que te vão dar velocidade.",
+                "valor": "4",
+                "usable": "true"
+                },
+    "pocaoAzul":{
+                "categoria": "vida",
+                "imagem": "pocaoazul.png",
+                "nome": "Poção Azul",
+                "descricao": "Poderosa poção que te dá vida.",
+                "valor": "2",
+                "usable": "true"
+                },  
+    "livroAzul":{
+                "categoria": "conhecimento",
+                "imagem": "livroazul.png",
+                "nome": "Livro Azul",
+                "descricao": "Fabuloso livro azul sobre todos os seres do universo.",
+                "valor": "15",
+                "usable": "true"
+                },
+    "colarUnicornio":{
+                "categoria": "sorte",
+                "imagem": "colarunicornio.png",
+                "nome": "Colar do Unicórnio",
+                "descricao": "Este colar vai dar-te mais sorte do que nunca.",
+                "valor": "20",
+                "usable": "true"
+                },
+    "moedas":{
+                "categoria": "ouro",
+                "imagem": "moedas.png",
+                "nome": "Moedas",
+                "descricao": "Mais umas moedinhas para a tua coleção.",
+                "valor": "10",
+                "usable": "true"
+                },
+    "tesouro":{
+                "categoria": "ouro",
+                "criarinicio" : false,
+                "imagem": "moedas.png",
+                "nome": "Moedas",
+                "descricao": "Grande tesouro encontrado na cela.",
+                "valor": "200",
+                "usable": "true"
+                },
+    "lanca":{
+                "categoria": "itemMissao",
+                "imagem": "lanca.png",
+                "nome": "Lança Olimpu",
+                "descricao": "Poderosa lança para ataque.",
+                "valor": "5",
+                "usable": "false"
+                },
+    "chaveOsso":{
+                "categoria": "itemMissao",
+                "imagem": "chaveosso.png",
+                "nome": "Chave Osso",
+                "descricao": "Chave para o reino dos demonios.",
+                "valor": "chaveosso",
+                "usable": "false"
+                },
+    "chaveLief":{
+                "categoria": "itemMissao",
+                "imagem": "chavelief.png",
+                "nome": "Chave Lief",
+                "descricao": "Chave para a sala das armadilhas.",
+                "valor": "chavelief",
+                "usable": "false"
+                },
+    "chaveAgnes":{
+                "categoria": "itemMissao",
+                "imagem": "chavesconjunto.png",
+                "nome": "Conjunto de chaves",
+                "descricao": "Conjunto de chaves abre cela da Agnes.",
+                "valor": "chavesconjunto",
+                "usable": "false"
+                },              
+    "chavedragao":{
+                "categoria": "itemMissao",
+                "imagem": "chavedragao.png",
+                "nome": "Chave Dragão",
+                "descricao": "Chave do dragão.",
+                "valor": "chavedragao",
+                "usable": "false"
+                },  
+    "orderguard":{
+                "categoria": "itemMissao",
+                "imagem": "orderguard.png",
+                "nome": "Ordem para guarda",
+                "descricao": "Para entrares no armazem dos guardas.",
+                "valor": "orderguard",
+                "usable": "false"
+                },
+    "manuscrito":{
+                "categoria": "itemMissao",
+                "imagem": "manuscrito.png",
+                "nome": "Manuscrito teletransporte",
+                "descricao": "Podes usar para viajar pelos portais.",
+                "valor": "manuscrito",
+                "usable": "false"
+                },
+    "cristalfogo":{
+                "categoria": "itemMissao",
+                "imagem": "cristalfogo.png",
+                "nome": "Cristal de fogo",
+                "descricao": "Abrir a arca do bastão de fogo.",
+                "valor": "cristalfogo",
+                "usable": "false"
+                },
+    "icestaff":{
+                "categoria": "itemMissao",
+                "subcategoria": "weapon",
+                "imagem": "icestaffitem.png",
+                "nome": "Bastão de gelo",
+                "descricao": "Para venceres o dragão de fogo e <br>abrir a porta da sala do dragão.",
+                "valor": "icestaff",
+                "usable": "false"
+                },
+    "bomba":{
+                "categoria": "itemMissao",
+                "subcategoria": "weapon",
+                "imagem": "bombitem.png",
+                "nome": "5 Bombas",
+                "descricao": "Para venceres os teus inimigos.",
+                "valor": "bomba",
+                "usable": "false"
+                }                
+},
+"npc": 
+{
+    "jacquelyn":{
+        "categoria": "prisoner",
+        "nome": "Jacquelyn",
+        "criarInicio": true,
+        "prisioneiro": true,
+        "prisao" : {"numero": 1, "eventoLivre":[2,3,4]},
+        "imagem": "f_female01.png",
+        "tamanhoImagem":{"largura": 32, "altura":43},        
+        "coordenadas":[
+                        {"reverter":true , "initStartX":28,"initStartY":7,"initDestX":21,"initDestY":7},
+                        {"reverter":true , "initStartX":21,"initStartY":7,"initDestX":28,"initDestY":7}
+                    ],
+        "velocidade": 0.5,
+        "evento": [
+                {"tipo":"talk","conversa":[0,1,2,3,4],"coordenadas":[6,35],"tempo":10},
+                {"tipo":"giveItem","conversa":[5],"item":"cristalfogo","tempo":2}
+                ],
+        "falaComHeroi": true,                
+        "eventoFuga": [         
+                {"tipo":"escape","conversa":[6,7],"coordenadas":[44,45],"tempo":4},
+                {"tipo":"giveItem","conversa":[8,9],"item":"tesouro","tempo":4}
+                
+                ],      
+        "tipoMovimento": "path",
+        "mensagem": [
+                    "Olá eu sou a Jacquelyn." ,
+                    "Fui raptada pelo maquiavélico rei Ignor Tudo.",
+                    "Ajuda-me a sair da prisão.",
+                    "Existe um varão do gelo na arca mágica na sala das armas.",
+                    "Com o varão podes vencer o dragão e obter a chave da minha cela.",
+                    "Leva o cristal de fogo para a abrires a arca mágica.",
+                    "Obrigado salvaste-me a vida.",
+                    "Estou em dívida para contigo.",
+                    "Toma este ouro que encontrei na prisão.",
+                    "Boa Sorte."
+                    ]
+        },
+    "lief": {
+        "categoria": "prisoner",
+        "nome": "Lief",
+        "criarInicio": true,
+        "prisioneiro": true,
+        "prisao" : {"numero": 0, "eventoLivre":[2,3,4]},
+        "imagem": "f_male03.png",
+        "tamanhoImagem":{"largura": 32, "altura":43},       
+        "coordenadas":[
+                        {"reverter":true , "initStartX":11,"initStartY":7,"initDestX":18,"initDestY":7},
+                        {"reverter":true , "initStartX":18,"initStartY":7,"initDestX":11,"initDestY":7}
+                    ],
+        "velocidade": 1,
+        "evento": [
+                {"tipo":"talk","conversa":[0,1,2,3],"coordenadas":[6,35],"tempo":8},
+                {"tipo":"giveItem","conversa":[4],"item":"chaveLief","tempo":2}
+                ],
+        "falaComHeroi": true,
+        "eventoFuga": [         
+                {"tipo":"escape","conversa":[5,6],"coordenadas":[42,45],"tempo":4},
+                {"tipo":"giveItem","conversa":[7,8],"item":"botas","tempo":4}
+                
+                ],
+        "tipoMovimento": "path",
+        "mensagem": [
+                    "Olá eu sou o Lief." ,
+                    "Fui raptado pelo maquiavélico rei Ignor Tudo.",
+                    "Ajuda-me a sair da prisão.",
+                    "Precisas da Chave Caveira para abrir a porta.",
+                    "Leva esta chave para abrires a sala das armadilhas.",
+                    "Obrigado salvaste-me a vida.",
+                    "Estou em dívida para contigo.",
+                    "Leva estas botas podes andar mais rápido enquanto estiverem no inventário",
+                    "Boa Sorte."
+                    ]
+        },  
+    "agnes": {
+        "categoria": "prisoner",
+        "nome": "Agnes",
+        "criarInicio": true,
+        "prisioneiro": true,
+        "prisao" : {"numero": 2, "eventoLivre":[2,3,4]},
+        "imagem": "f_female02.png",
+        "tamanhoImagem":{"largura": 32, "altura":43},       
+        "coordenadas":[
+                        {"reverter":true , "initStartX":38,"initStartY":7,"initDestX":31,"initDestY":7},
+                        {"reverter":true , "initStartX":31,"initStartY":7,"initDestX":38,"initDestY":7}
+                    ],
+        "velocidade": 1,
+        "evento": [
+                {"tipo":"talk","conversa":[0,1,2,3],"coordenadas":[24,11],"tempo":8},
+                {"tipo":"giveItem","conversa":[4],"item":"orderguard","tempo":2}
+                ],
+        "falaComHeroi": true,
+        "eventoFuga": [         
+                {"tipo":"escape","conversa":[5,6],"coordenadas":[43,46],"tempo":5},
+                {"tipo":"giveItem","conversa":[7,8],"item":"botas","tempo":4}
+                
+                ],
+        "tipoMovimento": "path",
+        "mensagem": [
+                    "Olá o meu nome é Agnes ." ,
+                    "Fui raptada pelo maquiavélico rei Ignor Tudo.",
+                    "Ajuda-me a sair da prisão.",                    
+                    "Tens que encontrar o conjunto de chaves no armazem dos guardas.",
+                    "Tens que entregar esta ordem para entrares.",
+                    "Obrigado salvaste-me a vida.",
+                    "Estou em dívida para contigo.",
+                    "Leva estas botas podes andar mais rápido enquanto estiverem no inventário",
+                    "Boa Sorte."
+                    ]
+        },  
+    "john": {
+        "categoria": "friends",
+        "nome": "John",
+        "criarInicio": true,
+        "prisioneiro": false,
+        "prisao" : {"numero": 1, "eventoLivre":[]}
+        }
+}
+}

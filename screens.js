@@ -39,6 +39,10 @@ var TileScreen = me.ScreenObject.extend(
 		
 		// ----- Set DIV width to fit the inventory, message and question box
         $('#adsGame').css("width", ads_width);
+        // Disable right click mouse
+        $('#adsGame').bind("contextmenu",function(e){
+            e.preventDefault();
+        });
 	},
 	
 	onResetEvent: function()
@@ -56,7 +60,7 @@ var TileScreen = me.ScreenObject.extend(
         me.audio.playTrack("cornfields");
         
         // Enable/Disable music
-        $("#sound_button").click(function() {
+        $("#sound_button").click(function() {           
           if ( backgroundMusic ){
             $("#sound_button").attr({ src: "content/gui/no_sound.png" });
             me.audio.pauseTrack();
@@ -66,14 +70,14 @@ var TileScreen = me.ScreenObject.extend(
             me.audio.resumeTrack();
             backgroundMusic = true;
           }
-        });  
+
+        });
 	},
 	// update function
     update: function() {
 		if (me.input.isKeyPressed('enter')) {
 			me.state.change(me.state.PLAY);
 		}
-	
 	},
 	
 	draw: function(context)

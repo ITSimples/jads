@@ -570,6 +570,11 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 						if (x == startHero[0] && y == startHero[1])
 								isCollide = true;
 						
+						// Not to spawn item with json criarinicio =false
+						if ( ads_items_data[random_item].criarinicio !== undefined && !ads_items_data[random_item].criarinicio){
+						    isCollide = true;
+						}
+						
 						if (!isCollide)
 						{
 							// Item Image
