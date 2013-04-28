@@ -28,7 +28,7 @@ Ficheiro: main.js
 ClassName:main
 Comment: Classe principal do jogo
 Create Date: 26/02/2012 - ITSimples
-HTTP://www.itsimples.com  - change to ITSimples Games
+HTTP://www.itsimples.com 
 -----------------------------------
 */
 
@@ -45,7 +45,7 @@ var adsGame =
 		}
 
 		//Inicializar formato de m�sica a utilizar
-		me.audio.init("mp3");
+		me.audio.init("mp3,ogg");
 		
 		//Callback - Carregar os recursos do jogo quando tudo estiver preparado
 		me.loader.onload = this.loaded.bind(this);
@@ -114,12 +114,14 @@ var adsGame =
 		me.entityPool.add("throwers_spawn", ThrowersSpawnEntity);
 		me.entityPool.add("map_effects_spawn", MapEffectsSpawnEntity);		
 		
+		
+		// Config Keys - in game you can use WASD or arrow keys
 		// Configurar teclas a usar, False - L� mais que uma vez True - L� v�rias vezes.
 		// Usar true por exemplo para lutar...
-		// me.input.bindKey(me.input.KEY.UP, "up", false);
-		// me.input.bindKey(me.input.KEY.DOWN, "down", false);
-		// me.input.bindKey(me.input.KEY.LEFT, "left", false);
-		// me.input.bindKey(me.input.KEY.RIGHT, "right", false);
+		me.input.bindKey(me.input.KEY.UP, "up", false);
+		me.input.bindKey(me.input.KEY.DOWN, "down", false);
+		me.input.bindKey(me.input.KEY.LEFT, "left", false);
+		me.input.bindKey(me.input.KEY.RIGHT, "right", false);
 		
 		// Teclas para debug - prefiro :)
 		me.input.bindKey(me.input.KEY.A, "left");

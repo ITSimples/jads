@@ -63,11 +63,11 @@ var TileScreen = me.ScreenObject.extend(
         $("#sound_button").click(function() {           
           if ( backgroundMusic ){
             $("#sound_button").attr({ src: "content/gui/no_sound.png" });
-            me.audio.pauseTrack();
+            me.audio.muteAll();
             backgroundMusic = false;
           }else{
             $("#sound_button").attr({ src: "content/gui/sound.png" });
-            me.audio.resumeTrack();
+            me.audio.unmuteAll();
             backgroundMusic = true;
           }
 

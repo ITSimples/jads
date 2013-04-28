@@ -31,9 +31,12 @@ Game engine system Configuration
 -------------------------------- */
 me.sys.fps = 30;
 
-//me.sys.useNativeAnimFrame = true;
+me.sys.useNativeAnimFrame = true;
 
 me.sys.cacheImage = true;
+
+ me.sys.preRender = false;
+
 /*--- END Game engine system Configuration ---*/
 
 /*------------------- 
