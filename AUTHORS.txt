@@ -32,7 +32,11 @@ Interior Tile Set:
 
 "Art Collection Title" and "250 free handdrawn textures" art by Daniel Cook (Lostgarden.com)
 
+Items art:
 http://opengameart.org/content/a-load-of-overworld-34-rpg-sprites
+
+"Dark Soldier sprite" on Level01 quest03
+Created by Stephen 'Redshrike' Challener, on commission for Bertram.
 
 "Some of graphic data in this software are free game resources 
 distributed by REFMAP(http://www.tekepon.net/fsm).

@@ -91,16 +91,58 @@ var NpcEntity = me.ObjectEntity.extend({
 
         // Enable/disable dialogue box
         this.showMessage = false;
+        
+        //Keep animations data
+        this.animation = {};
+        
+        //Standard animations or animation defined on json npc data
+        if ( this.npcData.animacoes  === undefined ){
+            // Standard animation for all NPC's
+            this.animation = {"stand-down" :   [4],
+                                "stand-left"     :   [8],
+                                "stand-up"      :   [1],
+                                "stand-right"   :   [11],
+                                "down"            :   [3, 4, 5, 4],
+                                "left"               :   [6, 7, 8],
+                                "up"                :   [0, 1, 2, 1],
+                                "right"             :   [9, 10, 11]
+                               };           
+         }else{
+             // Animation defined on json
+             this.animation = this.npcData.animacoes;
+         }
+         
+        // To use in each loop 
+        var self = this;
+        
+        //If there is a first animation for prisoner when is not free and it's stoped first time
+        if ( this.npcData.animacoes !== undefined && this.npcData.animacoes.primeiraAnimacao !== undefined ){
+            this.firstAnimation = true;
+        }else{
+            this.firstAnimation =false;
+        }
+        
+        console.log('NPC Name:', this.npcData.nome , '- this.firstAnimation:' , this.firstAnimation );
+        
+       // Add all animation for NPC
+       var countAnimation = 0;
+       $.each ( this.animation, function (i, npcAnimation ){
+            // console.log('npcAnimation:', i , '-' , npcAnimation );
+            self.addAnimation( i , npcAnimation );
+            countAnimation++;
+       });
+       
+       console.log("NPC:" , this.npcData.nome , "  this.firstAnimation:" , this.firstAnimation);
 
         //Configurar animações
-        this.addAnimation("stand-down", [4]);
-        this.addAnimation("stand-left", [8]);
-        this.addAnimation("stand-up", [1]);
-        this.addAnimation("stand-right", [11]);
-        this.addAnimation("down", [3, 4, 5, 4]);
-        this.addAnimation("left", [6, 7, 8]);
-        this.addAnimation("up", [0, 1, 2, 1]);
-        this.addAnimation("right", [9, 10, 11]);
+        // this.addAnimation("stand-down", [4]);
+        // this.addAnimation("stand-left", [8]);
+        // this.addAnimation("stand-up", [1]);
+        // this.addAnimation("stand-right", [11]);
+        // this.addAnimation("down", [3, 4, 5, 4]);
+        // this.addAnimation("left", [6, 7, 8]);
+        // this.addAnimation("up", [0, 1, 2, 1]);
+        // this.addAnimation("right", [9, 10, 11]);
         
         // Make animation to die
         // Json "morre" : {"animacao" : [12] },
@@ -363,8 +405,11 @@ var NpcEntity = me.ObjectEntity.extend({
                 }
                 
                 // New NPC animation stand opposite direction of the hero
-                this.setCurrentAnimation("stand-" + auxNPCDirection);
-                    
+                if ( !this.firstAnimation ){
+                    this.setCurrentAnimation("stand-" + auxNPCDirection);
+                }else{
+                    this.setCurrentAnimation( "primeiraAnimacao" );
+                }
                 this.accel.x = this.accel.y = 0;
                 this.vel.x = this.vel.y = 0;
             }
@@ -380,8 +425,11 @@ var NpcEntity = me.ObjectEntity.extend({
             //Move npc when he stop talk with hero if is not stoped yet
             if (!this.stop) {
                 this.accel.x = this.accel.y = this.npcData.velocidade;
-                this.setCurrentAnimation(this.direction);
-                
+                if ( !this.firstAnimation ){
+                    this.setCurrentAnimation(this.direction);
+                }else{
+                    this.setCurrentAnimation( "primeiraAnimacao" );
+                }
                 // Reset to the next collision
                 this.changeNPCDirection = true;
                 // To test if is hero that collide with npc or the opposite
@@ -410,13 +458,16 @@ var NpcEntity = me.ObjectEntity.extend({
         }
 
         if (this.prisoner) {
-            if (adsGame.prisonDoors.getPrisonDoorState(this.npcData.prisao.numero)) {
+            if ( adsGame.prisonDoors.getPrisonDoorState( this.npcData.prisao.numero ) ) {
 
                 // console.log ('Says thx to hero and.. ');
                 // console.log ('Calculate path to freedom... :)');
                 // console.log ('Stop being a prisoner...');
                 //Stop being a prisoner...
                 this.prisoner = false;
+                
+                //Stop first animation for prisoner npc now is free
+                this.firstAnimation = false;                
 
                 //reset event number and execute escape events
                 this.CurrentEventNumber = 0;
@@ -436,14 +487,23 @@ var NpcEntity = me.ObjectEntity.extend({
                 if (this.countPath != this.path[this.currentPath].length) {
                     //return movement
                     this.accel.x = this.accel.y = this.npcData.velocidade;
-                    this.setCurrentAnimation(this.direction);
-
+                    // if ( !this.firstAnimation ){
+                        // this.setCurrentAnimation(this.direction);
+                    // }else{
+                        // this.setCurrentAnimation( "primeiraAnimacao" );
+                    // }
                     this.destX = this.path[this.currentPath][this.countPath ][0] * ads_tile_size;
                     this.destY = (this.path[this.currentPath][this.countPath ][1] * ads_tile_size) - this.avoidWall;
 
                     this.countPath++;
                     this.setDirection();
-                    this.setCurrentAnimation(this.direction);
+                    
+                    // first animation before set prisoner free
+                    if ( !this.firstAnimation ){
+                        this.setCurrentAnimation(this.direction);
+                    }else{
+                        this.setCurrentAnimation( "primeiraAnimacao" );
+                    }
                 } else {
                     this.countPath = 0;
                     this.currentPath++;
@@ -461,7 +521,11 @@ var NpcEntity = me.ObjectEntity.extend({
                     if (this.currentPath == this.path.length) {
                         this.stop = true;
                         // this.setCurrentAnimation("stand-" + this.direction);
-                        this.setCurrentAnimation( "stand-down" );
+                        if ( !this.firstAnimation ){
+                            this.setCurrentAnimation( "stand-down");
+                        }else{
+                            this.setCurrentAnimation( "primeiraAnimacao" );
+                        }
                     }
                 }
 
@@ -976,7 +1040,7 @@ adsGame.NPC = Object.extend({
         // Create a new npc *ads_tile_size to transform map coordinates to tile coordinates
         npc = new NpcEntity(npcData.coordenadas[0].initStartX * ads_tile_size, npcData.coordenadas[0].initStartY * ads_tile_size, settings, npcData);
 
-        me.game.add(npc, 6);
+        me.game.add(npc, 7);
         me.game.sort();
     }
 });

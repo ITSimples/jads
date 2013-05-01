@@ -1,3 +1,22 @@
+                 "primeiraAnimacao": [12, 13, 14], 
+                 
+        //If there is a first animation for prisoner when is not free
+        if ( this.npcData.primeiraAnimacao ){
+            this.firstAnimation = true;
+        }else{
+            this.firstAnimation =false;
+        }
+ 
+            if ( self.firstAnimation && countAnimation == 0){
+                self.firstAnimationName = i;
+            }
+
+
+
+
+
+
+
 DECRAPED CODE 
 		// //get collision La yerdfdfdfd
 		// var myCollisionLayer = me.game.currentLevel.getLayerByName("collision");

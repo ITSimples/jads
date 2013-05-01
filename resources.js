@@ -31,7 +31,7 @@ Game engine system Configuration
 -------------------------------- */
 me.sys.fps = 30;
 
-me.sys.useNativeAnimFrame = true;
+// me.sys.useNativeAnimFrame = true;
 
 me.sys.cacheImage = true;
 
@@ -87,7 +87,7 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [5,5];
+var startHero = [44,12];
 
 var DEBUG_MODE = false;
 
@@ -214,11 +214,12 @@ var ads_resources =
 	// {name: "diablo02",	type: "image",	src: ads_sprites_path + "diablo02.png"},
 	// {name: "diablo03",	type: "image",	src: ads_sprites_path + "diablo03.png"},
 	// {name: "e_female01",	type: "image",	src: ads_sprites_path + "e_female01.png"},
-	// {name: "e_male01",	type: "image",	src: ads_sprites_path + "e_male01.png"},
+	{name: "e_male01",	type: "image",	src: ads_sprites_path + "e_male01.png"},
 	// {name: "e_male02",	type: "image",	src: ads_sprites_path + "e_male02.png"},
 	{name: "e_male03", type: "image",  src: ads_sprites_path + "e_male03.png"},
 	{name: "e_male04", type: "image",  src: ads_sprites_path + "e_male04.png"},
-    {name: "e_male05", type: "image",  src: ads_sprites_path + "e_male05.png"},	
+    {name: "e_male05", type: "image",  src: ads_sprites_path + "e_male05.png"},
+    {name: "e_male06", type: "image",  src: ads_sprites_path + "e_male06.png"},
 	
 	// {name: "eye",		type: "image",	src: ads_sprites_path + "eye.png"},
 	{name: "f_female01",	type: "image",	src: ads_sprites_path + "f_female01.png"},
@@ -227,6 +228,7 @@ var ads_resources =
 	// {name: "f_male02",	type: "image",	src: ads_sprites_path + "f_male02.png"},
 	{name: "f_male03",	type: "image",	src: ads_sprites_path + "f_male03.png"},
 	{name: "f_male04",	type: "image",	src: ads_sprites_path + "f_male04.png"},
+	{name: "f_male05", type: "image",  src: ads_sprites_path + "f_male05.png"},
 	{name: "flame",	type: "image",	src: ads_sprites_path + "flame.png"},
 
 	// {name: "goblin",	type: "image",	src: ads_sprites_path + "goblin.png"},
