@@ -149,6 +149,8 @@ fire.png
 
 campfire02 - Credit goes to Zabin and Jetrel from OGA (http://opengameart.org/content/camp-fire-animation-for-rpgs-finished)
 
+Questions conquest - Parchment pngs by ~SzisszDL (http://szisszdl.deviantart.com/art/Parchment-pngs-177119212?q=gallery%3Aszisszdl%2F25787310&qo=0)
+
 Level Editor
 ------------
 

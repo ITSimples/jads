@@ -237,3 +237,50 @@ adsGame.Shop =  Object.extend({
     }
 });
 
+adsGame.QuestionQuest =  Object.extend({
+    "init" : function init( npcName ) {
+        // How many right answers
+        this.rightQuestions = 0;
+        
+        // NPC who challenged hero
+        this.npcName = npcName;
+        
+    },
+    "show" : function show( ){
+        var $questionBoxHtml = ('<div class="questTitleText"></div>' + 
+                                                 '<img class="questHeroImage" src="" alt="">' +
+                                                 '<img class="questEnemyImage" src="" alt="">' +
+                                                 '<img class="questStarImage" src="" alt="">');
+        
+        $('#questionQuestLayer').append($questionBoxHtml);
+        
+        // Window quest title
+        $('.questTitleText').html( "* Desafio do conhecimento *" );
+        
+        //Hero face
+        $('.questHeroImage').attr({
+        'src' : 'content/sprites/h_male01_face.png'});
+
+        //Enemy face
+        var npcFaceImage = adsNpcData[ this.npcName ].imagem.replace(".png","_face.png");
+        
+        $('.questEnemyImage').attr({
+        'src' : 'content/sprites/' + npcFaceImage });
+        
+        $('.questStarImage').attr({
+        'src' : 'content/gui/star_gold32.png'});       
+        
+        $('#questionQuestLayer').fadeIn( 250 );
+    },
+    "hide" : function hide(){
+        $('#questionQuestLayer').fadeOut( 50 , function(){
+            //lears all the child divs, but leaves the master intact.
+            $("#questionQuestLayer").children().remove();
+             // $('#shopLayer').remove();
+        });
+        // Remove event listener to get answer from player
+        $(document).unbind();
+        $("*", "#questionQuestLayer").unbind("click");
+    }
+});
+

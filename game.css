@@ -633,3 +633,101 @@
 }
 
 /* Shop layer configuration */
+
+/* Question quest layer configuration */
+#questionQuestLayer {
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+    width: 405px;
+    height: 480px;
+    background: url('content/gui/parchmentquest.png') no-repeat;
+    font-family: 'MedievalSharp', serif;
+    display: none;
+}
+
+#questionQuestLayer .questTitleText {
+    position: absolute;
+    top: 60px;
+    left: 82px;
+    width: 250px;
+    height: 60px;
+    font-size: 18px;
+    color : #764F00;
+    overflow: hidden;
+    z-index:1;
+}
+
+#questionQuestLayer img.questHeroImage {
+    position: absolute;
+    top: 91px;
+    left: 88px;
+    width: 35px;
+    height: 35px;
+}
+
+#questionQuestLayer img.questEnemyImage {
+    position: absolute;
+    top: 131px;
+    left: 88px;
+    width: 35px;
+    height: 35px;
+}
+
+#questionQuestLayer img.questStarImage {
+    position: absolute;
+    top: 92px;
+    left: 129px;
+    width: 32px;
+    height: 32px;
+}
+
+
+#questionQuestLayer .questionQuestText {
+    position: absolute;
+    top: 75px;
+    left: 43px;
+    width: 290px;
+    height: 120px;
+    font-weight: bold;
+    color : #0B610B;
+    overflow: hidden;
+    z-index:1;
+}
+
+#questionQuestLayer .QuestR1 {
+    position: absolute;
+    top: 135px;
+    left: 50px;
+    width: 530px;
+    height: 60px;
+    color : #4B8A08;
+    overflow: hidden;
+    z-index:1;
+}
+
+#questionQuestLayer .QuestR2 {
+    position: absolute;
+    top: 155px;
+    left: 50px;
+    width: 530px;
+    height: 60px;
+    color : #4B8A08;
+    overflow: hidden;
+    z-index:1;
+}
+
+#questionQuestLayer .QuestR3 {
+    position: absolute;
+    top: 175px;
+    left: 50px;
+    width: 530px;
+    height: 60px;
+    color : #4B8A08;
+    overflow: hidden;
+    z-index:1;
+}
+
+
+
+/* End Question quest layer configuration */

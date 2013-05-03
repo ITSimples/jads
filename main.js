@@ -82,7 +82,6 @@ var adsGame =
 		
 		// Create object to Shop
         adsGame.Shop = new adsGame.Shop();
-
 	},
 	reboot:function(){
 		this.data = null;

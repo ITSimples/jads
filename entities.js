@@ -887,11 +887,25 @@ var TriggerEntity = me.InvisibleEntity.extend({
                             adsGame.Npc.create(adsNpcData[this.npcName]);
                         }
                 }
+
+                // Quest questions object
+                if (this.type == 'QUESTIONS_OBJECT'){
+                    // console.log("adsGame.questionQuest:" , adsGame.questionQuest.show() );
+                    // Create object to Shop
+                    var questionQuest = new adsGame.QuestionQuest( this.triggerData.nomeNPC );
+                    
+                    questionQuest.show();
+                    
+                    
+                    // Remove this object 
+                    me.game.remove(this);
+                    console.log("How many times.");
+                } // End Quest questions object
                 
                 //If hero pull the trigger set onetime to true - pull one time atfer test triggers type
                 this.oneTime = true;
 				
-			} // End hero collision
+			} 
 		}else{
 			if (!msgShowing)
 			{
