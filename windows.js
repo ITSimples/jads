@@ -242,10 +242,48 @@ adsGame.QuestionQuest =  Object.extend({
         // How many right answers
         this.rightQuestions = 0;
         
-        // NPC who challenged hero
-        this.npcName = npcName;
+        //Quest is showing?
+        this.showQuestionQuest = false;
+        
+        // Make this only one time
+        this.oneTime = false;
+        
+        // Get NPC data who challenged hero
+        this.npcData = adsNpcData[ npcName ];
+        
+        //Get palyer entity
+        this.player = adsGame.heroEntity();
+        
+        // 
+        this.QuestWindowClosed = false;
         
     },
+    
+    "play" : function play(){
+        //Stop Player
+        this.player.vel.x = 0;
+        this.player.vel.y = 0;
+            
+        // Show question quest layer
+        if ( !this.showQuestionQuest ){
+            this.show();
+        }
+        
+        //Ask hero if he accept the challenge first time only
+        if ( !this.oneTime ){
+            this.acceptChallenge();
+            this.oneTime = true;
+        }
+        
+         if ( this.QuestWindowClosed ){
+            return false;
+        }else{
+            return true;
+        }
+        
+
+    },
+    
     "show" : function show( ){
         var $questionBoxHtml = ('<div class="questTitleText"></div>' + 
                                                  '<img class="questHeroImage" src="" alt="">' +
@@ -262,7 +300,7 @@ adsGame.QuestionQuest =  Object.extend({
         'src' : 'content/sprites/h_male01_face.png'});
 
         //Enemy face
-        var npcFaceImage = adsNpcData[ this.npcName ].imagem.replace(".png","_face.png");
+        var npcFaceImage = this.npcData.imagem.replace(".png","_face.png");
         
         $('.questEnemyImage').attr({
         'src' : 'content/sprites/' + npcFaceImage });
@@ -271,16 +309,77 @@ adsGame.QuestionQuest =  Object.extend({
         'src' : 'content/gui/star_gold32.png'});       
         
         $('#questionQuestLayer').fadeIn( 250 );
+        
+        // Is showing question quest
+        this.showQuestionQuest = true; 
     },
+    
+    //Ask hero if he accept the challenge
+    "acceptChallenge" : function(){
+        
+        var self = this;
+        
+        var $questBoxHtml = ('<div id="heroAcceptChallenge">' +
+                                                '<div class="npcChallenge"></div>' + 
+                                                '<div class="msgAcceptQuest"></div>' + 
+                                                '<div id="acceptQuest">' +
+                                                    '<div id="button_yes" ><a class="button"></a></div>' +
+                                                    '<div id="button_no" ><a class="button"></a></div>' +
+                                                '</div>' +
+                                            '</div>' );
+        
+        $('#questionQuestLayer').append( $questBoxHtml );
+        
+        // Window quest title
+        $('.npcChallenge').html( this.npcData.desafiaHeroi );
+        $('.msgAcceptQuest').html( "Aceitas o desafio?" );
+        
+        //Positioning buttons
+        $("#button_yes").css({ 'position' : 'absolute' , 'top': 290 , 'left': 140 });
+        $("#button_no").css({  'position' : 'absolute' ,  'top': 290 , 'left': 190 });
+        
+        // Buttons text
+        $('#button_yes > a').html( "Ja" );
+        $('#button_no > a').html( "Nicht" );
+        
+        $('#acceptQuest  > div').bind('click', function() {
+            // Get answer from player
+            var playerChoice = this.id;
+
+            if ( playerChoice == "button_yes" ){
+                console.log ("You accept the challenge.");
+                // Remove question to hero if accepts challenge
+                $('#heroAcceptChallenge').fadeOut( 1000 , function(){
+                    //lears all the child divs, but leaves the master intact.
+                    $("#heroAcceptChallenge").children().remove();
+                });
+                
+                // Goto questions
+                // this.makeQuestions();
+            }else{
+                console.log ("You don't accept the challenge.");
+               self.hide();
+            }
+        });
+
+    },
+    
     "hide" : function hide(){
-        $('#questionQuestLayer').fadeOut( 50 , function(){
+        $('#questionQuestLayer').fadeOut( 500 , function(){
             //lears all the child divs, but leaves the master intact.
             $("#questionQuestLayer").children().remove();
              // $('#shopLayer').remove();
         });
+        
         // Remove event listener to get answer from player
         $(document).unbind();
+        
         $("*", "#questionQuestLayer").unbind("click");
+        
+        // Is not showing questions quest anymore
+        this.showQuestionQuest = false;
+        
+        this.QuestWindowClosed = true;
     }
 });
 

@@ -649,6 +649,9 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		this.remove = this.triggerData.remove;
 		//check first time pull the trigger
 		this.oneTime = false;
+
+        //check one time for collision to trigger when leave trigger variable reseted
+		this.oneTimeCollide = false;
 		
 		// Check if requirements are satisfied to pull the trigger default is true
 		this.pullTrigger = true;
@@ -660,7 +663,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
 		    
 		    //Get effect to rise the new NPC
 		    this.appearEffect = adsNpcData[ this.npcName].appearEffect;
-		}
+		}	
 		
 		this.checkSolution = false;
 		this.isChecked = false;
@@ -710,8 +713,6 @@ var TriggerEntity = me.InvisibleEntity.extend({
 					   adsGame.Inventory.removeItem( 'Slot0' + (itemIndex + 1) );
 					}
 				}
-				
-
 				
 				// If trigger is a chest object
                 if (this.type == 'CHEST_OBJECT'){
@@ -889,24 +890,23 @@ var TriggerEntity = me.InvisibleEntity.extend({
                 }
 
                 // Quest questions object
-                if (this.type == 'QUESTIONS_OBJECT'){
-                    // console.log("adsGame.questionQuest:" , adsGame.questionQuest.show() );
-                    // Create object to Shop
+                if (this.type == 'QUESTIONS_OBJECT' && !this.oneTimeCollide){
+
                     var questionQuest = new adsGame.QuestionQuest( this.triggerData.nomeNPC );
                     
-                    questionQuest.show();
+                    questionQuest.play();
                     
-                    
+                   questionQuest = undefined;
+                   
                     // Remove this object 
-                    me.game.remove(this);
-                    console.log("How many times.");
+                    // me.game.remove(this);
                 } // End Quest questions object
                 
                 //If hero pull the trigger set onetime to true - pull one time atfer test triggers type
-                this.oneTime = true;
-				
-			} 
+                this.oneTime = true;	
+			}
 		}else{
+		     
 			if (!msgShowing)
 			{
 					this.message.hide();	
@@ -928,7 +928,20 @@ var TriggerEntity = me.InvisibleEntity.extend({
                   
                   console.log("Trigger Removed.....");
             }
-		}		
+		}
+
+        // TODO - Use that variable for check only one time in others triggers
+        // check only one collision with hero to activate the question quest
+        if (this.type == 'QUESTIONS_OBJECT'){
+            console.log("RES:", res);
+            if ( res && res.obj.name == 'hero' ){
+                this.oneTimeCollide = true;
+            } else{ // If not collide with hero
+                //If hero leave trigger reset onetime to false
+                this.oneTimeCollide = false;
+            }
+        }
+        
 	} // End Update
 	
 });
