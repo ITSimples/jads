@@ -254,8 +254,20 @@ adsGame.QuestionQuest =  Object.extend({
         //Get palyer entity
         this.player = adsGame.heroEntity();
         
-        // 
-        this.QuestWindowClosed = false;
+        // Current question to hero
+        this.currentQuestion = 0;
+        
+        // Wrong answers
+        this.wrongAnswer = 0;
+        
+        // Right answers
+        this.rightAnswers = 0;
+        
+        // Get keys for questions data         
+        this.adsQtnDataKeys = Object.keys(adsQtnData);
+        
+        // Add one more question
+        this.questionCount = 1;
         
     },
     
@@ -274,13 +286,6 @@ adsGame.QuestionQuest =  Object.extend({
             this.acceptChallenge();
             this.oneTime = true;
         }
-        
-         if ( this.QuestWindowClosed ){
-            return false;
-        }else{
-            return true;
-        }
-        
 
     },
     
@@ -352,16 +357,91 @@ adsGame.QuestionQuest =  Object.extend({
                 $('#heroAcceptChallenge').fadeOut( 1000 , function(){
                     //lears all the child divs, but leaves the master intact.
                     $("#heroAcceptChallenge").children().remove();
+                    
+                    // Goto questions
+                    self.makeQuestions();
                 });
-                
-                // Goto questions
-                // this.makeQuestions();
             }else{
                 console.log ("You don't accept the challenge.");
                self.hide();
             }
         });
 
+    },
+    
+    "makeQuestions" : function makeQuestions(  ){
+            
+            this.makeQuestion (  this.currentQuestion  );
+            
+            console.log("Call make questions...")
+    },
+    
+    "makeQuestion" : function makeQuestion( number ){
+        var self = this;
+        // Get current question data
+        this.currentQuestion = this.adsQtnDataKeys.length - this.questionCount;
+
+        var questionData = adsQtnData[ this.adsQtnDataKeys[ this.currentQuestion ] ];
+                 
+        // One more Question
+        this.questionCount++;
+        
+        console.log("questionData:" , questionData , "number:" , this.currentQuestion );
+        
+        // Set question div
+        var $questBoxHtml = ('<div id="heroQuestions">' +
+                                                '<div class="questionQuestText"></div>' + 
+                                                '<div id="acceptAnswerQuest">' +
+                                                    '<div class="QuestR1"></div>' +
+                                                    '<div class="QuestR2"></div>' +
+                                                    '<div class="QuestR3"></div>' +
+                                                '</div>' +
+                                                '<div class="questSate"></div>' +
+                                            '</div>' );
+        
+        $('#questionQuestLayer').append( $questBoxHtml );
+        
+        //Hide question
+        $('#heroQuestions').hide();
+
+        $('.questionQuestText').html( questionData.pergunta );
+        $('.QuestR1').html( "(1) " + questionData.r1 );
+        $('.QuestR2').html( "(2) " + questionData.r2 );
+        $('.QuestR3').html( "(3) " +questionData.r3 );      
+        $('.questSate').html( "Resposta certa: +1 Conhecimento.<BR>" +
+                                         "Resposta Errada: -1 Conhecimento." );
+        //Show question                         
+        $('#heroQuestions').fadeIn( 1000 );
+        
+        //Create hero answer variable that return
+        var heroAnswer = -1;
+
+        // Create a event listener to get the ansewer from the mouse 
+        // $('#questionLayer  > div') same as $('#questionLayer').children("div")
+        $('#acceptAnswerQuest  > div').bind('click', function() {
+            var answer = this.className;
+
+                // Get last char from string and make number
+                heroAnswer = parseInt ( answer.substr(answer.length - 1) , 10 );
+
+                $('#heroQuestions').fadeOut( 1000 , function(){
+                    // Remove Question div
+                    $("#heroQuestions").remove();
+                    
+                    //Remove event listener
+                    $('#acceptAnswerQuest  > div').unbind('click');
+                    // Call make questions again
+                    self.validateQuestion ( questionData , heroAnswer );
+                });
+                
+        });
+    },
+    
+    "validateQuestion" : function validateQuestion ( questionData , heroAnswer ){
+
+        
+        //make another question or finish game
+        this.makeQuestions();
     },
     
     "hide" : function hide(){

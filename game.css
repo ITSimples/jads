@@ -684,9 +684,9 @@
 
 #questionQuestLayer .npcChallenge {
     position: absolute;
-    top: 180px;
-    left: 88px;
-    width: 250px;
+    top: 190px;
+    left: 60px;
+    width: 300px;
     height: 80px;
     font-weight: bold;
     color : #996600;
@@ -697,7 +697,7 @@
 #questionQuestLayer .msgAcceptQuest {
     position: absolute;
     top: 260px;
-    left: 88px;
+    left: 125px;
     width: 290px;
     height: 40px;
     font-weight: bold;
@@ -708,9 +708,9 @@
 
 #questionQuestLayer .questionQuestText {
     position: absolute;
-    top: 75px;
-    left: 43px;
-    width: 290px;
+    top: 180px;
+    left: 60px;
+    width: 300px;
     height: 120px;
     font-weight: bold;
     color : #0B610B;
@@ -720,8 +720,8 @@
 
 #questionQuestLayer .QuestR1 {
     position: absolute;
-    top: 135px;
-    left: 50px;
+    top: 250px;
+    left: 85px;
     width: 530px;
     height: 60px;
     color : #4B8A08;
@@ -731,8 +731,8 @@
 
 #questionQuestLayer .QuestR2 {
     position: absolute;
-    top: 155px;
-    left: 50px;
+    top: 275px;
+    left: 85px;
     width: 530px;
     height: 60px;
     color : #4B8A08;
@@ -742,11 +742,22 @@
 
 #questionQuestLayer .QuestR3 {
     position: absolute;
-    top: 175px;
-    left: 50px;
+    top: 300px;
+    left: 85px;
     width: 530px;
     height: 60px;
     color : #4B8A08;
+    overflow: hidden;
+    z-index:1;
+}
+
+#questionQuestLayer .questSate {
+    position: absolute;
+    top: 330px;
+    left: 85px;
+    width: 295px;
+    height: 60px;
+    color : #8A4B08;
     overflow: hidden;
     z-index:1;
 }

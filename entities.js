@@ -933,7 +933,6 @@ var TriggerEntity = me.InvisibleEntity.extend({
         // TODO - Use that variable for check only one time in others triggers
         // check only one collision with hero to activate the question quest
         if (this.type == 'QUESTIONS_OBJECT'){
-            console.log("RES:", res);
             if ( res && res.obj.name == 'hero' ){
                 this.oneTimeCollide = true;
             } else{ // If not collide with hero
