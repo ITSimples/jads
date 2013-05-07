@@ -238,9 +238,12 @@ adsGame.Shop =  Object.extend({
 });
 
 adsGame.QuestionQuest =  Object.extend({
-    "init" : function init( npcName ) {
+    "init" : function init( npcName , objCall ) {
         // How many right answers
         this.rightQuestions = 0;
+        
+        // Object that call this challenge. To remove trigger if player wins
+        this.objCall = objCall;
         
         //Quest is showing?
         this.showQuestionQuest = false;
@@ -269,6 +272,14 @@ adsGame.QuestionQuest =  Object.extend({
         // Add one more question
         this.questionCount = 1;
         
+        //DEBUG
+        this.debugCount = 0;
+        
+        // The NPC object
+        this.npcObject = me.game.getEntityByName ( npcName );
+        
+        console.log( "this.npcObject:" , this.npcObject)
+        
     },
     
     "play" : function play(){
@@ -283,7 +294,7 @@ adsGame.QuestionQuest =  Object.extend({
         
         //Ask hero if he accept the challenge first time only
         if ( !this.oneTime ){
-            this.acceptChallenge();
+            this.heroDecision( 'acceptChallenge' );
             this.oneTime = true;
         }
 
@@ -292,8 +303,7 @@ adsGame.QuestionQuest =  Object.extend({
     "show" : function show( ){
         var $questionBoxHtml = ('<div class="questTitleText"></div>' + 
                                                  '<img class="questHeroImage" src="" alt="">' +
-                                                 '<img class="questEnemyImage" src="" alt="">' +
-                                                 '<img class="questStarImage" src="" alt="">');
+                                                 '<img class="questEnemyImage" src="" alt="">');
         
         $('#questionQuestLayer').append($questionBoxHtml);
         
@@ -310,8 +320,8 @@ adsGame.QuestionQuest =  Object.extend({
         $('.questEnemyImage').attr({
         'src' : 'content/sprites/' + npcFaceImage });
         
-        $('.questStarImage').attr({
-        'src' : 'content/gui/star_gold32.png'});       
+        // $('.questStarImage').attr({
+        // 'src' : 'content/gui/star_gold32.png'});       
         
         $('#questionQuestLayer').fadeIn( 250 );
         
@@ -320,63 +330,98 @@ adsGame.QuestionQuest =  Object.extend({
     },
     
     //Ask hero if he accept the challenge
-    "acceptChallenge" : function(){
+    "heroDecision" : function heroDecision( information ){
+        
+        var buttonsInf = '<div id="button_yes" ><a class="button"></a></div>';                           
+        var questionToHero = "";
+        var button_yes = "";
+        var button_no = "";
+        var button_yes_css = { 'position' : 'absolute' , 'top': 290 , 'left': 120 };
+        var button_no_css = "";        
+        
+        if ( information == "acceptChallenge" ||  information == "acceptChallengeAgain" ){
+            
+            // add button no for this cases
+            buttonsInf = buttonsInf + '<div id="button_no" ><a class="button"></a></div>';
+            
+            if ( information == "acceptChallenge")
+                questionToHero = "Aceitas o desafio?";
+            else
+                questionToHero = "Queres tentar novamente?";
+            
+            button_yes = "Sim";
+            button_no = "Nao";
+            button_no_css = {  'position' : 'absolute' ,  'top': 290 , 'left': 180 };
+            
+        }else if ( information == "heroWinChallenge" ){
+            questionToHero = "Muitos parabens";
+            button_yes = "Continuar";
+        }
         
         var self = this;
         
-        var $questBoxHtml = ('<div id="heroAcceptChallenge">' +
-                                                '<div class="npcChallenge"></div>' + 
-                                                '<div class="msgAcceptQuest"></div>' + 
-                                                '<div id="acceptQuest">' +
-                                                    '<div id="button_yes" ><a class="button"></a></div>' +
-                                                    '<div id="button_no" ><a class="button"></a></div>' +
+        var $questBoxHtml = ('<div id="heroInformationChallenge">' +
+                                                '<div class="npcChallengeInfo"></div>' + 
+                                                '<div class="questionToHero"></div>' + 
+                                                '<div id="heroInput">' +
+                                                    buttonsInf +
                                                 '</div>' +
                                             '</div>' );
         
         $('#questionQuestLayer').append( $questBoxHtml );
         
         // Window quest title
-        $('.npcChallenge').html( this.npcData.desafiaHeroi );
-        $('.msgAcceptQuest').html( "Aceitas o desafio?" );
+        $('.npcChallengeInfo').html( this.npcData.desafiaHeroi );
+        $('.questionToHero').html( questionToHero );
         
         //Positioning buttons
-        $("#button_yes").css({ 'position' : 'absolute' , 'top': 290 , 'left': 140 });
-        $("#button_no").css({  'position' : 'absolute' ,  'top': 290 , 'left': 190 });
-        
+        $("#button_yes").css( button_yes_css );
+                
         // Buttons text
-        $('#button_yes > a').html( "Ja" );
-        $('#button_no > a').html( "Nicht" );
+        $('#button_yes > a').html( button_yes );
         
-        $('#acceptQuest  > div').bind('click', function() {
+        // Use this button only if not heroWinChallenge
+        if ( information !== "heroWinChallenge" ){
+            $('#button_no > a').html( button_no );
+            $("#button_no").css( button_no_css );
+        }
+        
+        $('#heroInput  > div').bind('click', function() {
             // Get answer from player
             var playerChoice = this.id;
 
-            if ( playerChoice == "button_yes" ){
-                console.log ("You accept the challenge.");
+            if ( playerChoice == "button_yes" && ( information == "acceptChallenge" ||  information == "acceptChallengeAgain"  ) ){
+                // console.log ("You accept the challenge.");
+                
                 // Remove question to hero if accepts challenge
-                $('#heroAcceptChallenge').fadeOut( 1000 , function(){
+                $('#heroInformationChallenge').fadeOut( 1000 , function(){
                     //lears all the child divs, but leaves the master intact.
-                    $("#heroAcceptChallenge").children().remove();
+                    $("#heroInformationChallenge").remove();
                     
                     // Goto questions
-                    self.makeQuestions();
+                    self.makeQuestion();
                 });
             }else{
-                console.log ("You don't accept the challenge.");
+                // console.log ("You don't accept the challenge.");
+                if ( information == "heroWinChallenge" ){
+                    // Remove trigger hero wins the challenge
+                    me.game.remove( self.objCall );
+                    
+                    // Save prisoner
+                    
+                    // NPC must die and give a item
+                }
                self.hide();
             }
         });
 
     },
-    
-    "makeQuestions" : function makeQuestions(  ){
-            
-            this.makeQuestion (  this.currentQuestion  );
-            
-            console.log("Call make questions...")
-    },
-    
+
     "makeQuestion" : function makeQuestion( number ){
+        
+        this.debugCount++;
+        console.log("How many times call question :" , this.debugCount);
+        
         var self = this;
         // Get current question data
         this.currentQuestion = this.adsQtnDataKeys.length - this.questionCount;
@@ -385,8 +430,6 @@ adsGame.QuestionQuest =  Object.extend({
                  
         // One more Question
         this.questionCount++;
-        
-        console.log("questionData:" , questionData , "number:" , this.currentQuestion );
         
         // Set question div
         var $questBoxHtml = ('<div id="heroQuestions">' +
@@ -408,8 +451,8 @@ adsGame.QuestionQuest =  Object.extend({
         $('.QuestR1').html( "(1) " + questionData.r1 );
         $('.QuestR2').html( "(2) " + questionData.r2 );
         $('.QuestR3').html( "(3) " +questionData.r3 );      
-        $('.questSate').html( "Resposta certa: +1 Conhecimento.<BR>" +
-                                         "Resposta Errada: -1 Conhecimento." );
+        $('.questSate').html( "Resposta certa: +2 Conhecimento.<BR>" +
+                                         "Resposta Errada: -2 Conhecimento." );
         //Show question                         
         $('#heroQuestions').fadeIn( 1000 );
         
@@ -438,10 +481,104 @@ adsGame.QuestionQuest =  Object.extend({
     },
     
     "validateQuestion" : function validateQuestion ( questionData , heroAnswer ){
-
         
-        //make another question or finish game
-        this.makeQuestions();
+        var rightAnswer = parseInt ( questionData.correta );
+        
+        if ( rightAnswer === heroAnswer) {
+            // console.log("You are the best right answer...");
+            
+            // Put a star on hero
+            this.putStar ( this.rightAnswers , 'Hero' );
+            
+            // Count another right answer
+            this.rightAnswers++;
+            
+            // Add 2 knowledge point to hero
+            me.game.HUD.updateItemValue('conhecimento' , 2 );
+            
+            // Remove live to NPC
+            this.npcObject[0].removeHealth ( 10 );
+            
+            //make another question or finish the quest game
+            if (this.rightAnswers == 5){
+                this.finishQuestionQuest( 'Hero' );
+            }else{            
+                this.makeQuestion();
+            }
+        }else{
+            // console.log("Try again wrong answer...");
+            
+            // Put a star on hero
+            this.putStar ( this.wrongAnswer , 'Npc' );
+            
+            // Count another right answer
+            this.wrongAnswer++;
+            
+            // Remove -2 knowledge point to hero
+            me.game.HUD.updateItemValue('conhecimento' , -2 );
+            
+             // If 5 wrong questions then player lose
+             //make another question or finish game
+            if (this.wrongAnswer == 5){
+                this.finishQuestionQuest( 'NPC' );
+            }else{            
+                this.makeQuestion();
+            }
+        }
+    },
+    
+    "putStar" : function putStar ( starNumber , where ){
+            // Put a star to hero or NPC
+            if ( where == 'Hero'){
+                topPosition = 92;
+            }else{
+                topPosition = 132;
+            }
+            
+            var $addStarHtml = ('<div id="starSlot' + where + starNumber  + '">' + 
+                                              '<img class="questStarImage" src="" alt="">' +
+                                              '</div>');
+
+            // Space between stars 
+            var spaceBetweenStars = 0;
+            
+            if ( starNumber < 1){
+                spaceBetweenStars = 0;        
+            }else{
+                spaceBetweenStars = 8;    
+            }
+                
+            var starDivPosition = 129 + ( 32 * starNumber ) + ( spaceBetweenStars * starNumber ) ;
+
+            $('#questionQuestLayer').append( $addStarHtml );
+            
+            // CSS for the new star
+            $("#starSlot" + where + starNumber ).css({
+                "position" : "absolute" , 
+                "top": topPosition + "px" , 
+                "left": starDivPosition + "px" ,
+                "width": "32px",
+                "height": "32px"
+            });   
+    },
+    
+    "finishQuestionQuest" : function finishQuestionQuest ( winner ){
+        
+        console.log("And the winner is:" , winner);
+        if ( winner == "Hero"){
+            // Message to player
+            this.heroDecision( 'heroWinChallenge' );
+            // Hide message
+            
+            // Player can walk again
+            
+            // 
+            
+            // Remove the trigger
+        }else{
+            // Message to player
+            this.heroDecision( 'acceptChallengeAgain' );
+        }
     },
     
     "hide" : function hide(){

@@ -676,13 +676,13 @@
 
 #questionQuestLayer img.questStarImage {
     position: absolute;
-    top: 92px;
-    left: 129px;
+    background: url('content/gui/star_gold32.png') no-repeat;  
+    border-style : none;
     width: 32px;
     height: 32px;
 }
 
-#questionQuestLayer .npcChallenge {
+#questionQuestLayer .npcChallengeInfo {
     position: absolute;
     top: 190px;
     left: 60px;
@@ -694,7 +694,7 @@
     z-index:1;
 }
 
-#questionQuestLayer .msgAcceptQuest {
+#questionQuestLayer .questionToHero {
     position: absolute;
     top: 260px;
     left: 125px;

@@ -892,7 +892,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
                 // Quest questions object
                 if (this.type == 'QUESTIONS_OBJECT' && !this.oneTimeCollide){
 
-                    var questionQuest = new adsGame.QuestionQuest( this.triggerData.nomeNPC );
+                    var questionQuest = new adsGame.QuestionQuest( this.triggerData.nomeNPC , this );
                     
                     questionQuest.play();
                     

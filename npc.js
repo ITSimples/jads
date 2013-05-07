@@ -1014,7 +1014,7 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
         for (var x = 0; x < countNpc; x++) {
             //Test if npc is to create at the beginning of the game
             if (adsNpcData[npcKeys[x]].criarInicio) {
-                adsGame.Npc.create(adsNpcData[npcKeys[x]]);
+                adsGame.Npc.create(adsNpcData[npcKeys[x]] , npcKeys[x]);
             }
         }
     }
@@ -1029,12 +1029,12 @@ var NpcSpawnEntity = me.InvisibleEntity.extend({
 // **************************
 adsGame.NPC = Object.extend({
 
-    create : function create(npcData) {
+    create : function create(npcData , indexKey) {
         var settings = {};
         settings.image = npcData.imagem.replace(".png", "");
         settings.spritewidth = npcData.tamanhoImagem.largura;
         settings.spriteheight = npcData.tamanhoImagem.altura;
-
+        settings.name = indexKey;
         console.log("npcData.coordenadas[0].initStartX:", npcData.coordenadas[0].initStartX);
 
         // Create a new npc *ads_tile_size to transform map coordinates to tile coordinates
