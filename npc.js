@@ -289,7 +289,11 @@ var NpcEntity = me.ObjectEntity.extend({
         console.log("Call method in NPC...", this.npcData.nome);
         this.health = this.health - hitPoints;
     },
-
+    
+    setNPCHealth : function removeHealth( health ) {
+        this.health = health;
+    },
+    
     setDirection : function() {
         // Get the distance between the two points to set the direction of NPC
         this.distanceX = Math.abs(this.destX - this.pos.x);
@@ -457,22 +461,13 @@ var NpcEntity = me.ObjectEntity.extend({
             }
         }
 
-        if (this.prisoner) {
+        if ( this.prisoner ) {
             if ( adsGame.prisonDoors.getPrisonDoorState( this.npcData.prisao.numero ) ) {
-
-                // console.log ('Says thx to hero and.. ');
-                // console.log ('Calculate path to freedom... :)');
-                // console.log ('Stop being a prisoner...');
-                //Stop being a prisoner...
-                this.prisoner = false;
                 
-                //Stop first animation for prisoner npc now is free
-                this.firstAnimation = false;                
-
-                //reset event number and execute escape events
-                this.CurrentEventNumber = 0;
-                this.npcEvents = this.npcEscapeEvents;
-
+                // Free NPC prisoner
+                if ( this.npcData.portaAbertaLiberta === undefined ||  this.npcData.portaAbertaLiberta) {
+                    this.freeNPCPrisoner();
+                }
             }
 
             // console.log ('Prisoner ' , this.npcData.nome , ' is arrested at cell ' , this.npcData.prisao.numero ,
@@ -877,7 +872,27 @@ var NpcEntity = me.ObjectEntity.extend({
             break;
         }
     },
+    
+    "freeNPCPrisoner" : function freeNPCPrisoner(context) {
+        // console.log ('Says thx to hero and.. ');
+        // console.log ('Calculate path to freedom... :)');
+        // console.log ('Stop being a prisoner...');
+        
+        
+        
+        // If open prisoner cell door releases the prisoner
+        //Stop being a prisoner...
+        this.prisoner = false;
+        
+        //Stop first animation for prisoner npc now is free
+        this.firstAnimation = false; 
 
+        //reset event number and execute escape events
+        this.CurrentEventNumber = 0;
+        this.npcEvents = this.npcEscapeEvents;
+
+    },
+    
     "draw" : function draw(context) {
         this.parent(context);
 
@@ -930,24 +945,25 @@ var NpcEntity = me.ObjectEntity.extend({
                         this.message.show(dieMsgData);
                         this.showMessage = true;
                         msgShowing = true;
-                        
-                        var self = this;
-                        
-                        var tween = new me.Tween( { x: 1} )
-                        .to( { x: 0 }, 10000 ).onComplete(function(){ 
-                            console.log("Testing Tween..."); 
-                            self.message.hide();
-                            msgShowing = false;
-                            self.showMessage = false;
-                            if ( typeof(self.npcData.dieEffect.removerArmaHeroi) && self.npcData.dieEffect.removerArmaHeroi){
-                                var player = adsGame.heroEntity();
-                                player.removeWeapon( heroWeaponName );
-                            }
-                        }).start();
                     }
                     
+                    var self = this;
+                    
+                    var tween = new me.Tween( { x: 1} )
+                    .to( { x: 0 }, 10000 ).onComplete(function(){ 
+                        console.log("Testing Tween..."); 
+                        self.message.hide();
+                        msgShowing = false;
+                        self.showMessage = false;
+                        if ( typeof(self.npcData.dieEffect.removerArmaHeroi) && self.npcData.dieEffect.removerArmaHeroi){
+                            var player = adsGame.heroEntity();
+                            player.removeWeapon( heroWeaponName );
+                        }
+                    }).start();
+                    
                     // Remove Thrower associated with NPC
-                    me.game.remove( this.thrower );
+                    if ( this.thrower !== undefined )
+                        me.game.remove( this.thrower );
                 }
                 
                 // Draw Bar

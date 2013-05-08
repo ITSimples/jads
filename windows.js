@@ -245,6 +245,9 @@ adsGame.QuestionQuest =  Object.extend({
         // Object that call this challenge. To remove trigger if player wins
         this.objCall = objCall;
         
+        // Get npc name
+        this.npcName = npcName;
+        
         //Quest is showing?
         this.showQuestionQuest = false;
         
@@ -278,15 +281,17 @@ adsGame.QuestionQuest =  Object.extend({
         // The NPC object
         this.npcObject = me.game.getEntityByName ( npcName );
         
-        console.log( "this.npcObject:" , this.npcObject)
+        if ( this.npcData.questionQuest.salvaPrisioneiro !== undefined){
+            this.prisonerObject = me.game.getEntityByName ( this.npcData.questionQuest.salvaPrisioneiro );            
+        }
         
+        console.log("this.prisonerObject :" , this.prisonerObject );
     },
     
     "play" : function play(){
         //Stop Player
-        this.player.vel.x = 0;
-        this.player.vel.y = 0;
-            
+        this.player.setVelocity(0,0);
+                    
         // Show question quest layer
         if ( !this.showQuestionQuest ){
             this.show();
@@ -337,23 +342,28 @@ adsGame.QuestionQuest =  Object.extend({
         var button_yes = "";
         var button_no = "";
         var button_yes_css = { 'position' : 'absolute' , 'top': 290 , 'left': 120 };
-        var button_no_css = "";        
+        var button_no_css = "";
+        var npcChallengeInfo = "";
         
         if ( information == "acceptChallenge" ||  information == "acceptChallengeAgain" ){
             
             // add button no for this cases
             buttonsInf = buttonsInf + '<div id="button_no" ><a class="button"></a></div>';
             
-            if ( information == "acceptChallenge")
+            if ( information == "acceptChallenge"){
+                npcChallengeInfo =  this.npcData.questionQuest.desafiaHeroi ;
                 questionToHero = "Aceitas o desafio?";
-            else
+            }else{
+                npcChallengeInfo =  this.npcData.questionQuest.msgVence ;
                 questionToHero = "Queres tentar novamente?";
+            }
             
             button_yes = "Sim";
             button_no = "Nao";
             button_no_css = {  'position' : 'absolute' ,  'top': 290 , 'left': 180 };
             
         }else if ( information == "heroWinChallenge" ){
+            npcChallengeInfo =  this.npcData.questionQuest.msgPerde ;
             questionToHero = "Muitos parabens";
             button_yes = "Continuar";
         }
@@ -371,7 +381,7 @@ adsGame.QuestionQuest =  Object.extend({
         $('#questionQuestLayer').append( $questBoxHtml );
         
         // Window quest title
-        $('.npcChallengeInfo').html( this.npcData.desafiaHeroi );
+        $('.npcChallengeInfo').html( npcChallengeInfo );
         $('.questionToHero').html( questionToHero );
         
         //Positioning buttons
@@ -401,15 +411,28 @@ adsGame.QuestionQuest =  Object.extend({
                     // Goto questions
                     self.makeQuestion();
                 });
+                
+                // If hero wants to play again then reset game
+                if  ( information == "acceptChallengeAgain"  ){
+                    // Remove star div's
+                    $("div[id^='starSlot']").remove();
+                    
+                    //Init game again
+                    self.init( self.npcName , self.objCall );
+                    
+                    // NPC get all health in the new challenge
+                    self.npcObject[0].setNPCHealth ( self.npcData.vida );
+                }
+                
             }else{
                 // console.log ("You don't accept the challenge.");
                 if ( information == "heroWinChallenge" ){
                     // Remove trigger hero wins the challenge
                     me.game.remove( self.objCall );
                     
-                    // Save prisoner
-                    
-                    // NPC must die and give a item
+                    // free prisoner
+                    if ( self.prisonerObject !== undefined)
+                        self.prisonerObject[0].freeNPCPrisoner();
                 }
                self.hide();
             }
@@ -459,23 +482,41 @@ adsGame.QuestionQuest =  Object.extend({
         //Create hero answer variable that return
         var heroAnswer = -1;
 
+        // To answer with keys call click method ;)
+        $(document).keydown(function(objEvent) {
+            var keyPressed = (String.fromCharCode(event.keyCode)).toUpperCase();
+            
+            switch( parseInt (keyPressed) )
+            {
+            case 1:
+              $('.QuestR1').click(); //do click
+              break;
+            case 2:
+              $('.QuestR2').click(); //do click
+              break;
+            case 3:
+              $('.QuestR3').click(); //do click
+              break;
+            }
+        })
+
         // Create a event listener to get the ansewer from the mouse 
         // $('#questionLayer  > div') same as $('#questionLayer').children("div")
-        $('#acceptAnswerQuest  > div').bind('click', function() {
+        $('#acceptAnswerQuest  > div').bind('click', function( event ) {
             var answer = this.className;
 
-                // Get last char from string and make number
-                heroAnswer = parseInt ( answer.substr(answer.length - 1) , 10 );
+            // Get last char from string and make number
+            heroAnswer = parseInt ( answer.substr(answer.length - 1) , 10 );
 
-                $('#heroQuestions').fadeOut( 1000 , function(){
-                    // Remove Question div
-                    $("#heroQuestions").remove();
-                    
-                    //Remove event listener
-                    $('#acceptAnswerQuest  > div').unbind('click');
-                    // Call make questions again
-                    self.validateQuestion ( questionData , heroAnswer );
-                });
+            $('#heroQuestions').fadeOut( 1000 , function(){
+                // Remove Question div
+                $("#heroQuestions").remove();
+                
+                //Remove event listener
+                $('#acceptAnswerQuest  > div').unbind('click');
+                // Call make questions again
+                self.validateQuestion ( questionData , heroAnswer );
+            });
                 
         });
     },
@@ -497,7 +538,7 @@ adsGame.QuestionQuest =  Object.extend({
             me.game.HUD.updateItemValue('conhecimento' , 2 );
             
             // Remove live to NPC
-            this.npcObject[0].removeHealth ( 10 );
+            this.npcObject[0].removeHealth ( 10 );            
             
             //make another question or finish the quest game
             if (this.rightAnswers == 5){
@@ -564,17 +605,10 @@ adsGame.QuestionQuest =  Object.extend({
     
     "finishQuestionQuest" : function finishQuestionQuest ( winner ){
         
-        console.log("And the winner is:" , winner);
+        // console.log("And the winner is:" , winner);
         if ( winner == "Hero"){
             // Message to player
             this.heroDecision( 'heroWinChallenge' );
-            // Hide message
-            
-            // Player can walk again
-            
-            // 
-            
-            // Remove the trigger
         }else{
             // Message to player
             this.heroDecision( 'acceptChallengeAgain' );
@@ -597,6 +631,13 @@ adsGame.QuestionQuest =  Object.extend({
         this.showQuestionQuest = false;
         
         this.QuestWindowClosed = true;
+        
+        var heroVelocity =  me.game.HUD.getItemValue("velocidade") / 2;
+        
+        // Player gets is velocity again
+        this.player.setVelocity( heroVelocity , heroVelocity );
+        
+
     }
 });
 

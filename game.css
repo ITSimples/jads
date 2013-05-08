@@ -14,7 +14,7 @@
 
 #adsInformation{
     position: relative;
-    top: 10 px; /* Top from border*/
+    top: 10px; /* Top from border*/
     float:left;
 }
 
@@ -180,7 +180,7 @@
 	position: absolute;
 	top: 135px;
 	left: 50px;
-	width: 530px;
+	width: 300px;
 	height: 60px;
 	color : #4B8A08;
 	overflow: hidden;
@@ -191,7 +191,7 @@
 	position: absolute;
 	top: 155px;
 	left: 50px;
-	width: 530px;
+	width: 300px;
 	height: 60px;
 	color : #4B8A08;
 	overflow: hidden;
@@ -202,7 +202,7 @@
 	position: absolute;
 	top: 175px;
 	left: 50px;
-	width: 530px;
+	width: 300px;
 	height: 60px;
 	color : #4B8A08;
 	overflow: hidden;
@@ -246,7 +246,7 @@
 /* Question layer configuration */
 #inventoryLayer {
 	position: absolute;
-	top: 34px;
+	top: 33px;
 	right: 0px;
 	width: 180px;
 	height: 325px;
@@ -722,7 +722,7 @@
     position: absolute;
     top: 250px;
     left: 85px;
-    width: 530px;
+    width: 300px;
     height: 60px;
     color : #4B8A08;
     overflow: hidden;
@@ -733,7 +733,7 @@
     position: absolute;
     top: 275px;
     left: 85px;
-    width: 530px;
+    width: 300px;
     height: 60px;
     color : #4B8A08;
     overflow: hidden;
@@ -744,7 +744,7 @@
     position: absolute;
     top: 300px;
     left: 85px;
-    width: 530px;
+    width: 300px;
     height: 60px;
     color : #4B8A08;
     overflow: hidden;

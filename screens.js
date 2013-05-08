@@ -145,7 +145,6 @@ var PlayScreen = me.ScreenObject.extend(
 		//Config mouse cursor over inventory div with jquery
 		$('#inventoryLayer').css('cursor', "url('content/gui/inv_cur.gif'),pointer");
 		// me.loader.getImage("sparkle")
-		
 	},
 
 	update: function () 

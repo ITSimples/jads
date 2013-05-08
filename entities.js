@@ -100,6 +100,9 @@ var HeroEntity = me.ObjectEntity.extend({
         // Set to true if hero carries a weapon
         this.heroCarryWeapon = false;
         
+        // Change Inventory and question layer position
+        this.layerPosition = "right";
+        
 	},
 	
 	//Create weapon player position.
@@ -160,6 +163,8 @@ var HeroEntity = me.ObjectEntity.extend({
             // this.makeOneTime = false;
         // }
         
+        // console.log("Hero Position X:" , this.pos.x , "Y: " , this.pos.y);
+        
     	if (me.input.isKeyPressed('left'))
 		{
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
@@ -216,6 +221,28 @@ var HeroEntity = me.ObjectEntity.extend({
 				// Enable showing
 				this.isShowInv = true;
 			}			
+		}
+		
+		//Change inventory and question layer position
+		if ( this.pos.x < 1100){
+		    console.log("Inventory on the right and question on the left.");
+            $('#inventoryLayer').css({
+                "top": "33px" , 
+                "right": "0px"
+            });   
+            
+            this.layerPosition = "right";
+		}else{
+		    console.log("Inventory on the left and question on the right.");
+           $('#inventoryLayer').fadeOut( 1000 , function(){
+                 $('#inventoryLayer').css({
+                "top": "33px" , 
+                "right": "620px"
+                });   
+                $('#inventoryLayer').fadeIn( 1000 );
+           } );
+
+		    this.layerPosition = "left";
 		}
 	
 		// If player Stop set stand animationa
@@ -818,8 +845,7 @@ var TriggerEntity = me.InvisibleEntity.extend({
     						adsGame.prisonDoors.openPrisonDoor( this.triggerData.portaPrisao );
     						
     						// console.log("prisonBreak Hero: " , adsGame.prisonDoors.getPrisonDoorState( this.triggerData.portaPrisao ) );
-    						
-    						
+
     						// Remove Trigger
     						me.game.remove(this);
     						
