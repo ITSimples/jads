@@ -38,9 +38,11 @@ SOFTWARE.
 				-------------------------------- */
 
 				//Create global variable to check if prison door is opened or closed
-				this.prisonBreak = [false,false,false,false];
+				// this.prisonBreak = [false,false,false,false];
+				this.prisonBreak = [true,true,false,false];
 
-				this.prisonDoorTrigger = [false,false,false,false];
+				// this.prisonDoorTrigger = [false,false,false,false];
+				this.prisonDoorTrigger = [true,true,false,false];
 
 				/*------------------- 
 				End Prison Configuration

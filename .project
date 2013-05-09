@@ -3,6 +3,7 @@
 	<name>jads</name>
 	<comment></comment>
 	<projects>
+		<project>JSON</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

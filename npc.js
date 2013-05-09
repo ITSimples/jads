@@ -266,7 +266,7 @@ var NpcEntity = me.ObjectEntity.extend({
                 this.throwerData = throwersData[npcThrower];
 
                 this.thrower = new throwersEntity((this.pos.x + 24) * ads_tile_size, (this.pos.y + 20) * ads_tile_size, this.throwerData);
-                me.game.add(this.thrower, 7);
+                me.game.add(this.thrower, 6);
                 me.game.sort.defer();
             }
 
@@ -281,6 +281,9 @@ var NpcEntity = me.ObjectEntity.extend({
             
            // Remove NPC time after die
             this.removeTime = 5000;
+            
+            // Keep this last direction to change only when npc change is direction
+            this.lastDirection = this.direction;
         }
     },
 
@@ -337,16 +340,25 @@ var NpcEntity = me.ObjectEntity.extend({
 
             }
                        
-            // TODO  - Make only when change direction to improve velocity
-            if ( this.thrower.throwerData.animacoes.animaTodasPosicoes ) {
+            // Make only when change direction to improve velocity
+            if ( this.thrower.throwerData.animacoes.animaTodasPosicoes && this.direction !== this.lastDirection ) {
                  // Change Z index when NPC UP
-                 if ( direction == "up"){ 
-                     this.thrower.z = this.z - 1;
+                 
+                 if ( this.direction !== "up" && this.direction !== "left"){ 
+                     this.thrower.z = this.z + 1;
                 }else{
-                     this.thrower.z = this.z + 1 ;
+                    this.thrower.z = this.z - 1;
                 }
-                     
-                 this.thrower.setCurrentAnimation( direction.toString() );                    
+                
+                // if ( this.name === "toughbeard"){
+                    // console.log ("this.direction:", this.direction);
+                // }
+//                 
+                this.thrower.setCurrentAnimation( direction.toString() );
+                me.game.sort();
+                
+                // Keep this last direction to change only when npc change is direction
+                this.lastDirection = this.direction;
             }
            
             this.thrower.pos.x = (this.pos.x + addToPosX);

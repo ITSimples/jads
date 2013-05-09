@@ -103,6 +103,9 @@ var HeroEntity = me.ObjectEntity.extend({
         // Change Inventory and question layer position
         this.layerPosition = "right";
         
+        // Keep this last direction to change only when hero change is direction
+        this.lastDirection = this.direction;
+        
 	},
 	
 	//Create weapon player position.
@@ -155,13 +158,13 @@ var HeroEntity = me.ObjectEntity.extend({
 	{		
 	    
 	    // DEBUG MODE remove
-        // if (DEBUG_MODE && this.makeOneTime){
-            // ads_items_data[giveItemDebug].specialItem = true;
-            // // Add item to hero
-            // adsGame.Inventory.addItem(ads_items_data[giveItemDebug]);
-//             
-            // this.makeOneTime = false;
-        // }
+        if (DEBUG_MODE && this.makeOneTime && giveItemDebug !== undefined ){
+            ads_items_data[giveItemDebug].specialItem = true;
+            // Add item to hero
+            adsGame.Inventory.addItem(ads_items_data[giveItemDebug]);
+            
+            this.makeOneTime = false;
+        }
         
         // console.log("Hero Position X:" , this.pos.x , "Y: " , this.pos.y);
         
@@ -288,6 +291,22 @@ var HeroEntity = me.ObjectEntity.extend({
            }
            this.heroWeapon.pos.x = (this.pos.x + addToPosX);
            this.heroWeapon.pos.y = (this.pos.y + addToPosY);
+           
+            // Make only when change direction to improve velocity
+            if ( this.direction !== this.lastDirection ) {
+                 // Change Z index when NPC UP
+                 
+                 if ( this.direction !== "down" && this.direction !== "left"){ 
+                    this.heroWeapon.z = this.z - 1;
+                }else{
+                    this.heroWeapon.z = this.z + 1;
+                }
+
+                me.game.sort();
+                
+                // Keep this last direction to change only when hero change is direction
+                this.lastDirection = this.direction;
+            }
 		}
 
 		// update collision
