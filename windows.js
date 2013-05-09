@@ -424,16 +424,19 @@ adsGame.QuestionQuest =  Object.extend({
                     self.npcObject[0].setNPCHealth ( self.npcData.vida );
                 }
                 
-            }else{
-                // console.log ("You don't accept the challenge.");
-                if ( information == "heroWinChallenge" ){
+            }else if ( playerChoice == "button_yes" &&  information == "heroWinChallenge" ){
                     // Remove trigger hero wins the challenge
                     me.game.remove( self.objCall );
                     
                     // free prisoner
                     if ( self.prisonerObject !== undefined)
                         self.prisonerObject[0].freeNPCPrisoner();
-                }
+                        
+                        self.hide();
+                        
+                        console.log(" Hero win and button continuar called....");
+             }else{
+               console.log(" Hero don't accept challenge....");
                self.hide();
             }
         });
@@ -497,12 +500,19 @@ adsGame.QuestionQuest =  Object.extend({
             case 3:
               $('.QuestR3').click(); //do click
               break;
+            default:
+                //Stop Player
+                self.player.setVelocity(0,0);
+                break;
             }
-        })
+        });
 
         // Create a event listener to get the ansewer from the mouse 
         // $('#questionLayer  > div') same as $('#questionLayer').children("div")
         $('#acceptAnswerQuest  > div').bind('click', function( event ) {
+             //Stop Player
+             self.player.setVelocity(0,0);
+                
             var answer = this.className;
 
             // Get last char from string and make number
@@ -522,7 +532,7 @@ adsGame.QuestionQuest =  Object.extend({
     },
     
     "validateQuestion" : function validateQuestion ( questionData , heroAnswer ){
-        
+            
         var rightAnswer = parseInt ( questionData.correta );
         
         if ( rightAnswer === heroAnswer) {

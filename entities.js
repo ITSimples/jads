@@ -224,26 +224,26 @@ var HeroEntity = me.ObjectEntity.extend({
 		}
 		
 		//Change inventory and question layer position
-		if ( this.pos.x < 1100){
-		    console.log("Inventory on the right and question on the left.");
-            $('#inventoryLayer').css({
-                "top": "33px" , 
-                "right": "0px"
-            });   
-            
-            this.layerPosition = "right";
-		}else{
-		    console.log("Inventory on the left and question on the right.");
-           $('#inventoryLayer').fadeOut( 1000 , function(){
-                 $('#inventoryLayer').css({
-                "top": "33px" , 
-                "right": "620px"
-                });   
-                $('#inventoryLayer').fadeIn( 1000 );
-           } );
-
-		    this.layerPosition = "left";
-		}
+		// if ( this.pos.x < 1300){
+		    // console.log("Inventory on the right and question on the left.");
+            // $('#inventoryLayer').css({
+                // "top": "33px" , 
+                // "right": "0px"
+            // });   
+//             
+            // this.layerPosition = "right";
+		// }else{
+		    // console.log("Inventory on the left and question on the right.");
+           // $('#inventoryLayer').fadeOut( 1000 , function(){
+                 // $('#inventoryLayer').css({
+                // "top": "33px" , 
+                // "right": "620px"
+                // });   
+                // $('#inventoryLayer').fadeIn( 1000 );
+           // } );
+// 
+		    // this.layerPosition = "left";
+		// }
 	
 		// If player Stop set stand animationa
 		if (this.vel.y === 0 && this.vel.x === 0)
