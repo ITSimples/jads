@@ -23,7 +23,8 @@ SOFTWARE.
 */
 
 // *************************
-// ****  Entidade Heroi ****
+// ****  Entidade Heroi *****
+// **** Hero entity *********
 // *************************
 var HeroEntity = me.ObjectEntity.extend({
 	//Construtor: test
