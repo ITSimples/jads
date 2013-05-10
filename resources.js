@@ -87,12 +87,12 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [14,24];
+var startHero = [37,22];
 
 var DEBUG_MODE = true;
 
 // Give item to hero to start in debug mode
-var giveItemDebug = "cristalfogo";
+var giveItemDebug = "bomba";
 
 /*--- END Hero Configuration ---*/
 

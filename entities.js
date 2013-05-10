@@ -1474,11 +1474,16 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                 if (typeof(self.projectilData.animacoes.animacaoRemover) != "undefined"){
                     self.setCurrentAnimation("removeAnimation" , 
                             function(){
-                                    data.obj.removeHealth( self.projectilData.atualizarHUD.valor );                             
+                                    // If NPC is hit by hero weapon
+                                    if ( data.obj.npcData.armaHeroiAtaca === undefined || data.obj.npcData.armaHeroiAtaca )
+                                        data.obj.removeHealth( self.projectilData.atualizarHUD.valor );
+                                                      
                                     me.game.remove( self );
                             });
                 }else{
-                    data.obj.removeHealth( self.projectilData.atualizarHUD.valor );
+                    // If NPC is hit by hero weapon
+                    if ( data.obj.npcData.armaHeroiAtaca === undefined || data.obj.npcData.armaHeroiAtaca )
+                        data.obj.removeHealth( self.projectilData.atualizarHUD.valor );
                      //remove projectil when hits NPC
                      me.game.remove( self );
                 }

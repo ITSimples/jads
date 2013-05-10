@@ -340,8 +340,8 @@ var NpcEntity = me.ObjectEntity.extend({
 
             }
                        
-            // Make only when change direction to improve velocity
-            if ( this.thrower.throwerData.animacoes.animaTodasPosicoes && this.direction !== this.lastDirection ) {
+            // Make only when change direction to improve velocity ( Removed this.lastDirection = this.direction; )
+            if ( this.thrower.throwerData.animacoes.animaTodasPosicoes  ) {
                  // Change Z index when NPC UP
                  
                  if ( this.direction !== "up" && this.direction !== "left"){ 
