@@ -378,12 +378,19 @@ SOFTWARE.
 			
 			case 'sorte': infValueColor = hudColorLucky;
 						itemInfUse = 'Destruir retira-te sorte.';
-						break;
-							
+						break;			
 			default:  infValueColor = "white"; // Mission items
-					  itemInfUse = 'Não podes usar nem destruir';
-					  // If mission item then change value 
-					  iteminfValue= "Item da missão.";
+			          // If special item is a weapon then the message to hero is different
+			          if ( heroItems[itemIndex].subcategoria !== undefined && heroItems[itemIndex].subcategoria  == "weapon"){
+			               // If mission item then change value 
+                           iteminfValue= "Arma para venceres o teu inimigo.";
+                           
+					       itemInfUse = 'Clica em cima para usares.';					       
+					  }else{
+					       itemInfUse = 'Não podes usar nem destruir';
+					       // If mission item then change value 
+                           iteminfValue= "Item da missão.";
+					  }
 		}	
 			
 		

@@ -762,6 +762,9 @@ var TriggerEntity = me.InvisibleEntity.extend({
 				
 				// If trigger is a chest object
                 if (this.type == 'CHEST_OBJECT'){
+                    
+                    var self = this;
+                    
                     if (this.checkSolution){
                         // Remove old chest to empty chest
                         var lowerObjects = me.game.currentLevel.getLayerByName("lower objects");
@@ -791,6 +794,18 @@ var TriggerEntity = me.InvisibleEntity.extend({
                         // Add item to hero
                         adsGame.Inventory.addItem( ads_items_data[this.triggerData.give] );
                         
+                        //The hero open chest show a message to hero
+                        if (!npcTalking){
+                            this.msgData.msg = this.triggerData.messageOpen;
+                            this.message.show(this.msgData);
+                            
+                            msgShowing = true;
+                            var tween = new me.Tween( { x: 0} )
+                            .to( { x: 1 }, 10000 ).onComplete(function(){ 
+                                self.message.hide();
+                            }).start();
+                            console.log("How many times...");
+                        }
                         
                         // Remove Trigger
                         me.game.remove(this);

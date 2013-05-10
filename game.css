@@ -294,7 +294,7 @@
 	position: absolute;
 	bottom: 15px;
 	left: 13px;
-	color : #FAFAFA;
+	color : #B43104;
 	font-weight: bold;
 	font-size: 13px;
 	overflow: hidden;
@@ -676,8 +676,6 @@
 
 #questionQuestLayer img.questStarImage {
     position: absolute;
-    background: url('content/gui/star_gold32.png') no-repeat;  
-    border-style : none;
     width: 32px;
     height: 32px;
 }

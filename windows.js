@@ -587,7 +587,7 @@ adsGame.QuestionQuest =  Object.extend({
             }
             
             var $addStarHtml = ('<div id="starSlot' + where + starNumber  + '">' + 
-                                              '<img class="questStarImage" src="" alt="">' +
+                                              '<img class="questStarImage" src="content/gui/star_gold32.png" alt="">' +
                                               '</div>');
 
             // Space between stars 
@@ -609,7 +609,8 @@ adsGame.QuestionQuest =  Object.extend({
                 "top": topPosition + "px" , 
                 "left": starDivPosition + "px" ,
                 "width": "32px",
-                "height": "32px"
+                "height": "32px",
+                "border-style" : "none"
             });   
     },
     
