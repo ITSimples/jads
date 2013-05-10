@@ -1,3 +1,5 @@
+Best practices:
+
 1. lower the fps, by default melonJS output 60 FPS (at least try), 
 which is sometimes not really required, you can for example define a 30 FPS rate (or even 25) 
 by doing the following (before video.init) :
