@@ -36,6 +36,8 @@ var HeroEntity = me.ObjectEntity.extend({
 		// Chamar o contrutor
 		this.parent(x, y , settings);
 		
+		console.log("TESTING BRANCH...");
+		
 		//Debug Position
 		
 		this.pos.x = this.posBeforeCollideX = startHero[0] * ads_tile_size;
