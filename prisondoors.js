@@ -75,13 +75,11 @@ SOFTWARE.
 				if ( !(effectName === undefined || effectName == null || effectName.length <= 0) )
 				{
 					if (effectName == "explodeDoor"){
-	
-				
 						var boom = new effect(
 									(initCoord[0] * ads_tile_size) , (initCoord[1] * ads_tile_size) - 32, // Coordinates
 									me.loader.getImage("explosion_64x64"),	// Image
 									64, 64, // Size
-									[0,1,2,3,4,5,6,7,8,9,10,11,12], //Animation sheet
+									[0,1,2,3,4,5,6,7,8,9,10,11], //Animation sheet
 									60, // Speed between 0 - Slowest and 60 - fastest
 									false, // Repeat
 									0 // Wait between
@@ -104,10 +102,12 @@ SOFTWARE.
 									me.loader.getImage(animation),	// Image
 									64, 64, // Size
 									[0,1,2,3,4], //Animation sheet
-									5 // Speed between 0 - Slowest and 60 - fastest
+									10, // Speed between 0 - Slowest and 60 - fastest
+									false,
+									0
 									);			
-									 
-						me.game.add(openDoor, 9);
+						console.log("How many times open door...");
+						me.game.add(openDoor, 6);
 						me.game.sort();
 					}
 					
@@ -115,6 +115,7 @@ SOFTWARE.
 				this.removeDoorCollision( initCoord );
 			}
 	},
+	
 	"removeDoorCollision" : function removeDoorCollision( initCoord ) {
 		
 		var collisionLayer = me.game.currentLevel.getLayerByName("collision");

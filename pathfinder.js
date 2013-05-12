@@ -44,15 +44,15 @@ adsGame.pathFinder =  Object.extend({
 		var layer = me.game.currentLevel.getLayerByName("collision");
 		
 		// set array to layer
-		var myLayerArray = new Array(layer.width);
+		var myLayerArray = new Array(layer.cols);
 		
 		// parse all the layer tiles 
-		for ( var x = 0; x < layer.width; x++) 
+		for ( var x = 0; x < layer.cols; x++) 
 		{ 
 			// create multidimensional array
-			myLayerArray[x] = new Array(layer.height);
+			myLayerArray[x] = new Array(layer.rows);
 		
-			for ( var y = 0; y < layer.height; y++) 
+			for ( var y = 0; y < layer.rows; y++) 
 		   { 
 				var testTile = layer.layerData[y][x];
 				
@@ -116,15 +116,15 @@ adsGame.pathFinder =  Object.extend({
         var layer = me.game.currentLevel.getLayerByName("collision");
         
         // set array to layer
-        var myLayerArray = new Array(layer.width);
+        var myLayerArray = new Array(layer.cols);
         
         // parse all the layer tiles 
-        for ( var x = 0; x < layer.width; x++) 
+        for ( var x = 0; x < layer.cols; x++) 
         { 
             // create multidimensional array
-            myLayerArray[x] = new Array(layer.height);
+            myLayerArray[x] = new Array(layer.rows);
         
-            for ( var y = 0; y < layer.height; y++) 
+            for ( var y = 0; y < layer.rows; y++) 
            { 
                 var testTile = layer.layerData[y][x];
                 

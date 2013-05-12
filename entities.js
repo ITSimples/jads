@@ -70,15 +70,15 @@ var HeroEntity = me.ObjectEntity.extend({
 		
 		this.collidable= true;
 
-		//Config npc's animation
-		this.addAnimation("stand-down", [4]);
-		this.addAnimation("stand-left", [8]);
-		this.addAnimation("stand-up", [1]);
-		this.addAnimation("stand-right", [11]);
-		this.addAnimation("down", [3,4,5,4]);
-		this.addAnimation("left", [6,7,8]);
-		this.addAnimation("up", [0,1,2,1]);
-		this.addAnimation("right", [9,10,11]);
+		//Config npc's animation	
+		this.renderable.addAnimation("stand-down", [4]);
+		this.renderable.addAnimation("stand-left", [8]);
+		this.renderable.addAnimation("stand-up", [1]);
+		this.renderable.addAnimation("stand-right", [11]);
+		this.renderable.addAnimation("down", [3,4,5,4]);
+		this.renderable.addAnimation("left", [6,7,8]);
+		this.renderable.addAnimation("up", [0,1,2,1]);
+		this.renderable.addAnimation("right", [9,10,11]);
 		
 		// Define point of click on mouse :
 		this.dest_point_X = 0;
@@ -176,14 +176,14 @@ var HeroEntity = me.ObjectEntity.extend({
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 
 			this.vel.x = -this.accel.x * me.timer.tick;
-			this.setCurrentAnimation('left');
+			this.renderable.setCurrentAnimation('left');
 			this.direction = 'left';			
 		}
 		else if (me.input.isKeyPressed('right'))
 		{
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 			this.vel.x = this.accel.x * me.timer.tick; 
-			this.setCurrentAnimation('right');
+			this.renderable.setCurrentAnimation('right');
 			this.direction = 'right';
 		}
 
@@ -191,14 +191,14 @@ var HeroEntity = me.ObjectEntity.extend({
 		{
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 			this.vel.y = -this.accel.y * me.timer.tick; 
-			this.setCurrentAnimation('up');
+			this.renderable.setCurrentAnimation('up');
 			this.direction = 'up';
 		}
 		else if (me.input.isKeyPressed('down'))
 		{
 			this.animationspeed = me.sys.fps / (me.sys.fps / 3);
 			this.vel.y = this.accel.y * me.timer.tick; 
-			this.setCurrentAnimation('down');
+			this.renderable.setCurrentAnimation('down');
 			this.direction = 'down';
 		}
 		
@@ -254,12 +254,12 @@ var HeroEntity = me.ObjectEntity.extend({
 		// If player Stop set stand animationa
 		if (this.vel.y === 0 && this.vel.x === 0)
 		{
-			this.setCurrentAnimation('stand-' + this.direction);
+			this.renderable.setCurrentAnimation('stand-' + this.direction);
 		}
 
 		// If question box is showing then stop the player
 		if (showingQuestion){
-			this.setCurrentAnimation('stand-' + this.direction);
+			this.renderable.setCurrentAnimation('stand-' + this.direction);
 			this.vel.x = 0;
 			this.vel.y = 0;
 		}
@@ -420,7 +420,8 @@ var ItemEntity = me.CollectableEntity.extend({
 				45, 45, // Size
 				[0,1,2,3,4,5,6,7,8], //Animation sheet
 				20, // Speed between 0 - Slowest and 60 - fastest
-				true
+				true,
+				0
 				);
 		}
 
@@ -489,7 +490,9 @@ var ItemEntity = me.CollectableEntity.extend({
 // **************************************
 // ****  Distribuir items pelo mapa  ****
 // **************************************
-var ItemSpawnEntity = me.InvisibleEntity.extend({
+//me.InvisibleEntity has been removed, as following previous changes,
+//this can now be achieved using a me.ObjectEntity without a renderable component.
+var ItemSpawnEntity = me.ObjectEntity.extend({
 	
 	//Construtor:
     init: function(x, y, settings) {
@@ -505,7 +508,9 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 		
 		var checknoItemsData = [];
 		
-		var collision_layer = me.game.currentLevel.getLayerByName("collision");		
+		var collision_layer = me.game.currentLevel.getLayerByName("collision");
+				
+			
 		var background_layer = me.game.currentLevel.getLayerByName("background");
 		
 		//returns an array of all enumerable property names defined by a given object
@@ -561,10 +566,11 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
         });         
 		
 		// parse all the collision layer tiles 
-		for ( x = 0; x < collision_layer.width; x++) 
+		for ( x = 0; x < collision_layer.cols; x++) 
 		{
-			for ( y = 0; y < collision_layer.height; y++) 
+			for ( y = 0; y < collision_layer.rows; y++) 
 			{
+			   
 				var testTileCollision = collision_layer.layerData[x][y];
 				var testTileBackground = background_layer.layerData[x][y];
 
@@ -671,7 +677,9 @@ var ItemSpawnEntity = me.InvisibleEntity.extend({
 // **************************************
 // ****  TRIGGER INVISIBLE ENTITY  ****
 // **************************************
-var TriggerEntity = me.InvisibleEntity.extend({
+//me.InvisibleEntity has been removed, as following previous changes,
+//this can now be achieved using a me.ObjectEntity without a renderable component.
+var TriggerEntity = me.ObjectEntity.extend({
 	
 	//Constructor
 	init: function( x , y , settings , triggerData){
@@ -1011,7 +1019,9 @@ var TriggerEntity = me.InvisibleEntity.extend({
 // **************************************
 // ****  INVISIBLE ENTITY SPAWN ****
 // **************************************
-var TriggerSpawnEntity = me.InvisibleEntity.extend({
+//me.InvisibleEntity has been removed, as following previous changes,
+//this can now be achieved using a me.ObjectEntity without a renderable component.
+var TriggerSpawnEntity = me.ObjectEntity.extend({
 	//Constructor
 	init: function( x , y , settings){
 		// call the parent constructor
@@ -1074,18 +1084,18 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
         
         // If thrower is animated in all directions
         if ( this.throwerData.animacoes.animaTodasPosicoes) {
-            this.addAnimation("right"  ,  this.throwerData.animacoes.direita );
-            this.addAnimation("left"    ,  this.throwerData.animacoes.esquerda );
-            this.addAnimation("up"     ,  this.throwerData.animacoes.cima );
-            this.addAnimation("down",  this.throwerData.animacoes.baixo );
+            this.renderable.addAnimation("right"  ,  this.throwerData.animacoes.direita );
+            this.renderable.addAnimation("left"    ,  this.throwerData.animacoes.esquerda );
+            this.renderable.addAnimation("up"     ,  this.throwerData.animacoes.cima );
+            this.renderable.addAnimation("down",  this.throwerData.animacoes.baixo );
             
             console.log("Set animations to NPC..." , this.throwerData.configuracoes.image);
         }
         
-		this.addAnimation("default", this.throwerData.animacoes.parado );
-		this.addAnimation("throw", this.throwerData.animacoes.animado );
+		this.renderable.addAnimation("default", this.throwerData.animacoes.parado );
+		this.renderable.addAnimation("throw", this.throwerData.animacoes.animado );
 		
-		this.setCurrentAnimation("default");
+		this.renderable.setCurrentAnimation("default");
 		
 		this.animationspeed = me.sys.fps / (me.sys.fps / this.throwerData.animacoes.velocidade);
 		
@@ -1186,7 +1196,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
        
        // If animation was no direction else another class control that ( NPC for example)
        if ( !this.throwerData.animacoes.animaTodasPosicoes) {
-           this.setCurrentAnimation("throw", "default");
+           this.renderable.setCurrentAnimation("throw", "default");
        }
       	  
 	  // DEBUG
@@ -1304,25 +1314,25 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		
 		// If the projectil move in all directions then add animation if not set one animation
 		if (typeof(this.projectilData.animacoes.anima) != 'undefined' && this.projectilData.animacoes.anima != null){
-			this.addAnimation("default", this.projectilData.animacoes.parado );
-			this.addAnimation("down", this.projectilData.animacoes.anima.baixo );
-			this.addAnimation("up", this.projectilData.animacoes.anima.cima );
-			this.addAnimation("left", this.projectilData.animacoes.anima.esquerda );
-			this.addAnimation("right", this.projectilData.animacoes.anima.direita );
+			this.renderable.addAnimation("default", this.projectilData.animacoes.parado );
+			this.renderable.addAnimation("down", this.projectilData.animacoes.anima.baixo );
+			this.renderable.addAnimation("up", this.projectilData.animacoes.anima.cima );
+			this.renderable.addAnimation("left", this.projectilData.animacoes.anima.esquerda );
+			this.renderable.addAnimation("right", this.projectilData.animacoes.anima.direita );
 			
 			//If projectil moves in all directions
 			this.testDirection = true;
 		}else{
-			this.addAnimation("anime", this.projectilData.animacoes.animaTodasDirecoes );
-			this.addAnimation("default", this.projectilData.animacoes.parado );			
+			this.renderable.addAnimation("anime", this.projectilData.animacoes.animaTodasDirecoes );
+			this.renderable.addAnimation("default", this.projectilData.animacoes.parado );			
 		}
 		
 		if (typeof(this.projectilData.animacoes.animacaoRemover) != "undefined"){
-            this.addAnimation("removeAnimation", this.projectilData.animacoes.animacaoRemover );
+            this.renderable.addAnimation("removeAnimation", this.projectilData.animacoes.animacaoRemover );
         }
 		this.currentAnimation = "";
 		
-		this.setCurrentAnimation("default");
+		this.renderable.setCurrentAnimation("default");
 		
 		switch (this.throwerData.movimento){
 			case "line":
@@ -1372,16 +1382,16 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 	    
 		//Update animation
 		if (this.testDirection){
-			this.setCurrentAnimation( this.currentAnimation );
+			this.renderable.setCurrentAnimation( this.currentAnimation );
 		}else{
-	       	this.setCurrentAnimation("anime" , 
-            function(){
+	       	this.renderable.setCurrentAnimation("anime" , 
+            (function(){
                 if (typeof(self.throwerData.repetirAnimProj) != 'undefined' && 
                     !self.throwerData.repetirAnimProj &&
                     typeof(self.throwerData.tempoDeVida) == 'undefined'){
                     me.game.remove(this);
                 }
-            });
+            }).bind( this ));
 		}
 				
 		// for bees movement
@@ -1449,7 +1459,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 		if (this.timeToDestroy >  this.throwerData.tempoDeVida ){
 			//Remove object with removeAnimation animation
 			if (typeof(this.projectilData.animacoes.animacaoRemover) != "undefined"){
-                this.setCurrentAnimation("removeAnimation" , 
+                this.renderable.setCurrentAnimation("removeAnimation" , 
                         function(){
                                 me.game.remove(this);
                         });
@@ -1475,7 +1485,7 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
                 console.log("Hit NPC...", data.obj.GUID);
                 //Remove object with removeAnimation if animation exists
                 if (typeof(self.projectilData.animacoes.animacaoRemover) != "undefined"){
-                    self.setCurrentAnimation("removeAnimation" , 
+                    self.renderable.setCurrentAnimation("removeAnimation" , 
                             function(){
                                     // If NPC is hit by hero weapon
                                     if ( data.obj.npcData.armaHeroiAtaca === undefined || data.obj.npcData.armaHeroiAtaca )
@@ -1623,7 +1633,9 @@ var TriggerSpawnEntity = me.InvisibleEntity.extend({
 // **************************************
 // ****  THROWERS ENTITY SPAWN ****
 // **************************************
-var ThrowersSpawnEntity = me.InvisibleEntity.extend({
+//me.InvisibleEntity has been removed, as following previous changes,
+//this can now be achieved using a me.ObjectEntity without a renderable component.
+var ThrowersSpawnEntity = me.ObjectEntity.extend({
 	//Constructor
 	init: function( x , y , settings){
 		// call the parent constructor
@@ -1648,7 +1660,9 @@ var ThrowersSpawnEntity = me.InvisibleEntity.extend({
 // **************************************
 // ****  MAP EFFECTS ENTITY SPAWN ****
 // **************************************
-var MapEffectsSpawnEntity = me.InvisibleEntity.extend({
+//me.InvisibleEntity has been removed, as following previous changes,
+//this can now be achieved using a me.ObjectEntity without a renderable component.
+var MapEffectsSpawnEntity = me.ObjectEntity.extend({
 	//Constructor
 	init: function( x , y , settings){
 		// call the parent constructor

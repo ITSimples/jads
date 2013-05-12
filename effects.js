@@ -29,14 +29,16 @@ SOFTWARE.
 
 
 var effect = me.AnimationSheet.extend({
-    init: function(x, y, Image, spritewidth, spriteheight , animation , speed, repeat, wait, myFunc, self) {
+    init: function(x, y, effectImage, spritewidth, spriteheight , animation , speed, repeat, wait, myFunc, self) {
 
-        this.parent(x, y, Image, spritewidth, spriteheight);
- 
-        this.addAnimation("sprite", animation);
+        this.parent(x, y, effectImage, spritewidth, spriteheight);
  
         this.animationspeed = me.sys.fps / speed;
-
+        
+        this.addAnimation("sprite", animation, this.animationspeed);
+        
+        this.animation = animation;
+        
         if (typeof myFunc != "undefined") 
         {
             this.self = self;
@@ -45,20 +47,14 @@ var effect = me.AnimationSheet.extend({
         }
 		
 		//Repeat the animation or not
-		if( typeof repeat !== 'undefined' ) {
-			this.repeat = repeat;
-		}else
-		{
-			this.repeat = false;			
-		}
-		
+		this.repeat = repeat;
+
 		//Wait between animations
 		this.waitBetweenAnimations = wait;
-		
     },
     
-    update: function() {
-		if (this.repeat){
+    update: function update() {
+		if ( this.repeat ){
 			this.setCurrentAnimation("sprite", function(){ 
 				this.animationpause = true;
 			});
@@ -68,19 +64,24 @@ var effect = me.AnimationSheet.extend({
 			if (this.animationpause && !Math.floor(Math.random() * this.waitBetweenAnimations)) {
 				this.animationpause = false;
 			}
+
 		}else
-		{
-		    if (typeof this.myFunc == "undefined"){
-		        this.setCurrentAnimation("sprite", function(){ me.game.remove(this); });
-		    }else{
-		        this.setCurrentAnimation("sprite",   function(){this.myFunc( this.self ) });
-			}
+		{		    
+    		    if ( this.myFunc === undefined){
+    		        this.setCurrentAnimation("sprite");
+
+                    if ( this.getCurrentAnimationFrame() == this.animation.length - 1)
+                        me.game.remove(this);
+    		    }else{
+    		        this.setCurrentAnimation("sprite",   function(){this.myFunc( this.self ) });
+    			}
 		}
 		
-        this.parent(this);
-        return true;
-    },
-    
-    onDestroyEvent: function() {
+		if ( this.isCurrentAnimation("sprite") )	{
+            this.parent();
+            return true;
+        }else{
+            return false;
+        }
     }
 });

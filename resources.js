@@ -35,7 +35,7 @@ me.sys.fps = 30;
 
 me.sys.cacheImage = true;
 
- me.sys.preRender = false;
+ me.sys.preRender = true;
 
 /*--- END Game engine system Configuration ---*/
 
@@ -87,12 +87,12 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [5,5];
+var startHero = [1,19];
 
 var DEBUG_MODE = false;
 
 // Give item to hero to start in debug mode
-var giveItemDebug = "bomba";
+var giveItemDebug = "chaveLief";
 
 /*--- END Hero Configuration ---*/
 

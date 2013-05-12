@@ -128,7 +128,7 @@ var NpcEntity = me.ObjectEntity.extend({
        var countAnimation = 0;
        $.each ( this.animation, function (i, npcAnimation ){
             // console.log('npcAnimation:', i , '-' , npcAnimation );
-            self.addAnimation( i , npcAnimation );
+            self.renderable.addAnimation( i , npcAnimation );
             countAnimation++;
        });
        
@@ -354,7 +354,7 @@ var NpcEntity = me.ObjectEntity.extend({
                     // console.log ("this.direction:", this.direction);
                 // }
 //                 
-                this.thrower.setCurrentAnimation( direction.toString() );
+                this.thrower.renderable.setCurrentAnimation( direction.toString() );
                 me.game.sort();
                 
                 // Keep this last direction to change only when npc change is direction
@@ -422,9 +422,9 @@ var NpcEntity = me.ObjectEntity.extend({
                 
                 // New NPC animation stand opposite direction of the hero
                 if ( !this.firstAnimation ){
-                    this.setCurrentAnimation("stand-" + auxNPCDirection);
+                    this.renderable.setCurrentAnimation("stand-" + auxNPCDirection);
                 }else{
-                    this.setCurrentAnimation( "primeiraAnimacao" );
+                    this.renderable.setCurrentAnimation( "primeiraAnimacao" );
                 }
                 this.accel.x = this.accel.y = 0;
                 this.vel.x = this.vel.y = 0;
@@ -442,9 +442,9 @@ var NpcEntity = me.ObjectEntity.extend({
             if (!this.stop) {
                 this.accel.x = this.accel.y = this.npcData.velocidade;
                 if ( !this.firstAnimation ){
-                    this.setCurrentAnimation(this.direction);
+                    this.renderable.setCurrentAnimation(this.direction);
                 }else{
-                    this.setCurrentAnimation( "primeiraAnimacao" );
+                    this.renderable.setCurrentAnimation( "primeiraAnimacao" );
                 }
                 // Reset to the next collision
                 this.changeNPCDirection = true;
@@ -507,9 +507,9 @@ var NpcEntity = me.ObjectEntity.extend({
                     
                     // first animation before set prisoner free
                     if ( !this.firstAnimation ){
-                        this.setCurrentAnimation(this.direction);
+                        this.renderable.setCurrentAnimation(this.direction);
                     }else{
-                        this.setCurrentAnimation( "primeiraAnimacao" );
+                        this.renderable.setCurrentAnimation( "primeiraAnimacao" );
                     }
                 } else {
                     this.countPath = 0;
@@ -529,9 +529,9 @@ var NpcEntity = me.ObjectEntity.extend({
                         this.stop = true;
                         // this.setCurrentAnimation("stand-" + this.direction);
                         if ( !this.firstAnimation ){
-                            this.setCurrentAnimation( "stand-down");
+                            this.renderable.setCurrentAnimation( "stand-down");
                         }else{
-                            this.setCurrentAnimation( "primeiraAnimacao" );
+                            this.renderable.setCurrentAnimation( "primeiraAnimacao" );
                         }
                     }
                 }
@@ -577,13 +577,13 @@ var NpcEntity = me.ObjectEntity.extend({
 
             // Stop the player
             if (this.npcData.paraDistancia > this.distanceTo(player)) {
-                this.setCurrentAnimation("stand-" + this.direction);
+                this.renderable.setCurrentAnimation("stand-" + this.direction);
                 this.accel.x = this.accel.y = 0;
                 this.vel.x = this.vel.y = 0;
 
             } else {// if distance between player bigger than defined on json
                 // check and update movement - Update animation
-                this.setCurrentAnimation(this.direction);
+                this.renderable.setCurrentAnimation(this.direction);
                 this.accel.x = this.accel.y = this.npcData.velocidade;
             }
         } else if (this.npcData.tipoMovimento == "npcFollowHero") {
@@ -613,18 +613,18 @@ var NpcEntity = me.ObjectEntity.extend({
                 if (this.countPath != this.heroFollowPath.length) {
                     //return movement
                     this.accel.x = this.accel.y = this.npcData.velocidade;
-                    this.setCurrentAnimation(this.direction);
+                    this.renderable.setCurrentAnimation(this.direction);
 
                     this.destX = this.heroFollowPath[this.countPath ][0] * ads_tile_size;
                     this.destY = (this.heroFollowPath[this.countPath ][1] * ads_tile_size) - this.avoidWall;
 
                     this.countPath++;
                     this.setDirection();
-                    this.setCurrentAnimation(this.direction);
+                    this.renderable.setCurrentAnimation(this.direction);
                 } else {
                     this.countPath = 0;
                     // console.log("... Calculate new path follow hero---");
-                    this.setCurrentAnimation("stand-" + this.direction);
+                    this.renderable.setCurrentAnimation("stand-" + this.direction);
                     // this.setCurrentAnimation( "stand-down" );
                 }
 
@@ -1023,7 +1023,9 @@ var NpcEntity = me.ObjectEntity.extend({
 // **************************
 // **** Spawn NPC on map ****
 // **************************
-var NpcSpawnEntity = me.InvisibleEntity.extend({
+//me.InvisibleEntity has been removed, as following previous changes,
+//this can now be achieved using a me.ObjectEntity without a renderable component.
+var NpcSpawnEntity = me.ObjectEntity.extend({
 
     //Construtor:
     init : function(x, y, settings) {
