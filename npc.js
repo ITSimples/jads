@@ -285,6 +285,11 @@ var NpcEntity = me.ObjectEntity.extend({
             // Keep this last direction to change only when npc change is direction
             this.lastDirection = this.direction;
         }
+        
+                 
+        // New on melonjs 0.9.7
+       if ( this.npcData.atualizarSempre !== undefined && this.npcData.atualizarSempre)  
+            this.alwaysUpdate = true;
     },
 
     removeHealth : function removeHealth(hitPoints) {
@@ -315,7 +320,8 @@ var NpcEntity = me.ObjectEntity.extend({
             var addToPosY;
 
             var heroAux = adsGame.heroEntity();
-            angleToHero = this.angleTo(heroAux);
+            
+            // angleToHero = this.angleTo(heroAux);
             // console.log("this.angleTo hero:", angleToHero * 10);
 
             // But this values on Json to work with any NPC that attack

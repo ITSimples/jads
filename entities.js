@@ -727,6 +727,9 @@ var TriggerEntity = me.ObjectEntity.extend({
 
 		// Create message box for object
 		this.message = new adsGame.message();
+		
+		//Update always
+		this.alwaysUpdate = true;
 	},
 
 	update : function (){
@@ -1171,16 +1174,19 @@ var TriggerSpawnEntity = me.ObjectEntity.extend({
         }
         
         
-		// check & update player movement
+		// check & update thrower movement
 		updated = this.updateMovement();
 
 		// update animation
-		if (updated)
-		{
-			// Actualizar animação
-			this.parent(this);
-		}
-
+		// if (updated)
+		// {
+			// // Actualizar animação
+			// this.parent(this);
+		// }
+		
+		// Always update thrower animation and movement
+        this.parent(this);
+        
 		return updated;
 	},
     
@@ -1389,7 +1395,9 @@ var TriggerSpawnEntity = me.ObjectEntity.extend({
                 if (typeof(self.throwerData.repetirAnimProj) != 'undefined' && 
                     !self.throwerData.repetirAnimProj &&
                     typeof(self.throwerData.tempoDeVida) == 'undefined'){
-                    me.game.remove(this);
+                        this.renderable.setAnimationFrame( this.projectilData.animacoes.animaTodasDirecoes.length - 1 );
+                        this.renderable.animationpause = true;
+                        me.game.remove(this);
                 }
             }).bind( this ));
 		}
@@ -1421,7 +1429,7 @@ var TriggerSpawnEntity = me.ObjectEntity.extend({
             // Verify if projectil rotate
             if (typeof(this.throwerData.rodarProjectil) !== 'undefined' && this.throwerData.rodarProjectil){
                 var angleToHero = this.angleTo(heroAux);
-                this.angle = angleToHero;
+                this.renderable.angle = angleToHero;
             }
 		}
 		
@@ -1455,13 +1463,17 @@ var TriggerSpawnEntity = me.ObjectEntity.extend({
     },
 	
 	liveTime: function (){
+	    var self = this;
+	    
 		this.timeToDestroy++;
 		if (this.timeToDestroy >  this.throwerData.tempoDeVida ){
 			//Remove object with removeAnimation animation
-			if (typeof(this.projectilData.animacoes.animacaoRemover) != "undefined"){
+			if (typeof(this.projectilData.animacoes.animacaoRemover) !== "undefined"){
                 this.renderable.setCurrentAnimation("removeAnimation" , 
                         function(){
-                                me.game.remove(this);
+                            self.renderable.setAnimationFrame( self.projectilData.animacoes.animacaoRemover.lenght - 1 );
+                            self.renderable.animationpause = true;
+                            me.game.remove( self );
                         });
             }else{
 			     me.game.remove(this);

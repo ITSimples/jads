@@ -35,7 +35,7 @@ me.sys.fps = 30;
 
 me.sys.cacheImage = true;
 
- me.sys.preRender = true;
+ me.sys.preRender = false;
 
 /*--- END Game engine system Configuration ---*/
 
@@ -62,7 +62,7 @@ HUD Configuration
 // HUD font Size
 var ads_HUD_font_size = 20;
 // HUD texx Y Position
-var ads_HUD_Y_Position = 23;
+var ads_HUD_Y_Position = 8;
 // HUD texx X Position
 var ads_HUD_X_Position = 10;
 // HUD color
@@ -87,12 +87,12 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [1,19];
+var startHero = [5,5];
 
 var DEBUG_MODE = false;
 
 // Give item to hero to start in debug mode
-var giveItemDebug = "chaveLief";
+var giveItemDebug = "bomba";
 
 /*--- END Hero Configuration ---*/
 

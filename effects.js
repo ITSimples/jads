@@ -55,7 +55,7 @@ var effect = me.AnimationSheet.extend({
     
     update: function update() {
 		if ( this.repeat ){
-			this.setCurrentAnimation("sprite", function(){ 
+			this.setCurrentAnimation("sprite", function(){
 				this.animationpause = true;
 			});
 			
@@ -68,12 +68,20 @@ var effect = me.AnimationSheet.extend({
 		}else
 		{		    
     		    if ( this.myFunc === undefined){
-    		        this.setCurrentAnimation("sprite");
-
-                    if ( this.getCurrentAnimationFrame() == this.animation.length - 1)
-                        me.game.remove(this);
+    		        this.setCurrentAnimation("sprite", (function () {
+                                                                                this.setAnimationFrame( this.animation.length - 1 );
+                                                                                this.animationpause = true;
+                                                                                me.game.remove(this);
+                                                                            }).bind(this));
+                                                                            
+                    // if ( this.getCurrentAnimationFrame() == this.animation.length - 1)
+                        // me.game.remove(this);
     		    }else{
-    		        this.setCurrentAnimation("sprite",   function(){this.myFunc( this.self ) });
+    		        this.setCurrentAnimation("sprite",(function () {
+                                                                                this.setAnimationFrame( this.animation.length - 1 );
+                                                                                this.animationpause = true;
+                                                                                this.myFunc( this.self ) ;
+                                                                            }).bind(this));
     			}
 		}
 		
