@@ -36,19 +36,20 @@ adsGame.message =  Object.extend({
 	"init" : function init() {
 		this.messageShowing = false;
 		
+		this.leftClickMouse = false;
+		
 		// Create html in messagelayer DIV
 		var $messageBoxHtml = ('<img class="msgImage" src="" alt="">' +
 			'<div class="titleText"></div>' +
 			'<div class="msgText"></div>');
 			
 		$('#messageLayer').append($messageBoxHtml);
+				
 		
 		console.log('Init message class...');
 	},
 	"show": function show(msgData) {
 			if (!this.messageShowing){
-			
-				// If item them resize image to 64x64
 				
 				//Fill fields from question box with msgData
 				$('.msgImage').attr({
@@ -64,8 +65,10 @@ adsGame.message =  Object.extend({
 				$('#messageLayer').fadeIn( 250, function() {
 				$('.msgText').scrollTop(0);
 				});
-
-
+				
+        // Get Click from user
+        $('.msgText').bind('click' , ( function () { console.log("click on message."); this.leftClickMouse = true; } ).bind(this));
+        
 				console.log("Show message...");
 				this.messageShowing = true;
 			}
@@ -74,6 +77,8 @@ adsGame.message =  Object.extend({
 	"hide": function hide() {
 		if (this.messageShowing){
 			$('#messageLayer').fadeOut();
+			
+			// $('.msgText').unbind('click');
 	
 			console.log("hide message...");
 			this.messageShowing = false;

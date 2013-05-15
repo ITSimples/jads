@@ -322,16 +322,30 @@ var HeroEntity = me.ObjectEntity.extend({
                     self.posBeforeCollideX = self.pos.x;
                     self.posBeforeCollideY = self.pos.y;
             }
-		
+
+        
+        
+        // If hero collide with more then one item at same time
+        var countCollideItems = 0;
+        
+        $.each(res,(function(i,data){
+            if ( data.obj.type == "ITEM_OBJECT" ){
+                countCollideItems++;
+            }
+        }).bind(this));
+
 		//  --- TESTING which OBJECT --- multiple collisions
         $.each(res, function(i,data)
         {
-    		if (data){		      			
-        			if (data.obj.type == 'ITEM_OBJECT') {
+    		if (data){
+    		    
+    		        // If more then one item is collide then do nothing hero must collide with only one item
+        			if (data.obj.type == 'ITEM_OBJECT' && countCollideItems < 2) {
         				// console.log('Hero Collide with Item...' , res.obj.items_data);
         				// this.setCurrentAnimation('stand-' + this.direction);
         				// this.pos.x = this.posBeforeCollideX;
         				// this.pos.y = this.posBeforeCollideY;
+        				
         				if (!fullInventory  || data.obj.items_data.specialItem || data.obj.items_data.categoria == 'ouro' ||
                             data.obj.items_data.categoria == 'conhecimento' ){
         					self.vel.x = 0;
@@ -341,6 +355,7 @@ var HeroEntity = me.ObjectEntity.extend({
         					adsGame.Inventory.show();
         				}
         			}
+        			
         			if (data.obj.type == 'NPC_OBJECT') {
                          // NPC collide with hero - Don't change NPC direction otherwise NPC and hero stand back to back
                          // If NPC collide with hero and have opposite directions then NPC don't change his direction
@@ -942,6 +957,8 @@ var TriggerEntity = me.ObjectEntity.extend({
                         this.message.show(this.msgData);
                         msgShowing = true;
                         
+                        // Shake map
+                        me.game.viewport.shake (20 , 200);
                         //Create the new NPC only one time
                         if ( !this.oneTime ){
                             //Rises effect goes here if exist

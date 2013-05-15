@@ -170,7 +170,10 @@ SOFTWARE.
         console.log("this.slotsMap before:", this.slotsMap);
         
 		// Make this slot available
-		if (!heroItems[itemIndex].specialItem){
+		// if (!heroItems[itemIndex].specialItem){
+	   
+	   // DEBUG - If item index <6 normal item and > 5 special item
+	   if ( itemIndex <6 ){
 			this.slotsMap[ itemIndex ] = -1;
 			//The hero use or drop one normal item
 			fullInventory = false;
@@ -218,6 +221,7 @@ SOFTWARE.
 		
 		// Empty item from heroItems array
 		heroItems[itemIndex] = [];
+		
 		
 		// console.log ('Test after remove item. heroItems:');
 		

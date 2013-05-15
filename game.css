@@ -128,11 +128,25 @@
 	z-index:1;
 }
 
-#messageLayer .msgButton {
+/*#messageLayer .msgForwardButton {
 	position: absolute;
-	top: 126px;
-	left: 125px;
+	top: 64px;
+	left: 0px;
+    width: 34px; height: 34px; 
+    background-image: url('content/gui/forward_bt.png');
+    background-position: center; 
+    display: block;
 }
+
+#messageLayer .msgForwardButton:hover {
+    background-position: top;
+}
+
+#messageLayer .msgForwardButton:active {
+    position: relative;
+    background-position: bottom;
+}*/
+
 
 /* Question layer configuration */
 #questionLayer {

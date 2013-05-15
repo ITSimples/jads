@@ -70,8 +70,10 @@ var TileScreen = me.ScreenObject.extend(
             me.audio.unmuteAll();
             backgroundMusic = true;
           }
-
         });
+        
+        // DEBUG - Remove sound while working
+        me.audio.muteAll();
 	},
 	// update function
     update: function() {
