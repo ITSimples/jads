@@ -67,7 +67,7 @@ adsGame.message =  Object.extend({
 				});
 				
         // Get Click from user
-        $('.msgText').bind('click' , ( function () { console.log("click on message."); this.leftClickMouse = true; } ).bind(this));
+        $('.msgImage').bind('click' , ( function () { console.log("click on message."); this.leftClickMouse = true; } ).bind(this));
         
 				console.log("Show message...");
 				this.messageShowing = true;
@@ -78,7 +78,7 @@ adsGame.message =  Object.extend({
 		if (this.messageShowing){
 			$('#messageLayer').fadeOut();
 			
-			// $('.msgText').unbind('click');
+			$('.msgText').unbind('click');
 	
 			console.log("hide message...");
 			this.messageShowing = false;

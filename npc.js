@@ -693,34 +693,30 @@ var NpcEntity = me.ObjectEntity.extend({
             // Change to calculate the number of conversations on currentevent
             // this.pauseMessage = Math.floor(this.waitEvent / this.npcData.mensagem.length);
             this.pauseMessage = Math.floor(this.waitEvent / this.currentEvent.conversa.length);
+
         }
 
         // console.log('this.currentEvent.conversa:' , this.currentEvent.conversa , 'this.messageNumber:' , this.messageNumber );
 
         // this.msgData.msg = this.npcData.mensagem[0];
         // $('.msgText,#hiddenText').html( this.msgData.msg );
-                
- 
+        
         // Change dialogue depending on the number of messages divided by the waiting time
-        if (this.waitEvent == ( ( (this.currentEvent.tempo * 60) - (this.pauseMessage * this.messageNumber + 1)) ||
-            this.message.leftClickMouse) && this.messageNumber < this.npcData.mensagem.length) {
+        if (this.waitEvent == ( ( (this.currentEvent.tempo * 60) - (this.pauseMessage * this.messageNumber + 1)) 
+            )
+            && this.messageNumber < this.npcData.mensagem.length) {
                 
             this.msgData.msg = this.npcData.mensagem[this.currentEvent.conversa[this.messageNumber]];
-            // $('.msgText').hide();
+            $('.msgText').empty();
+            
             $('.msgText,#hiddenText').html(this.msgData.msg);
             // $('.msgText').fadeIn(1000);
             this.messageNumber++;
-            
-            this.message.show(this.msgData);
-            
-            console.log(" this.message.leftClickMouse" ,  this.message.leftClickMouse);
-            
-            this.message.leftClickMouse = false;
-            // this.showMessage = true;
-            // msgShowing = true;
         }
         
-
+        this.message.show(this.msgData);
+        this.showMessage = true;
+        msgShowing = true;
 
         if (--this.waitEvent < 0) {
             // Hide message
