@@ -36,21 +36,20 @@ adsGame.message =  Object.extend({
 	"init" : function init() {
 		this.messageShowing = false;
 		
-		this.leftClickMouse = false;
-		
-		// Create html in messagelayer DIV
-		var $messageBoxHtml = ('<img class="msgImage" src="" alt="">' +
-			'<div class="titleText"></div>' +
-			'<div class="msgText"></div>');
-			
-		$('#messageLayer').append($messageBoxHtml);
-				
+		this.leftClickMouse = false;		
 		
 		console.log('Init message class...');
 	},
 	"show": function show(msgData) {
 			if (!this.messageShowing){
-				
+			     
+			     // Create html in messagelayer DIV
+                var $messageBoxHtml = ('<img class="msgImage" src="" alt="">' +
+                    '<div class="titleText"></div>' +
+                    '<div class="msgText"></div>');
+                    
+                $('#messageLayer').append($messageBoxHtml);
+                
 				//Fill fields from question box with msgData
 				$('.msgImage').attr({
 				'src' : 'content/' + msgData.msgImage,
@@ -59,16 +58,16 @@ adsGame.message =  Object.extend({
 				'width' : '48px'
 				});
 				
-				$('.titleText,#hiddenText').html( msgData.msgName );
-				$('.msgText,#hiddenText').html( msgData.msg );
+				$('.titleText').html( msgData.msgName );
+				$('.msgText').html( msgData.msg );
 
 				$('#messageLayer').fadeIn( 250, function() {
 				$('.msgText').scrollTop(0);
 				});
 				
-        // Get Click from user
-        $('.msgImage').bind('click' , ( function () { console.log("click on message."); this.leftClickMouse = true; } ).bind(this));
-        
+                // Get Click from user
+                $('.msgText').bind('click' , ( function () { console.log("click on message."); this.leftClickMouse = true; } ).bind(this));
+                
 				console.log("Show message...");
 				this.messageShowing = true;
 			}
@@ -76,9 +75,17 @@ adsGame.message =  Object.extend({
 		
 	"hide": function hide() {
 		if (this.messageShowing){
-			$('#messageLayer').fadeOut();
-			
-			$('.msgText').unbind('click');
+            $('#messageLayer').fadeOut( 20 , function(){
+                // When finish to fade out 
+                showingShop = false;
+                //lears all the child divs, but leaves the master intact.
+                $("#messageLayer").children().remove();
+                 // $('#shopLayer').remove();
+                 $('.msgText').unbind('click');
+                 
+                 //Reset left click
+                 this.leftClickMouse = false;   
+            });		    
 	
 			console.log("hide message...");
 			this.messageShowing = false;

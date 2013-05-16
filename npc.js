@@ -90,7 +90,7 @@ var NpcEntity = me.ObjectEntity.extend({
         this.type = 'NPC_OBJECT';
 
         // Enable/disable dialogue box
-        this.showMessage = false;
+        // this.showMessage = false;
         
         //Keep animations data
         this.animation = {};
@@ -395,8 +395,8 @@ var NpcEntity = me.ObjectEntity.extend({
                     this.message.show(this.msgData);
 
                 }               
-                this.showMessage = true;
-                msgShowing = true;
+                this.message.messageShowing = true;
+                // msgShowing = true;
                 //Stop npc when he talk with hero
                 // Change NPC direction to opposite side of the hero if hero collide with NPC
                 // If NPC collide with hero don't change that otherwise they are on his back
@@ -435,14 +435,14 @@ var NpcEntity = me.ObjectEntity.extend({
                 this.accel.x = this.accel.y = 0;
                 this.vel.x = this.vel.y = 0;
             }
-        } else if (this.showMessage && !this.talkEventHappening) {
+        } else if (this.message.messageShowing && !this.talkEventHappening) {
             // If json falaComHeroi == true then talk to hero if not skip this step
             if (this.npcData.falaComHeroi){
                 this.message.hide();
             }
             
-            msgShowing = false;
-            this.showMessage = false;
+            // msgShowing = false;
+            this.message.messageShowing = false;
             
             //Move npc when he stop talk with hero if is not stoped yet
             if (!this.stop) {
@@ -702,27 +702,31 @@ var NpcEntity = me.ObjectEntity.extend({
         // $('.msgText,#hiddenText').html( this.msgData.msg );
         
         // Change dialogue depending on the number of messages divided by the waiting time
-        if (this.waitEvent == ( ( (this.currentEvent.tempo * 60) - (this.pauseMessage * this.messageNumber + 1)) 
-            )
-            && this.messageNumber < this.npcData.mensagem.length) {
+        if ( ( ( this.waitEvent ==  ( (this.currentEvent.tempo * 60) - (this.pauseMessage * this.messageNumber + 1))) || this.message.leftClickMouse ) && this.messageNumber < this.currentEvent.conversa.length + 1 ) {
                 
             this.msgData.msg = this.npcData.mensagem[this.currentEvent.conversa[this.messageNumber]];
-            $('.msgText').empty();
-            
-            $('.msgText,#hiddenText').html(this.msgData.msg);
+          
+            $('.msgText').html(this.msgData.msg);
             // $('.msgText').fadeIn(1000);
             this.messageNumber++;
+            
+            this.message.show(this.msgData);
+            
+            this.message.leftClickMouse = false;
         }
         
-        this.message.show(this.msgData);
-        this.showMessage = true;
-        msgShowing = true;
+        if ( this.npcData.nome == "Lief"){
+            console.log ("this.message.leftClickMouse:" , this.message.leftClickMouse);
+            console.log ("this.messageNumber:" , this.messageNumber);
+            console.log ("this.currentEvent.conversa.length:" , this.currentEvent.conversa.length );
+        }
+        // msgShowing = true;
 
-        if (--this.waitEvent < 0) {
+        if (--this.waitEvent < 0 || this.messageNumber > this.currentEvent.conversa.length ) {
             // Hide message
             this.message.hide();
-            msgShowing = false;
-            this.showMessage = false;
+            // msgShowing = false;
+            this.message.messageShowing = false;
 
             // New event
             this.CurrentEventNumber++;
@@ -964,18 +968,19 @@ var NpcEntity = me.ObjectEntity.extend({
                         dieMsgData.msg = this.npcData.msgMorre;
                         
                         // // Show message
+                        this.message.messageShowing = false;
                         this.message.show(dieMsgData);
-                        this.showMessage = true;
-                        msgShowing = true;
+                        
+                        // msgShowing = true;
                     }
                     
                     var self = this;
                     
                     var tween = new me.Tween( { x: 1} )
-                    .to( { x: 0 }, 10000 ).onComplete(function(){ 
+                    .to( { x: 0 }, 8000 ).onComplete(function(){ 
                         console.log("Testing Tween..."); 
                         self.message.hide();
-                        msgShowing = false;
+                        // msgShowing = false;
                         self.showMessage = false;
                         if ( typeof(self.npcData.dieEffect.removerArmaHeroi) && self.npcData.dieEffect.removerArmaHeroi){
                             var player = adsGame.heroEntity();

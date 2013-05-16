@@ -748,7 +748,7 @@ var TriggerEntity = me.ObjectEntity.extend({
 	},
 
 	update : function (){
-		// Check collision
+		// Check collisions
 		var res = me.game.collide( this );
         if( res ) {
 			if( res.obj.name == 'hero' ) {
@@ -828,7 +828,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                             this.msgData.msg = this.triggerData.messageOpen;
                             this.message.show(this.msgData);
                             
-                            msgShowing = true;
+                            // msgShowing = true;
                             var tween = new me.Tween( { x: 0} )
                             .to( { x: 1 }, 10000 ).onComplete(function(){ 
                                 self.message.hide();
@@ -842,7 +842,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                         //The hero hasn't  the item to open chest show a message to hero
                         if (!npcTalking){
                             this.message.show(this.msgData);
-                            msgShowing = true;
+                            // msgShowing = true;
                         }
                     }   
                 } // End chest object
@@ -879,7 +879,7 @@ var TriggerEntity = me.ObjectEntity.extend({
 				            if ( !allFree ){
                                 if (!npcTalking){
                                     this.message.show(msgDataReq);
-                                    msgShowing = true;
+                                    // msgShowing = true;
                                 }
 				            }
 				            
@@ -918,7 +918,7 @@ var TriggerEntity = me.ObjectEntity.extend({
     						
     						if (!npcTalking){
     							this.message.show(this.msgData);
-    							msgShowing = true;
+    							// msgShowing = true;
     						}
     					} // End checkSolution
     					
@@ -948,14 +948,14 @@ var TriggerEntity = me.ObjectEntity.extend({
 					}else{
 						// console.log("Hero don't have the key.");
 						this.message.show(this.msgData);
-						msgShowing = true;
+						// msgShowing = true;
 					}
 				} // End portal object				
                 
 				// If trigger is a npc object object
                 if (this.type == 'NEW_NPC'){                        
                         this.message.show(this.msgData);
-                        msgShowing = true;
+                        // msgShowing = true;
                         
                         // Shake map
                         me.game.viewport.shake (20 , 200);
@@ -998,15 +998,15 @@ var TriggerEntity = me.ObjectEntity.extend({
 			}
 		}else{
 		     
-			if (!msgShowing)
-			{
-					this.message.hide();	
-			}
+			// if (!msgShowing)
+			// {
+			this.message.hide();	
+			// }
 			
-			if (!npcTalking)
-            {
-                    msgShowing = false;
-            }
+			// if (!npcTalking)
+            // {
+                    // msgShowing = false;
+            // }
 			
 			
 			// Reset check for items

@@ -87,7 +87,7 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [14,14];
+var startHero = [14,13];
 
 var DEBUG_MODE = true;
 
@@ -132,7 +132,7 @@ var mapEffectsData = [];
 
 // To solve problem with messageBox keeping blink - If is collide with a trigger avoid the others to hide message box
 // also setup in NPC - set allways when message is showinf
-var msgShowing = false;
+// var msgShowing = false;
 
 // NPC is talking - Test if NPC Event talk is true
 // Used to avoid show prison door triggers messages to show when NPC is talking
