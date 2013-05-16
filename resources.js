@@ -139,7 +139,7 @@ var mapEffectsData = [];
 var npcTalking = false;
 
 // Keep all items found by hero
-var heroItems = {};
+var heroItems = [];
 // *********** QUESTIONS SECTION ***********
 // Keep all information about the questions
 var adsQtnData = [];
