@@ -594,7 +594,7 @@ var NpcEntity = me.ObjectEntity.extend({
             }
         } else if (this.npcData.tipoMovimento == "npcFollowHero") {
             
-            var player = adsGame.heroEntity();            
+            var player = adsGame.heroEntity();
             
             if (this.countPath == 0){
                 
@@ -701,12 +701,21 @@ var NpcEntity = me.ObjectEntity.extend({
         // this.msgData.msg = this.npcData.mensagem[0];
         // $('.msgText,#hiddenText').html( this.msgData.msg );
         
+        // On event talk Show mouse left click image on message layer
+        $('.mouseLeftClick').show();
+        
+        // Stop hero while message is showing
+        var player = adsGame.heroEntity();
+        player.setVelocity(0,0);
+        
         // Change dialogue depending on the number of messages divided by the waiting time
         if ( ( ( this.waitEvent ==  ( (this.currentEvent.tempo * 60) - (this.pauseMessage * this.messageNumber + 1))) || this.message.leftClickMouse ) && this.messageNumber < this.currentEvent.conversa.length + 1 ) {
                 
             this.msgData.msg = this.npcData.mensagem[this.currentEvent.conversa[this.messageNumber]];
           
-            $('.msgText').html(this.msgData.msg);
+            // Show new message
+            $('.msgText').html(this.msgData.msg);            
+            
             // $('.msgText').fadeIn(1000);
             this.messageNumber++;
             
@@ -715,11 +724,11 @@ var NpcEntity = me.ObjectEntity.extend({
             this.message.leftClickMouse = false;
         }
         
-        if ( this.npcData.nome == "Lief"){
-            console.log ("this.message.leftClickMouse:" , this.message.leftClickMouse);
-            console.log ("this.messageNumber:" , this.messageNumber);
-            console.log ("this.currentEvent.conversa.length:" , this.currentEvent.conversa.length );
-        }
+        // if ( this.npcData.nome == "Lief"){
+            // console.log ("this.message.leftClickMouse:" , this.message.leftClickMouse);
+            // console.log ("this.messageNumber:" , this.messageNumber);
+            // console.log ("this.currentEvent.conversa.length:" , this.currentEvent.conversa.length );
+        // }
         // msgShowing = true;
 
         if (--this.waitEvent < 0 || this.messageNumber > this.currentEvent.conversa.length ) {
@@ -733,6 +742,15 @@ var NpcEntity = me.ObjectEntity.extend({
 
             // Event is not happening anymore
             this.talkEventHappening = false;
+            
+            // Get hero velocity
+           var heroVelocity =  me.game.HUD.getItemValue("velocidade") / 2;
+        
+            // Player gets is velocity again
+            player.setVelocity( heroVelocity , heroVelocity );
+            
+            // Destroy variable
+            player = undefined;
     
             return false;
             // Event end...~~
@@ -770,6 +788,8 @@ var NpcEntity = me.ObjectEntity.extend({
 
             //Remove door and play explosion effect
             if (this.currentEvent.efeito == "explodeDoor") {
+                // Shake viewport on explosion
+                me.game.viewport.shake (20 , 600);
                 adsGame.prisonDoors.remove(this.currentEvent.coordenadasAlvo, this.currentEvent.efeito);
             }
         }
@@ -884,15 +904,14 @@ var NpcEntity = me.ObjectEntity.extend({
             case "sellItems":
                 if( this.collideHero ){
                     adsGame.Shop.show( this.npcData );
-                    // console.log("Sell item to hero:");
+                    
                 }else{
                     // console.log("Don't sell item to hero:");
                     if ( showingShop ){
                         adsGame.Shop.hide();
                     }
                 }
-                
-            break; // Sell talk
+                break; // Sell talk
             
             default:
             break;

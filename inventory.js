@@ -59,12 +59,12 @@ SOFTWARE.
 								'<div class="invText"></div>' +
 								'<div class="invSpecialItems"></div>' +								
 								'<div class="invComment"></div>' +
-								'<div id="Slot01"><img class="invSlot01" src="content/gui/32x32Trans.png"/></div>' + 
-								'<div id="Slot02"><img class="invSlot02" src="content/gui/32x32Trans.png"/></div>' + 
-								'<div id="Slot03"><img class="invSlot03" src="content/gui/32x32Trans.png"/></div>' + 
-								'<div id="Slot04"><img class="invSlot04" src="content/gui/32x32Trans.png"/></div>' + 
-								'<div id="Slot05"><img class="invSlot05" src="content/gui/32x32Trans.png"/></div>' + 
-								'<div id="Slot06"><img class="invSlot06" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot01"><span class="textslotnormal"></span><img class="invSlot01" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot02"><span class="textslotnormal"></span><img class="invSlot02" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot03"><span class="textslotnormal"></span><img class="invSlot03" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot04"><span class="textslotnormal"></span><img class="invSlot04" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot05"><span class="textslotnormal"></span><img class="invSlot05" src="content/gui/32x32Trans.png"/></div>' + 
+								'<div id="Slot06"><span class="textslotnormal"></span><img class="invSlot06" src="content/gui/32x32Trans.png"/></div>' + 
 								'<div id="Slot07"><span class="textslot"></span><img class="invSlot07" src="content/gui/32x32Trans.png"/></div>' + 
 								'<div id="Slot08"><span class="textslot"></span><img class="invSlot08" src="content/gui/32x32Trans.png"/></div>' + 
 								'<div id="Slot09"><span class="textslot"></span><img class="invSlot09" src="content/gui/32x32Trans.png"/></div>');
@@ -79,11 +79,11 @@ SOFTWARE.
 								'<div class="infUse"></div>');
 								
 		
-		$('#itemInfLayer').append($infItemBoxHtml);
-		
+		$('#itemInfLayer').append($infItemBoxHtml);		
 		
 		console.log('Init inventory class...');
 	},
+	
 	"show" : function show() {
 	
 		if (!this.isShowing){	
@@ -150,6 +150,13 @@ SOFTWARE.
 		
 		// Variable to get the index number of inventory
 		var itemIndex = null;
+		
+		// Create slot text                           
+        var htmlSlotGroup = $("#" + slot + " span");
+        
+        // Update text
+        htmlSlotGroup.text( "test" );
+
 		
 		// If the varible slot of function isn't begin with "Slot" then the function is receiving the item index name
 		if ( slot.substr( 0 , 4) !== "Slot" ){
@@ -260,22 +267,70 @@ SOFTWARE.
 			    console.log("This item is a weapon... !!! WATCH OUT !!! On slot " , this.slotNumber);
 			    heroWeaponSlot = this.slotNumber + 1 ; // plus one because html div slot**
 			}
-		}else{
-			// Check empty slots - if no empty slots then return -1
-			this.slotNumber = jQuery.inArray(-1, this.slotsMap);
-		}
-		
-		
-		// if (this.slotNumber != -1) {
+			
 			// Add the new item to heroItems data
-			heroItems[this.slotNumber] = item;
-			
-			$.each(heroItems, function(i,data)
-			{
-				console.log('heroItems[' , i , '].valor:', data);
-			});
-			
-			
+            heroItems[this.slotNumber] = item;
+		}else{
+		    // Cunt items of the same group
+            var countItemGroup = 0;
+            var itemGroupIndex = -1;
+            
+		    $.each(heroItems, function(i,data){
+                    // check each item on inventory if the new one is the same group
+                    if ( data !== undefined){
+                        if ( data.itemIndex == item.itemIndex ){
+                            //Get index of the first slot where is the same item group
+                            if (itemGroupIndex == -1)
+                                itemGroupIndex = parseInt ( i );
+                            //How many items on slot
+                            countItemGroup ++;
+                        }
+                     
+                        // Show hero items data
+                        console.log("heroItems[" + i + "]:", data);
+                    }
+            });
+            
+            if ( countItemGroup >0 ){
+                console.log("There is more items of this kind...");
+
+                heroItems[itemGroupIndex].groupSize++;
+                
+                var slotStr = itemGroupIndex + 1;
+                // Create slot text                           
+                var htmlSlotGroup = $( "#Slot0" + String( slotStr  ) + " span");
+                
+                console.log( "slotStr:" + slotStr);
+                
+                console.log( "#Slot0" + String( slotStr  ) + " span");
+                
+                // Update text
+                htmlSlotGroup.text( heroItems[itemGroupIndex].groupSize );
+            
+                // Don't add item only add one more to the same slot
+                // return;
+                
+                this.slotNumber = itemGroupIndex;
+                
+            } else{
+                console.log("This is the first one item of this kind...");
+                // Check empty slots - if no empty slots then return -1
+                this.slotNumber = jQuery.inArray(-1, this.slotsMap);     
+                
+                // Add the new item to heroItems data
+                heroItems[this.slotNumber] = item;
+                
+                heroItems[this.slotNumber].groupSize = 1;
+                
+                // Create slot text                           
+                var htmlSlotGroup = $( "#Slot0" + String( this.slotNumber + 1  ) + " span");
+                
+                // Update text
+                htmlSlotGroup.text( heroItems[this.slotNumber].groupSize );                
+            }
+		}
+             
+             
 			//The data slot in the position of new item keep the number of the item index in the array
 			this.slotsMap[this.slotNumber] = ( item.itemIndex );
 		
@@ -289,7 +344,7 @@ SOFTWARE.
 			
 			//*** IMPROVE - Update invComment
 			this.invComment = "Parabéns novo item.";
-			$('.invComment,#hiddenText').html(this.invComment);
+			$('.invComment').html(this.invComment);
 			
 			// If added item is velocity or lucky update Hud 
 			if ( item.categoria == 'velocidade' || item.categoria == 'sorte' ){

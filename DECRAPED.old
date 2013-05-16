@@ -764,3 +764,119 @@ function hideMessageLayer()
                                     player.removeWeapon( "icestaff" );                                    
                                     
                                 }
+                                
+// Create slot text                           
+var htmlWeaponSlot = $("#Slot0" + heroWeaponSlot + " span");
+
+// Update text
+tmlWeaponSlot.text( this.numeroDisparos );
+
+// Remove text from slot
+htmlWeaponSlot.empty();           
+
+
+
+      
+            /*
+             * GROUP ITEMS
+             */            
+            // Cunt items of the same group
+            // var countItemGroup = 0;
+//             
+            // // If not a special item then group items
+            // if (typeof item.specialItem === 'undefined'){
+    			// $.each(heroItems, function(i,data)
+    			// {
+                    // // check each item on inventory if the new one is the same group
+    				// if ( data !== undefined){
+        				// if ( data.itemIndex == item.itemIndex ){
+        				    // countItemGroup++        				    
+        				// }
+//         				
+        				// // Show hero items data
+        				// console.log("heroItems[" + i + "]:", data);
+        			// }
+    			// });
+//     			
+    			// heroItems[this.slotNumber].groupSize = countItemGroup;
+			// }
+// 			
+			// // Create slot text                           
+            // var htmlSlotGroup = $( "#Slot0" + ( this.slotNumber + 1 ) + " span");
+//             
+            // console.log( "#Slot0" + ( this.slotNumber + 1 ) + " span");
+// 
+            // // Update text
+            // htmlSlotGroup.text( countItemGroup );
+			// countItemGroup = 0;
+			 
+			 /*
+             * GROUP ITEMS END
+             */              
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             		    // Cunt items of the same group
+            var countItemGroup = 0;
+            var itemGroupIndex = -1;
+            
+		    $.each(heroItems, function(i,data){
+                    // check each item on inventory if the new one is the same group
+                    if ( data !== undefined){
+                        if ( data.itemIndex == item.itemIndex ){
+                            //Get index of the first slot where is the same item group
+                            if (itemGroupIndex == -1)
+                                itemGroupIndex = parseInt ( i );
+                            //How many items on slot
+                            countItemGroup ++;
+                        }
+                     
+                        // Show hero items data
+                        console.log("heroItems[" + i + "]:", data);
+                    }
+            });
+            
+            if ( countItemGroup >0 ){
+                console.log("There is more items of this kind...");
+
+                heroItems[itemGroupIndex].groupSize++;
+                
+                var slotStr = itemGroupIndex + 1;
+                // Create slot text                           
+                var htmlSlotGroup = $( "#Slot0" + String( slotStr  ) + " span");
+                
+                console.log( "slotStr:" + slotStr);
+                
+                console.log( "#Slot0" + String( slotStr  ) + " span");
+                
+                // Update text
+                htmlSlotGroup.text( heroItems[itemGroupIndex].groupSize );
+            
+                // Don't add item only add one more to the same slot
+                // return;
+                
+            } else{
+                console.log("This is the first one item of this kind...");
+                // Check empty slots - if no empty slots then return -1
+                this.slotNumber = jQuery.inArray(-1, this.slotsMap);     
+                
+                // Add the new item to heroItems data
+                heroItems[this.slotNumber] = item;
+                
+                heroItems[this.slotNumber].groupSize = 1;
+                
+                // Create slot text                           
+                var htmlSlotGroup = $( "#Slot0" + String( this.slotNumber + 1  ) + " span");
+                
+                // Update text
+                htmlSlotGroup.text( heroItems[this.slotNumber].groupSize );                
+            }                  

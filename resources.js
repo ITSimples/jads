@@ -87,9 +87,9 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [14,13];
+var startHero = [28,28];
 
-var DEBUG_MODE = true;
+var DEBUG_MODE = false;
 
 // Give item to hero to start in debug mode
 var giveItemDebug = "icestaff";
@@ -139,8 +139,7 @@ var mapEffectsData = [];
 var npcTalking = false;
 
 // Keep all items found by hero
-var heroItems = [];
-
+var heroItems = {};
 // *********** QUESTIONS SECTION ***********
 // Keep all information about the questions
 var adsQtnData = [];

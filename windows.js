@@ -46,9 +46,17 @@ adsGame.message =  Object.extend({
 			     // Create html in messagelayer DIV
                 var $messageBoxHtml = ('<img class="msgImage" src="" alt="">' +
                     '<div class="titleText"></div>' +
-                    '<div class="msgText"></div>');
+                    '<div class="msgText"></div>' +
+                    '<div class="mouseLeftClick"></div>');
                     
                 $('#messageLayer').append($messageBoxHtml);
+                
+                //Positioning mouse image
+                var mouseLeftClickCSS = { 'position' : 'absolute' , 'bottom': 12 , 'right': 28 };
+
+                $(".mouseLeftClick").css( mouseLeftClickCSS );
+                
+                $('.mouseLeftClick').hide();
                 
 				//Fill fields from question box with msgData
 				$('.msgImage').attr({
@@ -110,6 +118,7 @@ adsGame.Shop =  Object.extend({
                                 '<div class="goldAnswer"></div>');
                                 
             $('#shopLayer').append($itemsBoxHtml);
+
             $('#shopLayer').fadeIn( 250 );
             
             //Show fields from question box with data
@@ -163,8 +172,11 @@ adsGame.Shop =  Object.extend({
             });
             //Message box is showing - avoid call over and over again
             showingShop = true;
+            
+            // console.log("Sell item to hero:");
         } // Show shop only one time
     },
+    
     "hide" : function hide (){
         $('#shopLayer').fadeOut( 50 , function(){
             // When finish to fade out 
@@ -177,6 +189,7 @@ adsGame.Shop =  Object.extend({
         $(document).unbind();
         $("*", "#shopLayer").unbind("click");
     },
+    
      "buy" : function buy( itemObject ){
          if ( typeof itemObject !== "undefined"){
              console.log("Buy Item Object:" , itemObject);
