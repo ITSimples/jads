@@ -444,7 +444,6 @@
 #inventoryLayer .textslotnormal {
     position:absolute;
     color:white;
-    font-weight:bold;
     top:0px;
     left:0px;
     z-index:3;

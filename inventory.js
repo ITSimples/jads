@@ -244,6 +244,26 @@ SOFTWARE.
         this.eventListener('remove', itemIndex + 1 );
     },
     
+    "itemExists" : function ( item ) {
+        
+            // Method to test if a item exits on inventory - Return index of slot item or -1 don't exists
+            // Count items of the same group
+            var itemGroupIndex = -1;
+            
+            // TODO - Test limits here return -1 if limits exedes
+            $.each(heroItems, function(i,data){
+                    // check each item on inventory if the new one is the same group
+                    if ( data !== undefined){
+                        if ( data.itemIndex == item.itemIndex ){
+                            //Get index of the first slot where is the same item group
+                            if (itemGroupIndex == -1)
+                                itemGroupIndex = parseInt ( i );
+                        }
+                    }
+            });
+        return itemGroupIndex;
+    },
+    
     "addItem" : function addItem( item ) {
         //Test if is a special item
         if (typeof item.specialItem !== 'undefined') {
@@ -271,32 +291,10 @@ SOFTWARE.
             // Add the new item to heroItems data
             heroItems[this.slotNumber] = item;
         }else{
+            // Test if item type already exists on inventory
+            var itemGroupIndex = this.itemExists( item );
             
-            //  TODO - Make method to test if a item exits on inventory - Return index of slot item or -1 don't exists
-            // TODO - Remove countItemGroup on this method is not necessary
-            // Count items of the same group
-            var countItemGroup = 0;
-            var itemGroupIndex = -1;
-            
-            $.each(heroItems, function(i,data){
-                    // check each item on inventory if the new one is the same group
-                    if ( data !== undefined){
-                        if ( data.itemIndex == item.itemIndex ){
-                            //Get index of the first slot where is the same item group
-                            if (itemGroupIndex == -1)
-                                itemGroupIndex = parseInt ( i );
-                            //How many items on slot
-                            countItemGroup ++;
-                        }
-                     
-                        // Show hero items data
-                        console.log("heroItems[" + i + "]:", data);
-                    }
-            });
-            
-            // TODO - Here goes the method
-            // TODO - if ( method !== -1)
-            if ( countItemGroup >0 ){
+            if ( itemGroupIndex != -1){
                 console.log("There is more items of this kind...");
 
                 heroItems[itemGroupIndex].groupSize++;

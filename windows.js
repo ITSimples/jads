@@ -216,10 +216,10 @@ adsGame.Shop =  Object.extend({
                         if ( specialItemfullInventory ) { // if only one then is a special item
                             testOptions = "IF";
                         }else{  
-                            testOptions = "TD"; //"Obrihado.";
+                            testOptions = "TD"; //"Obrigado.";
                         }
                     } 
-                }else  if ( fullInventory  ) {
+                }else  if ( fullInventory || adsGame.Inventory.itemExists( ads_items_data[itemObject.itemIndex] ) != -1  ) {
                     testOptions = "IF";
                  }else{   
                     testOptions = "TD"; //"Obrigado.";

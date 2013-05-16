@@ -346,7 +346,7 @@ var HeroEntity = me.ObjectEntity.extend({
         				// this.pos.x = this.posBeforeCollideX;
         				// this.pos.y = this.posBeforeCollideY;
         				
-        				if (!fullInventory  || data.obj.items_data.specialItem || data.obj.items_data.categoria == 'ouro' ||
+        				if ( (!fullInventory || adsGame.Inventory.itemExists( data.obj.items_data ) != -1 ) || data.obj.items_data.specialItem || data.obj.items_data.categoria == 'ouro' ||
                             data.obj.items_data.categoria == 'conhecimento' ){
         					self.vel.x = 0;
         					self.vel.y = 0;
