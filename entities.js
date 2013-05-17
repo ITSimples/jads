@@ -346,8 +346,10 @@ var HeroEntity = me.ObjectEntity.extend({
         				// this.pos.x = this.posBeforeCollideX;
         				// this.pos.y = this.posBeforeCollideY;
         				
-        				if ( (!fullInventory || adsGame.Inventory.itemExists( data.obj.items_data ) != -1 ) || data.obj.items_data.specialItem || data.obj.items_data.categoria == 'ouro' ||
-                            data.obj.items_data.categoria == 'conhecimento' ){
+        				// console.log ("****First Time:" , adsGame.Inventory.itemExists( data.obj.items_data ));
+        				
+        				if ( (!fullInventory || (adsGame.Inventory.itemExists( data.obj.items_data ) != -2 && adsGame.Inventory.itemExists( data.obj.items_data ) != -1) ) 
+        				   || data.obj.items_data.specialItem || data.obj.items_data.categoria == 'ouro' || data.obj.items_data.categoria == 'conhecimento' ){
         					self.vel.x = 0;
         					self.vel.y = 0;
         					data.obj.getItem();
@@ -681,7 +683,7 @@ var ItemSpawnEntity = me.ObjectEntity.extend({
 					item = new ItemEntity(parseInt(ads_tile_size*dataSpecialItem.coordinates.x , 10), parseInt(ads_tile_size*dataSpecialItem.coordinates.y ,10), 
 					{image: ads_item_data.imagem.replace(".png",""),
 					spritewidth: 32, spriteheight: 32}, ads_item_data);
-					me.game.add(item,8);
+					me.game.add(item,5);
 					me.game.sort();
 				}
 			});

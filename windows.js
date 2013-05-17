@@ -219,8 +219,10 @@ adsGame.Shop =  Object.extend({
                             testOptions = "TD"; //"Obrigado.";
                         }
                     } 
-                }else  if ( fullInventory || adsGame.Inventory.itemExists( ads_items_data[itemObject.itemIndex] ) != -1  ) {
+                }else  if ( fullInventory   ) {
                     testOptions = "IF";
+                 }else  if ( adsGame.Inventory.itemExists( ads_items_data[itemObject.itemIndex] )  == -2  ) {
+                     testOptions = "MAXITEMS";
                  }else{   
                     testOptions = "TD"; //"Obrigado.";
                  }
@@ -234,6 +236,9 @@ adsGame.Shop =  Object.extend({
                  case "CHOO":
                     answerToHero = "Só podes ter um item destes.";
                  break;
+                 case "MAXITEMS":
+                    answerToHero = "Não podes ter mais items destes.";
+                 break;                 
                  case "TD":
                     answerToHero = "Obrigado";
                      // remove the value of item in gold from hud

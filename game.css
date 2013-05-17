@@ -496,7 +496,7 @@
 	background: url('content/gui/iteminf.png') no-repeat;
 	display: none;
 	font-family: 'MedievalSharp', serif;
-	z-index:2;
+	z-index:5;
 }
 
 /* Information about item - name*/

@@ -146,6 +146,7 @@ SOFTWARE.
     },
     
     "removeItem" : function removeItem( slot , itemTarget ) {
+        
         // itemTarget have two options "drop" and "use"
         
         // Variable to get the index number of inventory
@@ -153,10 +154,6 @@ SOFTWARE.
         
         // Create slot text                           
         var htmlSlotGroup = $("#" + slot + " span");
-        
-        // Update text
-        htmlSlotGroup.text( "test" );
-
         
         // If the varible slot of function isn't begin with "Slot" then the function is receiving the item index name
         if ( slot.substr( 0 , 4) !== "Slot" ){
@@ -176,35 +173,6 @@ SOFTWARE.
         // DEBUG 
         console.log("this.slotsMap before:", this.slotsMap);
         
-        // Make this slot available
-        // if (!heroItems[itemIndex].specialItem){
-       
-       // DEBUG - If item index <6 normal item and > 5 special item
-       if ( itemIndex < 6 ){
-            this.slotsMap[ itemIndex ] = -1;
-            //The hero use or drop one normal item
-            fullInventory = false;
-        }else{
-            this.slotsMap[ itemIndex ] = -2;
-            specialItemfullInventory = false;
-        }
-        
-        // DEBUG 
-        console.log("this.slotsMap after:", this.slotsMap);
-        
-        // Mask the removed item with a transparent image
-        var htmlSlot = ".invSlot0" + ( itemIndex + 1 ).toString(); 
-        $( htmlSlot  ).attr({
-            'src' : 'content/gui/32x32Trans.png',
-            'alt' : ''});
-
-        // Remove square if exists
-         $( htmlSlot ).css({
-            'border-width': '', /*Add 1px solid border, use any color you want*/
-            'border-style': '', /*Add a background color to the box*/
-            'border-color':'' /*Align the text to the center*/
-        });         
-
         // If option is to use the item
         var itemCategory = heroItems[itemIndex].categoria;
         var itemValue = heroItems[itemIndex].valor;
@@ -221,46 +189,97 @@ SOFTWARE.
             if ( itemCategory == 'velocidade' || itemCategory == 'sorte' ){
                 me.game.HUD.updateItemValue(itemCategory,  -(parseInt(itemValue)) );
             }
-        }               
-        
-        //Delete item from heroItems array
-        // console.log(heroItems.splice(itemIndex,1));
-        
-        // Empty item from heroItems array
-        heroItems[itemIndex] = [];
-        
-        
-        // console.log ('Test after remove item. heroItems:');
-        
-        // $.each(heroItems , function (i, heroItem) {
-            // console.log ('heroItem[' + i + ']: ' + heroItem.nome);
-        // });
+        }         
             
-        // Reset inComment
-        this.invComment = '';
-        $('.invComment,#hiddenText').html(this.invComment);
-        
-        //Call removeEvents for this slot (itemIndex + 1 is the slot number)
-        this.eventListener('remove', itemIndex + 1 );
+        // TODO - Remove only if there is only one item else remove on groupSize
+        if ( heroItems[itemIndex].groupSize == 1 ){
+            console.log( "There is only one item on slot....");      
+            // Make this slot available
+            // if (!heroItems[itemIndex].specialItem){
+           
+           // DEBUG - If item index <6 normal item and > 5 special item
+           if ( itemIndex < 6 ){
+                this.slotsMap[ itemIndex ] = -1;
+                //The hero use or drop one normal item
+                fullInventory = false;
+            }else{
+                this.slotsMap[ itemIndex ] = -2;
+                specialItemfullInventory = false;
+            }
+            
+            // DEBUG 
+            console.log("this.slotsMap after:", this.slotsMap);
+            
+            // Mask the removed item with a transparent image
+            var htmlSlot = ".invSlot0" + ( itemIndex + 1 ).toString(); 
+            $( htmlSlot  ).attr({
+                'src' : 'content/gui/32x32Trans.png',
+                'alt' : ''});
+    
+            // Remove square if exists
+             $( htmlSlot ).css({
+                'border-width': '', /*Add 1px solid border, use any color you want*/
+                'border-style': '', /*Add a background color to the box*/
+                'border-color':'' /*Align the text to the center*/
+            });                       
+            
+            //Delete item from heroItems array
+            // console.log(heroItems.splice(itemIndex,1));
+
+            // Empty item from heroItems array
+            heroItems[itemIndex] = [];
+            // Reset inComment
+            this.invComment = '';
+            $('.invComment,#hiddenText').html(this.invComment);
+            
+            //Call removeEvents for this slot (itemIndex + 1 is the slot number)
+            this.eventListener('remove', itemIndex + 1 );
+            
+            // Update text remove number of items
+            htmlSlotGroup.text('');
+                
+            // console.log ('Test after remove item. heroItems:');
+            
+            // $.each(heroItems , function (i, heroItem) {
+                // console.log ('heroItem[' + i + ']: ' + heroItem.nome);
+            // });
+        }else{
+            console.log( "There is more than one item on slot....");
+            
+            heroItems[itemIndex].groupSize--;
+            
+            // Update text
+            htmlSlotGroup.text( heroItems[itemIndex].groupSize );
+        }
     },
     
     "itemExists" : function ( item ) {
         
-            // Method to test if a item exits on inventory - Return index of slot item or -1 don't exists
-            // Count items of the same group
-            var itemGroupIndex = -1;
-            
-            // TODO - Test limits here return -1 if limits exedes
-            $.each(heroItems, function(i,data){
-                    // check each item on inventory if the new one is the same group
-                    if ( data !== undefined){
-                        if ( data.itemIndex == item.itemIndex ){
-                            //Get index of the first slot where is the same item group
-                            if (itemGroupIndex == -1)
-                                itemGroupIndex = parseInt ( i );
+        // Method to test if a item exits on inventory - Return index of slot item or -1 don't exists
+        // Count items of the same group
+        var itemGroupIndex = -1;
+        
+        // TODO - Test limits here return -1 if limits exedes
+        $.each(heroItems, function(i,data){
+                // check each item on inventory if the new one is the same group
+                if ( data !== undefined){
+                    if ( data.itemIndex == item.itemIndex ){
+                        //Get index of the first slot where is the same item group
+                        if (itemGroupIndex == -1){
+                            itemGroupIndex = parseInt ( i );
                         }
                     }
-            });
+                }
+        });
+        
+        if ( itemGroupIndex != -1 && typeof heroItems[itemGroupIndex] !== "undefined" && heroItems[itemGroupIndex].groupSize > 8 ){           
+            console.log("Max items on group...");
+            // Reset inComment
+            this.invComment = 'Máximo 9 items.';
+            $('.invComment,#hiddenText').html(this.invComment);
+            itemGroupIndex = -2;
+        }
+        
         return itemGroupIndex;
     },
     
@@ -294,8 +313,9 @@ SOFTWARE.
             // Test if item type already exists on inventory
             var itemGroupIndex = this.itemExists( item );
             
-            if ( itemGroupIndex != -1){
-                console.log("There is more items of this kind...");
+            
+            if ( itemGroupIndex != -1 && itemGroupIndex != -2){
+                // console.log("There is more items of this kind...");
 
                 heroItems[itemGroupIndex].groupSize++;
                 
@@ -309,8 +329,10 @@ SOFTWARE.
                 // Don't add item only add one more to the same slot
                 return;
                                 
-            } else{
-                console.log("This is the first one item of this kind...");
+            }else  if ( itemGroupIndex == -2){
+                    return;
+            }else{
+                // console.log("This is the first one item of this kind...");
                 // Check empty slots - if no empty slots then return -1
                 this.slotNumber = jQuery.inArray(-1, this.slotsMap);     
                 
@@ -327,7 +349,6 @@ SOFTWARE.
             }
         }
              
-         
         //The data slot in the position of new item keep the number of the item index in the array
         this.slotsMap[this.slotNumber] = ( item.itemIndex );
     
@@ -476,7 +497,7 @@ SOFTWARE.
                         slot.bind('dblclick' , function () {
                             // console.log((me.game.HUD.getItemValue(itemCategory) + itemValue) , ' < ' ,maxHudValue['live']);
                             // Check if live is full
-                            if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= maxHudValue['live']){
+                            if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= 100 ){//maxHudValue['live']){
                                 adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
                             }else {
                                 this.invComment = 'Supera o máximo de vida. Não podes usar.';
