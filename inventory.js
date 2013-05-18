@@ -178,7 +178,7 @@ SOFTWARE.
         var itemValue = heroItems[itemIndex].valor;
             
         if (itemTarget == 'use'){
-            console.log (' Use this item...');
+            // console.log (' Use this item...');
     
             me.game.HUD.updateItemValue(itemCategory,  parseInt(itemValue));
             //hide item information because on leave with mouse the item info doesn't dissapear
@@ -189,10 +189,10 @@ SOFTWARE.
             if ( itemCategory == 'velocidade' || itemCategory == 'sorte' ){
                 me.game.HUD.updateItemValue(itemCategory,  -(parseInt(itemValue)) );
             }
-        }         
+        }
             
         // TODO - Remove only if there is only one item else remove on groupSize
-        if ( heroItems[itemIndex].groupSize == 1 ){
+        if ( heroItems[itemIndex].groupSize == 1 || itemIndex > 5  ){
             console.log( "There is only one item on slot....");      
             // Make this slot available
             // if (!heroItems[itemIndex].specialItem){

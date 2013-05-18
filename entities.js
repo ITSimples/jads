@@ -348,7 +348,8 @@ var HeroEntity = me.ObjectEntity.extend({
         				
         				// console.log ("****First Time:" , adsGame.Inventory.itemExists( data.obj.items_data ));
         				
-        				if ( (!fullInventory || (adsGame.Inventory.itemExists( data.obj.items_data ) != -2 && adsGame.Inventory.itemExists( data.obj.items_data ) != -1) ) 
+        				if ( (!fullInventory && adsGame.Inventory.itemExists( data.obj.items_data ) != -2 ) || (fullInventory &&
+        				     (adsGame.Inventory.itemExists( data.obj.items_data ) != -1 &&  adsGame.Inventory.itemExists( data.obj.items_data ) != -2) )
         				   || data.obj.items_data.specialItem || data.obj.items_data.categoria == 'ouro' || data.obj.items_data.categoria == 'conhecimento' ){
         					self.vel.x = 0;
         					self.vel.y = 0;
