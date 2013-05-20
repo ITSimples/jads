@@ -264,7 +264,7 @@ function hideQuestionLayer(answer)
 	
 	if(answer == 'C')
 	{
-		answerResult = heroLang.TRgoodCorrectAnswer;
+		answerResult =  heroLang.TRcongratulations + heroLang.TRgoodCorrectAnswer;
 	}else if(answer == 'W')
 	{
 		answerResult = heroLang.TRbadWrongAnswer;

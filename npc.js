@@ -61,7 +61,7 @@ var NpcEntity = me.ObjectEntity.extend({
         //Diferrence between npc height and tilesize to avoid collision with wall
         this.avoidWall = (this.npcData.tamanhoImagem.altura - ads_tile_size) + 1;
 
-        console.log("this.avoidWall:", this.avoidWall);
+        // console.log("this.avoidWall:", this.avoidWall);
 
         // Config NPC acceleration
         this.accel.x = this.accel.y = this.npcData.velocidade;
@@ -122,7 +122,7 @@ var NpcEntity = me.ObjectEntity.extend({
             this.firstAnimation =false;
         }
         
-        console.log('NPC Name:', this.npcData.nome , '- this.firstAnimation:' , this.firstAnimation );
+        // console.log('NPC Name:', this.npcData.nome , '- this.firstAnimation:' , this.firstAnimation );
         
        // Add all animation for NPC
        var countAnimation = 0;
@@ -132,7 +132,7 @@ var NpcEntity = me.ObjectEntity.extend({
             countAnimation++;
        });
        
-       console.log("NPC:" , this.npcData.nome , "  this.firstAnimation:" , this.firstAnimation);
+       // console.log("NPC:" , this.npcData.nome , "  this.firstAnimation:" , this.firstAnimation);
 
         //Configurar animações
         // this.addAnimation("stand-down", [4]);
@@ -277,7 +277,7 @@ var NpcEntity = me.ObjectEntity.extend({
             this.healthBar = new adsGame.HealthBar( this.pos.x , this.pos.y , this.health , this.npcData.tamanhoImagem.largura);
             
             //test
-            console.log("Testing this.healthBar.maxHealth:" , this.healthBar.maxHealth);
+            // console.log("Testing this.healthBar.maxHealth:" , this.healthBar.maxHealth);
             
            // Remove NPC time after die
             this.removeTime = 5000;
@@ -294,7 +294,7 @@ var NpcEntity = me.ObjectEntity.extend({
 
     removeHealth : function removeHealth(hitPoints) {
 
-        console.log("Call method in NPC...", this.npcData.nome);
+        // console.log("Call method in NPC...", this.npcData.nome);
         this.health = this.health - hitPoints;
     },
     
@@ -638,7 +638,7 @@ var NpcEntity = me.ObjectEntity.extend({
 
             // - this.distanceTo(player) - this.npcData.tamanhoImagem.altura NPC height 
             if ( typeof (this.npcData.atacaDistancia ) !== "undefined" && this.npcData.atacaDistancia < ( this.distanceTo(player) - this.npcData.tamanhoImagem.altura ) ){
-                console.log(" Not follow - Distance to attack: " , this.distanceTo(player));
+                // console.log(" Not follow - Distance to attack: " , this.distanceTo(player));
                 this.countPath = 0;
                 this.currentPath = this.npcData.coordenadas.length + 1;
                 this.npcData.tipoMovimento = "path";
@@ -655,7 +655,7 @@ var NpcEntity = me.ObjectEntity.extend({
                 
                 this.path[this.currentPath] = adsGame.pathFinder.getPath(start, end);
                 
-                console.log("pathlength:", this.path.length);
+                // console.log("pathlength:", this.path.length);
                 
                 this.destX = this.path[this.currentPath][0][0] * ads_tile_size;
                 this.destY = (this.path[this.currentPath][0][1] * ads_tile_size) - this.avoidWall;
@@ -886,7 +886,7 @@ var NpcEntity = me.ObjectEntity.extend({
                             // Show inventory window if is not open
                             if (!adsGame.Inventory.isShowing) {
                                 adsGame.Inventory.show();
-                                console.log('Inventory is not showing...');
+                                // console.log('Inventory is not showing...');
                             }
         
                             // If npc give to hero a mission item then set as special item to go the rigth slot (Map items)

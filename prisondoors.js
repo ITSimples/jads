@@ -106,7 +106,7 @@ SOFTWARE.
 									false,
 									0
 									);			
-						console.log("How many times open door...");
+						// console.log("How many times open door...");
 						me.game.add(openDoor, 6);
 						me.game.sort();
 					}

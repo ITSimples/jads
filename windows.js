@@ -74,9 +74,11 @@ adsGame.message =  Object.extend({
 				});
 				
                 // Get Click from user
-                $('.msgText').bind('click' , ( function () { console.log("click on message."); this.leftClickMouse = true; } ).bind(this));
+                $('.msgText').bind('click' , ( function () { 
+                    this.leftClickMouse = true; 
+                } ).bind(this));
                 
-				console.log("Show message...");
+				// console.log("Show message...");
 				this.messageShowing = true;
 			}
 	},
@@ -95,7 +97,7 @@ adsGame.message =  Object.extend({
                  this.leftClickMouse = false;   
             });		    
 	
-			console.log("hide message...");
+			// console.log("hide message...");
 			this.messageShowing = false;
 		}
 	}
@@ -140,7 +142,7 @@ adsGame.Shop =  Object.extend({
                 $('.buy' + itemNumber ).html('(' + i + ') ' + itmName + ' + ' + itmValue + ' ' + itmGive + '</br>&emsp;&ensp; (' + price  + ' Moedas)');
              });
              
-             $('.goldValue').html('O que queres comprar?');
+             $('.goldValue').html( heroLang.TRshopWhatBuy );
              
             // Create event listener to get answer from player
             $(document).keyup(function(event) {
@@ -162,7 +164,7 @@ adsGame.Shop =  Object.extend({
                 if (buyItemNumber.indexOf("buy") == 0){
                    
                     self.buyItem = Number(buyItemNumber.substr(3,1) -1);
-                     console.log("This is a answer...", self.buyItem);
+                     // console.log("This is a answer...", self.buyItem);
                     //Remove event listener
                     // $('#shopLayer  > div').unbind('click');
                     
@@ -192,7 +194,7 @@ adsGame.Shop =  Object.extend({
     
      "buy" : function buy( itemObject ){
          if ( typeof itemObject !== "undefined"){
-             console.log("Buy Item Object:" , itemObject);
+             // console.log("Buy Item Object:" , itemObject);
              var testOptions = "";
              var testOneItem = false;
              // Get hero money
@@ -234,13 +236,13 @@ adsGame.Shop =  Object.extend({
     
              switch ( testOptions ){
                  case "CHOO":
-                    answerToHero = "Só podes ter um item destes.";
+                    answerToHero = heroLang.TRshopOnlyOne;
                  break;
                  case "MAXITEMS":
-                    answerToHero = "Não podes ter mais items destes.";
+                    answerToHero = heroLang.TRshopMaxItemsType;
                  break;                 
                  case "TD":
-                    answerToHero = "Obrigado";
+                    answerToHero = heroLang.TRshopThanks;
                      // remove the value of item in gold from hud
                     me.game.HUD.updateItemValue("ouro", -itemObject.preco)
                     
@@ -255,10 +257,10 @@ adsGame.Shop =  Object.extend({
                     
                  break;
                  case "NEG":
-                    answerToHero = "Não tens ouro suficiente.";
+                    answerToHero = heroLang.TRshopNotGold;
                  break;
                  case "IF":
-                    answerToHero = "Inventário cheio";
+                    answerToHero = heroLang.TRshopinvFull;
                  break;              
              }
              
@@ -315,7 +317,7 @@ adsGame.QuestionQuest =  Object.extend({
             this.prisonerObject = me.game.getEntityByName ( this.npcData.questionQuest.salvaPrisioneiro );            
         }
         
-        console.log("this.prisonerObject :" , this.prisonerObject );
+        // console.log("this.prisonerObject :" , this.prisonerObject );
     },
     
     "play" : function play(){
@@ -343,7 +345,7 @@ adsGame.QuestionQuest =  Object.extend({
         $('#questionQuestLayer').append($questionBoxHtml);
         
         // Window quest title
-        $('.questTitleText').html( "* Desafio do conhecimento *" );
+        $('.questTitleText').html( heroLang.TRqstQuestName );
         
         //Hero face
         $('.questHeroImage').attr({
@@ -382,20 +384,20 @@ adsGame.QuestionQuest =  Object.extend({
             
             if ( information == "acceptChallenge"){
                 npcChallengeInfo =  this.npcData.questionQuest.desafiaHeroi ;
-                questionToHero = "Aceitas o desafio?";
+                questionToHero = heroLang.TRqstQuestAccept;
             }else{
                 npcChallengeInfo =  this.npcData.questionQuest.msgVence ;
-                questionToHero = "Queres tentar novamente?";
+                questionToHero = heroLang.TRqstQuestTryAgain;
             }
             
-            button_yes = "Sim";
-            button_no = "Nao";
+            button_yes = heroLang.TRyes;
+            button_no = heroLang.TRno;
             button_no_css = {  'position' : 'absolute' ,  'top': 290 , 'left': 180 };
             
         }else if ( information == "heroWinChallenge" ){
             npcChallengeInfo =  this.npcData.questionQuest.msgPerde ;
-            questionToHero = "Muitos parabens";
-            button_yes = "Continuar";
+            questionToHero = heroLang.TRcongratulations;
+            button_yes = heroLang.TRresume;
         }
         
         var self = this;
@@ -464,9 +466,9 @@ adsGame.QuestionQuest =  Object.extend({
                         
                         self.hide();
                         
-                        console.log(" Hero win and button continuar called....");
+                        // console.log(" Hero win and button continuar called....");
              }else{
-               console.log(" Hero don't accept challenge....");
+               // console.log(" Hero don't accept challenge....");
                self.hide();
             }
         });
@@ -476,7 +478,7 @@ adsGame.QuestionQuest =  Object.extend({
     "makeQuestion" : function makeQuestion( number ){
         
         this.debugCount++;
-        console.log("How many times call question :" , this.debugCount);
+        // console.log("How many times call question :" , this.debugCount);
         
         var self = this;
         // Get current question data
@@ -507,8 +509,8 @@ adsGame.QuestionQuest =  Object.extend({
         $('.QuestR1').html( "(1) " + questionData.r1 );
         $('.QuestR2').html( "(2) " + questionData.r2 );
         $('.QuestR3').html( "(3) " +questionData.r3 );      
-        $('.questSate').html( "Resposta certa: +2 Conhecimento.<BR>" +
-                                         "Resposta Errada: -2 Conhecimento." );
+        $('.questSate').html( heroLang.TRgoodCorrectAnswer + " +2 " + heroLang.TRknowledge + "<BR>" +
+                                         heroLang.TRbadWrongAnswer + " -2 " + heroLang.TRknowledge );
         //Show question                         
         $('#heroQuestions').fadeIn( 1000 );
         

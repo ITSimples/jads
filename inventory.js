@@ -452,13 +452,13 @@ SOFTWARE.
                       // If special item is a weapon then the message to hero is different
                       if ( heroItems[itemIndex].subcategoria !== undefined && heroItems[itemIndex].subcategoria  == "weapon"){
                            // If mission item then change value 
-                           iteminfValue= "Arma para venceres o teu inimigo.";
+                           iteminfValue= heroLang.TRinvItemWeaponInf;
                            
-                           itemInfUse = 'Clica em cima para usares.';                          
+                           itemInfUse = heroLang.TRinvItemWeaponUse;                          
                       }else{
-                           itemInfUse = 'Não podes usar nem destruir';
+                           itemInfUse = "";
                            // If mission item then change value 
-                           iteminfValue= "Item da missão.";
+                           iteminfValue= heroLang.TRinvDestroyMissionItem;
                       }
         }   
             
@@ -495,21 +495,21 @@ SOFTWARE.
                         slot.bind('dblclick' , function () {
                             // console.log((me.game.HUD.getItemValue(itemCategory) + itemValue) , ' < ' ,maxHudValue['live']);
                             // Check if live is full
-                            if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= 100 ){//maxHudValue['live']){
+                            if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= heroHealth ){//maxHudValue['live']){
                                 adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
                             }else {
-                                this.invComment = 'Supera o máximo de vida. Não podes usar.';
+                                this.invComment = heroLang.TRinvItemMaxHealth;
                                 $('.invComment').css("color", hudColorLive);
-                                $('.invComment,#hiddenText').html(this.invComment);
+                                $('.invComment').html(this.invComment);
                             }
-                            console.log('Vida:' , me.game.HUD.getItemValue(itemCategory));
+                            // console.log('Vida:' , me.game.HUD.getItemValue(itemCategory));
                         });
                     }
                 }else{
                     slot.bind('click' , function () {
                         if ( typeof heroItems[slotNumber - 1].subcategoria != "undefined" && heroItems[slotNumber - 1].subcategoria == "weapon")
                         {    
-                            console.log("Special Item weapon:" , heroItems[slotNumber - 1]);                           
+                            // console.log("Special Item weapon:" , heroItems[slotNumber - 1]);                           
                             
                             // If weapon enable then disable -- if disable then enable
                             if (this.activeWeapon && heroWeaponEnable) 
