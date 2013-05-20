@@ -87,7 +87,7 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [45,8];
+var startHero = [5,5];
 
 var heroHealth = 10;
 

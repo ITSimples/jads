@@ -1099,7 +1099,7 @@ adsGame.NPC = Object.extend({
         settings.spritewidth = npcData.tamanhoImagem.largura;
         settings.spriteheight = npcData.tamanhoImagem.altura;
         settings.name = indexKey;
-        console.log("npcData.coordenadas[0].initStartX:", npcData.coordenadas[0].initStartX);
+        // console.log("npcData.coordenadas[0].initStartX:", npcData.coordenadas[0].initStartX);
 
         // Create a new npc *ads_tile_size to transform map coordinates to tile coordinates
         npc = new NpcEntity(npcData.coordenadas[0].initStartX * ads_tile_size, npcData.coordenadas[0].initStartY * ads_tile_size, settings, npcData);
