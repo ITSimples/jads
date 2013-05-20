@@ -38,9 +38,23 @@ var adsGame =
 	// Inicializar o Jogo
 	onload:function()
 	{
+	    //Define hero language
+	    // Testing multilingual feature
+        //var heroLanguage = adsLangData.portuguese;
+        heroLang = adsLangData.english;
+        //alert(heroLang.TRbrowserInf); 
+        
+        
+        //Init title name
+        $( document ).attr("title", heroLang.TRgameName);
+        
+        //Init game name
+        $('#msgGameName').html( heroLang.TRgameName );
+        
+	    
 		//Inicializar resolu��o e teste se browser suporta o jogo
-		if(!me.video.init('adsGame',ads_width,ads_height,true,1.0)){
-			alert("O seu browser n�o suporta o jogo * Aventura do saber \n Use o Firefox, Chrome ou IE9+ para poder jogar. *");
+		if( !me.video.init('adsGame',ads_width,ads_height,true,1.0) ){
+			alert( heroLang.TRbrowserInf );
 			return;
 		}
 
@@ -186,13 +200,13 @@ function showQuestionLayer(itemData, adsQtnData)
 		$('.r1').html('(1) ' + rndQtnData.r1 );
 		$('.r2').html('(2) ' + rndQtnData.r2 );
 		$('.r3').html('(3) ' + rndQtnData.r3 );
-		$('.r0').html('(0) Não responder..');
+		$('.r0').html('(0) ' + heroLang.TRnotAnswer);
 		
 		// if is a special item them show the value you can lose and not the name
 		if (!itemData.specialItem){
-			$('.answerValue').html('+/-' + itemData.valor + ' de ' + itemData.categoria + '.');
+			$('.answerValue').html('+/-' + itemData.valor + ' ' + heroLang.TRof + ' ' + itemData.categoria + '.');
 		}else{
-			$('.answerValue').html('Resposta errada perdes ' + itemData.quantidade + ' de ' + itemData.remover + '.');
+			$('.answerValue').html(heroLang.TRwrongAnswer + ' ' + itemData.quantidade + ' ' + heroLang.TRof + ' ' + itemData.remover + '.');
 		}
 		// Create event listener to get answer from player
 		$(document).keyup(function(event) {
@@ -208,10 +222,12 @@ function showQuestionLayer(itemData, adsQtnData)
         // $('#questionLayer  > div') same as $('#questionLayer').children("div")
         $('#questionLayer  > div').bind('click', function() {
             var answer = this.className;
-            console.log( "this.className:", answer );
+            
+            //console.log( "this.className:", answer );
+            
             // If class start with r then is a answer get the answer from player
             if (answer.indexOf("r") == 0){
-                console.log("This is a answer...", answer.substr(1,1));
+                //console.log("This is a answer...", answer.substr(1,1));
                 heroAnswer = answer.substr(1,1);
                 
                 //Remove event listener
@@ -243,16 +259,18 @@ function hideQuestionLayer(answer)
 	//				- Show in box question the result of the answer
 	//				- Make a new field with that information
     var answerResult ='';
+    
+    console.log("Answer:", answer);
 	
 	if(answer == 'C')
 	{
-		answerResult ='Parabéns resposta certa...';
+		answerResult = heroLang.TRgoodCorrectAnswer;
 	}else if(answer == 'W')
 	{
-		answerResult ='Resposta errada...';
+		answerResult = heroLang.TRbadWrongAnswer;
 	}
 	else{		
-		answerResult ='Tenta para a próxima...';
+		answerResult = heroLang.TRtryAgainAnswer;
 	}
 
 	//Hide Question fields
@@ -479,7 +497,23 @@ $( function(){
             })
             .fail( function(){
                 alert( "Invalid DATA file! --- question.json ---" );
-            })    		
+            }),
+        // Load multilingue system file
+        $.get( ads_json_files + "gamelang.json" )
+            .done( function( data ){
+                if( typeof data != "object" ){
+                    alert( "Data is invalid --- gamelang.json ---" );
+                }
+                // console.debug( "recebi o seguinte", data );
+                // init_game( data );
+                
+                //Get Questions to variable
+                adsLangData = data.languages;
+               
+            })
+            .fail( function(){
+                alert( "Invalid DATA file! --- gamelang.json ---" );
+            })                      
 	).done(function(){
 	    
 	    // Loading Google fonts:
@@ -494,6 +528,8 @@ $( function(){
             s.parentNode.insertBefore(wf, s);
             // console.log("Loaded... Fonts");
         })(); 
+        
+        //
         
         //place your code here, the scripts are all loaded
         init_game( lvlData );

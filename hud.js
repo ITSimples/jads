@@ -45,7 +45,8 @@ var HUDLive = me.HUD_Item.extend({
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorLive,"left");
 		this.value = 10;
-		this.name= "Vida:";
+		
+		this.name= heroLang.TRlive;
 		// calculate value position
 		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
     },
@@ -70,7 +71,7 @@ var HUDGold = me.HUD_Item.extend({
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorGold,"left");
 		this.value = 400;
-		this.name = "Ouro:";
+		this.name = heroLang.TRgold;
 		// calculate value position
 		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
     },
@@ -95,7 +96,7 @@ var HUDVelocity = me.HUD_Item.extend({
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorVelocity,"left");
 		this.value = heroVelocity * 2 ; //Hud information
-		this.name = "Velocidade:";
+		this.name = heroLang.TRvelocity;
 		// calculate value position
 		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
     },
@@ -109,7 +110,6 @@ var HUDVelocity = me.HUD_Item.extend({
 		this.font.draw(context, this.name, this.pos.x , this.pos.y);
         this.font.draw(context, this.value, this.pos.x + this.itemHUDLength, this.pos.y);
 		heroVelocity = this.value / 2;
-		console.log ('heroVelocity:', heroVelocity)
 		
 		// Update hero velocity
 		var player = adsGame.heroEntity();
@@ -128,7 +128,7 @@ var HUDKnowledge = me.HUD_Item.extend({
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorKnowledge,"left");
 		this.value = 10;
-		this.name = "Conhecimento:";
+		this.name = heroLang.TRknowledge;
 
 		// calculate value position
 		this.itemHUDLength = (( ( this.name.length ) * ads_HUD_font_size ) / 2) + ads_HUD_X_Position;
@@ -156,7 +156,7 @@ var HUDLucky = me.HUD_Item.extend({
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorLucky,"left");
 		this.value = 1;
-		this.name = "Sorte:";
+		this.name = heroLang.TRlucky;
 		// calculate value position
 		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
     },

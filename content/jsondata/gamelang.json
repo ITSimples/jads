@@ -1,0 +1,67 @@
+{
+    "_comment" : "Data File for languages in system.",
+    "languages": 
+    {
+        "portuguese":{
+            "TRgameName": "Aventura do Saber",
+            "TRbrowserInf":"O seu browser não suporta o jogo * Aventura do saber \n Use o Firefox, Chrome ou IE9+ para poder jogar. *",
+            "TRnotAnswer":"Não responder.",
+            "TRof":"de",
+            "TRwrongAnswer":"Resposta errada perdes",
+            "TRgoodCorrectAnswer":"Parabéns resposta certa...",
+            "TRbadWrongAnswer":"Resposta errada...",
+            "TRtryAgainAnswer":"Tenta para a próxima...",
+            "TRmessage":"Mensagem:",
+            "TRlive":"Vida:",
+            "TRgold":"Ouro:",
+            "TRvelocity":"Velocidade:",
+            "TRknowledge":"Conhecimento:",
+            "TRlucky":"Sorte:",
+            "TRinvHide":"Esconder inventário.",
+            "TRinvSpecialItems":"Items Especiais:",
+            "TRinvName":"Inventario",
+            "TRinvFull":"Inventario cheio. Remove um item.",
+            "TRinvSlotFull":"Máximo 9 items iguais.",
+            "TRinvNewItem":"Parabéns novo item.",
+            "TRinvDestroyItem":"Item destruido.",
+            "TRinvDestroyMissionItem":"Item da missão, não pode ser destruido.",
+            "TRinvItemInfUse":"Duplo click para usares.",
+            "TRinvItemDestroyVelocity":"Destruir retira-te velocidade.",
+             "TRinvItemDestroyLucky":"Destruir retira-te sorte."
+        },
+        "english":{
+            "TRgameName": "Knowledge Adventure",
+            "TRbrowserInf":"Your browser does not support the game * Adventure of knowledge \n Use Firefox, Chrome or IE9 + to play. *",
+            "TRnotAnswer":"Do not answer.",
+            "TRof":"of",
+            "TRwrongAnswer":"Wrong answer you lose",
+            "TRgoodCorrectAnswer":"Congratulations right answer...",
+            "TRbadWrongAnswer":"Wrong answer...",
+            "TRtryAgainAnswer":"Try for the next time...",
+            "TRmessage":"Message:",
+            "TRlive":"Life:",
+            "TRgold":"Gold:",
+            "TRvelocity":"Velocity:",
+            "TRknowledge":"Knowledge:",
+            "TRlucky":"Lucky:",
+            "TRinvHide":"Hide inventory.",
+            "TRinvSpecialItems":"Special Items:",
+            "TRinvName":"Inventory",
+            "TRinvFull":"Inventory full. Remove an item.",
+            "TRinvSlotFull":"Maximum 9 items alike.",
+            "TRinvNewItem":"Congratulations new item.",
+            "TRinvDestroyItem":"Item destroyed.",
+            "TRinvDestroyMissionItem":"Item of the mission, can not be destroyed.",
+            "TRinvItemInfUse":"Double click to use",
+            "TRinvItemDestroyVelocity":"Destroy removes you velocity.",
+             "TRinvItemDestroyLucky":"Destroying remove yourself lucky."
+            
+        },
+        "german":{
+        
+        },
+        "french":{
+        
+        }   
+    }
+}

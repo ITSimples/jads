@@ -469,7 +469,7 @@ var ItemEntity = me.CollectableEntity.extend({
 			adsGame.Inventory.addItem( this.items_data );
 				}						
 				hideQuestionLayer('C');
-			}else if(heroAnswer !== 0){ // if hero answer to the question but it's not the correct one
+			}else if(heroAnswer != 0){ // if hero answer to the question but it's not the correct one
 				var valueRemoved = -(parseInt(this.items_data.valor,10));
 				
 				//If is velocity then don't remove points
@@ -627,7 +627,7 @@ var ItemSpawnEntity = me.ObjectEntity.extend({
                         $.each(checkTriggersData, function(i, data){
                             if (data.x == x && data.y == y){
                                 isCollide = true;
-                                console.log("Collide with trigger tile!");
+                                // console.log("Collide with trigger tile!");
                             }
                         }); 
                         
@@ -635,7 +635,7 @@ var ItemSpawnEntity = me.ObjectEntity.extend({
                         $.each(checknoItemsData, function(i, data){
                             if (data.x == x && data.y == y){
                                 isCollide = true;
-                                console.log("Collide with noItems tile!");
+                                // console.log("Collide with noItems tile!");
                             }
                         });                         
 						
@@ -711,7 +711,7 @@ var TriggerEntity = me.ObjectEntity.extend({
 		// prepare data to message box
 		this.msgData = {};
 		this.msgData.msgImage = 'sprites/items/' + triggerData.imageName;
-		this.msgData.msgName = "Mensagem:";
+		this.msgData.msgName = heroLang.TRmessage;
 		this.msgData.msg = triggerData.message;		
 		this.type = triggerData.type;
 
@@ -772,7 +772,7 @@ var TriggerEntity = me.ObjectEntity.extend({
 						//Check if array is undefined to avoid error (may have empty slots)
 						if (typeof data !== 'undefined'){
 							if (data.valor == solution){
-								console.log('Hero have the key.', i);
+								// console.log('Hero have the key.', i);
 								checkSolution = true;
 								itemIndex = i;
 							}
@@ -836,7 +836,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                             .to( { x: 1 }, 10000 ).onComplete(function(){ 
                                 self.message.hide();
                             }).start();
-                            console.log("How many times...");
+                            // console.log("How many times...");
                         }
                         
                         // Remove Trigger
@@ -857,7 +857,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                         // prepare data to message box
                         var msgDataReq = {};
                         msgDataReq.msgImage = 'sprites/information.png' ;
-                        msgDataReq.msgName = "Mensagem:";
+                        msgDataReq.msgName = heroLang.TRmessage;
                         msgDataReq.msg = this.triggerData.requirementMsg; 
                         
 				        if (typeof this.triggerData.requirement.salvarPrisao !== "undefined"){
@@ -1020,7 +1020,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                   // Remove this object 
                   me.game.remove(this);
                   
-                  console.log("Trigger Removed.....");
+                  // console.log("Trigger Removed.....");
             }
 		}
 
@@ -1112,7 +1112,7 @@ var TriggerSpawnEntity = me.ObjectEntity.extend({
             this.renderable.addAnimation("up"     ,  this.throwerData.animacoes.cima );
             this.renderable.addAnimation("down",  this.throwerData.animacoes.baixo );
             
-            console.log("Set animations to NPC..." , this.throwerData.configuracoes.image);
+            // console.log("Set animations to NPC..." , this.throwerData.configuracoes.image);
         }
         
 		this.renderable.addAnimation("default", this.throwerData.animacoes.parado );
@@ -1168,7 +1168,7 @@ var TriggerSpawnEntity = me.ObjectEntity.extend({
                 
                 // Define here how many projectils hero must create
                 if (typeof this.numeroDisparos !== "undefined"){
-                    console.log("this.throwerData.numeroDisparos:", this.numeroDisparos);
+                    // console.log("this.throwerData.numeroDisparos:", this.numeroDisparos);
                     this.numeroDisparos--; // = this.throwerData.numeroDisparos - 1;
                     if (this.numeroDisparos > 0){
                         this.createProjectil();

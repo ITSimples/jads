@@ -45,11 +45,10 @@ SOFTWARE.
         this.slotsMap = [-1,-1,-1,-1,-1,-1,-2,-2,-2];
         
         //Comment on inventory
-        this.invComment = " 'I' Esconder inventário.";
+        this.invComment = " 'I' " + heroLang.TRinvHide;
         
         // Special items name
-        // Improve - Make this multilingual
-        this.specialItemsStr = "Items Especiais";
+        this.specialItemsStr = heroLang.TRinvSpecialItems;
         
         // Active weapon on inventory
         this.activeWeapon = false;
@@ -96,16 +95,16 @@ SOFTWARE.
             'alt' : 'Testing...'});
             
             // Inventory name
-            $('.invText,#hiddenText').html('Inventario');
+            $('.invText').html( heroLang.TRinvName );
             
             // Show invComment
             if (fullInventory){
-                this.invComment = 'Inventario cheio. Remove um item.';
+                this.invComment = heroLang.TRinvFull;
             }
             
-            $('.invComment,#hiddenText').html(this.invComment);
+            $('.invComment').html( this.invComment );
             
-            $('.invSpecialItems,#hiddenText').html(this.specialItemsStr);
+            $('.invSpecialItems').html( this.specialItemsStr );
             
             // Show inventory window with a fade
             $('#inventoryLayer').fadeIn( 250, function() {
@@ -125,7 +124,7 @@ SOFTWARE.
         if (this.isShowing){
             $('#inventoryLayer').fadeOut();
     
-            console.log("hide inventory...");
+            // console.log("hide inventory...");
             this.isShowing = false;
             //Disable event drop on game window
             this.eventDrop(false);
@@ -193,7 +192,7 @@ SOFTWARE.
             
         // TODO - Remove only if there is only one item else remove on groupSize
         if ( heroItems[itemIndex].groupSize == 1 || itemIndex > 5  ){
-            console.log( "There is only one item on slot....");      
+            // console.log( "There is only one item on slot....");      
             // Make this slot available
             // if (!heroItems[itemIndex].specialItem){
            
@@ -208,7 +207,7 @@ SOFTWARE.
             }
             
             // DEBUG 
-            console.log("this.slotsMap after:", this.slotsMap);
+            // console.log("this.slotsMap after:", this.slotsMap);
             
             // Mask the removed item with a transparent image
             var htmlSlot = ".invSlot0" + ( itemIndex + 1 ).toString(); 
@@ -230,7 +229,7 @@ SOFTWARE.
             heroItems[itemIndex] = [];
             // Reset inComment
             this.invComment = '';
-            $('.invComment,#hiddenText').html(this.invComment);
+            $('.invComment').html(this.invComment);
             
             //Call removeEvents for this slot (itemIndex + 1 is the slot number)
             this.eventListener('remove', itemIndex + 1 );
@@ -244,7 +243,7 @@ SOFTWARE.
                 // console.log ('heroItem[' + i + ']: ' + heroItem.nome);
             // });
         }else{
-            console.log( "There is more than one item on slot....");
+            // console.log( "There is more than one item on slot....");
             
             heroItems[itemIndex].groupSize--;
             
@@ -273,10 +272,10 @@ SOFTWARE.
         });
         
         if ( itemGroupIndex != -1 && typeof heroItems[itemGroupIndex] !== "undefined" && heroItems[itemGroupIndex].groupSize > 8 ){           
-            console.log("Max items on group...");
+            // console.log("Max items on group...");
             // Reset inComment
-            this.invComment = 'Máximo 9 items.';
-            $('.invComment,#hiddenText').html(this.invComment);
+            this.invComment = heroLang.TRinvSlotFull;
+            $('.invComment').html( this.invComment );
             itemGroupIndex = -2;
         }
         
@@ -286,7 +285,7 @@ SOFTWARE.
     "addItem" : function addItem( item ) {
         //Test if is a special item
         if (typeof item.specialItem !== 'undefined') {
-            console.log ('Special item...', item);
+            // console.log ('Special item...', item);
             // Check empty slots - if no empty slots then return -1
             this.slotNumber = jQuery.inArray(-2, this.slotsMap);
             
@@ -296,14 +295,14 @@ SOFTWARE.
                 specialItemfullInventory = false; 
             }
             
-            console.log ("Special Item :", this.slotNumber );
+            // console.log ("Special Item :", this.slotNumber );
             
             // if this special item is a weapon then call method on hero class to create a thrower that follow hero
             if (item.subcategoria === "weapon"){
                 var player = adsGame.heroEntity();
                 
                 player.createWeapon( item );
-                console.log("This item is a weapon... !!! WATCH OUT !!! On slot " , this.slotNumber);
+                // console.log("This item is a weapon... !!! WATCH OUT !!! On slot " , this.slotNumber);
                 heroWeaponSlot = this.slotNumber + 1 ; // plus one because html div slot**
             }
             
@@ -312,7 +311,6 @@ SOFTWARE.
         }else{
             // Test if item type already exists on inventory
             var itemGroupIndex = this.itemExists( item );
-            
             
             if ( itemGroupIndex != -1 && itemGroupIndex != -2){
                 // console.log("There is more items of this kind...");
@@ -361,7 +359,7 @@ SOFTWARE.
         this.eventListener ('add' , this.slotNumber + 1);
         
         //*** IMPROVE - Update invComment
-        this.invComment = "Parabéns novo item.";
+        this.invComment = heroLang.TRinvNewItem;
         $('.invComment').html(this.invComment);
         
         // If added item is velocity or lucky update Hud 
@@ -374,8 +372,8 @@ SOFTWARE.
         
         if ( this.slotNumber == -1 ) {
             //*** IMPROVE - Update invComment
-            this.invComment = 'Inventario cheio.';
-            $('.invComment,#hiddenText').html(this.invComment);
+            this.invComment = heroLang.TRinvFull;
+            $('.invComment').html(this.invComment);
             fullInventory = true; 
         }
         
@@ -384,7 +382,7 @@ SOFTWARE.
         
         if ( testSpecialItem == -1 ) {
             //*** IMPROVE - Update invComment
-            this.invComment = 'Inventario cheio.';
+            this.invComment = heroLang.TRinvFull;
             $('.invComment,#hiddenText').html(this.invComment);
             specialItemfullInventory = true; 
         }else{
@@ -400,7 +398,7 @@ SOFTWARE.
         //hide item information because on leave with mouse the item info doesn't dissapear
         $('#itemInfLayer').hide();
         
-        console.log('..drag start...' );
+        // console.log('..drag start...' );
     },
     
     "dropped" : function dropped(e){
@@ -411,10 +409,10 @@ SOFTWARE.
         if ( slot.indexOf("Slot") >= 0){ // Remove Item - check if Slot string is in slot variable
             adsGame.Inventory.removeItem(slot);
 
-            $('.invComment').html('Item destruido.');
+            $('.invComment').html( heroLang.TRinvDestroyItem );
         }else{ // Item not removed
 
-            $('.invComment').html('Item da missão, não pode ser destruido.');
+            $('.invComment').html( heroLang.TRinvDestroyMissionItem );
         }
     },
     
@@ -440,15 +438,15 @@ SOFTWARE.
         switch (heroItems[itemIndex].categoria)
         {
             case 'vida': infValueColor = hudColorLive;
-                        itemInfUse  = 'Duplo click para usares.';
+                        itemInfUse  = heroLang.TRinvItemInfUse;
                         break;
 
             case 'velocidade': infValueColor = hudColorVelocity;
-                        itemInfUse   = 'Destruir retira-te velocidade.';
+                        itemInfUse   = heroLang.TRinvItemDestroyVelocity;
                         break;
             
             case 'sorte': infValueColor = hudColorLucky;
-                        itemInfUse = 'Destruir retira-te sorte.';
+                        itemInfUse = heroLang.TRinvItemDestroyLucky;
                         break;          
             default:  infValueColor = "white"; // Mission items
                       // If special item is a weapon then the message to hero is different
