@@ -711,7 +711,7 @@ var TriggerEntity = me.ObjectEntity.extend({
 		// prepare data to message box
 		this.msgData = {};
 		this.msgData.msgImage = 'sprites/items/' + triggerData.imageName;
-		this.msgData.msgName = heroLang.TRmessage;
+		this.msgData.msgName = language.system.TRmessage;
 		this.msgData.msg = triggerData.message;		
 		this.type = triggerData.type;
 
@@ -857,7 +857,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                         // prepare data to message box
                         var msgDataReq = {};
                         msgDataReq.msgImage = 'sprites/information.png' ;
-                        msgDataReq.msgName = heroLang.TRmessage;
+                        msgDataReq.msgName = language.system.TRmessage;
                         msgDataReq.msg = this.triggerData.requirementMsg; 
                         
 				        if (typeof this.triggerData.requirement.salvarPrisao !== "undefined"){

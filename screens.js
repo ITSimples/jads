@@ -85,7 +85,7 @@ var TileScreen = me.ScreenObject.extend(
 	draw: function(context)
 	{		
 		context.drawImage(this.title,0,0);
-		this.txtDevonshire.draw(context,"<ENTER> " + heroLang.TRmenuBeginGame,400,150);
+		this.txtDevonshire.draw(context,"<ENTER> " + language.system.TRmenuBeginGame,400,150);
 	},
 });
 

@@ -44,7 +44,9 @@
             "TRyes":"Sim",
             "TRno":"Não",
             "TRcongratulations":"Muitos parabéns.",
-            "TRresume":"Continuar"
+            "TRresume":"Continuar",
+            "TRitemFruitName":"Fruta",
+            "TRitemFruitDescription":"Fruta fresca para restabelecer vida."
         },
         "english":{
             "TRgameName": "Knowledge Adventure",
@@ -88,8 +90,9 @@
             "TRyes":"Yes",
             "TRno":"No",
             "TRcongratulations":"Congratulations.",
-            "TRresume":"Resume"
-            
+            "TRresume":"Resume",
+            "TRitemFruitName":"Fruit",
+            "TRitemFruitDescription":"Fresh fruit to restore life."            
         },
         "german":{
         

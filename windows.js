@@ -135,14 +135,14 @@ adsGame.Shop =  Object.extend({
             
              $.each(npcObject.loja.produtos, function(i, data){ 
                 var itemNumber = i + 1;
-                var itmName = ads_items_data[data.itemIndex].nome;
+                var itmName = language.items[ads_items_data[data.itemIndex].nome];
                 var itmValue = ads_items_data[data.itemIndex].valor;
                 var itmGive = ads_items_data[data.itemIndex].categoria;
                 var price = data.preco;
                 $('.buy' + itemNumber ).html('(' + i + ') ' + itmName + ' + ' + itmValue + ' ' + itmGive + '</br>&emsp;&ensp; (' + price  + ' Moedas)');
              });
              
-             $('.goldValue').html( heroLang.TRshopWhatBuy );
+             $('.goldValue').html( language.system.TRshopWhatBuy );
              
             // Create event listener to get answer from player
             $(document).keyup(function(event) {
@@ -236,13 +236,13 @@ adsGame.Shop =  Object.extend({
     
              switch ( testOptions ){
                  case "CHOO":
-                    answerToHero = heroLang.TRshopOnlyOne;
+                    answerToHero = language.system.TRshopOnlyOne;
                  break;
                  case "MAXITEMS":
-                    answerToHero = heroLang.TRshopMaxItemsType;
+                    answerToHero = language.system.TRshopMaxItemsType;
                  break;                 
                  case "TD":
-                    answerToHero = heroLang.TRshopThanks;
+                    answerToHero = language.system.TRshopThanks;
                      // remove the value of item in gold from hud
                     me.game.HUD.updateItemValue("ouro", -itemObject.preco)
                     
@@ -257,10 +257,10 @@ adsGame.Shop =  Object.extend({
                     
                  break;
                  case "NEG":
-                    answerToHero = heroLang.TRshopNotGold;
+                    answerToHero = language.system.TRshopNotGold;
                  break;
                  case "IF":
-                    answerToHero = heroLang.TRshopinvFull;
+                    answerToHero = language.system.TRshopinvFull;
                  break;              
              }
              
@@ -345,7 +345,7 @@ adsGame.QuestionQuest =  Object.extend({
         $('#questionQuestLayer').append($questionBoxHtml);
         
         // Window quest title
-        $('.questTitleText').html( heroLang.TRqstQuestName );
+        $('.questTitleText').html( language.system.TRqstQuestName );
         
         //Hero face
         $('.questHeroImage').attr({
@@ -384,20 +384,20 @@ adsGame.QuestionQuest =  Object.extend({
             
             if ( information == "acceptChallenge"){
                 npcChallengeInfo =  this.npcData.questionQuest.desafiaHeroi ;
-                questionToHero = heroLang.TRqstQuestAccept;
+                questionToHero = language.system.TRqstQuestAccept;
             }else{
                 npcChallengeInfo =  this.npcData.questionQuest.msgVence ;
-                questionToHero = heroLang.TRqstQuestTryAgain;
+                questionToHero = language.system.TRqstQuestTryAgain;
             }
             
-            button_yes = heroLang.TRyes;
-            button_no = heroLang.TRno;
+            button_yes = language.system.TRyes;
+            button_no = language.system.TRno;
             button_no_css = {  'position' : 'absolute' ,  'top': 290 , 'left': 180 };
             
         }else if ( information == "heroWinChallenge" ){
             npcChallengeInfo =  this.npcData.questionQuest.msgPerde ;
-            questionToHero = heroLang.TRcongratulations;
-            button_yes = heroLang.TRresume;
+            questionToHero = language.system.TRcongratulations;
+            button_yes = language.system.TRresume;
         }
         
         var self = this;
@@ -509,8 +509,8 @@ adsGame.QuestionQuest =  Object.extend({
         $('.QuestR1').html( "(1) " + questionData.r1 );
         $('.QuestR2').html( "(2) " + questionData.r2 );
         $('.QuestR3').html( "(3) " +questionData.r3 );      
-        $('.questSate').html( heroLang.TRgoodCorrectAnswer + " +2 " + heroLang.TRknowledge + "<BR>" +
-                                         heroLang.TRbadWrongAnswer + " -2 " + heroLang.TRknowledge );
+        $('.questSate').html( language.system.TRgoodCorrectAnswer + " +2 " + language.system.TRknowledge + "<BR>" +
+                                         language.system.TRbadWrongAnswer + " -2 " + language.system.TRknowledge );
         //Show question                         
         $('#heroQuestions').fadeIn( 1000 );
         

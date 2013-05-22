@@ -37,24 +37,26 @@ var adsGame =
 { 
 	// Inicializar o Jogo
 	onload:function()
-	{
-	    //Define hero language
+	{    //Define hero language
 	    // Testing multilingual feature
-        //var heroLanguage = adsLangData.portuguese;
-        heroLang = adsLangData.english;
-        //alert(heroLang.TRbrowserInf); 
+        // language.system = adsLangData.portuguese;
+        
+        language.system = adsLangData.english;
+        
+        language.items = adsItemsLangData.english;
+        //alert(language.system.TRbrowserInf); 
         
         
         //Init title name
-        $( document ).attr("title", heroLang.TRgameName);
+        $( document ).attr("title", language.system.TRgameName);
         
         //Init game name
-        $('#msgGameName').html( heroLang.TRgameName );
+        $('#msgGameName').html( language.system.TRgameName );
         
 	    
 		//Inicializar resolu��o e teste se browser suporta o jogo
 		if( !me.video.init('adsGame',ads_width,ads_height,true,1.0) ){
-			alert( heroLang.TRbrowserInf );
+			alert( language.system.TRbrowserInf );
 			return;
 		}
 
@@ -195,18 +197,18 @@ function showQuestionLayer(itemData, adsQtnData)
 		'src' : 'content/sprites/items/' + itemData.imagem,
 		'alt' : 'Testing...' 
 		});
-		$('.itemText').html( itemData.descricao );
+		$('.itemText').html( language.items[itemData.descricao] );
 		$('.questionText').html( rndQtnData.pergunta );
 		$('.r1').html('(1) ' + rndQtnData.r1 );
 		$('.r2').html('(2) ' + rndQtnData.r2 );
 		$('.r3').html('(3) ' + rndQtnData.r3 );
-		$('.r0').html('(0) ' + heroLang.TRnotAnswer);
+		$('.r0').html('(0) ' + language.system.TRnotAnswer);
 		
 		// if is a special item them show the value you can lose and not the name
 		if (!itemData.specialItem){
-			$('.answerValue').html('+/-' + itemData.valor + ' ' + heroLang.TRof + ' ' + itemData.categoria + '.');
+			$('.answerValue').html('+/-' + itemData.valor + ' ' + language.system.TRof + ' ' + itemData.categoria + '.');
 		}else{
-			$('.answerValue').html(heroLang.TRwrongAnswer + ' ' + itemData.quantidade + ' ' + heroLang.TRof + ' ' + itemData.remover + '.');
+			$('.answerValue').html(language.system.TRwrongAnswer + ' ' + itemData.quantidade + ' ' + language.system.TRof + ' ' + itemData.remover + '.');
 		}
 		// Create event listener to get answer from player
 		$(document).keyup(function(event) {
@@ -264,13 +266,13 @@ function hideQuestionLayer(answer)
 	
 	if(answer == 'C')
 	{
-		answerResult =  heroLang.TRcongratulations + heroLang.TRgoodCorrectAnswer;
+		answerResult =  language.system.TRcongratulations + language.system.TRgoodCorrectAnswer;
 	}else if(answer == 'W')
 	{
-		answerResult = heroLang.TRbadWrongAnswer;
+		answerResult = language.system.TRbadWrongAnswer;
 	}
 	else{		
-		answerResult = heroLang.TRtryAgainAnswer;
+		answerResult = language.system.TRtryAgainAnswer;
 	}
 
 	//Hide Question fields
@@ -470,6 +472,23 @@ function randomFloat(minValue,maxValue,precision){
 	};
 $( function(){
     $.when(
+        
+        // Load multilingue items file
+        $.get( ads_json_files + "itemslang.json" )
+        .done( function( data ){
+            if( typeof data != "object" ){
+                alert( "Data is invalid --- itemslang.json ---" );
+            }
+
+            //Get Questions to variable
+            adsItemsLangData = data.ItemsLanguages;
+           
+        })
+        .fail( function(){
+            alert( "Invalid DATA file! --- itemslang.json ---" );
+        }),
+            
+        // Get Data for level 01
     	$.get( ads_json_files + "gamedata01.json" )
     		.done( function( data ){
     			if( typeof data != "object" ){

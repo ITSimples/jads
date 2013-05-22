@@ -46,7 +46,7 @@ var HUDLive = me.HUD_Item.extend({
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorLive,"left");
 		this.value = 10;
 		
-		this.name= heroLang.TRlive;
+		this.name= language.system.TRlive;
 		// calculate value position
 		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
     },
@@ -71,7 +71,7 @@ var HUDGold = me.HUD_Item.extend({
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorGold,"left");
 		this.value = 400;
-		this.name = heroLang.TRgold;
+		this.name = language.system.TRgold;
 		// calculate value position
 		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
     },
@@ -96,7 +96,7 @@ var HUDVelocity = me.HUD_Item.extend({
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorVelocity,"left");
 		this.value = heroVelocity * 2 ; //Hud information
-		this.name = heroLang.TRvelocity;
+		this.name = language.system.TRvelocity;
 		// calculate value position
 		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
     },
@@ -128,7 +128,7 @@ var HUDKnowledge = me.HUD_Item.extend({
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorKnowledge,"left");
 		this.value = 10;
-		this.name = heroLang.TRknowledge;
+		this.name = language.system.TRknowledge;
 
 		// calculate value position
 		this.itemHUDLength = (( ( this.name.length ) * ads_HUD_font_size ) / 2) + ads_HUD_X_Position;
@@ -156,7 +156,7 @@ var HUDLucky = me.HUD_Item.extend({
         this.parent(x, y);
 		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorLucky,"left");
 		this.value = 1;
-		this.name = heroLang.TRlucky;
+		this.name = language.system.TRlucky;
 		// calculate value position
 		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
     },

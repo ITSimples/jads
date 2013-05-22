@@ -87,7 +87,7 @@ var heroVelocity = 3;
 
 var itemLucky = 20;
 
-var startHero = [5,5];
+var startHero = [28,27];
 
 var heroHealth = 10;
 
@@ -130,7 +130,7 @@ var noItemsData = [];
 // Keep all information about map effects
 var mapEffectsData = [];
 
-
+ var language =  {};
 
 // To solve problem with messageBox keeping blink - If is collide with a trigger avoid the others to hide message box
 // also setup in NPC - set allways when message is showinf

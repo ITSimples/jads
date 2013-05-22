@@ -45,10 +45,10 @@ SOFTWARE.
         this.slotsMap = [-1,-1,-1,-1,-1,-1,-2,-2,-2];
         
         //Comment on inventory
-        this.invComment = " 'I' " + heroLang.TRinvHide;
+        this.invComment = " 'I' " + language.system.TRinvHide;
         
         // Special items name
-        this.specialItemsStr = heroLang.TRinvSpecialItems;
+        this.specialItemsStr = language.system.TRinvSpecialItems;
         
         // Active weapon on inventory
         this.activeWeapon = false;
@@ -95,11 +95,11 @@ SOFTWARE.
             'alt' : 'Testing...'});
             
             // Inventory name
-            $('.invText').html( heroLang.TRinvName );
+            $('.invText').html( language.system.TRinvName );
             
             // Show invComment
             if (fullInventory){
-                this.invComment = heroLang.TRinvFull;
+                this.invComment = language.system.TRinvFull;
             }
             
             $('.invComment').html( this.invComment );
@@ -274,7 +274,7 @@ SOFTWARE.
         if ( itemGroupIndex != -1 && typeof heroItems[itemGroupIndex] !== "undefined" && heroItems[itemGroupIndex].groupSize > 8 ){           
             // console.log("Max items on group...");
             // Reset inComment
-            this.invComment = heroLang.TRinvSlotFull;
+            this.invComment = language.system.TRinvSlotFull;
             $('.invComment').html( this.invComment );
             itemGroupIndex = -2;
         }
@@ -359,7 +359,7 @@ SOFTWARE.
         this.eventListener ('add' , this.slotNumber + 1);
         
         //*** IMPROVE - Update invComment
-        this.invComment = heroLang.TRinvNewItem;
+        this.invComment = language.system.TRinvNewItem;
         $('.invComment').html(this.invComment);
         
         // If added item is velocity or lucky update Hud 
@@ -372,7 +372,7 @@ SOFTWARE.
         
         if ( this.slotNumber == -1 ) {
             //*** IMPROVE - Update invComment
-            this.invComment = heroLang.TRinvFull;
+            this.invComment = language.system.TRinvFull;
             $('.invComment').html(this.invComment);
             fullInventory = true; 
         }
@@ -382,7 +382,7 @@ SOFTWARE.
         
         if ( testSpecialItem == -1 ) {
             //*** IMPROVE - Update invComment
-            this.invComment = heroLang.TRinvFull;
+            this.invComment = language.system.TRinvFull;
             $('.invComment,#hiddenText').html(this.invComment);
             specialItemfullInventory = true; 
         }else{
@@ -409,10 +409,10 @@ SOFTWARE.
         if ( slot.indexOf("Slot") >= 0){ // Remove Item - check if Slot string is in slot variable
             adsGame.Inventory.removeItem(slot);
 
-            $('.invComment').html( heroLang.TRinvDestroyItem );
+            $('.invComment').html( language.system.TRinvDestroyItem );
         }else{ // Item not removed
 
-            $('.invComment').html( heroLang.TRinvDestroyMissionItem );
+            $('.invComment').html( language.system.TRinvDestroyMissionItem );
         }
     },
     
@@ -423,11 +423,10 @@ SOFTWARE.
         
         // this.invComment = heroItems[itemIndex].nome;
         // $('.invComment,#hiddenText').html(this.invComment);
-         
         
         // Show inventory window with a fade
-        $('.infName').html( heroItems[itemIndex].nome + ':' );
-        $('.infDesc').html( heroItems[itemIndex].descricao );
+        $('.infName').html( language.items[heroItems[itemIndex].nome] + ':' );
+        $('.infDesc').html( language.items[heroItems[itemIndex].descricao] );
         
         var itemInfUse;
         
@@ -438,27 +437,27 @@ SOFTWARE.
         switch (heroItems[itemIndex].categoria)
         {
             case 'vida': infValueColor = hudColorLive;
-                        itemInfUse  = heroLang.TRinvItemInfUse;
+                        itemInfUse  = language.system.TRinvItemInfUse;
                         break;
 
             case 'velocidade': infValueColor = hudColorVelocity;
-                        itemInfUse   = heroLang.TRinvItemDestroyVelocity;
+                        itemInfUse   = language.system.TRinvItemDestroyVelocity;
                         break;
             
             case 'sorte': infValueColor = hudColorLucky;
-                        itemInfUse = heroLang.TRinvItemDestroyLucky;
+                        itemInfUse = language.system.TRinvItemDestroyLucky;
                         break;          
             default:  infValueColor = "white"; // Mission items
                       // If special item is a weapon then the message to hero is different
                       if ( heroItems[itemIndex].subcategoria !== undefined && heroItems[itemIndex].subcategoria  == "weapon"){
                            // If mission item then change value 
-                           iteminfValue= heroLang.TRinvItemWeaponInf;
+                           iteminfValue= language.system.TRinvItemWeaponInf;
                            
-                           itemInfUse = heroLang.TRinvItemWeaponUse;                          
+                           itemInfUse = language.system.TRinvItemWeaponUse;                          
                       }else{
                            itemInfUse = "";
                            // If mission item then change value 
-                           iteminfValue= heroLang.TRinvDestroyMissionItem;
+                           iteminfValue= language.system.TRinvDestroyMissionItem;
                       }
         }   
             
@@ -498,7 +497,7 @@ SOFTWARE.
                             if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= heroHealth ){//maxHudValue['live']){
                                 adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
                             }else {
-                                this.invComment = heroLang.TRinvItemMaxHealth;
+                                this.invComment = language.system.TRinvItemMaxHealth;
                                 $('.invComment').css("color", hudColorLive);
                                 $('.invComment').html(this.invComment);
                             }
