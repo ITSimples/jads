@@ -430,7 +430,7 @@ SOFTWARE.
         
         var itemInfUse;
         
-        var iteminfValue = '+' + heroItems[itemIndex].valor + ' ' +  heroItems[itemIndex].categoria
+        var iteminfValue = '+' + heroItems[itemIndex].valor + ' ' +  language.items[heroItems[itemIndex].categoriaDesc];
         
         // select information value color       
         var infValueColor;

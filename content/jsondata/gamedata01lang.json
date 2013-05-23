@@ -1,0 +1,175 @@
+{
+   "_comment":"Data File for level 01 translation.",
+   "npc":{
+      "languages":{
+         "portuguese":{
+            "TRnpcJacquelynDialogue":[
+               "Olá eu sou a Jacquelyn.",
+               "Fui raptada pelo maquiavélico rei Ignor Tudo.",
+               "Ajuda-me a sair da prisão.",
+               "Existe um bastão do gelo na arca mágica na sala das armas.",
+               "Com o bastão podes vencer o dragão e obter a chave da minha cela.",
+               "Leva o cristal de fogo para a abrires a arca mágica.",
+               "Obrigado salvaste-me a vida.",
+               "Estou em dívida para contigo.",
+               "Toma este ouro que encontrei na prisão.",
+               "Boa Sorte."
+            ],
+            "TRnpcLiefDialogue":[
+               "Olá eu sou o Lief.",
+               "Fui raptado pelo maquiavélico rei Ignor Tudo.",
+               "Ajuda-me a sair da prisão.",
+               "Precisas da Chave Caveira para abrir a porta.",
+               "Leva esta chave para abrires a sala das armadilhas.",
+               "Obrigado salvaste-me a vida.",
+               "Estou em dívida para contigo.",
+               "Leva estas botas podes andar mais rápido enquanto estiverem no inventário",
+               "Boa Sorte."
+            ],
+            "TRnpcAgnesDialogue":[
+               "Olá o meu nome é Agnes .",
+               "Fui raptada pelo maquiavélico rei Ignor Tudo.",
+               "Ajuda-me a sair da prisão.",
+               "Tens que encontrar o conjunto de chaves no armazem dos guardas.",
+               "Tens que entregar esta ordem para entrares.",
+               "Obrigado salvaste-me a vida.",
+               "Estou em dívida para contigo.",
+               "Encontrei este livro fica com ele pode ser util.",
+               "Boa Sorte."
+            ],
+            "TRnpcMichaelDialogue":[
+               "Por favor ajuda-me. O meu nome é Michael",
+               "O guarda prendeu-me.",
+               "Precisas do livro do conhecimento para entrar.",
+               "O livro está na cela da Agnes.",
+               "Obrigado salvaste-me do malvado Redeyes.",
+               "Toma este manuscrito podes usar o portal.",
+               "Boa Sorte"
+            ],
+            "TRnpcJohnDialogue":[
+               "Olá eu sou o John.",
+               "Tu foste raptado pelo maquiavélico rei Ignor Tudo.",
+               "Vou ajudar-te a sair da prisão.",
+               "Mas tens de me ajudar a salvar os prisioneiros.",
+               "Vou para a sala mais a sudeste da prisão.",
+               "Espero lá por ti e pelos prisioneiros salvos.",
+               "Boa sorte."
+            ],
+            "TRnpcAlysStoreName": "Laboratório da Alys.",
+            "TRnpcAlysStoreWelcome": "Bem vindo ao meu Laboratório.",
+            "TRnpcDragonDieMsg": "Parabéns congelaste o dragão. O bastão de gelo vai desintegrar-se",
+            "TRnpcGuardsDieMsg":  "Oh não. Venceste-me.",
+            "TRnpcRedEyesIntro":  "Olá eu sou o Red Eyes. Se responderes a 5 perguntas corretamente, sem errar mais de 5 vezes eu liberto o Michael.",
+            "TRnpcRedEyesWin": "Ganhei o desafio por isso não vou libertar o Michael.",
+            "TRnpcRedEyesLoses": "Muito bem, vou libertar o Michael como prometido. Vamos voltar a encontrar-nos."
+         },
+         "english":{
+            "TRnpcJacquelynDialogue":[
+                "Hello I'm Jacquelyn.",
+                "I was kidnapped by the Machiavellian King Ignore Everything.",
+                "Help me get out of prison.",
+                "There's a ice staff in the magical chest in the room of weapons.",
+                "With the ice staff you can defeat the dragon and get the key to my cell.",
+                "Take the fire crystal to open the magic chest .",
+                "Thanks, you saved my life.",
+                "I'm in debt to you.",
+                "Take this gold that i found in prison.",
+                "Good Luck."                    
+            ],
+            "TRnpcLiefDialogue":[
+               "Hello I am Lief.",
+               "I was kidnapped by Machiavellian king Ignore Everything.",
+               "Help me get out of prison.",
+               "You need a Skull Key to open the my door.",
+               "Take this key to open the room of traps.",
+               "Thank you saved my life.",
+               "I'm in debt to you.",
+               "Take these boots you run faster while in the inventory,",
+               "Good Luck."
+            ],
+            "TRnpcAgnesDialogue":[
+               "Hello my name is Agnes.",
+               "I was kidnapped by the Machiavellian King Ignore Everything.",
+               "Help me get out of prison.",
+               "You have to find the keyset in the warehouse of the guards.",
+               "You have to deliver this order to enter.",
+               "Thank you saved my life.",
+               "I'm in debt to you.",
+               "I found this book I hope it can be useful.",
+               "Good Luck."
+            ],
+            "TRnpcMichaelDialogue":[
+               "Please help me. My name is Michael",
+               "The guard arrested me.",
+               "You need the knowledge book to enter in cell.",
+               "The book is in the cell of Agnes.",
+               "Thank you saved me from the evil Redeye.",
+               "Take this manuscript can use the portal.",
+               "Good Luck"
+            ],
+            "TRnpcJohnDialogue":[
+               "Hello I'm John.",
+               "You were kidnapped by Machiavellian king Ignore Everything.",
+               "I'll help you get out of prison.",
+               "But you have to help me save all the prisoners.",
+               "I go to the southeastern room of the prison.",
+               "I wait there for you and the prisoners saved.",
+               "Good luck."
+            ],
+            "TRnpcAlysStoreName": "Alys laboratory.",
+            "TRnpcAlysStoreWelcome": "Welcome to my lab.",
+            "TRnpcDragonDieMsg": "Congratulations you freeze the dragon. The ice staff will disintegrate",
+            "TRnpcGuardsDieMsg":  "Oh no. You defeat me.",
+            "TRnpcRedEyesIntro":  "Hello I am the Red Eyes. If you answer 5 questions correctly, without missing more than 5 times I release Michael.",
+            "TRnpcRedEyesWin": "I won the challenge so I will not release Michael.",
+            "TRnpcRedEyesLoses": "Okay, I'll release the Michael as promised. We will find ourselves again."
+         },
+         "german":{
+
+         },
+         "french":{
+
+         }
+      }
+   },
+   "triggers":{
+      "languages":{
+         "portuguese":{
+            "TRtriggerMessageChestStaff": "Precisas do cristal de fogo para abrir o cofre.",
+            "TRtriggerMessageOpenChestStaff": "Parabéns. O bastão vai desintegrar-se depois de venceres o dragão.",
+            "TRtriggerMessageLiefCell": "Precisas da Chave Caveira para abrir a porta.",
+            "TRtriggerMessageJacquelynCell":"Precisas da Chave do dragão para abrir a porta.",
+            "TRtriggerReqMessageAgnesCell": "Tens que salvar primeiro o Lief e a Jacquelyn.",
+            "TRtriggerMessageAgnesCell":"Precisas do conjunto de chaves para abrir a porta.",
+            "TRtriggerMessageMichaelCell": "Precisas do livro do conhecimento para abrir a porta.",
+            "TRtriggerMessageWareHouse": "Precisas de uma ordem para entrares no armazem.",
+            "TRtriggerMessageTrapsRoom": "O prisioneiro Lief tem a chave da sala das armadilhas.",
+            "TRtriggerMessageDragonRoom": "Precisas de ter o bastão de gelo para entrar.",
+            "TRtriggerMessagePortal": "Precisas do manuscrito de teletransporte para viajar no portal.",
+            "TRtriggerMessageEndLevel":"Precisas da chave dos 3 cristais para sair.",
+            "TRtriggerMessageWakeDragon": "Acordaste o dragão de fogo. Mata o dragão para obteres a chave."
+         },
+         "english":{
+            "TRtriggerMessageChestStaff": "You need the crystal of fire to open the treasure.",
+            "TRtriggerMessageOpenChestStaff": "Congratulations. The Ice Staff will disintegrate after you defeat the dragon.",
+            "TRtriggerMessageLiefCell": "You need the Skull Key to open the door.",
+            "TRtriggerMessageJacquelynCell":"You need the dragon key to open the door.",
+            "TRtriggerReqMessageAgnesCell": "You must first save the Lief and Jacquelyn.",
+            "TRtriggerMessageAgnesCell":"You need the keyset to open the door.",
+            "TRtriggerMessageMichaelCell": "You need knowledge book to open the door.",
+            "TRtriggerMessageWareHouse": "You need an order to enter the warehouse.",
+            "TRtriggerMessageTrapsRoom": "The prisoner Lief has the key to the room of traps.",
+            "TRtriggerMessageDragonRoom": "You need to have the Ice Staff to enter.",
+            "TRtriggerMessagePortal": "You need the manuscript of teleportation to travel the portal.",
+            "TRtriggerMessageEndLevel":"You need the key of the 3 crystals to get out.",
+            "TRtriggerMessageWakeDragon": "You woke up the fire dragon. Kill the dragon to obtain the key."
+         },
+         "german":{
+
+         },
+         "french":{
+
+         }
+      }
+   }
+}

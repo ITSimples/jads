@@ -712,7 +712,7 @@ var TriggerEntity = me.ObjectEntity.extend({
 		this.msgData = {};
 		this.msgData.msgImage = 'sprites/items/' + triggerData.imageName;
 		this.msgData.msgName = language.system.TRmessage;
-		this.msgData.msg = triggerData.message;		
+		this.msgData.msg = language.triggers[triggerData.message];		
 		this.type = triggerData.type;
 
 		this.targX = triggerData.target.x;
@@ -828,7 +828,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                         
                         //The hero open chest show a message to hero
                         if (!npcTalking){
-                            this.msgData.msg = this.triggerData.messageOpen;
+                            this.msgData.msg = language.triggers[this.triggerData.messageOpen];
                             this.message.show(this.msgData);
                             
                             // msgShowing = true;
@@ -858,7 +858,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                         var msgDataReq = {};
                         msgDataReq.msgImage = 'sprites/information.png' ;
                         msgDataReq.msgName = language.system.TRmessage;
-                        msgDataReq.msg = this.triggerData.requirementMsg; 
+                        msgDataReq.msg = language.triggers[this.triggerData.requirementMsg]; 
                         
 				        if (typeof this.triggerData.requirement.salvarPrisao !== "undefined"){
 				            var self = this;

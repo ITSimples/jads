@@ -128,8 +128,8 @@ adsGame.Shop =  Object.extend({
             'src' : 'content/sprites/' + npcObject.imagem.replace(".png", "_face.png"),
             'alt' : 'Testing...' 
             });
-            $('.shopName').html( npcObject.loja.nome );
-            $('.npcInfo').html( npcObject.loja.bemVindo );
+            $('.shopName').html( language.npcs[npcObject.loja.nome] );
+            $('.npcInfo').html( language.npcs[npcObject.loja.bemVindo] );
             
             var self = this;
             
@@ -137,7 +137,7 @@ adsGame.Shop =  Object.extend({
                 var itemNumber = i + 1;
                 var itmName = language.items[ads_items_data[data.itemIndex].nome];
                 var itmValue = ads_items_data[data.itemIndex].valor;
-                var itmGive = ads_items_data[data.itemIndex].categoria;
+                var itmGive = language.items[ads_items_data[data.itemIndex].categoriaDesc];
                 var price = data.preco;
                 $('.buy' + itemNumber ).html('(' + i + ') ' + itmName + ' + ' + itmValue + ' ' + itmGive + '</br>&emsp;&ensp; (' + price  + ' Moedas)');
              });
@@ -383,10 +383,10 @@ adsGame.QuestionQuest =  Object.extend({
             buttonsInf = buttonsInf + '<div id="button_no" ><a class="button"></a></div>';
             
             if ( information == "acceptChallenge"){
-                npcChallengeInfo =  this.npcData.questionQuest.desafiaHeroi ;
+                npcChallengeInfo =  language.npcs[this.npcData.questionQuest.desafiaHeroi] ;
                 questionToHero = language.system.TRqstQuestAccept;
             }else{
-                npcChallengeInfo =  this.npcData.questionQuest.msgVence ;
+                npcChallengeInfo =  language.npcs[this.npcData.questionQuest.msgVence] ;
                 questionToHero = language.system.TRqstQuestTryAgain;
             }
             
@@ -395,7 +395,7 @@ adsGame.QuestionQuest =  Object.extend({
             button_no_css = {  'position' : 'absolute' ,  'top': 290 , 'left': 180 };
             
         }else if ( information == "heroWinChallenge" ){
-            npcChallengeInfo =  this.npcData.questionQuest.msgPerde ;
+            npcChallengeInfo =  language.npcs[this.npcData.questionQuest.msgPerde] ;
             questionToHero = language.system.TRcongratulations;
             button_yes = language.system.TRresume;
         }

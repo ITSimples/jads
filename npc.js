@@ -50,7 +50,7 @@ var NpcEntity = me.ObjectEntity.extend({
         this.msgData = {};
         this.msgData.msgImage = 'sprites/' + this.npcData.imagem.replace(".png", "_face.png");
         this.msgData.msgName = this.npcData.nome;
-        this.msgData.msg = this.npcData.mensagem[2];
+        this.msgData.msg = language.npcs[this.npcData.mensagem[2]];
 
         this.collidable = true;
 
@@ -711,7 +711,7 @@ var NpcEntity = me.ObjectEntity.extend({
         // Change dialogue depending on the number of messages divided by the waiting time
         if ( ( ( this.waitEvent ==  ( (this.currentEvent.tempo * 60) - (this.pauseMessage * this.messageNumber + 1))) || this.message.leftClickMouse ) && this.messageNumber < this.currentEvent.conversa.length + 1 ) {
                 
-            this.msgData.msg = this.npcData.mensagem[this.currentEvent.conversa[this.messageNumber]];
+            this.msgData.msg = language.npcs[this.npcData.mensagem][this.currentEvent.conversa[this.messageNumber]];
           
             // Show new message
             $('.msgText').html(this.msgData.msg);            
@@ -954,7 +954,7 @@ var NpcEntity = me.ObjectEntity.extend({
                 // If true NPC dies
                 if (this.healthBar.update() ) {
                     // If is a mission item then set as special item to go the rigth slot (Map items)
-                    console.log("ads_items_data[this.npcData.deixaitem.nome].categoria:", ads_items_data[this.npcData.deixaitem.nome].categoria);
+                    // console.log("ads_items_data[this.npcData.deixaitem.nome].categoria:", ads_items_data[this.npcData.deixaitem.nome].categoria);
                     if (ads_items_data[this.npcData.deixaitem.nome].categoria == 'itemMissao'){
                         ads_items_data[this.npcData.deixaitem.nome].specialItem = true;
                         ads_items_data[this.npcData.deixaitem.nome].remover = this.npcData.deixaitem.remover;
@@ -962,7 +962,7 @@ var NpcEntity = me.ObjectEntity.extend({
                     }else{
                         ads_items_data[this.npcData.deixaitem.nome].specialItem = undefined;
                     }
-                    console.log("ads_items_data[this.npcData.deixaitem.nome].specialItem:" , ads_items_data[this.npcData.deixaitem.nome].specialItem);
+                    // console.log("ads_items_data[this.npcData.deixaitem.nome].specialItem:" , ads_items_data[this.npcData.deixaitem.nome].specialItem);
                     // Set item to drop as special item and where remove points and quantity
 
                     var item = new ItemEntity( this.pos.x , this.pos.y , {
@@ -984,7 +984,7 @@ var NpcEntity = me.ObjectEntity.extend({
                                             
                         dieMsgData.msgImage = this.msgData.msgImage;
                         dieMsgData.msgName = this.msgData.msgName;
-                        dieMsgData.msg = this.npcData.msgMorre;
+                        dieMsgData.msg = language.npcs[this.npcData.msgMorre];
                         
                         // // Show message
                         this.message.messageShowing = false;

@@ -44,6 +44,12 @@ var adsGame =
         language.system = adsLangData.english;
         
         language.items = adsItemsLangData.english;
+        
+        language.npcs = adsNpcLangData.english;
+        
+        language.triggers = adsTriggersLangData.english;
+        
+        
         //alert(language.system.TRbrowserInf); 
         
         
@@ -206,7 +212,7 @@ function showQuestionLayer(itemData, adsQtnData)
 		
 		// if is a special item them show the value you can lose and not the name
 		if (!itemData.specialItem){
-			$('.answerValue').html('+/-' + itemData.valor + ' ' + language.system.TRof + ' ' + itemData.categoria + '.');
+			$('.answerValue').html('+/-' + itemData.valor + ' ' + language.system.TRof + ' ' + language.items[itemData.categoriaDesc] + '.');
 		}else{
 			$('.answerValue').html(language.system.TRwrongAnswer + ' ' + itemData.quantidade + ' ' + language.system.TRof + ' ' + itemData.remover + '.');
 		}
@@ -487,7 +493,23 @@ $( function(){
         .fail( function(){
             alert( "Invalid DATA file! --- itemslang.json ---" );
         }),
-            
+        
+        // Load multilingue level01 file
+        $.get( ads_json_files + "gamedata01lang.json" )
+        .done( function( data ){
+            if( typeof data != "object" ){
+                alert( "Data is invalid --- gamedata01lang.json ---" );
+            }
+
+            //Get Questions to variable
+            adsNpcLangData = data.npc.languages;
+            adsTriggersLangData = data.triggers.languages;
+           
+        })
+        .fail( function(){
+            alert( "Invalid DATA file! --- gamedata01lang.json ---" );
+        }),
+        
         // Get Data for level 01
     	$.get( ads_json_files + "gamedata01.json" )
     		.done( function( data ){

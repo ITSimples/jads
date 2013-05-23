@@ -54,7 +54,13 @@
             "TRitemStaffIceName":"Bastão de gelo",
             "TRitemStaffIceDescription":"Para venceres o dragão de fogo e <br>abrir a porta da sala do dragão.",
             "TRitemBombsName":"5 Bombas",
-            "TRitemBombsDescription":"Para venceres os teus inimigos."
+            "TRitemBombsDescription":"Para venceres os teus inimigos.",
+            "TRItemClassDescLife" : "Vida",
+            "TRItemClassDescVelocity" : "Velocidade",
+            "TRItemClassDescknowledge" : "Conhecimento",
+            "TRItemClassDescMission" : "Item de Missao",
+            "TRItemClassDescLucky" : "Sorte",
+            "TRItemClassDescGold" : "Ouro"
         },
         "english":{
             "TRitemFruitName":"Fruit",
@@ -110,7 +116,13 @@
             "TRitemStaffIceName":"Ice staff",
             "TRitemStaffIceDescription":"To defeat the fire dragon and <br> open the dragon door room.",
             "TRitemBombsName":"5 Bombs",
-            "TRitemBombsDescription":"To defeat your enemies."
+            "TRitemBombsDescription":"To defeat your enemies.",
+            "TRItemClassDescLife" : "Life",
+            "TRItemClassDescVelocity" : "Velocity",
+            "TRItemClassDescknowledge" : "Knowledge",
+            "TRItemClassDescMission" : "Mission item",
+            "TRItemClassDescLucky" : "Lucky",
+            "TRItemClassDescGold" : "Gold"
         },
         "german":{
         
