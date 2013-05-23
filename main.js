@@ -49,6 +49,9 @@ var adsGame =
         
         language.triggers = adsTriggersLangData.english;
         
+        //Get Questions to variable with hero language
+        adsQtnData = adsQtnDataAll.english;
+        
         
         //alert(language.system.TRbrowserInf); 
         
@@ -533,7 +536,7 @@ $( function(){
                 // init_game( data );
                 
                 //Get Questions to variable
-                adsQtnData = data.questions;
+                adsQtnDataAll = data.questions;
                
             })
             .fail( function(){

@@ -1,125 +1,256 @@
 {
-    "_comment": "Data File for questions on game.",
-    "questions": {
-        "q01": {
-            "categoria": "matematica",
-            "pergunta": "Tem-se nove velas acesas. Apagam-se 3, quantas ficam?",
-            "r1": "5 - 2",
-            "r2": "2 x 3",
-            "r3": "48 : 4",
-            "correta": "2"
+    "_comment" : "Data File for questions on all languages.",
+    "questions": 
+    {
+        "portuguese":{
+                "q01": {
+                    "categoria": "Matemática",
+                    "pergunta": "Tem-se nove velas acesas. Apagam-se 3, quantas ficam?",
+                    "r1": "5 - 2",
+                    "r2": "2 x 3",
+                    "r3": "48 : 4",
+                    "correta": "2"
+                },
+                "q02": {
+                    "categoria": "Matemática",
+                    "pergunta": "Qual e a raiz quadrada de 100?",
+                    "r1": "10",
+                    "r2": "100",
+                    "r3": "1000",
+                    "correta": "1"
+                },
+                "q03": {
+                    "categoria": "Matemática",
+                    "pergunta": "21  35  20  34  19  33  18  ?",
+                    "r1": "40",
+                    "r2": "32",
+                    "r3": "27",
+                    "correta": "2"
+                },
+                "q04": {
+                    "categoria": "Lógica",
+                    "pergunta": "Os carneiros pretos têm a lã negra. De que cor é o leite das vacas pretas?",
+                    "r1": "Preto",
+                    "r2": "Vermelho",
+                    "r3": "Branco",
+                    "correta": "3"
+                },
+                "q05": {
+                    "categoria": "Lógica",
+                    "pergunta": "Num quarto escuro tem-se um fósforo, um fogareiro, um lampião, uma vela e um cigarro, o que se acende primeiro?",
+                    "r1": "O cigarro, é óbvio",
+                    "r2": "A vela",
+                    "r3": "O fósforo",
+                    "correta": "3"
+                },
+                "q06": {
+                    "categoria": "Matemática",
+                    "pergunta": "5    13    5    20    5    27    5    ?",
+                    "r1": "34",
+                    "r2": "27",
+                    "r3": "10",
+                    "correta": "1"
+                },
+                "q07": {
+                    "categoria": "Português",
+                    "pergunta": "Método terapêutico que consiste na introdução de agulhas na carne.",
+                    "r1": "Acupuntura",
+                    "r2": "Agricultura",
+                    "r3": "Suinocultura",
+                    "correta": "1"
+                },
+                "q08": {
+                    "categoria": "Português",
+                    "pergunta": "Para não ser reconhecido, usou o disfarce de uma:",
+                    "r1": "Aliança",
+                    "r2": "Máscara",
+                    "r3": "Gravata",
+                    "correta": "3"
+                },
+                "q09": {
+                    "categoria": "Matemática",
+                    "pergunta": "4   12   4   20   4   28   ?",
+                    "r1": "4",
+                    "r2": "36",
+                    "r3": "38",
+                    "correta": "1"
+                },
+                "q10": {
+                    "categoria": "Lógica",
+                    "pergunta": "Teria se perdido na floresta, se não tivesse a ajuda de um:",
+                    "r1": "Caminho",
+                    "r2": "Guia",
+                    "r3": "Cavalo",
+                    "correta": "2"
+                },
+                "q11": {
+                    "categoria": "Matemática",
+                    "pergunta": "23  7  27  11  31  ?",
+                    "r1": "11",
+                    "r2": "15",
+                    "r3": "13",
+                    "correta": "2"
+                },
+                "q12": {
+                    "categoria": "Lógica",
+                    "pergunta": "A cor do cavalo preto de Napoleão Bonaparte era:",
+                    "r1": "Branca",
+                    "r2": "Preta",
+                    "r3": "Castanho",
+                    "correta": "2"
+                },
+                "q13": {
+                    "categoria": "Matemática",
+                    "pergunta": "O que é mais pesado, dois quilos de chumbo ou 3 de penas?",
+                    "r1": "Equivalem-se",
+                    "r2": "3 de penas",
+                    "r3": "2 de chumbo, é claro",
+                    "correta": "2"
+                },
+                "q14": {
+                    "categoria": "Matemática",
+                    "pergunta": "Uma vela queima-se em 3 horas.Em quanto tempo se queimariam três velas iguais e acesas ao mesmo tempo?",
+                    "r1": "9 horas",
+                    "r2": "12 horas",
+                    "r3": "3 horas",
+                    "correta": "3"
+                },
+                "q15": {
+                    "categoria": "Lógica",
+                    "pergunta": "Se todas as ave fossem pretas:",
+                    "r1": "O urubu poderia ser branco",
+                    "r2": "Não haveria aves azuis",
+                    "r3": "O gato preto seria ave",
+                    "correta": "2"
+                }
+            },
+        "english":{
+                "q01": {
+                    "categoria": "Mathematics",
+                    "pergunta": "It has nine lighted candles. Go out 3, how many are?",
+                    "r1": "5 - 2",
+                    "r2": "2 x 3",
+                    "r3": "48 : 4",
+                    "correta": "2"
+                },
+                "q02": {
+                    "categoria": "Mathematics",
+                    "pergunta": "Which and the square root of 100?",
+                    "r1": "10",
+                    "r2": "100",
+                    "r3": "1000",
+                    "correta": "1"
+                },
+                "q03": {
+                    "categoria": "Mathematics",
+                    "pergunta": "21  35  20  34  19  33  18  ?",
+                    "r1": "40",
+                    "r2": "32",
+                    "r3": "27",
+                    "correta": "2"
+                },
+                "q04": {
+                    "categoria": "Logic",
+                    "pergunta": "The black sheep have wool black. What color is the milk of black cows?",
+                    "r1": "Black",
+                    "r2": "Red",
+                    "r3": "White",
+                    "correta": "3"
+                },
+                "q05": {
+                    "categoria": "Logic",
+                    "pergunta": "In a dark room has a match, one stove, a lantern, a candle and a cigarette, which will light first?",
+                    "r1": "The cigarette is obvious",
+                    "r2": "The candle",
+                    "r3": "The match",
+                    "correta": "3"
+                },
+                "q06": {
+                    "categoria": "Mathematics",
+                    "pergunta": "5    13    5    20    5    27    5    ?",
+                    "r1": "34",
+                    "r2": "27",
+                    "r3": "10",
+                    "correta": "1"
+                },
+                "q07": {
+                    "categoria": "Language",
+                    "pergunta": "Therapeutic method involves inserting needles in meat.",
+                    "r1": "Acupuncture",
+                    "r2": "Agriculture",
+                    "r3": "Swine",
+                    "correta": "1"
+                },
+                "q08": {
+                    "categoria": "Language",
+                    "pergunta": "Not to be recognized, used the disguise of:",
+                    "r1": "Alliance",
+                    "r2": "Mask",
+                    "r3": "Tie",
+                    "correta": "3"
+                },
+                "q09": {
+                    "categoria": "Mathematics",
+                    "pergunta": "4   12   4   20   4   28   ?",
+                    "r1": "4",
+                    "r2": "36",
+                    "r3": "38",
+                    "correta": "1"
+                },
+                "q10": {
+                    "categoria": "Logic",
+                    "pergunta": "Would have been lost in the forest, if he had the help of a:",
+                    "r1": "Path",
+                    "r2": "Guide",
+                    "r3": "Horse",
+                    "correta": "2"
+                },
+                "q11": {
+                    "categoria": "Mathematics",
+                    "pergunta": "23  7  27  11  31  ?",
+                    "r1": "11",
+                    "r2": "15",
+                    "r3": "13",
+                    "correta": "2"
+                },
+                "q12": {
+                    "categoria": "Logic",
+                    "pergunta": "The color of the black horse of Napoleon Bonaparte was:",
+                    "r1": "White",
+                    "r2": "Black",
+                    "r3": "Brown",
+                    "correta": "2"
+                },
+                "q13": {
+                    "categoria": "Mathematics",
+                    "pergunta": "What is heavier, two pounds of lead or three goose feather?",
+                    "r1": "Are equivalent",
+                    "r2": "3 goose feather",
+                    "r3": "2 lead of course",
+                    "correta": "2"
+                },
+                "q14": {
+                    "categoria": "Mathematics",
+                    "pergunta": "A candle burns in 3 hours. How long would burn three candles burning and equal at the same time?",
+                    "r1": "9 hours",
+                    "r2": "12 hours",
+                    "r3": "3 hours",
+                    "correta": "3"
+                },
+                "q15": {
+                    "categoria": "Logic",
+                    "pergunta": "If all birds were black:",
+                    "r1": "The buzzard could be white",
+                    "r2": "There would be no blue birds",
+                    "r3": "The black cat would ave",
+                    "correta": "2"
+                }
         },
-        "q02": {
-            "categoria": "matematica",
-            "pergunta": "Qual e a raiz quadrada de 100?",
-            "r1": "10",
-            "r2": "100",
-            "r3": "1000",
-            "correta": "1"
+        "german":{
+        
         },
-        "q03": {
-            "categoria": "matematica",
-            "pergunta": "21  35  20  34  19  33  18  ?",
-            "r1": "40",
-            "r2": "32",
-            "r3": "27",
-            "correta": "2"
-        },
-        "q04": {
-            "categoria": "logica",
-            "pergunta": "Os carneiros pretos têm a lã negra. De que cor é o leite das vacas pretas?",
-            "r1": "Preto",
-            "r2": "Vermelho",
-            "r3": "Branco",
-            "correta": "3"
-        },
-        "q05": {
-            "categoria": "logica",
-            "pergunta": "Num quarto escuro tem-se um fósforo, um fogareiro, um lampião, uma vela e um cigarro, o que se acende primeiro?",
-            "r1": "O cigarro, é óbvio",
-            "r2": "A vela",
-            "r3": "O fósforo",
-            "correta": "3"
-        },
-        "q06": {
-            "categoria": "matematica",
-            "pergunta": "5    13    5    20    5    27    5    ?",
-            "r1": "34",
-            "r2": "27",
-            "r3": "10",
-            "correta": "1"
-        },
-        "q07": {
-            "categoria": "portugues",
-            "pergunta": "Método terapêutico que consiste na introdução de agulhas na carne.",
-            "r1": "Acupuntura",
-            "r2": "Agricultura",
-            "r3": "Suinocultura",
-            "correta": "1"
-        },
-        "q08": {
-            "categoria": "portugues",
-            "pergunta": "Para não ser reconhecido, usou o disfarce de uma:",
-            "r1": "Aliança",
-            "r2": "Máscara",
-            "r3": "Gravata",
-            "correta": "3"
-        },
-        "q09": {
-            "categoria": "matematica",
-            "pergunta": "4   12   4   20   4   28   ?",
-            "r1": "4",
-            "r2": "36",
-            "r3": "38",
-            "correta": "1"
-        },
-        "q10": {
-            "categoria": "logica",
-            "pergunta": "Teria se perdido na floresta, se não tivesse a ajuda de um:",
-            "r1": "Caminho",
-            "r2": "Guia",
-            "r3": "Cavalo",
-            "correta": "2"
-        },
-        "q11": {
-            "categoria": "matematica",
-            "pergunta": "23  7  27  11  31  ?",
-            "r1": "11",
-            "r2": "15",
-            "r3": "13",
-            "correta": "2"
-        },
-        "q12": {
-            "categoria": "logica",
-            "pergunta": "A cor do cavalo preto de Napoleão Bonaparte era:",
-            "r1": "Branca",
-            "r2": "Preta",
-            "r3": "Marrom",
-            "correta": "2"
-        },
-        "q13": {
-            "categoria": "matematica",
-            "pergunta": "O que é mais pesado, dois quilos de chumbo ou 3 de penas?",
-            "r1": "Equivalem-se",
-            "r2": "3 de penas",
-            "r3": "2 de chumbo, é claro",
-            "correta": "2"
-        },
-        "q14": {
-            "categoria": "matematica",
-            "pergunta": "Uma vela queima-se em 3 horas.Em quanto tempo se queimariam três velas iguais e acesas ao mesmo tempo?",
-            "r1": "9 horas",
-            "r2": "12 horas",
-            "r3": "3 horas",
-            "correta": "3"
-        },
-        "q15": {
-            "categoria": "logica",
-            "pergunta": "Se todas as ave fossem pretas:",
-            "r1": "O urubu poderia ser branco",
-            "r2": "Não haveria aves azuis",
-            "r3": "O gato preto seria ave",
-            "correta": "2"
-        }
-    }
+        "french":{
+        
+        }   
+    }            
 }
