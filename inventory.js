@@ -495,14 +495,14 @@ SOFTWARE.
                             // console.log((me.game.HUD.getItemValue(itemCategory) + itemValue) , ' < ' ,maxHudValue['live']);
                             // Check if live is full
                             if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= heroHealth ){//maxHudValue['live']){
+                                // play a "heroeat" sound
+                                me.audio.play("heroeat");
                                 adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
                             }else {
                                 this.invComment = language.system.TRinvItemMaxHealth;
                                 $('.invComment').css("color", hudColorLive);
                                 $('.invComment').html(this.invComment);
-                            }
-                            // play a "heroeat" sound
-                            me.audio.play("heroeat");
+                            }                            
                             
                             // console.log('Vida:' , me.game.HUD.getItemValue(itemCategory));
                         });
