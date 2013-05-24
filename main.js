@@ -187,9 +187,16 @@ Comment: Display an question box in the game
 function showQuestionLayer(itemData, adsQtnData)
 {
 	if (!showingQuestion){
+		
+		//By default
 		heroAnswer = -1;
+		
+		//Show fields from question box with data
+        rndQtnData = adsQtnData;
+        
 		var $questionBoxHtml = ('<img class="qtnImage" src="" alt="">' + 
 							'<div class="itemText"></div>' +
+							'<div class="questionTheme"></div>' + 
 							'<div class="questionText"></div>' + 
 							'<div class="r1"></div>' + 
 							'<div class="r2"></div>' +
@@ -200,13 +207,37 @@ function showQuestionLayer(itemData, adsQtnData)
 		$('#questionLayer').append($questionBoxHtml);
 		$('#questionLayer').fadeIn( 250 );
 		
-		//Show fields from question box with data
-		rndQtnData = adsQtnData;
+		//Adapt answers to question length
+		var questionLength = rndQtnData.pergunta.length;
+        
+        if ( questionLength > 0 && questionLength < 39 ){
+            // console.log("One Line...");
+            $(".questionText").css({'height': 20});
+            $(".r1").css({'top' : 125});
+            $(".r2").css({'top' : 145});
+            $(".r3").css({'top' : 165});
+            $(".r0").css({'top' : 185});
+        }else if ( questionLength > 38 && questionLength < 77 ){
+            // console.log("Two Lines...");
+            $(".questionText").css({'height': 40});
+            $(".r1").css({'top' : 145});
+            $(".r2").css({'top' : 165});
+            $(".r3").css({'top' : 185});
+            $(".r0").css({'top' : 205});
+        }else{
+            $(".questionText").css({'height': 60});            
+            // console.log("Three Lines...");
+            $(".r1").css({'top' : 163});
+            $(".r2").css({'top' : 183});
+            $(".r3").css({'top' : 203});
+            $(".r0").css({'top' : 223});
+        }
+		
 		$('.qtnImage').attr({
-		'src' : 'content/sprites/items/' + itemData.imagem,
-		'alt' : 'Testing...' 
+		'src' : 'content/sprites/items/' + itemData.imagem
 		});
 		$('.itemText').html( language.items[itemData.descricao] );
+		$('.questionTheme').html( language.system.TRquestionsTheme + ": " + rndQtnData.categoria );
 		$('.questionText').html( rndQtnData.pergunta );
 		$('.r1').html('(1) ' + rndQtnData.r1 );
 		$('.r2').html('(2) ' + rndQtnData.r2 );
@@ -286,6 +317,7 @@ function hideQuestionLayer(answer)
 
 	//Hide Question fields
 	$('.questionText').fadeOut();
+	$('.questionTheme').fadeOut();
 	$('.r1').fadeOut();
 	$('.r2').fadeOut();
 	$('.r3').fadeOut();
@@ -294,6 +326,9 @@ function hideQuestionLayer(answer)
 	
 	// Kill click events
 	$("*", "#questionLayer").unbind("click");
+	$('.qtnImage').remove();
+	$('.itemText').remove();
+	$('.questionTheme').remove();
 	$('.questionText').remove();
 	$('.r1').remove();
 	$('.r2').remove();
@@ -570,7 +605,7 @@ $( function(){
             wf.async = 'true';
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(wf, s);
-            // console.log("Loaded... Fonts");
+            console.log("Loaded... Fonts");
         })(); 
         
         //

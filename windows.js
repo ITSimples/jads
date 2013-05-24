@@ -502,6 +502,29 @@ adsGame.QuestionQuest =  Object.extend({
         
         $('#questionQuestLayer').append( $questBoxHtml );
         
+        //Adapt answers to question length
+        var questionLength = questionData.pergunta.length;
+        
+        if ( questionLength > 0 && questionLength < 39 ){
+            // console.log("One Line...");
+            $(".questionQuestText").css({'height': 20});
+            $(".QuestR1").css({'top' : 210});
+            $(".QuestR2").css({'top' : 235});
+            $(".QuestR3").css({'top' : 260});
+        }else if ( questionLength > 38 && questionLength < 77 ){
+            // console.log("Two Lines...");
+            $(".questionQuestText").css({'height': 40});
+            $(".QuestR1").css({'top' : 230});
+            $(".QuestR2").css({'top' : 255});
+            $(".QuestR3").css({'top' : 280});
+        }else{
+            $(".questionText").css({'height': 60});            
+            // console.log("Three Lines...");
+            $(".questionQuestText").css({'height': 60});
+            $(".QuestR1").css({'top' : 250});
+            $(".QuestR2").css({'top' : 275});
+            $(".QuestR3").css({'top' : 300});
+        }       
         //Hide question
         $('#heroQuestions').hide();
 

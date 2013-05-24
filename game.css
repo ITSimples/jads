@@ -158,20 +158,31 @@
 	position: absolute;
 	top: 38px;
 	left: 82px;
-	width: 250px;
-	height: 60px;
+	width: 230px;
+	height: 40px;
 	font-weight: bold;
 	color : #996600;
 	overflow: hidden;
 	z-index:1;
 }
 
+#questionLayer .questionTheme {
+    position: absolute;
+    top: 75px;
+    left: 43px;
+    width: 240px;
+    height: 20px;
+    font-weight: bold;
+    color : #0a0abd;
+    overflow: hidden;
+    z-index:1;
+}
+
 #questionLayer .questionText {
 	position: absolute;
-	top: 75px;
+	top: 100px;
 	left: 43px;
-	width: 290px;
-	height: 120px;
+	width: 280px;
 	font-weight: bold;
 	color : #0B610B;
 	overflow: hidden;
@@ -180,10 +191,9 @@
 
 #questionLayer .r1 {
 	position: absolute;
-	top: 135px;
 	left: 50px;
-	width: 300px;
-	height: 60px;
+	width: 275px;
+	height: 20px;
 	color : #4B8A08;
 	overflow: hidden;
 	z-index:1;
@@ -191,10 +201,9 @@
 
 #questionLayer .r2 {
 	position: absolute;
-	top: 155px;
 	left: 50px;
-	width: 300px;
-	height: 60px;
+    width: 275px;
+    height: 20px;
 	color : #4B8A08;
 	overflow: hidden;
 	z-index:1;
@@ -202,10 +211,9 @@
 
 #questionLayer .r3 {
 	position: absolute;
-	top: 175px;
 	left: 50px;
-	width: 300px;
-	height: 60px;
+    width: 275px;
+    height: 20px;
 	color : #4B8A08;
 	overflow: hidden;
 	z-index:1;
@@ -213,10 +221,9 @@
 
 #questionLayer .r0 {
 	position: absolute;
-	top: 195px;
 	left: 50px;
-	width: 530px;
-	height: 60px;
+    width: 275px;
+    height: 20px;
 	color : #4B8A08;
 	overflow: hidden;
 	z-index:1;
@@ -224,25 +231,25 @@
 
 #questionLayer .answerValue {
 	position: absolute;
-	top: 220px;
+	top: 245px;
 	left: 50px;
-	width: 295px;
-	height: 60px;
+	width: 280px;
+	height: 20px;
 	color : #8A4B08;
 	overflow: hidden;
 	z-index:1;
 }
 
 #questionLayer .answerResult {
-	position: absolute;
-	top: 115px;
-	left: 50px;
-	width: 295px;
-	height: 60px;
-	color : #FF8000;
-	font-size:20px;
-	overflow: hidden;
-	z-index:1;
+    position: absolute;
+    top: 135px;
+    left: 50px;
+    width: 280px;
+    height: 60px;
+    color : #FF8000;
+    font-size:20px;
+    overflow: hidden;
+    z-index:1;
 }
 
 /* Question layer configuration */
@@ -662,7 +669,7 @@
     top: 60px;
     left: 82px;
     width: 250px;
-    height: 60px;
+    height: 20px;
     font-size: 18px;
     color : #764F00;
     overflow: hidden;
@@ -729,10 +736,9 @@
 
 #questionQuestLayer .QuestR1 {
     position: absolute;
-    top: 250px;
     left: 85px;
-    width: 300px;
-    height: 60px;
+    width: 280px;
+    height: 20px;
     color : #4B8A08;
     overflow: hidden;
     z-index:1;
@@ -740,10 +746,9 @@
 
 #questionQuestLayer .QuestR2 {
     position: absolute;
-    top: 275px;
     left: 85px;
-    width: 300px;
-    height: 60px;
+    width: 280px;
+    height: 20px;
     color : #4B8A08;
     overflow: hidden;
     z-index:1;
@@ -751,10 +756,9 @@
 
 #questionQuestLayer .QuestR3 {
     position: absolute;
-    top: 300px;
     left: 85px;
-    width: 300px;
-    height: 60px;
+    width: 280px;
+    height: 20px;
     color : #4B8A08;
     overflow: hidden;
     z-index:1;
@@ -764,8 +768,8 @@
     position: absolute;
     top: 330px;
     left: 85px;
-    width: 295px;
-    height: 60px;
+    width: 280px;
+    height: 40px;
     color : #8A4B08;
     overflow: hidden;
     z-index:1;
