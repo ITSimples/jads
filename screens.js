@@ -73,7 +73,7 @@ var TileScreen = me.ScreenObject.extend(
         });
         
         // DEBUG - Remove sound while working
-        me.audio.muteAll();
+        // me.audio.muteAll();
 	},
 	// update function
     update: function() {

@@ -75,6 +75,8 @@ SOFTWARE.
 				if ( !(effectName === undefined || effectName == null || effectName.length <= 0) )
 				{
 					if (effectName == "explodeDoor"){
+					    // play a "doorexplosion" sound
+                        me.audio.play("doorexplosion");
 						var boom = new effect(
 									(initCoord[0] * ads_tile_size) , (initCoord[1] * ads_tile_size) - 32, // Coordinates
 									me.loader.getImage("explosion_64x64"),	// Image

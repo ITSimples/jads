@@ -85,9 +85,9 @@ Hero Configuration
 
 var heroVelocity = 3;
 
-var itemLucky = 20;
+var itemLucky = 15;
 
-var startHero = [45,8];
+var startHero = [5,5];
 
 var heroHealth = 10;
 
@@ -199,8 +199,15 @@ var ads_resources =
 	// ---- Imagens ----
 	{name: "initialscreen",type: "image",src: ads_images_path + "initialscreen.png"},
 	
-	// ---- Audio ----
+	// ---------------------------- AUDIO ------------------------------------------------------
+	//---- Music ----
 	{name: "cornfields", type: "audio",  src: "content/music/", channel: 1},
+	
+	//---- SFX ----
+   {name: "doorexplosion", type: "audio",  src: "content/sfx/", channel: 1},
+   {name: "herowalk", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "heroeat", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "heartbeat", type: "audio",  src: "content/sfx/", channel: 2},
 	
 	// ---- Enemies ----
 	{name: "dragon_lvl_01", type: "image",  src: ads_sprites_path + "dragon_lvl_01.png"},

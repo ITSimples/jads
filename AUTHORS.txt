@@ -156,3 +156,8 @@ Level Editor
 
 Use [Tiled-QT](http://www.mapeditor.org/) to edit the maps. Version 0.9 was used
 to run the automapping rules, which as of this writing is still in beta.
+
+SFX
+------------
+
+ credit freesfx.co.uk 

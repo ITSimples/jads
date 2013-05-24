@@ -154,6 +154,8 @@ var HeroEntity = me.ObjectEntity.extend({
         
         // Remove hero weapon name
         heroWeaponName = "";
+        
+        this.walkSound = false;
     },
 	
 	//Update player position.
@@ -255,6 +257,15 @@ var HeroEntity = me.ObjectEntity.extend({
 		if (this.vel.y === 0 && this.vel.x === 0)
 		{
 			this.renderable.setCurrentAnimation('stand-' + this.direction);
+		}else{
+		    // play a "herowalk" sound
+		    if ( !this.walkSound ){
+		        this.walkSound = true;
+                me.audio.play("herowalk",false, (function(){
+                    this.walkSound = false;
+                }).bind(this) , 0.5);
+            }
+
 		}
 
 		// If question box is showing then stop the player

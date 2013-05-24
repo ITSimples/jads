@@ -501,6 +501,9 @@ SOFTWARE.
                                 $('.invComment').css("color", hudColorLive);
                                 $('.invComment').html(this.invComment);
                             }
+                            // play a "heroeat" sound
+                            me.audio.play("heroeat");
+                            
                             // console.log('Vida:' , me.game.HUD.getItemValue(itemCategory));
                         });
                     }
@@ -537,8 +540,6 @@ SOFTWARE.
                                 //Thrower mouse click and space must be disabled
                                 heroWeaponEnable = false;
                             }
-                            
-                            
                         }
                     });
                 }
