@@ -263,7 +263,7 @@ var HeroEntity = me.ObjectEntity.extend({
 		        this.walkSound = true;
                 me.audio.play("herowalk",false, (function(){
                     this.walkSound = false;
-                }).bind(this) , 0.5);
+                }).bind(this) , 1);
             }
 
 		}

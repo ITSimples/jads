@@ -145,6 +145,7 @@
 	height: 308px;
 	background: url('content/images/questionbox.png') no-repeat;
 	font-family: 'MedievalSharp', serif;
+	font-size: 14px;
 	display: none;
 }
 
@@ -163,6 +164,7 @@
 	font-weight: bold;
 	color : #996600;
 	overflow: hidden;
+	font-size: 16px;
 	z-index:1;
 }
 
@@ -175,6 +177,7 @@
     font-weight: bold;
     color : #0a0abd;
     overflow: hidden;
+    font-size: 16px;
     z-index:1;
 }
 

@@ -6,7 +6,7 @@
                 "q01": {
                     "categoria": "Matemática",
                     "pergunta": "Tem-se nove velas acesas. Apagam-se 3, quantas ficam?",
-                    "r1": "5 - 2",
+                    "r1": "5 . 2",
                     "r2": "2 x 3",
                     "r3": "48 : 4",
                     "correta": "2"
@@ -21,7 +21,7 @@
                 },
                 "q03": {
                     "categoria": "Matemática",
-                    "pergunta": "21 - 35 - 20 - 34 - 19 - 33 - 18  ?",
+                    "pergunta": "21 . 35 . 20 . 34 . 19 . 33 . 18  ?",
                     "r1": "40",
                     "r2": "32",
                     "r3": "27",
@@ -45,7 +45,7 @@
                 },
                 "q06": {
                     "categoria": "Matemática",
-                    "pergunta": "5 - 13 - 5 - 20 - 5 - 27 - 5 ?",
+                    "pergunta": "5 . 13 . 5 . 20 . 5 . 27 . 5 ?",
                     "r1": "34",
                     "r2": "27",
                     "r3": "10",
@@ -69,7 +69,7 @@
                 },
                 "q09": {
                     "categoria": "Matemática",
-                    "pergunta": "4 - 12 - 4 - 20 - 4 - 28?",
+                    "pergunta": "4 . 12 . 4 . 20 . 4 . 28?",
                     "r1": "4",
                     "r2": "36",
                     "r3": "38",
@@ -85,7 +85,7 @@
                 },
                 "q11": {
                     "categoria": "Matemática",
-                    "pergunta": "23 - 7 - 27 - 11 - 31  ?",
+                    "pergunta": "23 . 7 . 27 . 11 . 31  ?",
                     "r1": "11",
                     "r2": "15",
                     "r3": "13",
@@ -128,7 +128,7 @@
                 "q01": {
                     "categoria": "Mathematics",
                     "pergunta": "It has nine lighted candles. Go out 3, how many are?",
-                    "r1": "5 - 2",
+                    "r1": "5 . 2",
                     "r2": "2 x 3",
                     "r3": "48 : 4",
                     "correta": "2"
@@ -143,7 +143,7 @@
                 },
                 "q03": {
                     "categoria": "Mathematics",
-                    "pergunta": "21 - 35 - 20 - 34 - 19 - 33 - 18  ?",
+                    "pergunta": "21 . 35 . 20 . 34 . 19 . 33 . 18  ?",
                     "r1": "40",
                     "r2": "32",
                     "r3": "27",
@@ -167,7 +167,7 @@
                 },
                 "q06": {
                     "categoria": "Mathematics",
-                    "pergunta": "5 - 13 - 5 - 20 - 5 - 27 - 5 ?",
+                    "pergunta": "5 . 13 . 5 . 20 . 5 . 27 . 5 ?",
                     "r1": "34",
                     "r2": "27",
                     "r3": "10",
@@ -191,7 +191,7 @@
                 },
                 "q09": {
                     "categoria": "Mathematics",
-                    "pergunta": "4 - 12 - 4 - 20 - 4 - 28?",
+                    "pergunta": "4 . 12 . 4 . 20 . 4 . 28?",
                     "r1": "4",
                     "r2": "36",
                     "r3": "38",
@@ -207,7 +207,7 @@
                 },
                 "q11": {
                     "categoria": "Mathematics",
-                    "pergunta": "23 - 7 - 27 - 11 - 31  ?",
+                    "pergunta": "23 . 7 . 27 . 11 . 31  ?",
                     "r1": "11",
                     "r2": "15",
                     "r3": "13",

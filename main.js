@@ -41,16 +41,16 @@ var adsGame =
 	    // Testing multilingual feature
         // language.system = adsLangData.portuguese;
         
-        language.system = adsLangData.english;
+        language.system = adsLangData.portuguese;
         
-        language.items = adsItemsLangData.english;
+        language.items = adsItemsLangData.portuguese;
         
-        language.npcs = adsNpcLangData.english;
+        language.npcs = adsNpcLangData.portuguese;
         
-        language.triggers = adsTriggersLangData.english;
+        language.triggers = adsTriggersLangData.portuguese;
         
         //Get Questions to variable with hero language
-        adsQtnData = adsQtnDataAll.english;
+        adsQtnData = adsQtnDataAll.portuguese;
         
         
         //alert(language.system.TRbrowserInf); 
