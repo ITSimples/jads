@@ -75,6 +75,8 @@ adsGame.message =  Object.extend({
 				
                 // Get Click from user
                 $('.msgText').bind('click' , ( function () { 
+                    // play a "buttonclick" sound
+                    me.audio.play("buttonclick");
                     this.leftClickMouse = true; 
                 } ).bind(this));
                 
@@ -110,6 +112,10 @@ adsGame.Shop =  Object.extend({
     
     "show" : function show ( npcObject ){
         if ( !showingShop ){
+            
+            // play a "shopbells" sound
+            me.audio.play("shopbells");
+        
             var $itemsBoxHtml = ('<img class="npcImage" src="" alt="">' + 
                                 '<div class="shopName"></div>' +
                                 '<div class="npcInfo"></div>' + 
@@ -158,6 +164,8 @@ adsGame.Shop =  Object.extend({
             // Create a event listener to get the ansewer from the mouse 
             // $('#shopLayer  > div') same as $('#shopLayer').children("div")
             $('#shopLayer  > div').bind('click', function() {
+                // play a "buttonclick" sound
+                me.audio.play("buttonclick");
                 var buyItemNumber = this.className;
                 
                 // If class start with r then is a answer get the answer from player
@@ -180,6 +188,9 @@ adsGame.Shop =  Object.extend({
     },
     
     "hide" : function hide (){
+        // play a "closingwindows" sound
+        me.audio.play("closingwindows");
+        
         $('#shopLayer').fadeOut( 50 , function(){
             // When finish to fade out 
             showingShop = false;
@@ -338,6 +349,10 @@ adsGame.QuestionQuest =  Object.extend({
     },
     
     "show" : function show( ){
+        
+        // play a "openingwindows" sound
+        me.audio.play("openingwindows");
+        
         var $questionBoxHtml = ('<div class="questTitleText"></div>' + 
                                                  '<img class="questHeroImage" src="" alt="">' +
                                                  '<img class="questEnemyImage" src="" alt="">');
@@ -429,6 +444,8 @@ adsGame.QuestionQuest =  Object.extend({
         }
         
         $('#heroInput  > div').bind('click', function() {
+            // play a "buttonclick" sound
+            me.audio.play("buttonclick");
             // Get answer from player
             var playerChoice = this.id;
 
@@ -542,6 +559,8 @@ adsGame.QuestionQuest =  Object.extend({
 
         // To answer with keys call click method ;)
         $(document).keydown(function(objEvent) {
+            // play a "buttonclick" sound
+            me.audio.play("buttonclick");
             var keyPressed = (String.fromCharCode(event.keyCode)).toUpperCase();
             
             switch( parseInt (keyPressed) )
@@ -565,6 +584,8 @@ adsGame.QuestionQuest =  Object.extend({
         // Create a event listener to get the ansewer from the mouse 
         // $('#questionLayer  > div') same as $('#questionLayer').children("div")
         $('#acceptAnswerQuest  > div').bind('click', function( event ) {
+            // play a "buttonclick" sound
+            me.audio.play("buttonclick");
              //Stop Player
              self.player.setVelocity(0,0);
                 

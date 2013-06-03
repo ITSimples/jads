@@ -485,6 +485,12 @@ var ItemEntity = me.CollectableEntity.extend({
 				
 				//If is velocity then don't remove points
 				if (this.items_data.categoria != 'velocidade'){
+				    if (this.items_data.categoria == 'vida'){
+				        // play a "hitplayer" sound
+                        me.audio.play("hithero");
+                        // let's flicker in case we loses health
+                        player.renderable.flicker(25);
+				    }
 					me.game.HUD.updateItemValue(this.items_data.categoria, valueRemoved);
 				}	
 				hideQuestionLayer('W');
@@ -505,7 +511,15 @@ var ItemEntity = me.CollectableEntity.extend({
 				player.pos.x = player.posBeforeCollideX;
 				player.pos.y = player.posBeforeCollideY;
 				
-				// Remove special item value
+				// If remove helath then play hit sound and flicker player
+                if (this.items_data.remover == 'vida'){
+                    // play a "hitplayer" sound
+                    me.audio.play("hithero");
+                    // let's flicker in case we loses health
+                        player.renderable.flicker(25);
+                }
+                
+                // Remove special item value    
 				var valueRemoved = -(parseInt(this.items_data.quantidade,10));
 				me.game.HUD.updateItemValue(this.items_data.remover, valueRemoved);
 			}
@@ -759,6 +773,9 @@ var TriggerEntity = me.ObjectEntity.extend({
 		
 		//Update always
 		this.alwaysUpdate = true;
+		
+		//  Show message and play sound only one timw when hero does'nt have the door key
+		this.oneTimeSoundMessage = false;
 	},
 
 	update : function (){
@@ -915,6 +932,9 @@ var TriggerEntity = me.ObjectEntity.extend({
     						doorCoord[0] = this.targX;
     						doorCoord[1] = this.targY;
     						
+    						// play a "opendoor" sound
+                            me.audio.play("opendoor");
+                          
     						adsGame.prisonDoors.remove(doorCoord , "openDoor", this.triggerData.animation);
     						
     						//portaPrisao -- Set door open to the prison number
@@ -929,10 +949,14 @@ var TriggerEntity = me.ObjectEntity.extend({
     						// **** TODO - REMOVE KEY  FROM LIST OF ITEMS
     					}else{
     						// console.log("Hero don't have the key. npcTalking:" , npcTalking);
-    						
-    						if (!npcTalking){
-    							this.message.show(this.msgData);
-    							// msgShowing = true;
+    						if ( !this.oneTimeSoundMessage ){
+    						    // play a "doorlockmessage" sound
+                                me.audio.play("doorlockmessage");
+        						if (!npcTalking){
+        							this.message.show(this.msgData);
+        							// msgShowing = true;
+        						}
+        						this.oneTimeSoundMessage = true;
     						}
     					} // End checkSolution
     					
@@ -1022,6 +1046,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                     // msgShowing = false;
             // }
 			
+			this.oneTimeSoundMessage = false;
 			
 			// Reset check for items
 			this.isChecked = false;
@@ -1296,6 +1321,11 @@ var TriggerSpawnEntity = me.ObjectEntity.extend({
 		// Debug - Console
 		// console.log("throwerData.nome :", this.throwerData.nome );
 		
+		if ( this.throwerData.nomeSom != undefined && this.throwerData.volumeEfeito != undefined){
+            // play a "throwerSound" sound
+            me.audio.play( this.throwerData.nomeSom , false , null , this.throwerData.volumeEfeito );
+        }
+		
         //  posicaoDisparo - give the launch position added to current positon of thrower
         var triggerPositionX = this.throwerData.posicaoDisparo.x ;
         var triggerPositionY = this.throwerData.posicaoDisparo.y ;
@@ -1551,6 +1581,17 @@ var TriggerSpawnEntity = me.ObjectEntity.extend({
                                             -(parseInt(this.projectilData.atualizarHUD.valor)));                    
                 //Remove object
                 me.game.remove(this);
+                
+                // If remove health then play hit sound and flicker player
+                if ( this.projectilData.atualizarHUD.tipo == 'vida' ){
+                    //When player collide with item Stop player and ask question
+                    var player = adsGame.heroEntity();
+                    // play a "hitplayer" sound
+                    me.audio.play("hithero");
+                    // let's flicker in case we loses health
+                    player.renderable.flicker(10);
+                    player = undefined;
+                }
                 
                 //if there is a maximum number of projectils then when one die another is created
                 if (typeof(this.throwerData.numeroDeProjeteis) !== 'undefined' ){

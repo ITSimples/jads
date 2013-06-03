@@ -187,6 +187,9 @@ Comment: Display an question box in the game
 function showQuestionLayer(itemData, adsQtnData)
 {
 	if (!showingQuestion){
+	    
+        // play a "openingwindows" sound
+        me.audio.play("openingwindows");
 		
 		//By default
 		heroAnswer = -1;
@@ -254,7 +257,9 @@ function showQuestionLayer(itemData, adsQtnData)
 		$(document).keyup(function(event) {
 			var keyPressed = (String.fromCharCode(event.keyCode)).toUpperCase();
 			// If correct answer return true else return false
-			if (keyPressed =='0' || keyPressed =='1' || keyPressed =='2'|| keyPressed =='3'  ) {	
+			if (keyPressed =='0' || keyPressed =='1' || keyPressed =='2'|| keyPressed =='3'  ) {
+                // play a "buttonclick" sound
+                me.audio.play("buttonclick");
 				// Return player answer
 				heroAnswer = keyPressed;
 			}
@@ -266,6 +271,9 @@ function showQuestionLayer(itemData, adsQtnData)
             var answer = this.className;
             
             //console.log( "this.className:", answer );
+            
+            // play a "buttonclick" sound
+            me.audio.play("buttonclick");
             
             // If class start with r then is a answer get the answer from player
             if (answer.indexOf("r") == 0){
@@ -326,8 +334,7 @@ function hideQuestionLayer(answer)
 	
 	// Kill click events
 	$("*", "#questionLayer").unbind("click");
-	$('.qtnImage').remove();
-	$('.itemText').remove();
+
 	$('.questionTheme').remove();
 	$('.questionText').remove();
 	$('.r1').remove();
@@ -341,19 +348,25 @@ function hideQuestionLayer(answer)
 	$('#questionLayer').append($addAnswerResult);
 	$('.answerResult').html(answerResult);
 	$('.answerResult').fadeIn();
-	
+    
 	// Remove questions window
-    $(document).bind('keyup click', function(event) {     
+    $(document).bind('keyup click', function(event) {
+        // play a "closingwindows" sound
+        me.audio.play("closingwindows");
+        
+        $('.qtnImage').remove();
+        $('.itemText').remove();
         $('.answerResult').fadeOut();
         $('.answerResult').remove();
         $('#target').remove();
-        $('#questionLayer').fadeOut( 50 , function(){
+        $('#questionLayer').fadeOut( 350 , function(){
             // When finish to fade out 
             showingQuestion = false;
         });
         // event.stopPropagation();
         // Remove event listener to get answer from player
         $(document).unbind();
+
     });		
 }
 

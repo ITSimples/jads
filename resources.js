@@ -87,7 +87,7 @@ var heroVelocity = 3;
 
 var itemLucky = 15;
 
-var startHero = [5,5];
+var startHero = [4,33];
 
 var heroHealth = 10;
 
@@ -208,7 +208,17 @@ var ads_resources =
    {name: "herowalk", type: "audio",  src: "content/sfx/", channel: 2},
    {name: "heroeat", type: "audio",  src: "content/sfx/", channel: 2},
    {name: "heartbeat", type: "audio",  src: "content/sfx/", channel: 2},
-	
+   {name: "doorlockmessage", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "opendoor", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "buttonclick", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "openingwindows", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "closingwindows", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "hithero", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "shopbells", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "fireball", type: "audio",  src: "content/sfx/", channel: 2}, 
+   {name: "campfire", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "snake", type: "audio",  src: "content/sfx/", channel: 2},
+   
 	// ---- Enemies ----
 	{name: "dragon_lvl_01", type: "image",  src: ads_sprites_path + "dragon_lvl_01.png"},
 	

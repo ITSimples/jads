@@ -57,20 +57,22 @@ var TileScreen = me.ScreenObject.extend(
         
         // Add background music
         // play the audio track
-        me.audio.playTrack("cornfields");
-        
-        // Enable/Disable music
-        $("#sound_button").click(function() {           
-          if ( backgroundMusic ){
-            $("#sound_button").attr({ src: "content/gui/no_sound.png" });
-            me.audio.muteAll();
-            backgroundMusic = false;
-          }else{
-            $("#sound_button").attr({ src: "content/gui/sound.png" });
-            me.audio.unmuteAll();
-            backgroundMusic = true;
-          }
-        });
+        // me.audio.playTrack("cornfields");
+//         
+        // // Enable/Disable music
+        // $("#sound_button").click(function() {
+            // // play a "buttonclick" sound
+            // me.audio.play("buttonclick");
+          // if ( backgroundMusic ){
+            // $("#sound_button").attr({ src: "content/gui/no_sound.png" });
+            // me.audio.muteAll();
+            // backgroundMusic = false;
+          // }else{
+            // $("#sound_button").attr({ src: "content/gui/sound.png" });
+            // me.audio.unmuteAll();
+            // backgroundMusic = true;
+          // }
+        // });
         
         // DEBUG - Remove sound while working
         // me.audio.muteAll();

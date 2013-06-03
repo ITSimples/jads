@@ -86,6 +86,9 @@ SOFTWARE.
     "show" : function show() {
     
         if (!this.isShowing){   
+            // play a "openingwindows" sound
+            me.audio.play("openingwindows");
+            
             //Disable event drop on game window
             this.eventDrop(true);
                         
@@ -123,7 +126,10 @@ SOFTWARE.
     "hide" : function hide() {
         if (this.isShowing){
             $('#inventoryLayer').fadeOut();
-    
+            
+            // play a "closingwindows" sound
+            me.audio.play("closingwindows");
+            
             // console.log("hide inventory...");
             this.isShowing = false;
             //Disable event drop on game window
@@ -178,7 +184,7 @@ SOFTWARE.
             
         if (itemTarget == 'use'){
             // console.log (' Use this item...');
-    
+            
             me.game.HUD.updateItemValue(itemCategory,  parseInt(itemValue));
             //hide item information because on leave with mouse the item info doesn't dissapear
             $('#itemInfLayer').hide();
@@ -497,6 +503,7 @@ SOFTWARE.
                             if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= heroHealth ){//maxHudValue['live']){
                                 // play a "heroeat" sound
                                 me.audio.play("heroeat");
+
                                 adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
                             }else {
                                 this.invComment = language.system.TRinvItemMaxHealth;
