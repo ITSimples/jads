@@ -93,7 +93,6 @@ var HeroEntity = me.ObjectEntity.extend({
 		//Check if is showing the inventory enable/disable
 		this.isShowInv = false;
 		
-		
 		// DEBUG GET KEY TO HERO 
 		// adsGame.Inventory.addItem(  ads_items_data[14] );
 		
@@ -263,7 +262,7 @@ var HeroEntity = me.ObjectEntity.extend({
 		        this.walkSound = true;
                 me.audio.play("herowalk",false, (function(){
                     this.walkSound = false;
-                }).bind(this) , 1);
+                }).bind(this) , 0.1);
             }
 
 		}
@@ -487,7 +486,7 @@ var ItemEntity = me.CollectableEntity.extend({
 				if (this.items_data.categoria != 'velocidade'){
 				    if (this.items_data.categoria == 'vida'){
 				        // play a "hitplayer" sound
-                        me.audio.play("hithero");
+                        me.audio.play("hithero", false , null , 0.05);
                         // let's flicker in case we loses health
                         player.renderable.flicker(25);
 				    }
@@ -514,7 +513,7 @@ var ItemEntity = me.CollectableEntity.extend({
 				// If remove helath then play hit sound and flicker player
                 if (this.items_data.remover == 'vida'){
                     // play a "hitplayer" sound
-                    me.audio.play("hithero");
+                    me.audio.play("hithero", false , null , 0.05);
                     // let's flicker in case we loses health
                         player.renderable.flicker(25);
                 }
@@ -851,6 +850,11 @@ var TriggerEntity = me.ObjectEntity.extend({
                             ads_items_data[this.triggerData.give].specialItem = true;
                         }
                         
+                        if ( this.triggerData.nomeSom !== undefined && this.triggerData.volumeEfeito !== undefined){
+                            // play a "throwerSound" sound
+                            me.audio.play( this.triggerData.nomeSom , false , null , this.triggerData.volumeEfeito );
+                        }
+                        
                         // Add item to hero
                         adsGame.Inventory.addItem( ads_items_data[this.triggerData.give] );
                         
@@ -995,10 +999,16 @@ var TriggerEntity = me.ObjectEntity.extend({
                         this.message.show(this.msgData);
                         // msgShowing = true;
                         
-                        // Shake map
-                        me.game.viewport.shake (20 , 200);
                         //Create the new NPC only one time
                         if ( !this.oneTime ){
+                            // Shake map
+                            me.game.viewport.shake (20 , 1500);
+                            
+                            if ( this.triggerData.nomeSom !== undefined && this.triggerData.volumeEfeito !== undefined){
+                                // play a "triggerData" sound
+                                me.audio.play( this.triggerData.nomeSom , false , null , this.triggerData.volumeEfeito );
+                            }
+                            
                             //Rises effect goes here if exist
                             var risesNPC = new effect(
                                     (this.appearEffect.coordinates.x * ads_tile_size) , 
@@ -1587,7 +1597,7 @@ var TriggerSpawnEntity = me.ObjectEntity.extend({
                     //When player collide with item Stop player and ask question
                     var player = adsGame.heroEntity();
                     // play a "hitplayer" sound
-                    me.audio.play("hithero");
+                    me.audio.play("hithero", false , null , 0.05);
                     // let's flicker in case we loses health
                     player.renderable.flicker(10);
                     player = undefined;

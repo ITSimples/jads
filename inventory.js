@@ -506,6 +506,8 @@ SOFTWARE.
 
                                 adsGame.Inventory.removeItem( 'Slot0' + slotNumber , 'use' );
                             }else {
+                                // play a "wrong" sound
+                                me.audio.play( "wrong" , false , null , 0.1 );                                
                                 this.invComment = language.system.TRinvItemMaxHealth;
                                 $('.invComment').css("color", hudColorLive);
                                 $('.invComment').html(this.invComment);

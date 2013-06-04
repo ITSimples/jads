@@ -87,14 +87,14 @@ var heroVelocity = 3;
 
 var itemLucky = 15;
 
-var startHero = [4,33];
+var startHero = [10,45];
 
 var heroHealth = 10;
 
 var DEBUG_MODE = false;
 
 // Give item to hero to start in debug mode
-var giveItemDebug = "icestaff";
+var giveItemDebug = "cristalfogo";
 
 /*--- END Hero Configuration ---*/
 
@@ -218,6 +218,12 @@ var ads_resources =
    {name: "fireball", type: "audio",  src: "content/sfx/", channel: 2}, 
    {name: "campfire", type: "audio",  src: "content/sfx/", channel: 2},
    {name: "snake", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "wrong", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "hmmquestionfemale", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "hmmquestionmale", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "openchest", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "dragonbreath", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "dragonborn", type: "audio",  src: "content/sfx/", channel: 2},   
    
 	// ---- Enemies ----
 	{name: "dragon_lvl_01", type: "image",  src: ads_sprites_path + "dragon_lvl_01.png"},

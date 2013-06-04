@@ -390,11 +390,23 @@ var NpcEntity = me.ObjectEntity.extend({
             if (res.obj.name == 'hero' && !this.eventHappening) {
                 // TODO - Change NPC direction to opposite side of the hero
                 
+                
                 // If json falaComHeroi == true then talk to hero if not skip this step
                 if (this.npcData.falaComHeroi){
+                    
+                    // TODO - Play sound only one time lsee in hero entity
+                    // play a "hmmquestionfemale" sound
+                    if ( !this.helloSound ){
+                        this.helloSound = true;
+                        if ( this.npcData.nomeSom !== undefined && this.npcData.volumeEfeito !== undefined){
+                            // play a "throwerSound" sound
+                            me.audio.play( this.npcData.nomeSom , false , null , this.npcData.volumeEfeito );
+                        }
+                    }
+                    
                     this.message.show(this.msgData);
 
-                }               
+                }
                 this.message.messageShowing = true;
                 // msgShowing = true;
                 //Stop npc when he talk with hero
@@ -438,6 +450,7 @@ var NpcEntity = me.ObjectEntity.extend({
         } else if (this.message.messageShowing && !this.talkEventHappening) {
             // If json falaComHeroi == true then talk to hero if not skip this step
             if (this.npcData.falaComHeroi){
+                this.helloSound = false;
                 this.message.hide();
             }
             
