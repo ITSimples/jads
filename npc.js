@@ -404,6 +404,11 @@ var NpcEntity = me.ObjectEntity.extend({
                         }
                     }
                     
+                    //Show last message on messages data if this.msgData.msg null 
+                    if ( this.msgData.msg == undefined ){
+                        this.msgData.msg = this.npcData.mensage[this.npcData.mensage.length - 1];
+                    }
+                    
                     this.message.show(this.msgData);
 
                 }
@@ -1029,7 +1034,8 @@ var NpcEntity = me.ObjectEntity.extend({
                 this.healthBar.draw(context);
                 
             }else { // NPC is death
-                    // var self = this;
+                    var self = this;
+                    
                     // var tween = new me.Tween( { x: 1} )
                         // .to( { x: 0 }, self.removeTime ).onComplete(function(){ me.game.remove(self);})
                         // .easing( me.Tween.Easing.Quartic.EaseIn )
@@ -1037,9 +1043,12 @@ var NpcEntity = me.ObjectEntity.extend({
                            // self.resize( this.x );            
                         // } )
                         // .start();
+
+                        if ( self.npcData.dieEffect.nomeSom !== undefined && self.npcData.dieEffect.volumeEfeito !== undefined){
+                            // play a "triggerData" sound
+                            me.audio.play( self.npcData.dieEffect.nomeSom , false , null , self.npcData.dieEffect.volumeEfeito );
+                        }                        
                         
-                        var self = this;
- 
                         // Make npc die animation one time only
                         var dieNPCEffect = new effect(
                                 ( self.pos.x ) , 

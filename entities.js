@@ -486,7 +486,7 @@ var ItemEntity = me.CollectableEntity.extend({
 				if (this.items_data.categoria != 'velocidade'){
 				    if (this.items_data.categoria == 'vida'){
 				        // play a "hitplayer" sound
-                        me.audio.play("hithero", false , null , 0.05);
+                        me.audio.play("hithero", false , null , hitHeroVolume);
                         // let's flicker in case we loses health
                         player.renderable.flicker(25);
 				    }
@@ -513,7 +513,7 @@ var ItemEntity = me.CollectableEntity.extend({
 				// If remove helath then play hit sound and flicker player
                 if (this.items_data.remover == 'vida'){
                     // play a "hitplayer" sound
-                    me.audio.play("hithero", false , null , 0.05);
+                    me.audio.play("hithero", false , null , hitHeroVolume);
                     // let's flicker in case we loses health
                         player.renderable.flicker(25);
                 }
@@ -989,6 +989,9 @@ var TriggerEntity = me.ObjectEntity.extend({
 						// player[0].pos.x = this.targX * ads_tile_size;
 						// player[0].pos.y = this.targY * ads_tile_size;
 						
+                        // play a "teleport" sound
+                        me.audio.play("teleport");
+        
 						adsGame.heroEntity().pos.x = this.targX * ads_tile_size;
 						adsGame.heroEntity().pos.y = this.targY * ads_tile_size;
 						
@@ -1610,7 +1613,7 @@ var TriggerSpawnEntity = me.ObjectEntity.extend({
                     //When player collide with item Stop player and ask question
                     var player = adsGame.heroEntity();
                     // play a "hitplayer" sound
-                    me.audio.play("hithero", false , null , 0.05);
+                    me.audio.play("hithero", false , null , hitHeroVolume);
                     // let's flicker in case we loses health
                     player.renderable.flicker(10);
                     player = undefined;

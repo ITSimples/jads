@@ -87,14 +87,14 @@ var heroVelocity = 3;
 
 var itemLucky = 15;
 
-var startHero = [45,8];
+var startHero = [5,5];
 
 var heroHealth = 10;
 
-var DEBUG_MODE = false;
+var DEBUG_MODE = true;
 
 // Give item to hero to start in debug mode
-var giveItemDebug = "cristalfogo";
+var giveItemDebug = "manuscrito";
 
 /*--- END Hero Configuration ---*/
 
@@ -175,6 +175,9 @@ var heroWeaponSlot = -1;
 // Hero weapon name
 var heroWeaponName = "";
 
+// SFX volume when hit hero
+hitHeroVolume = 0.1;
+
 // *********** MESSAGE SECTION ***********
 // adsGame.messageShowing = false; 
 
@@ -231,6 +234,9 @@ var ads_resources =
    {name: "badanswer", type: "audio",  src: "content/sfx/", channel: 2},
    {name: "evillaugh", type: "audio",  src: "content/sfx/", channel: 2},
    {name: "redeyeshide", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "mandying", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "dragondie", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "teleport", type: "audio",  src: "content/sfx/", channel: 2},      
    
 	// ---- Enemies ----
 	{name: "dragon_lvl_01", type: "image",  src: ads_sprites_path + "dragon_lvl_01.png"},
