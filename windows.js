@@ -114,7 +114,7 @@ adsGame.Shop =  Object.extend({
         if ( !showingShop ){
             
             // play a "shopbells" sound
-            me.audio.play("shopbells");
+            me.audio.play("shopbells" , false , null , 0.3);
         
             var $itemsBoxHtml = ('<img class="npcImage" src="" alt="">' + 
                                 '<div class="shopName"></div>' +
@@ -614,6 +614,9 @@ adsGame.QuestionQuest =  Object.extend({
         if ( rightAnswer === heroAnswer) {
             // console.log("You are the best right answer...");
             
+            // play a "goodanswer" sound
+            me.audio.play("goodanswer");
+            
             // Put a star on hero
             this.putStar ( this.rightAnswers , 'Hero' );
             
@@ -635,7 +638,10 @@ adsGame.QuestionQuest =  Object.extend({
         }else{
             // console.log("Try again wrong answer...");
             
-            // Put a star on hero
+            // play a "badanswer" sound
+            me.audio.play("badanswer");
+        
+            // Put a star on npc
             this.putStar ( this.wrongAnswer , 'Npc' );
             
             // Count another right answer
@@ -694,9 +700,14 @@ adsGame.QuestionQuest =  Object.extend({
         
         // console.log("And the winner is:" , winner);
         if ( winner == "Hero"){
+            // play a "redeyeshide" sound
+            me.audio.play("redeyeshide");
             // Message to player
             this.heroDecision( 'heroWinChallenge' );
         }else{
+            // play a "evillaugh" sound
+            me.audio.play("evillaugh");
+            
             // Message to player
             this.heroDecision( 'acceptChallengeAgain' );
         }

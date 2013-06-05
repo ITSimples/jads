@@ -315,9 +315,13 @@ function hideQuestionLayer(answer)
 	if(answer == 'C')
 	{
 		answerResult =  language.system.TRcongratulations + language.system.TRgoodCorrectAnswer;
+		// play a "goodanswer" sound
+        me.audio.play("goodanswer");
 	}else if(answer == 'W')
 	{
 		answerResult = language.system.TRbadWrongAnswer;
+		// play a "badanswer" sound
+        me.audio.play("badanswer");
 	}
 	else{		
 		answerResult = language.system.TRtryAgainAnswer;

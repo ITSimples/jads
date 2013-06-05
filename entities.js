@@ -262,7 +262,7 @@ var HeroEntity = me.ObjectEntity.extend({
 		        this.walkSound = true;
                 me.audio.play("herowalk",false, (function(){
                     this.walkSound = false;
-                }).bind(this) , 0.1);
+                }).bind(this) , 0.2);
             }
 
 		}
@@ -775,6 +775,9 @@ var TriggerEntity = me.ObjectEntity.extend({
 		
 		//  Show message and play sound only one timw when hero does'nt have the door key
 		this.oneTimeSoundMessage = false;
+		
+		// Check requirement if exists only one time
+		this.checkRequirementOne = false;
 	},
 
 	update : function (){
@@ -892,12 +895,18 @@ var TriggerEntity = me.ObjectEntity.extend({
                         msgDataReq.msgName = language.system.TRmessage;
                         msgDataReq.msg = language.triggers[this.triggerData.requirementMsg]; 
                         
-				        if (typeof this.triggerData.requirement.salvarPrisao !== "undefined"){
+				        if (typeof this.triggerData.requirement.salvarPrisao !== "undefined" && !this.checkRequirementOne ){
+				            
+				            this.checkRequirementOne = true;
+				            
 				            var self = this;
 				            // var reqSavePrisionerLenght = Object.keys( this.triggerData.requirement.salvarPrisao ).length ;
 				            var addAnd ="";
 				            var isFree = false;
 				            var allFree = true;
+				            
+                            // play a "doorlockmessage" sound
+                            me.audio.play("doorlockmessage");
 				            
 				            $.each( this.triggerData.requirement.salvarPrisao, function( i , data ) {
 				                // TODO - Must check if hero save the prisoners before				                
@@ -1056,7 +1065,11 @@ var TriggerEntity = me.ObjectEntity.extend({
                     // msgShowing = false;
             // }
 			
+			// Play sound only one time
 			this.oneTimeSoundMessage = false;
+			
+			// Check Trigger requirement only one time
+			this.checkRequirementOne = false;
 			
 			// Reset check for items
 			this.isChecked = false;

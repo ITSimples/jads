@@ -87,7 +87,7 @@ var heroVelocity = 3;
 
 var itemLucky = 15;
 
-var startHero = [10,45];
+var startHero = [45,8];
 
 var heroHealth = 10;
 
@@ -223,7 +223,14 @@ var ads_resources =
    {name: "hmmquestionmale", type: "audio",  src: "content/sfx/", channel: 2},
    {name: "openchest", type: "audio",  src: "content/sfx/", channel: 2},
    {name: "dragonbreath", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "dragonborn", type: "audio",  src: "content/sfx/", channel: 2},   
+   {name: "dragonborn", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "icestaff", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "bombs", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "sword", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "goodanswer", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "badanswer", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "evillaugh", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "redeyeshide", type: "audio",  src: "content/sfx/", channel: 2},
    
 	// ---- Enemies ----
 	{name: "dragon_lvl_01", type: "image",  src: ads_sprites_path + "dragon_lvl_01.png"},
