@@ -218,6 +218,9 @@ var NpcEntity = me.ObjectEntity.extend({
         this.npcEvents = this.npcData.evento;
 
         this.npcEscapeEvents = this.npcData.eventoFuga;
+        
+        // Initialize hello sound
+        this.helloSound = false;
 
         //Check NPC movement
         if (this.npcData.tipoMovimento == "path") {

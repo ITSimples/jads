@@ -37,7 +37,8 @@ var adsGame =
 { 
 	// Inicializar o Jogo
 	onload:function()
-	{    //Define hero language
+	{  
+	    //Define hero language
 	    // Testing multilingual feature
         // language.system = adsLangData.portuguese;
         
@@ -64,10 +65,16 @@ var adsGame =
         
 	    
 		//Inicializar resolu��o e teste se browser suporta o jogo
-		if( !me.video.init('adsGame',ads_width,ads_height,true,1.0) ){
+		if( !me.video.init('adsGame',ads_width,ads_height,true,1.0,false) ){
 			alert( language.system.TRbrowserInf );
 			return;
 		}
+		
+        // Initialize loading screen.
+        adsGame.showLogo(function () {
+            me.state.set(me.state.LOADING, new adsGame.LoadScreen());
+            me.state.change(me.state.LOADING);
+        });
 
 		//Inicializar formato de m�sica a utilizar
 		me.audio.init("mp3,ogg");
@@ -82,7 +89,7 @@ var adsGame =
 		//me.loader.preload(ads_resources);
 		
 		//Mudar estado para ecr� de carregamento do jogo. 
-		me.state.change(me.state.LOADING);
+		// me.state.change(me.state.LOADING);
 		
 		// ************ Configura��es de DEBUG *************
 		//Ver caixa de colis�o

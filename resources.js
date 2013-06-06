@@ -91,7 +91,7 @@ var startHero = [5,5];
 
 var heroHealth = 10;
 
-var DEBUG_MODE = true;
+var DEBUG_MODE = false;
 
 // Give item to hero to start in debug mode
 var giveItemDebug = "manuscrito";

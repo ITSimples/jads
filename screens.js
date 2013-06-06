@@ -57,31 +57,65 @@ var TileScreen = me.ScreenObject.extend(
         
         // Add background music
         // play the audio track
-        // me.audio.playTrack("cornfields");
-//         
-        // // Enable/Disable music
-        // $("#sound_button").click(function() {
-            // // play a "buttonclick" sound
-            // me.audio.play("buttonclick");
-          // if ( backgroundMusic ){
-            // $("#sound_button").attr({ src: "content/gui/no_sound.png" });
-            // me.audio.muteAll();
-            // backgroundMusic = false;
-          // }else{
-            // $("#sound_button").attr({ src: "content/gui/sound.png" });
-            // me.audio.unmuteAll();
-            // backgroundMusic = true;
-          // }
-        // });
+         if ( backgroundMusic ){
+                me.audio.playTrack("cornfields");
+         }
+        
+        // Enable/Disable music
+        $("#music_button").click(function() {
+            // play a "buttonclick" sound
+            me.audio.play("buttonclick");
+          if ( backgroundMusic ){
+            $("#music_button").attr({ src: "content/gui/musicoff.png" });
+            me.audio.pauseTrack();
+            backgroundMusic = false;
+          }else{
+            $("#music_button").attr({ src: "content/gui/musicon.png" });
+            me.audio.resumeTrack();
+            backgroundMusic = true;
+          }
+        });
+        
+        console.log("backgroundMusic:", backgroundMusic );
+        
+        // Enable/Disable sfx
+        $("#sfx_button").click(function() {
+        // play a "buttonclick" sound
+        me.audio.play("buttonclick");
+            
+          if ( backgroundMusic ){
+            $("#sfx_button").attr({ src: "content/gui/sfxiconoff.png" });
+            me.audio.muteAll();
+            backgroundMusic = false;
+          }else{
+            $("#sfx_button").attr({ src: "content/gui/sfxiconon.png" });
+            me.audio.unmuteAll();
+            backgroundMusic = true;
+          }
+        });        
         
         // DEBUG - Remove sound while working
         // me.audio.muteAll();
+        
+
 	},
 	// update function
     update: function() {
-		if (me.input.isKeyPressed('enter')) {
-			me.state.change(me.state.PLAY);
-		}
+        
+        if (me.input.isKeyPressed('enter')) {
+            me.state.change(me.state.PLAY);
+        }
+        
+        // To avoid music play when window lost focus and music disabled
+        me.state.resume = function () { 
+            if ( !backgroundMusic ){
+                me.audio.pauseTrack();
+            }else{
+                me.audio.resumeTrack();
+            }
+        };
+        
+
 	},
 	
 	draw: function(context)
@@ -153,7 +187,7 @@ var PlayScreen = me.ScreenObject.extend(
 
 	update: function () 
 	{
-		
+
 	},
 
 	onDestroyEvent: function()
@@ -167,3 +201,93 @@ var PlayScreen = me.ScreenObject.extend(
 // **************************
 // **** Fim Ecrã de jogo ****
 // **************************
+
+// ************************
+// **** Loading Screen ****
+// ************************
+
+adsGame.showLogo = function showLogo(callback) {
+    adsGame.showLogo = new Image();
+    adsGame.showLogo.onload = callback;
+    adsGame.showLogo.src ='content/images/itsimpleslogo.png';
+}
+
+adsGame.LoadScreen = me.ScreenObject.extend({
+    "init" : function () {
+        this.parent(true);
+
+        // Create a new scaled image
+        var img = adsGame.showLogo;
+        
+        this.scale = Math.round(Math.min(
+                ads_width / img.width / 3,
+                ads_height / img.height / 3
+            ));
+            
+        this.logo = img ;
+
+        // The invader just happens to be at x:8 and 8x8 px
+        this.size = this.scale * 8;
+
+        // Flag to cause a redraw
+        this.invalidate = false;
+
+        // Handler for loading status bar
+        this.handler = null;
+
+        // Loading progress percentage
+        this.loadPercent = 0;
+    },
+
+    "onResetEvent" : function onResetEvent() {
+        this.handler = me.event.subscribe(
+            me.event.LOADER_PROGRESS, this.onProgressUpdate.bind(this)
+        );
+    },
+
+    "onDestroyEvent" : function onDestroyEvent() {
+        me.event.unsubscribe(this.handler);
+    },
+
+    "onProgressUpdate" : function onProgressUpdate(progress) {
+        this.loadPercent = progress;
+        this.invalidate = true;
+    },
+
+    "update" : function update() {
+        if (this.invalidate) {
+            this.invalidate = false;
+            return true;
+        }
+
+        return false;
+    },
+
+    "draw" : function draw(context) {
+        var img = this.logo,
+            x = (ads_width - img.width) / 2,
+            y = (ads_height - img.height) / 2;
+
+        me.video.clearSurface(context, "#000");
+
+        // Draw logo
+        context.drawImage(
+            this.logo,
+            x = (ads_width - img.width) / 2,
+            y = (ads_height - img.height) / 2
+        );
+
+        // Draw progress bar
+        var progress = Math.floor(this.loadPercent * ads_width) / 10;
+        var canvas = me.video.getScreenCanvas();
+        
+        console.log ("progress:", progress, context);
+        drawCanvas(progress, canvas ,  context);
+        
+        // context.fillStyle = "#fff";
+        // context.fillRect(2, y + this.scale * 11, progress - 4, 4);
+    }
+});
+// ****************************
+// **** End Loading Screen ****
+// ****************************

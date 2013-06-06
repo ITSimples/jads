@@ -178,7 +178,7 @@ var HeroEntity = me.ObjectEntity.extend({
 
 			this.vel.x = -this.accel.x * me.timer.tick;
 			this.renderable.setCurrentAnimation('left');
-			this.direction = 'left';			
+			this.direction = 'left';
 		}
 		else if (me.input.isKeyPressed('right'))
 		{
