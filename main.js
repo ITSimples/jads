@@ -128,8 +128,11 @@ var adsGame =
     
 	loaded:function()
 	{
+	    var STATE_LOGO_ANIMATION = me.state.USER + 0;
+	    
 		// Definir estado Menu 
 		me.state.set(me.state.MENU,new TileScreen());
+		me.state.set(me.state.STATE_LOGO_ANIMATION,new adsGame.logoAnimationScreen());
 		
 		// Definir estado jogo 
 		me.state.set(me.state.PLAY,new PlayScreen());		
@@ -175,7 +178,8 @@ var adsGame =
         me.input.bindMouse(me.input.mouse.LEFT, me.input.KEY.SPACE);
 		
 		// Iniciar o jogo com o Menu
-        me.state.change(me.state.MENU);
+		// me.state.change(me.state.MENU);
+        me.state.change(me.state.STATE_LOGO_ANIMATION);
 		
 		// Debug Mode
 		//me.state.change(me.state.PLAY);

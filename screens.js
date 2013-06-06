@@ -101,21 +101,20 @@ var TileScreen = me.ScreenObject.extend(
 	},
 	// update function
     update: function() {
-        
-        if (me.input.isKeyPressed('enter')) {
-            me.state.change(me.state.PLAY);
+        // To avoid music play when window lost focus and music disabled
+        if ( !backgroundMusic ){
+            me.audio.pauseTrack();
+        }else{
+            me.audio.resumeTrack();
         }
         
-        // To avoid music play when window lost focus and music disabled
-        me.state.resume = function () { 
-            if ( !backgroundMusic ){
-                me.audio.pauseTrack();
-            }else{
-                me.audio.resumeTrack();
-            }
-        };
-        
-
+        if (me.input.isKeyPressed('enter')) {
+            // TODO - Make this to all screens and fadein and out
+            me.game.viewport.fadeIn("#000", 500, function () {
+                me.state.change(me.state.PLAY);
+            });
+            
+        }
 	},
 	
 	draw: function(context)
@@ -278,7 +277,7 @@ adsGame.LoadScreen = me.ScreenObject.extend({
         );
 
         // Draw progress bar
-        var progress = Math.floor(this.loadPercent * ads_width) / 10;
+        var progress = Math.floor((this.loadPercent * ads_width)/10) ;
         var canvas = me.video.getScreenCanvas();
         
         console.log ("progress:", progress, context);
@@ -286,6 +285,54 @@ adsGame.LoadScreen = me.ScreenObject.extend({
         
         // context.fillStyle = "#fff";
         // context.fillRect(2, y + this.scale * 11, progress - 4, 4);
+    }
+});
+// ****************************
+// **** End Loading Screen ****
+// ****************************
+
+
+// ************************
+// **** Loading Screen 2 ****
+// ************************
+
+adsGame.logoAnimationScreen = me.ScreenObject.extend({
+    "init" : function () {
+        this.parent(true);
+
+        // Create a new scaled image
+        var img = adsGame.showLogo;
+        
+            
+        this.logo = img ;
+
+    },
+
+    "onResetEvent" : function onResetEvent() {
+        // play a "logo" sound
+        me.audio.play("logo");
+        me.game.viewport.fadeIn("#000", 3000, function () {
+                me.state.change(me.state.MENU);
+        });
+    },
+
+    "onDestroyEvent" : function onDestroyEvent() {
+
+    },
+
+
+    "update" : function update() {
+
+    },
+
+    "draw" : function draw(context) {
+        me.video.clearSurface(context, "#000");
+        // Draw logo
+        context.drawImage(
+            this.logo,
+            x = (ads_width - this.logo.width) / 2,
+            y = (ads_height - this.logo.height) / 2
+        );
     }
 });
 // ****************************

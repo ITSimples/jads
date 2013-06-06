@@ -236,7 +236,8 @@ var ads_resources =
    {name: "redeyeshide", type: "audio",  src: "content/sfx/", channel: 2},
    {name: "mandying", type: "audio",  src: "content/sfx/", channel: 2},
    {name: "dragondie", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "teleport", type: "audio",  src: "content/sfx/", channel: 2},      
+   {name: "teleport", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "logo", type: "audio",  src: "content/sfx/", channel: 2},
    
 	// ---- Enemies ----
 	{name: "dragon_lvl_01", type: "image",  src: ads_sprites_path + "dragon_lvl_01.png"},
