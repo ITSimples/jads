@@ -22,9 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-
 // **********************
-// **** Ecrã inicial ****
+// **** Ecrã inicial - Menu****
 // **********************
 var TileScreen = me.ScreenObject.extend(
 {
@@ -36,9 +35,6 @@ var TileScreen = me.ScreenObject.extend(
 		// Configurar fontes usadas no ecrã inicial - fonte,tamanho,cor,alinhamento
 		this.txtMedievalSharp = new me.Font("MedievalSharp",18,"white","right");
 		this.txtDevonshire = new me.Font("Devonshire",32,"red","left");
-		
-		// ----- Set DIV width to fit the inventory, message and question box
-        $('#adsGame').css("width", ads_width);
         // Disable right click mouse
         $('#adsGame').bind("contextmenu",function(e){
             e.preventDefault();
@@ -49,7 +45,8 @@ var TileScreen = me.ScreenObject.extend(
 	{
 		if(this.title == null)
 		{
-			this.title = me.loader.getImage("initialscreen");
+			this.title = new me.ImageLayer("initialscreen", 800, 520, "initialscreen",1, 1);
+			// this.title = me.loader.getImage("initialscreen");
 		}
 				
 		// Provisório até fazer menu (Para entra no jogo)
@@ -96,7 +93,13 @@ var TileScreen = me.ScreenObject.extend(
         
         // DEBUG - Remove sound while working
         // me.audio.muteAll();
-        
+
+         // add the object at pos (10,10), z index 4
+        me.game.add(this.title,1);
+                
+         // add the object at pos (10,10), z index 4
+        me.game.add((new myButton(350,5)),2);
+        me.game.sort.defer();
 
 	},
 	// update function
@@ -119,13 +122,17 @@ var TileScreen = me.ScreenObject.extend(
 	
 	draw: function(context)
 	{		
-		context.drawImage(this.title,0,0);
-		this.txtDevonshire.draw(context,"<ENTER> " + language.system.TRmenuBeginGame,400,150);
+		// context.drawImage(this.title,0,0);
+		
+		// this.txtDevonshire.draw(context,"<ENTER> " + language.system.TRmenuBeginGame,400,150);
+		this.txtDevonshire.draw(context,"Creditos",450,170);
+		console.log("Tile menu. How many times...")
 	},
 });
 
+
 // **************************
-// **** Fim Ecrã inicial ****
+// **** Fim Ecrã inicial  - Menu****
 // **************************
 
 // **********************
@@ -150,8 +157,6 @@ var PlayScreen = me.ScreenObject.extend(
 		
 		var hudLive = new HUDLive(ads_HUD_X_Position ,ads_HUD_Y_Position);
 
-
-		
 		var hudKnowledge = new HUDKnowledge( hudLive.hudLength() + 
 											(hudSpace * 1),ads_HUD_Y_Position);
 		var hudVelocity = new HUDVelocity(	hudLive.hudLength() + 
@@ -181,12 +186,18 @@ var PlayScreen = me.ScreenObject.extend(
 		$('#adsGame').css('cursor', "url('content/gui/point_cur.cur'),crosshair");
 		//Config mouse cursor over inventory div with jquery
 		$('#inventoryLayer').css('cursor', "url('content/gui/inv_cur.gif'),pointer");
-		// me.loader.getImage("sparkle")
+		// me.loader.getImage("sparkle")		
 	},
 
 	update: function () 
 	{
-
+        // To avoid music play when window lost focus and music disabled
+        if ( !backgroundMusic ){
+            me.audio.pauseTrack();
+        }else{
+            me.audio.resumeTrack();
+        }
+        // console.log("backgroundMusic:", backgroundMusic);
 	},
 
 	onDestroyEvent: function()
@@ -214,6 +225,9 @@ adsGame.showLogo = function showLogo(callback) {
 adsGame.LoadScreen = me.ScreenObject.extend({
     "init" : function () {
         this.parent(true);
+        
+        // ----- Set DIV width to fit the inventory, message and question box
+        $('#adsGame').css("width", ads_width);
 
         // Create a new scaled image
         var img = adsGame.showLogo;
@@ -267,7 +281,7 @@ adsGame.LoadScreen = me.ScreenObject.extend({
             x = (ads_width - img.width) / 2,
             y = (ads_height - img.height) / 2;
 
-        me.video.clearSurface(context, "#000");
+        me.video.clearSurface(context, "white");
 
         // Draw logo
         context.drawImage(
@@ -279,8 +293,7 @@ adsGame.LoadScreen = me.ScreenObject.extend({
         // Draw progress bar
         var progress = Math.floor((this.loadPercent * ads_width)/10) ;
         var canvas = me.video.getScreenCanvas();
-        
-        console.log ("progress:", progress, context);
+
         drawCanvas(progress, canvas ,  context);
         
         // context.fillStyle = "#fff";
@@ -326,7 +339,7 @@ adsGame.logoAnimationScreen = me.ScreenObject.extend({
     },
 
     "draw" : function draw(context) {
-        me.video.clearSurface(context, "#000");
+        me.video.clearSurface(context, "white");
         // Draw logo
         context.drawImage(
             this.logo,

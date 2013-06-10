@@ -87,7 +87,7 @@ var heroVelocity = 3;
 
 var itemLucky = 15;
 
-var startHero = [5,5];
+var startHero = [45,8];
 
 var heroHealth = 10;
 
@@ -199,8 +199,9 @@ var ads_resources =
 	// *** Map 01 ***
 	{name: "map01", type: "tmx", src: "content/maps/map01.tmx"},
 	
-	// ---- Imagens ----
+	// ---- Imagens GUI ----
 	{name: "initialscreen",type: "image",src: ads_images_path + "initialscreen.png"},
+	{name: "menubutton",type: "image",src: ads_images_gui + "menubutton.png"},
 	
 	// ---------------------------- AUDIO ------------------------------------------------------
 	//---- Music ----

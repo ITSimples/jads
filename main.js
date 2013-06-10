@@ -70,12 +70,6 @@ var adsGame =
 			return;
 		}
 		
-        // Initialize loading screen.
-        adsGame.showLogo(function () {
-            me.state.set(me.state.LOADING, new adsGame.LoadScreen());
-            me.state.change(me.state.LOADING);
-        });
-
 		//Inicializar formato de m�sica a utilizar
 		me.audio.init("mp3,ogg");
 		
@@ -85,6 +79,12 @@ var adsGame =
 		// console.log("Loaded... C");
 		//Preparar todos os recursos do jogo
 		me.loader.preload(ads_resources.concat(load_ads_items));
+		
+		// Initialize loading screen.
+        adsGame.showLogo(function () {
+            me.state.set(me.state.LOADING, new adsGame.LoadScreen());
+            me.state.change(me.state.LOADING);
+        });
 
 		//me.loader.preload(ads_resources);
 		
@@ -135,7 +135,7 @@ var adsGame =
 		me.state.set(me.state.STATE_LOGO_ANIMATION,new adsGame.logoAnimationScreen());
 		
 		// Definir estado jogo 
-		me.state.set(me.state.PLAY,new PlayScreen());		
+		me.state.set(me.state.PLAY,new PlayScreen(true));		
 
 		// Configurar entidades do mapasw
 		// Class HeroEntity em entities
@@ -644,4 +644,27 @@ $( function(){
          console.log("Questions Loaded..", adsQtnData);
     
     });
+});
+
+// create a basic GUI Object
+var myButton = me.GUI_Object.extend(
+{   
+   init:function(x, y)
+   {
+      settings = {}
+      settings.image = "menubutton";
+      settings.spritewidth = 298;
+      settings.spriteheight = 69;
+      // parent constructor
+      this.parent(x, y, settings);
+   },
+    
+   // output something in the console
+   // when the object is clicked
+   onClick:function()
+   {
+      console.log("clicked!");
+      // don't propagate the event
+      return true;
+   }
 });
