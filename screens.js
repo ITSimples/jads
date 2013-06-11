@@ -34,11 +34,20 @@ var TileScreen = me.ScreenObject.extend(
 		this.title = null;
 		// Configurar fontes usadas no ecrã inicial - fonte,tamanho,cor,alinhamento
 		this.txtMedievalSharp = new me.Font("MedievalSharp",18,"white","right");
-		this.txtDevonshire = new me.Font("Devonshire",32,"red","left");
+		this.txtDevonshire = new me.Font("Devonshire",28,"brown","left");
         // Disable right click mouse
         $('#adsGame').bind("contextmenu",function(e){
             e.preventDefault();
         });
+        
+        this.menuButtons = [
+            {"text": "Play", "target":"playScreen" , "pos":{"x": 440 , "y" : 5}},
+            {"text": "Story", "target":"storyScreen" , "pos":{"x": 440 , "y" : 57}},
+            {"text": "Help", "target":"instructionsScreen" , "pos":{"x": 440 , "y" : 109}},
+            {"text": "Credits", "target":"creditsScreen" , "pos":{"x": 440 , "y" : 161}}
+        ];
+        
+        this.drawOneTime = false;
 	},
 	
 	onResetEvent: function()
@@ -70,7 +79,7 @@ var TileScreen = me.ScreenObject.extend(
             $("#music_button").attr({ src: "content/gui/musicon.png" });
             me.audio.resumeTrack();
             backgroundMusic = true;
-          }
+          }this.drawOneTime = true;
         });
         
         console.log("backgroundMusic:", backgroundMusic );
@@ -96,9 +105,15 @@ var TileScreen = me.ScreenObject.extend(
 
          // add the object at pos (10,10), z index 4
         me.game.add(this.title,1);
-                
-         // add the object at pos (10,10), z index 4
-        me.game.add((new myButton(350,5)),2);
+         
+         // TODO - Make Function MENU***************
+         // add four buttons, z index 2
+
+
+         $.each(this.menuButtons , function(i,data){
+             me.game.add((new myButton( data.pos.x , data.pos.y , data.target, data.text)),2);
+         });
+        
         me.game.sort.defer();
 
 	},
@@ -111,23 +126,16 @@ var TileScreen = me.ScreenObject.extend(
             me.audio.resumeTrack();
         }
         
-        if (me.input.isKeyPressed('enter')) {
-            // TODO - Make this to all screens and fadein and out
-            me.game.viewport.fadeIn("#000", 500, function () {
-                me.state.change(me.state.PLAY);
-            });
-            
-        }
-	},
-	
-	draw: function(context)
-	{		
-		// context.drawImage(this.title,0,0);
-		
-		// this.txtDevonshire.draw(context,"<ENTER> " + language.system.TRmenuBeginGame,400,150);
-		this.txtDevonshire.draw(context,"Creditos",450,170);
-		console.log("Tile menu. How many times...")
-	},
+        // if (me.input.isKeyPressed('enter')) {
+            // // TODO - Make this to all screens and fadein and out
+            // me.game.viewport.fadeIn("#000", 500, function () {
+                // me.state.change(me.state.PLAY);
+            // });
+//             
+        // }
+        // console.log("Menu screen update...");
+        return true;
+	}
 });
 
 

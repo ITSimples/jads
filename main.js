@@ -649,22 +649,112 @@ $( function(){
 // create a basic GUI Object
 var myButton = me.GUI_Object.extend(
 {   
-   init:function(x, y)
+   init:function(x, y , target , text)
    {
       settings = {}
       settings.image = "menubutton";
-      settings.spritewidth = 298;
-      settings.spriteheight = 69;
+      settings.spritewidth = 165;
+      settings.spriteheight = 52;
       // parent constructor
       this.parent(x, y, settings);
+      
+      this.mouseover = false;
+      
+      this.mouseCoordinates = new me.Vector2d();
+      
+      this.target = target;
+      
+      this.text = text;
+            
+      // Register the hover event
+      me.input.registerMouseEvent('mousemove', this, this.hover.bind(this));
+      
+      this.txtDevonshire = new me.Font("Devonshire",28,"white","left");
+
    },
+    
+    hover: function () {
+          //Keep mouse coordinates
+          this.mouseCoordinates = new me.Vector2d(me.input.mouse.pos.x,me.input.mouse.pos.y);
+    },
     
    // output something in the console
    // when the object is clicked
    onClick:function()
    {
-      console.log("clicked!");
+      // don't propagate the event
+      console.log("this.target:", this.target );
+      if ( this.target == "playScreen"){
+            // TODO - Make this to all screens and fadein and out
+            me.game.viewport.fadeIn("#000", 500, function () {
+                me.state.change(me.state.PLAY);
+            });
+      }
+      return false;
+   },
+   
+    update: function () {
+         
+         var testMouseCoordinates = new me.Vector2d(me.input.mouse.pos.x,me.input.mouse.pos.y);
+         
+         //If coordinates not on button mouse leave button
+         if ( objectEquals(this.mouseCoordinates, testMouseCoordinates) ){
+             this.mouseover = true;
+         }else{
+             this.mouseover = false;
+         }
+
+         if (this.mouseover){
+            this.image = me.loader.getImage("menubuttonhover"); 
+        }else{
+            this.image = me.loader.getImage("menubutton"); 
+        }
+        // this.parent(this);
+        return true;
+    },
+    
+        
+   draw:function(context)
+   {
+       this.parent(context);
+       
+       // console.log ("this.text.lenght:", this.text.length)
+       
+       this.txtDevonshire.draw(context,this.text,this.pos.x + (60 - this.text.length) ,this.pos.y + 5);
+       
+   },
+    
+   onDestroyEvent:function()
+   {
+      console.log("Destroy button!");
+      me.input.releaseMouseEvent("mousedown", this);
+      me.input.releaseMouseEvent('mousemove', this);
+      me.game.remove(this);
       // don't propagate the event
       return true;
    }
 });
+
+function objectEquals(x, y) {
+    // if both are function
+    if (x instanceof Function) {
+        if (y instanceof Function) {
+            return x.toString() === y.toString();
+        }
+        return false;
+    }
+    if (x === null || x === undefined || y === null || y === undefined) { return x === y; }
+    if (x === y || x.valueOf() === y.valueOf()) { return true; }
+
+    // if one of them is date, they must had equal valueOf
+    if (x instanceof Date) { return false; }
+    if (y instanceof Date) { return false; }
+
+    // if they are not function or strictly equal, they both need to be Objects
+    if (!(x instanceof Object)) { return false; }
+    if (!(y instanceof Object)) { return false; }
+
+    var p = Object.keys(x);
+    return Object.keys(y).every(function (i) { return p.indexOf(i) !== -1; }) ?
+            p.every(function (i) { return objectEquals(x[i], y[i]); }) : false;
+}
