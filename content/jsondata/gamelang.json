@@ -45,7 +45,11 @@
             "TRno":"Não",
             "TRcongratulations":"Muitos parabéns.",
             "TRresume":"Continuar",
-            "TRquestionsTheme":"Tema"
+            "TRquestionsTheme":"Tema",
+           "TRmenuPlay":"Jogar",
+           "TRmenuStory":"História",
+           "TRmenuHelp":"Ajuda",
+           "TRmenuCredits":"Créditos"
         },
         "english":{
             "TRgameName": "Knowledge Adventure",
@@ -90,7 +94,11 @@
             "TRno":"No",
             "TRcongratulations":"Congratulations.",
             "TRresume":"Resume",
-            "TRquestionsTheme":"Theme"           
+            "TRquestionsTheme":"Theme",
+           "TRmenuPlay":"Play",
+           "TRmenuStory":"Story",
+           "TRmenuHelp":"Help",
+           "TRmenuCredits":"Credits"
         },
         "german":{
         

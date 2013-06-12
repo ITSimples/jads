@@ -38,22 +38,24 @@ var adsGame =
 	// Inicializar o Jogo
 	onload:function()
 	{  
-	    //Define hero language
-	    // Testing multilingual feature
-        // language.system = adsLangData.portuguese;
-        
-        language.system = adsLangData.portuguese;
-        
-        language.items = adsItemsLangData.portuguese;
-        
-        language.npcs = adsNpcLangData.portuguese;
-        
-        language.triggers = adsTriggersLangData.portuguese;
-        
-        //Get Questions to variable with hero language
-        adsQtnData = adsQtnDataAll.portuguese;
-        
-        
+	            
+         if (navigator.userAgent.indexOf('Firefox') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Firefox') + 8)) >= 3.6){//Firefox
+            console.log("Firefox Browser...");
+            gameBrowser = "Firefox";
+         }else if (navigator.userAgent.indexOf('Chrome') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Chrome') + 7).split(' ')[0]) >= 15){//Chrome
+            console.log("Chrome Browser...");
+            gameBrowser = "Chrome";
+         }else if(navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Version') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Version') + 8).split(' ')[0]) >= 5){//Safari
+            console.log("Safari Browser...");
+            gameBrowser = "Safari";
+         }else{
+            console.log("Other Browser...");
+            gameBrowser = "Other";
+         }
+         
+         //Language choose
+         chooseLanguage( "portuguese" );
+         
         //alert(language.system.TRbrowserInf); 
         
         
@@ -671,6 +673,7 @@ var myButton = me.GUI_Object.extend(
       
       this.txtDevonshire = new me.Font("Devonshire",28,"white","left");
 
+      this.playOneTime = false;
    },
     
     hover: function () {
@@ -706,8 +709,14 @@ var myButton = me.GUI_Object.extend(
 
          if (this.mouseover){
             this.image = me.loader.getImage("menubuttonhover"); 
+            // play a "menumouseover" sound
+            if ( !this.playOneTime ){
+                me.audio.play("menumouseover");
+                this.playOneTime = true;
+            }
         }else{
-            this.image = me.loader.getImage("menubutton"); 
+            this.image = me.loader.getImage("menubutton");
+            this.playOneTime = false;
         }
         // this.parent(this);
         return true;
@@ -719,8 +728,11 @@ var myButton = me.GUI_Object.extend(
        this.parent(context);
        
        // console.log ("this.text.lenght:", this.text.length)
+      var correctBrowserFont = 0; 
+       if (gameBrowser == "Firefox")
+        correctBrowserFont = 8;
        
-       this.txtDevonshire.draw(context,this.text,this.pos.x + (60 - this.text.length) ,this.pos.y + 5);
+       this.txtDevonshire.draw(context,language.system[this.text],this.pos.x + (60 - this.text.length) ,this.pos.y + 5 + correctBrowserFont);
        
    },
     
@@ -758,3 +770,21 @@ function objectEquals(x, y) {
     return Object.keys(y).every(function (i) { return p.indexOf(i) !== -1; }) ?
             p.every(function (i) { return objectEquals(x[i], y[i]); }) : false;
 }
+
+function chooseLanguage( lang ) {
+        //Define hero language
+        // Testing multilingual feature
+        // language.system = adsLangData.portuguese;
+        
+        language.system = adsLangData[lang];
+        
+        language.items = adsItemsLangData[lang];
+        
+        language.npcs = adsNpcLangData[lang];
+        
+        language.triggers = adsTriggersLangData[lang];
+        
+        //Get Questions to variable with hero language
+        adsQtnData = adsQtnDataAll[lang];
+}
+        

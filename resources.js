@@ -54,7 +54,7 @@ var ads_items_path='content/sprites/items/';
 var ads_music_path='content/music/';
 var ads_json_files='content/jsondata/';
 var ads_tile_size = 32;
-
+var gameBrowser = "";
 
 /*------------------- 
 HUD Configuration
@@ -240,6 +240,7 @@ var ads_resources =
    {name: "dragondie", type: "audio",  src: "content/sfx/", channel: 2},
    {name: "teleport", type: "audio",  src: "content/sfx/", channel: 2},
    {name: "logo", type: "audio",  src: "content/sfx/", channel: 2},
+   {name: "menumouseover", type: "audio",  src: "content/sfx/", channel: 2},   
    
 	// ---- Enemies ----
 	{name: "dragon_lvl_01", type: "image",  src: ads_sprites_path + "dragon_lvl_01.png"},

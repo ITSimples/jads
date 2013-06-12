@@ -41,13 +41,12 @@ var TileScreen = me.ScreenObject.extend(
         });
         
         this.menuButtons = [
-            {"text": "Play", "target":"playScreen" , "pos":{"x": 440 , "y" : 5}},
-            {"text": "Story", "target":"storyScreen" , "pos":{"x": 440 , "y" : 57}},
-            {"text": "Help", "target":"instructionsScreen" , "pos":{"x": 440 , "y" : 109}},
-            {"text": "Credits", "target":"creditsScreen" , "pos":{"x": 440 , "y" : 161}}
+            {"text": "TRmenuPlay", "target":"playScreen" , "pos":{"x": 437 , "y" : 35}},
+            {"text": "TRmenuStory", "target":"storyScreen" , "pos":{"x": 437 , "y" : 87}},
+            {"text": "TRmenuHelp", "target":"instructionsScreen" , "pos":{"x": 437 , "y" : 139}},
+            {"text": "TRmenuCredits", "target":"creditsScreen" , "pos":{"x": 437 , "y" : 191}}
         ];
-        
-        this.drawOneTime = false;
+
 	},
 	
 	onResetEvent: function()
@@ -59,7 +58,7 @@ var TileScreen = me.ScreenObject.extend(
 		}
 				
 		// Provisório até fazer menu (Para entra no jogo)
-        me.input.bindKey(me.input.KEY.ENTER, "enter", true);
+        // me.input.bindKey(me.input.KEY.ENTER, "enter", true);
         
         // Add background music
         // play the audio track
@@ -79,8 +78,24 @@ var TileScreen = me.ScreenObject.extend(
             $("#music_button").attr({ src: "content/gui/musicon.png" });
             me.audio.resumeTrack();
             backgroundMusic = true;
-          }this.drawOneTime = true;
+          }
         });
+        
+        // Change game Language
+        $("#flag_pt").click(function() {
+            console.log("Change Language to portuguese.");
+            chooseLanguage( "portuguese" );
+            //Init game name
+            $('#msgGameName').html( language.system.TRgameName );
+        }); 
+        
+        $("#flag_en ").click(function() {
+            console.log("Change Language to english.");
+            chooseLanguage( "english" );
+            //Init game name
+            $('#msgGameName').html( language.system.TRgameName );
+        });      
+        
         
         console.log("backgroundMusic:", backgroundMusic );
         
@@ -135,7 +150,17 @@ var TileScreen = me.ScreenObject.extend(
         // }
         // console.log("Menu screen update...");
         return true;
-	}
+	},
+	   onDestroyEvent: function()
+    {
+        // Remove language clicks handler
+        $('#flag_pt').unbind('click');
+        $('#flag_en').unbind('click');
+        
+        //Remove language div not in game
+        $('#flag_pt').remove();
+        $('#flag_en').remove();
+    }
 });
 
 
@@ -332,7 +357,7 @@ adsGame.logoAnimationScreen = me.ScreenObject.extend({
     "onResetEvent" : function onResetEvent() {
         // play a "logo" sound
         me.audio.play("logo");
-        me.game.viewport.fadeIn("#000", 3000, function () {
+        me.game.viewport.fadeIn("#000", 2000, function () {
                 me.state.change(me.state.MENU);
         });
     },
