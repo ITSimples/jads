@@ -44,7 +44,7 @@ var TileScreen = me.ScreenObject.extend(
             {"text": "TRmenuPlay", "target":"playScreen" , "pos":{"x": 437 , "y" : 35}},
             {"text": "TRmenuStory", "target":"storyScreen" , "pos":{"x": 437 , "y" : 87}},
             {"text": "TRmenuHelp", "target":"instructionsScreen" , "pos":{"x": 437 , "y" : 139}},
-            {"text": "TRmenuCredits", "target":"creditsScreen" , "pos":{"x": 437 , "y" : 191}}
+           // {"text": "TRmenuCredits", "target":"creditsScreen" , "pos":{"x": 437 , "y" : 191}}
         ];
 
 	},
@@ -56,6 +56,9 @@ var TileScreen = me.ScreenObject.extend(
 			this.title = new me.ImageLayer("initialscreen", 800, 520, "initialscreen",1, 1);
 			// this.title = me.loader.getImage("initialscreen");
 		}
+		
+		      //Config mouse cursor over game div with jquery
+        $('#adsGame').css('cursor', "url('content/gui/point_cur.cur'),crosshair");
 				
 		// Provisório até fazer menu (Para entra no jogo)
         // me.input.bindKey(me.input.KEY.ENTER, "enter", true);
@@ -63,7 +66,7 @@ var TileScreen = me.ScreenObject.extend(
         // Add background music
         // play the audio track
          if ( backgroundMusic ){
-                me.audio.playTrack("cornfields");
+                me.audio.playTrack("cornfields", 0.5);
          }
         
         // Enable/Disable music
@@ -213,10 +216,7 @@ var PlayScreen = me.ScreenObject.extend(
 		me.game.HUD.addItem("sorte", hudLucky);
 		// HUD border must be last so it is on the bottom
 		// me.game.HUD.addItem("HUDborder", new HUDBorder(0,0));
-		
-		
-		//Config mouse cursor over game div with jquery
-		$('#adsGame').css('cursor', "url('content/gui/point_cur.cur'),crosshair");
+
 		//Config mouse cursor over inventory div with jquery
 		$('#inventoryLayer').css('cursor', "url('content/gui/inv_cur.gif'),pointer");
 		// me.loader.getImage("sparkle")		

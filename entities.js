@@ -995,6 +995,9 @@ var TriggerEntity = me.ObjectEntity.extend({
 						adsGame.heroEntity().pos.x = this.targX * ads_tile_size;
 						adsGame.heroEntity().pos.y = this.targY * ads_tile_size;
 						
+						if ( this.targX == 1 && this.targY == 1)
+						  window.location = "https://docs.google.com/forms/d/17GBoEcrjcjzQ-kKA3o3RG961sBBLRuX4bmu6v1eGPQ8/viewform";
+						
 						//TODO - Fade out /in viewport 
 						me.game.viewport.fadeOut('#000000',1000);
 						

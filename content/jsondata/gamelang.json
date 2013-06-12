@@ -49,11 +49,12 @@
            "TRmenuPlay":"Jogar",
            "TRmenuStory":"História",
            "TRmenuHelp":"Ajuda",
-           "TRmenuCredits":"Créditos"
+           "TRmenuCredits":"Créditos",
+           "TRmenuFullStory": "Há alguns anos no reino da sabedoria imperava a vontade de aprender mais e mais, todos os seus habitantes eram felizes e sábios, como tinham uma educação acima da média tornaram-se o maior império da terra, com o desenvolvimento das suas práticas conseguiam uma mais rápida e eficaz produção.\nO império é governado pelo rei Sophos a sua rainha Maíra e príncipe Sabichão todos eles muito sábios.\nA abundancia no reino criou inveja em reinos vizinhos, e no reino da ignorância o rei Ignora tudo enviou um ladrão raptar o príncipe do reino da sabedoria e prende-lo para chantagear o rei Shopos  pedindo novas terras e ouro.\nO rei Sophos ofereceu o livro da sabedoria eterna para quem salva-se o seu filho das mãos malvadas do rei Ignoratudo. \nAi aparecestes tu um verdadeiro herói com o objetivo de salvar o príncipe Sabichão das garras do malvado ladrão Barba Rija.  "
         },
         "english":{
-            "TRgameName": "Knowledge Adventure",
-            "TRbrowserInf":"Your browser does not support the game * Adventure of knowledge \n Use Firefox, Chrome or IE9 + to play. *",
+            "TRgameName": "Learning Adventure",
+            "TRbrowserInf":"Your browser does not support the game * Adventure of Learning \n Use Firefox, Chrome or IE9 + to play. *",
             "TRnotAnswer":"Do not answer.",
             "TRof":"of",
             "TRwrongAnswer":"Wrong answer you lose",
@@ -98,7 +99,8 @@
            "TRmenuPlay":"Play",
            "TRmenuStory":"Story",
            "TRmenuHelp":"Help",
-           "TRmenuCredits":"Credits"
+           "TRmenuCredits":"Credits",
+           "TRmenuFullStory": "A few years ago in the kingdom of wisdom ruled the desire to learn more and more, all its inhabitants were happy and wise, and had an above average education, so, the kingdom became the greatest empire of the earth, with the development of their practices, they were able to produce more rapid and efficiently.\nThe empire is ruled by King Sophos, his Queen Alison, Prince Wise which are all very wise.\nThe abundance in the kingdom created envy in neighboring kingdoms, and in the kingdom of ignorance, the king Ignoramus sent a thief to abduct the prince from the kingdom of wisdom, arrested him and blackmails the king Sophos in order to obtain new lands and gold.\nThe king Sophos offered the sacred book of eternal wisdom for those who would save his son from the dungeons of the wicked king Ignoramus.\nThen you showed up, a true hero willing to save the prince Wise of the claws of the evil thief Tough Beard."
         },
         "german":{
         

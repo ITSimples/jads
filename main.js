@@ -54,7 +54,7 @@ var adsGame =
          }
          
          //Language choose
-         chooseLanguage( "portuguese" );
+         chooseLanguage("portuguese");
          
         //alert(language.system.TRbrowserInf); 
         
@@ -97,8 +97,12 @@ var adsGame =
 		//Ver caixa de colis�o
 		me.debug.renderHitBox = DEBUG_MODE;
 		
-		//Create message box object
-		// adsGame.message = new adsGame.message();
+		//Create helpwindow box object
+		adsGame.helpwindow = new adsGame.helpwindow();
+		
+		
+		//Create helpwindow box object
+        adsGame.storywindow = new adsGame.storywindow();
 		
 		// New structure for game
 		// adsGame.data = game_data;
@@ -241,12 +245,12 @@ function showQuestionLayer(itemData, adsQtnData)
             $(".r3").css({'top' : 185});
             $(".r0").css({'top' : 205});
         }else{
-            $(".questionText").css({'height': 60});            
+            $(".questionText").css({'height': 65});            
             // console.log("Three Lines...");
-            $(".r1").css({'top' : 163});
-            $(".r2").css({'top' : 183});
-            $(".r3").css({'top' : 203});
-            $(".r0").css({'top' : 223});
+            $(".r1").css({'top' : 165});
+            $(".r2").css({'top' : 185});
+            $(".r3").css({'top' : 205});
+            $(".r0").css({'top' : 225});
         }
 		
 		$('.qtnImage').attr({
@@ -692,7 +696,19 @@ var myButton = me.GUI_Object.extend(
             me.game.viewport.fadeIn("#000", 500, function () {
                 me.state.change(me.state.PLAY);
             });
+      }else if (this.target == "instructionsScreen") {
+          if (!windowMenuOpen){
+            adsGame.helpwindow.show();
+            windowMenuOpen = true;
+          }
+      }else if (this.target == "storyScreen") {
+           if (!windowMenuOpen){
+            adsGame.storywindow.show();
+            windowMenuOpen = true;
+          }
       }
+      
+      adsGame.storywindow
       return false;
    },
    

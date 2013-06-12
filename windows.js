@@ -739,3 +739,156 @@ adsGame.QuestionQuest =  Object.extend({
     }
 });
 
+
+ /**
+ * helpwindow.
+ * @class
+ * @extends 
+ * @constructor
+ * @param msgData (.msgImage, .msgName, .msg)
+ * @example
+ * 
+ */
+ 
+adsGame.helpwindow =  Object.extend({
+    "init" : function init() {
+        this.helpwindowShowing = false;
+
+        console.log('Init helpwindow class...');
+    },
+    "show": function show() {
+            if (!this.helpwindowShowing){
+                 
+                 // Create html in messagelayer DIV
+                var $messageBoxHtml = (
+                    '<div class="instructions"></div>' +
+                    '<img class="helpmove" alt="">' +
+                    '<div class="helpmovetext"></div>' +
+                    '<img class="helpinv"  alt="">' +
+                    '<div class="helpinvtext"></div>' +
+                    '<img class="helpquestion" alt="">'+
+                    '<div class="helpquestiontext"></div>' + 
+                    '<div class="helpclose"></div>');
+                    
+                $('#menuHelpLayer').append($messageBoxHtml);
+                
+                
+                $('.instructions').html( "How to play" );
+                 
+                $('.helpclose').html( "[CLOSE]" );
+                
+                $('.helpclose').bind('click', function( event ) {
+                    console.log("Close event...");
+                    this.hide();
+                }.bind(this));
+
+                $('.helpmovetext').html( "W - Cima <br>S - Baixo <br>A - Esquerda <br>D - Direita <br>Click Mapa-Disparar" );
+
+                $('.helpinvtext').html( "Inventário <br>" +
+                                                    "I - Mostra/Esconde inventário<br>" +
+                                                   "Rato:<br>" +
+                                                   "Duplo Click - Usar items normais<br>" + 
+                                                   "Click - Selecionar arma. <br>" +
+                                                   "Por cima - Item informação. <br>"
+                                                   );
+                $('.helpquestiontext').html( "Respondes às questões <br>" +
+                                                    "Teclas 1-3 <br>" +
+                                                   "Click na resposta<br>");
+                                                                   
+                // $('.helpinvtext').html( "Inventory <br>" +
+                                                    // "I - Show/Hide inventory <br>" +
+                                                   // "Mouse:<br>" +
+                                                   // "Double Click - Use normal items <br>" + 
+                                                   // "Click - Select weapon to  use. <br>" +
+                                                   // "Over - Item information. <br>"
+                                                   // );
+                // $('.helpquestiontext').html( "Answer Questions <br>" +
+                                                    // "1-3 Keys <br>" +
+                                                   // "Mouse click on answer<br>" +
+                                                   // "H - Hide/Show help window");
+                
+                $('#menuHelpLayer').fadeIn( 250);
+                
+                // console.log("Show message...");
+                this.helpwindowShowing = true;
+            }
+    },
+        
+    "hide": function hide() {
+        if (this.helpwindowShowing){
+            $('#menuHelpLayer').fadeOut( 200 , function(){
+                $('.helpclose').unbind('click');
+                //lears all the child divs, but leaves the master intact.
+                $("#menuHelpLayer").children().remove();
+            });
+    
+            // console.log("hide message...");
+            this.helpwindowShowing = false;
+            
+            windowMenuOpen = false;
+        }
+    }
+});
+
+
+ /**
+ * storywindow.
+ * @class
+ * @extends 
+ * @constructor
+ * @param msgData (.msgImage, .msgName, .msg)
+ * @example
+ * 
+ */
+ 
+adsGame.storywindow =  Object.extend({
+    "init" : function init() {
+        this.storywindowShowing = false;
+
+        console.log('Init story window class...');
+    },
+    "show": function show() {
+            if (!this.storywindowShowing){
+                 
+                 // Create html in messagelayer DIV
+                var $messageBoxHtml = (
+                    '<div class="storytitle"></div>' +
+                    '<div class="storytext"></div>' +
+                    '<div class="storyclose"></div>');
+                    
+                $('#menuStoryLayer').append($messageBoxHtml);
+                
+                
+                $('.storytitle').html( "Learning Adventure Story" );
+                 
+                $('.storyclose').html( "[CLOSE]" );
+                
+                $('.storyclose').bind('click', function( event ) {
+                    console.log("Close event...");
+                    this.hide();
+                }.bind(this));
+
+                $('.storytext').html ( language.system.TRmenuFullStory  );
+                
+                $('#menuStoryLayer').fadeIn( 250);
+                
+                // console.log("Show message...");
+                this.storywindowShowing = true;
+            }
+    },
+        
+    "hide": function hide() {
+        if (this.storywindowShowing){
+            $('#menuStoryLayer').fadeOut( 200 , function(){
+                $('.storyclose').unbind('click');
+                //lears all the child divs, but leaves the master intact.
+                $("#menuStoryLayer").children().remove();
+            });
+    
+            // console.log("hide message...");
+            this.storywindowShowing = false;
+            
+            windowMenuOpen = false;
+        }
+    }
+});

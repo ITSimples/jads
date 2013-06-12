@@ -130,6 +130,8 @@ var noItemsData = [];
 // Keep all information about map effects
 var mapEffectsData = [];
 
+var windowMenuOpen = false;
+
  var language =  {};
 
 // To solve problem with messageBox keeping blink - If is collide with a trigger avoid the others to hide message box
