@@ -68,20 +68,25 @@ var TileScreen = me.ScreenObject.extend(
          if ( backgroundMusic ){
                 me.audio.playTrack("cornfields", 0.5);
          }
+         
+        // console.warn('tas a brincar?');
         
         // Enable/Disable music
         $("#music_button").click(function() {
             // play a "buttonclick" sound
             me.audio.play("buttonclick");
-          if ( backgroundMusic ){
-            $("#music_button").attr({ src: "content/gui/musicoff.png" });
-            me.audio.pauseTrack();
-            backgroundMusic = false;
-          }else{
-            $("#music_button").attr({ src: "content/gui/musicon.png" });
-            me.audio.resumeTrack();
-            backgroundMusic = true;
-          }
+            
+            if ( backgroundMusic ){
+                $("#music_button").attr({ src: "content/gui/musicoff.png" });
+                me.audio.pauseTrack();
+                backgroundMusic = false;
+            }else{
+                $("#music_button").attr({ src: "content/gui/musicon.png" });
+                me.audio.resumeTrack();
+                backgroundMusic = true;
+            }
+
+            return false;
         });
         
         // Change game Language
@@ -179,6 +184,10 @@ var PlayScreen = me.ScreenObject.extend(
 
 	onResetEvent: function()
 	{	
+	    
+	    //Pause game on pause
+        me.sys.pauseOnBlur = true;
+	            
 		// Ler o primeiro nível
 		me.levelDirector.loadLevel("map01");
 		
@@ -259,21 +268,15 @@ adsGame.LoadScreen = me.ScreenObject.extend({
     "init" : function () {
         this.parent(true);
         
+        console.log("Init Load screen ...");
         // ----- Set DIV width to fit the inventory, message and question box
         $('#adsGame').css("width", ads_width);
 
         // Create a new scaled image
         var img = adsGame.showLogo;
-        
-        this.scale = Math.round(Math.min(
-                ads_width / img.width / 3,
-                ads_height / img.height / 3
-            ));
-            
+
         this.logo = img ;
 
-        // The invader just happens to be at x:8 and 8x8 px
-        this.size = this.scale * 8;
 
         // Flag to cause a redraw
         this.invalidate = false;
@@ -283,6 +286,11 @@ adsGame.LoadScreen = me.ScreenObject.extend({
 
         // Loading progress percentage
         this.loadPercent = 0;
+        
+        // Disable pause on lost focus because on fade logo screen if lost focus and pause game stop
+        me.sys.pauseOnBlur = false;
+     
+
     },
 
     "onResetEvent" : function onResetEvent() {
@@ -290,11 +298,12 @@ adsGame.LoadScreen = me.ScreenObject.extend({
             me.event.LOADER_PROGRESS, this.onProgressUpdate.bind(this)
         );
     },
-
+    
     "onDestroyEvent" : function onDestroyEvent() {
         me.event.unsubscribe(this.handler);
+        console.log("Destroy LoadScreen");
     },
-
+    
     "onProgressUpdate" : function onProgressUpdate(progress) {
         this.loadPercent = progress;
         this.invalidate = true;
@@ -315,7 +324,6 @@ adsGame.LoadScreen = me.ScreenObject.extend({
             y = (ads_height - img.height) / 2;
 
         me.video.clearSurface(context, "white");
-
         // Draw logo
         context.drawImage(
             this.logo,
@@ -324,13 +332,13 @@ adsGame.LoadScreen = me.ScreenObject.extend({
         );
 
         // Draw progress bar
-        var progress = Math.floor((this.loadPercent * ads_width)/10) ;
+        var progressBar = Math.floor((this.loadPercent * ads_width) / 8) ;
         var canvas = me.video.getScreenCanvas();
-
-        drawCanvas(progress, canvas ,  context);
         
-        // context.fillStyle = "#fff";
-        // context.fillRect(2, y + this.scale * 11, progress - 4, 4);
+        console.log("this.loadPercent" , this.loadPercent);
+        
+        drawCanvas(progressBar, canvas ,  context);
+        
     }
 });
 // ****************************
@@ -349,26 +357,25 @@ adsGame.logoAnimationScreen = me.ScreenObject.extend({
         // Create a new scaled image
         var img = adsGame.showLogo;
         
-            
         this.logo = img ;
-
     },
 
     "onResetEvent" : function onResetEvent() {
         // play a "logo" sound
         me.audio.play("logo");
-        me.game.viewport.fadeIn("#000", 2000, function () {
-                me.state.change(me.state.MENU);
-        });
+        me.game.viewport.fadeIn("#000", 3000, function () {
+               me.state.change(me.state.MENU);
+               me.game.remove(this);
+        }.bind(this));
     },
 
     "onDestroyEvent" : function onDestroyEvent() {
-
+         
     },
 
 
     "update" : function update() {
-
+        return true
     },
 
     "draw" : function draw(context) {

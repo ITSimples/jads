@@ -37,41 +37,33 @@ var adsGame =
 { 
 	// Inicializar o Jogo
 	onload:function()
-	{  
-	            
-         if (navigator.userAgent.indexOf('Firefox') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Firefox') + 8)) >= 3.6){//Firefox
-            console.log("Firefox Browser...");
-            gameBrowser = "Firefox";
-         }else if (navigator.userAgent.indexOf('Chrome') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Chrome') + 7).split(' ')[0]) >= 15){//Chrome
-            console.log("Chrome Browser...");
-            gameBrowser = "Chrome";
-         }else if(navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Version') != -1 && parseFloat(navigator.userAgent.substring(navigator.userAgent.indexOf('Version') + 8).split(' ')[0]) >= 5){//Safari
-            console.log("Safari Browser...");
-            gameBrowser = "Safari";
-         }else{
-            console.log("Other Browser...");
-            gameBrowser = "Other";
-         }
-         
-         //Language choose
-         chooseLanguage("portuguese");
-         
-        //alert(language.system.TRbrowserInf); 
+	{   
+	    if ( userLang.substr(0,2) == "pt"){
+            //Language choose
+            chooseLanguage("portuguese"); 
+        }else{
+            //Language choose
+            chooseLanguage("english"); 
+        }
         
-        
-        //Init title name
-        $( document ).attr("title", language.system.TRgameName);
-        
-        //Init game name
-        $('#msgGameName').html( language.system.TRgameName );
-        
-	    
 		//Inicializar resolu��o e teste se browser suporta o jogo
 		if( !me.video.init('adsGame',ads_width,ads_height,true,1.0,false) ){
 			alert( language.system.TRbrowserInf );
 			return;
 		}
+
+        //Init title name
+        $( document ).attr("title", language.system.TRgameName);
+        
+        //Init game name
+        $('#msgGameName').html( language.system.TRgameName );        
 		
+        // Initialize loading screen.
+        adsGame.showLogo(function () {
+            me.state.set(me.state.LOADING, new adsGame.LoadScreen());
+            me.state.change(me.state.LOADING); 
+        });
+        
 		//Inicializar formato de m�sica a utilizar
 		me.audio.init("mp3,ogg");
 		
@@ -82,12 +74,6 @@ var adsGame =
 		//Preparar todos os recursos do jogo
 		me.loader.preload(ads_resources.concat(load_ads_items));
 		
-		// Initialize loading screen.
-        adsGame.showLogo(function () {
-            me.state.set(me.state.LOADING, new adsGame.LoadScreen());
-            me.state.change(me.state.LOADING);
-        });
-
 		//me.loader.preload(ads_resources);
 		
 		//Mudar estado para ecr� de carregamento do jogo. 

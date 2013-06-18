@@ -5,6 +5,7 @@
         "portuguese":{
             "TRgameName": "Aventura do Saber",
             "TRbrowserInf":"O seu browser não suporta o jogo * Aventura do saber \n Use o Firefox, Chrome ou IE9+ para poder jogar. *",
+            "TRbrowserInfOptimize":"* Este jogo está otimizado para o navegador Chrome, Mozilla Firefox e Safari, pode não funcionar corretamente em outros navegadores. *",
             "TRnotAnswer":"Não responder.",
             "TRof":"de",
             "TRwrongAnswer":"Resposta errada perdes",
@@ -55,6 +56,7 @@
         "english":{
             "TRgameName": "Learning Adventure",
             "TRbrowserInf":"Your browser does not support the game * Adventure of Learning \n Use Firefox, Chrome or IE9 + to play. *",
+            "TRbrowserInfOptimize":"* This game is optimized for the browser Chrome, Mozilla Firefox and Safari may not work correctly on other browsers. *",
             "TRnotAnswer":"Do not answer.",
             "TRof":"of",
             "TRwrongAnswer":"Wrong answer you lose",
