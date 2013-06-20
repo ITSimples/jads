@@ -854,7 +854,8 @@ adsGame.storywindow =  Object.extend({
                 var $messageBoxHtml = (
                     '<div class="storytitle"></div>' +
                     '<div class="storytext"></div>' +
-                    '<div class="storyclose"></div>');
+                    '<div class="storyclose"></div>'+
+                    '<img class="storylogoimage" src = "content/images/menustorylogo.png"></img>');
                     
                 $('#menuStoryLayer').append($messageBoxHtml);
                 
@@ -868,9 +869,21 @@ adsGame.storywindow =  Object.extend({
                     this.hide();
                 }.bind(this));
 
-                $('.storytext').html ( language.system.TRmenuFullStory  );
+                //Make html space lines
+                // <p style='padding-bottom:170px'> </p>
+
+                $('.storytext').html ( "<img src = '"+ ads_images_path + "storyimage.png'>" + language.system.TRmenuFullStory  );
                 
+                            // CSS for the new star
+                $(".storylogoimage").css({
+                    "border-style" : "none"
+                });   
+            
                 $('#menuStoryLayer').fadeIn( 250);
+                
+                $('.storytext').animate({
+                scrollTop: 850}, 70000,    function(){  $('.storytext').animate({
+                scrollTop: -850}, 70000); });
                 
                 // console.log("Show message...");
                 this.storywindowShowing = true;

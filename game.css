@@ -952,27 +952,29 @@
 
 #menuStoryLayer .storytitle {
     position: absolute;
-    top: 55px;
-    left: 60px;
-    width: 300px;
+    top: 65px;
+    left: 75px;
+    width: 280px;
     height: 22px;
     font-size: 22px;
-    color : #764F00;
+    color: #764F00;
     overflow: hidden;
-    z-index:1;
+    z-index: 1;
+    text-align: center;
 }
 
 
 #menuStoryLayer .storytext {
     position: absolute;
-    top: 85px;
-    left: 60px;
-    width: 328px;
-    height: 500px;
-    font-size: 15px;
-    color : #F0F0E0;
+    top: 95px;
+    left: 75px;
+    width: 280px;
+    height: 218px;
+    font-size: 18px;
+    color: #F0F0E0;
     overflow: hidden;
-    z-index:1;
+    z-index: 1;
+    text-align: justify;
 }
 
 #menuStoryLayer .storyclose {
@@ -986,6 +988,14 @@
     overflow: hidden;
     font-weight:bold;
     z-index:1;
+}
+
+#menuStoryLayer img.storylogoimage {
+    position: absolute;
+    bottom: 118px;
+    left: 130px;
+    width: 200px;
+    height: 118px;
 }
 /* End Menu Help layer configuration */
 

@@ -172,7 +172,7 @@ var adsGame =
 		// Iniciar o jogo com o Menu
 		// me.state.change(me.state.MENU);
         me.state.change(me.state.STATE_LOGO_ANIMATION);
-		
+        
 		// Debug Mode
 		//me.state.change(me.state.PLAY);
 	}
@@ -713,7 +713,7 @@ var myButton = me.GUI_Object.extend(
             this.image = me.loader.getImage("menubuttonhover"); 
             // play a "menumouseover" sound
             if ( !this.playOneTime ){
-                me.audio.play("menumouseover");
+                me.audio.play("menumouseover",false, null, 0.7);
                 this.playOneTime = true;
             }
         }else{

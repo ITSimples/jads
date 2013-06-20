@@ -202,6 +202,7 @@ var ads_resources =
 	
 	// ---- Imagens GUI ----
 	{name: "initialscreen",type: "image",src: ads_images_path + "initialscreen.png"},
+	// {name: "storyimage",type: "image",src: ads_images_path + "storyimage.png"},
 	{name: "menubutton",type: "image",src: ads_images_gui + "menubutton.png"},
 	{name: "menubuttonhover",type: "image",src: ads_images_gui + "menubuttonhover.png"},
 	
