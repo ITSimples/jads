@@ -970,7 +970,7 @@
     left: 75px;
     width: 280px;
     height: 218px;
-    font-size: 18px;
+    font-size: 17px;
     color: #F0F0E0;
     overflow: hidden;
     z-index: 1;
@@ -990,12 +990,39 @@
     z-index:1;
 }
 
-#menuStoryLayer img.storylogoimage {
+#menuStoryLayer .storynext {
     position: absolute;
-    bottom: 118px;
-    left: 130px;
-    width: 200px;
-    height: 118px;
+    bottom: 200px;
+    left: 240px;
+    width: 130px;
+    height: 20px;
+    font-size: 18px;
+    color : #008000;
+    overflow: hidden;
+    font-weight:bold;
+    z-index:1;
+}
+
+#menuStoryLayer .fire {
+    position: absolute;
+    bottom: 194px;
+    left: 73px;
+    width: 22px;
+    height: 57px;
+ /*   border:2px solid;
+    border-radius:125px;*/
+    z-index:1;
+    
+}
+
+#menuStoryLayer img.candlefire {
+    position: absolute;
+    bottom: 190px;
+    left: 73px;
+    width: 24px;
+    height: 40px;
+    z-index:2;
+    
 }
 /* End Menu Help layer configuration */
 

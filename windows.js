@@ -854,11 +854,30 @@ adsGame.storywindow =  Object.extend({
                 var $messageBoxHtml = (
                     '<div class="storytitle"></div>' +
                     '<div class="storytext"></div>' +
+                    '<div class="storynext"></div>' +
                     '<div class="storyclose"></div>'+
-                    '<img class="storylogoimage" src = "content/images/menustorylogo.png"></img>');
+                    '<div class="fire"></div>'+
+                    '<img class="candlefire" src = "content/gui/candlefire.png"></img>');
                     
                 $('#menuStoryLayer').append($messageBoxHtml);
                 
+                //Prepare candle fire
+                $('.fire').fire({
+                    speed:20,
+                    maxPow:3,
+                    minPow: 1,
+                    gravity:12,
+                    flameWidth:2,
+                    flameHeight:2,
+                    plasm:false,
+                    fireTransparency:35,
+                    globalTransparency:10,
+                    fadingFlameSpeed:4,
+                    mouseEffect:true,
+                    maxPowZone: "center",
+                    burnBorders: false,
+                    yOffset: 0
+                }); 
                 
                 $('.storytitle').html( "Learning Adventure Story" );
                  
@@ -874,16 +893,29 @@ adsGame.storywindow =  Object.extend({
 
                 $('.storytext').html ( "<img src = '"+ ads_images_path + "storyimage.png'>" + language.system.TRmenuFullStory  );
                 
-                            // CSS for the new star
-                $(".storylogoimage").css({
-                    "border-style" : "none"
-                });   
+                 // CSS for the new star
+                // $(".storylogoimage").css({
+                    // "border-style" : "none"
+                // });   
             
                 $('#menuStoryLayer').fadeIn( 250);
                 
+                // Scroll text down
                 $('.storytext').animate({
-                scrollTop: 850}, 70000,    function(){  $('.storytext').animate({
-                scrollTop: -850}, 70000); });
+                scrollTop: 418}, 20000,function(){
+                                            $(".storynext").html("Continuar >>");
+                                            $(".storynext").bind('click', function(){
+                                                $(".storynext").unbind('click');
+                                                $('.storytext').animate({
+                                                scrollTop: 590}, 10000, function(){
+                                                    $(".storynext").css({"left" : "265px"});   
+                                                    $(".storynext").html("Good Luck");
+                                                    });
+                                            });
+                                            }
+               );
+                
+
                 
                 // console.log("Show message...");
                 this.storywindowShowing = true;
@@ -893,7 +925,7 @@ adsGame.storywindow =  Object.extend({
     "hide": function hide() {
         if (this.storywindowShowing){
             $('#menuStoryLayer').fadeOut( 200 , function(){
-                $('.storyclose').unbind('click');
+                $('.storyclose').unbind('click');                
                 //lears all the child divs, but leaves the master intact.
                 $("#menuStoryLayer").children().remove();
             });
