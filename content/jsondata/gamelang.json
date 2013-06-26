@@ -51,7 +51,10 @@
            "TRmenuStory":"História",
            "TRmenuHelp":"Ajuda",
            "TRmenuCredits":"Créditos",
-           "TRmenuFullStory": "Há alguns anos no reino da sabedoria imperava a vontade de aprender mais e mais, todos os seus habitantes eram felizes e sábios, como tinham uma educação acima da média tornaram-se o maior império da terra. O império é governado pelo rei Sophos, a sua rainha Maíra e príncipe Hadrian todos eles muito sábios.A abundancia no reino criou inveja em reinos vizinhos, e no reino da ignorância o rei Ignore enviou o seu mais mau ladrão Barba Rija para raptar o príncipe Hadrian e alguns habitantes para chantagear o rei Shopos pedindo novas terras e ouro. Agora o príncipe tenta com todas as suas garras espacar do malvado ladrão Barba Rija e salvar os seu súbitos.  "
+           "TRmenuFullStory": "Há alguns anos no reino da sabedoria imperava a vontade de aprender mais e mais, todos os seus habitantes eram felizes e sábios, como tinham uma educação acima da média tornaram-se o maior império da terra. O império é governado pelo rei Sophos, a sua rainha Maíra e príncipe Hadrian todos eles muito sábios.A abundancia no reino criou inveja em reinos vizinhos, e no reino da ignorância o rei Ignore enviou o seu mais mau ladrão Barba Rija para raptar o príncipe Hadrian e alguns habitantes para chantagear o rei Shopos pedindo novas terras e ouro. Agora o príncipe tenta com todas as suas garras espacar do malvado ladrão Barba Rija e salvar os seu súbitos.  ",
+           "TRgoodLuck":"Boa Sorte",
+           "TRcontinue":"Continuar",
+           "TRclose":"Fechar"
         },
         "english":{
             "TRgameName": "Learning Adventure",
@@ -102,7 +105,10 @@
            "TRmenuStory":"Story",
            "TRmenuHelp":"Help",
            "TRmenuCredits":"Credits",
-           "TRmenuFullStory": "A few years ago in the kingdom of wisdom ruled the willingness to learn more and more, all its inhabitants were happy and wise, as they had an education above average became the largest empire on earth. The empire is ruled by King Sophos, his queen Maíra and Prince Hadrian they all wise men.<br> The abundance in the kingdom created envy in neighboring kingdoms, and in the realm of ignorance the king Ignore sent his worst thief Tough Beard to kidnap the prince Hadrian and some inhabitants to blackmail the king Shopos asking new lands and gold. <br>Now the prince tries with all its means escape to the evil thief Tough Beard and save your people."
+           "TRmenuFullStory": "A few years ago in the kingdom of wisdom ruled the willingness to learn more and more, all its inhabitants were happy and wise, as they had an education above average became the largest empire on earth. The empire is ruled by King Sophos, his queen Maíra and Prince Hadrian they all wise men.<br> The abundance in the kingdom created envy in neighboring kingdoms, and in the realm of ignorance the king Ignore sent his worst thief Tough Beard to kidnap the prince Hadrian and some inhabitants to blackmail the king Shopos asking new lands and gold. <br>Now the prince tries with all its means escape to the evil thief Tough Beard and save your people.",
+           "TRgoodLuck":"Good Luck",
+           "TRcontinue":"Continue",
+           "TRclose":"Close"
         },
         "german":{
         

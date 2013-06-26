@@ -2,7 +2,11 @@ Code authors
 ************
 
 This program was written and developed by the following people:
+
+Code:
 - Francisco Fernandes
+
+Story-teller, public relations, website developer:
 - Carla Ventura
 
 

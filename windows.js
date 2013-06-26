@@ -867,7 +867,7 @@ adsGame.storywindow =  Object.extend({
                     maxPow:3,
                     minPow: 1,
                     gravity:12,
-                    flameWidth:2,
+                    flameWidth:4,
                     flameHeight:2,
                     plasm:false,
                     fireTransparency:35,
@@ -879,9 +879,9 @@ adsGame.storywindow =  Object.extend({
                     yOffset: 0
                 }); 
                 
-                $('.storytitle').html( "Learning Adventure Story" );
+                $('.storytitle').html( language.system.TRgameName );
                  
-                $('.storyclose').html( "[CLOSE]" );
+                $('.storyclose').html( "[" + language.system.TRclose + "]" );
                 
                 $('.storyclose').bind('click', function( event ) {
                     console.log("Close event...");
@@ -903,19 +903,17 @@ adsGame.storywindow =  Object.extend({
                 // Scroll text down
                 $('.storytext').animate({
                 scrollTop: 418}, 20000,function(){
-                                            $(".storynext").html("Continuar >>");
+                                            $(".storynext").html( language.system.TRcontinue + "  >>");
                                             $(".storynext").bind('click', function(){
                                                 $(".storynext").unbind('click');
                                                 $('.storytext').animate({
                                                 scrollTop: 590}, 10000, function(){
                                                     $(".storynext").css({"left" : "265px"});   
-                                                    $(".storynext").html("Good Luck");
+                                                    $(".storynext").html( language.system.TRgoodLuck);
                                                     });
                                             });
                                             }
                );
-                
-
                 
                 // console.log("Show message...");
                 this.storywindowShowing = true;
