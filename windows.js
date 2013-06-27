@@ -758,57 +758,115 @@ adsGame.helpwindow =  Object.extend({
     },
     "show": function show() {
             if (!this.helpwindowShowing){
-                 
-                 // Create html in messagelayer DIV
-                var $messageBoxHtml = (
-                    '<div class="instructions"></div>' +
-                    '<img class="helpmove" alt="">' +
-                    '<div class="helpmovetext"></div>' +
-                    '<img class="helpinv"  alt="">' +
-                    '<div class="helpinvtext"></div>' +
-                    '<img class="helpquestion" alt="">'+
-                    '<div class="helpquestiontext"></div>' + 
-                    '<div class="helpclose"></div>');
+                
+                 // all help screen
+                 var $allScreensBoxHtml = (                     
+                    '<div id="helpScreen">' + 
+                        '<div class="instructionsL1"></div>' +
+                        '<div class="imgDIVL1"></div>' +
+                        '<div class="instructionsL2"></div>' +
+                        '<div class="txtDIVL1"></div>' +
+                        '<div class="helpnext"></div>' +
+                        '<div class="helpclose"></div>' + 
+                    '</div>');
                     
-                $('#menuHelpLayer').append($messageBoxHtml);
-                
-                
-                $('.instructions').html( "How to play" );
+                $('#menuHelpLayer').append($allScreensBoxHtml);
+                // In all screens close window
+                $('.helpclose').html("[" + language.system.TRclose + "]");
                  
-                $('.helpclose').html( "[CLOSE]" );
+                  // *************** First Screen *****************
+                var $firstScreenBoxHtml = (
+                        '<div class="imghelpmoveweapons"></div>' +
+                        '<div class="helpmoveweaponstext"></div>');
                 
+                // New to first screen
+                $('#helpScreen').append($firstScreenBoxHtml);
+                
+                //Html data for 1st screen
+                $('.instructionsL1').html( "Movimento" );
+                $('.instructionsL2').html( "Usar armas" );
+                $('.imgDIVL1').html ( "<img src = '"+ ads_images_gui + "helpmove.png'></img>");
+                $('.txtDIVL1').html( "W - Cima <br>S - Baixo <br>A - Esquerda <br>D - Direita <br>Também pode usar as setas" );
+                $('.imghelpmoveweapons').html ( "<img src = '"+ ads_images_gui + "helpmoveweapons.png'></img>");
+                $('.helpmoveweaponstext').html( "1 - Cursor sobre arma <br>2 - Clicar na arma uma vez para ativar arma<br>3 - Clicar no ecrã de jogo para disparar " );
+                $(".helpnext").html( language.system.TRcontinue + "  >>");
+
+                // Show first screen
+                $('#menuHelpLayer').fadeIn(500);
+                
+                //If click next clear fields from previous screen and add the new ones and html data
+                $('.helpnext').bind('click', {self: this} ,function( event ) {
+                    
+                    // Fade out the first screen and when done show the second help screen
+                    $('#helpScreen').fadeOut(500 , function () {
+                        
+                        // Remove divs from older screen 
+                        //* Don't remove instructionsL1, imgDIVL1 , instructionsL2 and helpnext used in the new screen
+                        $('.imghelpmoveweapons').remove();
+                        $('.helpmoveweaponstext').remove();
+                        
+                        //Add the new divs
+                        var $secondScreenBoxHtml = (
+                            '<div class="imghelpquestionsquest"></div>' +
+                            '<div class="txthelpquestionsquest"></div>');
+                            
+                        // New to second screen
+                        $('#helpScreen').append($secondScreenBoxHtml);
+                        
+                        // New html data for screen two
+                        $('.instructionsL1').html( "Perguntas" );
+                        $('.imgDIVL1').html ( "<img src = '"+ ads_images_gui + "helpquestion.png'></img>");
+                        $('.txtDIVL1').html ( "Respondes às questões<br>Teclas 1-3<br>Click na resposta<br>Nota: O heroi fica parado.");
+                        $('.instructionsL2').html( "Desafio de Perguntas" );
+                        $('.imghelpquestionsquest').html ( "<img src = '"+ ads_images_gui + "helpquestionsquest.png'></img>");
+                        $('.txthelpquestionsquest').html( "Tens que responder corretamente a 5 perguntas.<br>Não podes errar mais de 5 vezes ou então perdes o desafio.");
+                        
+                        // Fade in the second screen
+                        $('#helpScreen').fadeIn(500);
+                        
+                        // Remove the old next now call the third help screen
+                        $('.helpnext').unbind('click');
+                        
+                        // Create new click event to call the third screen
+                        $('.helpnext').bind('click', function( event ) {
+                            // Fade out the second screen and when done show the third help screen
+                            $('#helpScreen').fadeOut(500 , function () {
+                                // Remove divs from older screen 
+                                //* Don't remove instructionsL1, imgDIVL1 , instructionsL2 used in the new screen
+                                $('.imghelpquestionsquest').remove();
+                                // Remove the old next now call the third help screen
+                                $('.helpnext').unbind('click');
+                                $(".helpnext").remove();
+                                
+                                // New html data for third screen
+                                $('.instructionsL1').html( "Inventory" );
+                                $('.imgDIVL1').css({'top':100, 'left':70});
+                                $('.imgDIVL1').html ( "<img src = '"+ ads_images_gui + "helpinv.png'></img>");
+                                $('.txtDIVL1').css({'top':105, 'left':160 , 'height': 130});
+                                $('.txtDIVL1').html ( "I - Show/Hide inventory <br>" +
+                                                                "Mouse:<br>" +
+                                                                "Double Click - Use items <br>" + 
+                                                                "Click - Select weapon to  use. <br>" +
+                                                                "Over - Item information. <br>"+
+                                                                "Drag item to map to destroy");
+                                $('.instructionsL2').css('top',250);                                
+                                $('.instructionsL2').html( "Exemplos" );
+                                $('.txthelpquestionsquest').css({'top':281, 'left':136 , 'height': 125 , 'width': 230});
+                                $('.txthelpquestionsquest').html( "* Duplo click para usares comida aumenta vida.<br>*Mantêm certos items no inventório para ganhares mais velocidade ou sorte.<BR>*Items especiais não podes destruir, são usados no mapa.");
+                                
+                                 // Fade in the third screen
+                                $('#helpScreen').fadeIn(500);
+                                
+                            }); // Close fade out of the first screen
+                        }.bind(this)); //Close the click event for the third screen                        
+                    }); // Close fade out of the first screen
+                }); // Close first next click event
+
                 $('.helpclose').bind('click', function( event ) {
                     console.log("Close event...");
                     this.hide();
                 }.bind(this));
 
-                $('.helpmovetext').html( "W - Cima <br>S - Baixo <br>A - Esquerda <br>D - Direita <br>Click Mapa-Disparar" );
-
-                $('.helpinvtext').html( "Inventário <br>" +
-                                                    "I - Mostra/Esconde inventário<br>" +
-                                                   "Rato:<br>" +
-                                                   "Duplo Click - Usar items normais<br>" + 
-                                                   "Click - Selecionar arma. <br>" +
-                                                   "Por cima - Item informação. <br>"
-                                                   );
-                $('.helpquestiontext').html( "Respondes às questões <br>" +
-                                                    "Teclas 1-3 <br>" +
-                                                   "Click na resposta<br>");
-                                                                   
-                // $('.helpinvtext').html( "Inventory <br>" +
-                                                    // "I - Show/Hide inventory <br>" +
-                                                   // "Mouse:<br>" +
-                                                   // "Double Click - Use normal items <br>" + 
-                                                   // "Click - Select weapon to  use. <br>" +
-                                                   // "Over - Item information. <br>"
-                                                   // );
-                // $('.helpquestiontext').html( "Answer Questions <br>" +
-                                                    // "1-3 Keys <br>" +
-                                                   // "Mouse click on answer<br>" +
-                                                   // "H - Hide/Show help window");
-                
-                $('#menuHelpLayer').fadeIn( 250);
-                
                 // console.log("Show message...");
                 this.helpwindowShowing = true;
             }
@@ -864,11 +922,11 @@ adsGame.storywindow =  Object.extend({
                 //Prepare candle fire
                 $('.fire').fire({
                     speed:20,
-                    maxPow:3,
+                    maxPow:2,
                     minPow: 1,
                     gravity:12,
                     flameWidth:4,
-                    flameHeight:2,
+                    flameHeight:1,
                     plasm:false,
                     fireTransparency:35,
                     globalTransparency:10,

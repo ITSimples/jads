@@ -19,6 +19,8 @@ Olivier Biot
 // (C) Andrea Giammarchi
 //	Special thanks to Alessandro Crugnola [www.sephiroth.it]
  - astar.js
+ 
+ ********** Add all libraries *******
 
 
 Asset attribution

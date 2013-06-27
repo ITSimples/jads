@@ -848,38 +848,98 @@
     display: none;
 }
 
-#menuHelpLayer .instructions {
+#menuHelpLayer .instructionsL1 {
     position: absolute;
-    top: 55px;
-    left: 140px;
-    width: 250px;
+    top: 75px;
+    left: 60px;
+    width: 325px;
     height: 22px;
     font-size: 22px;
     color : #764F00;
     overflow: hidden;
+    text-align: center;    
+    z-index:1;
+}
+
+#menuHelpLayer .instructionsL2 {
+    position: absolute;
+    top: 205px;
+    left: 60px;
+    width: 325px;
+    height: 22px;
+    font-size: 22px;
+    color : #764F00;
+    overflow: hidden;
+    text-align: center;    
+    z-index:1;
+}
+
+#menuHelpLayer .imgDIVL1 {
+    position: absolute;
+    top: 110px;
+    left: 87px;
+    width: 71px;
+    height: 86px;
     z-index:1;
 }
 
 #menuHelpLayer img.helpmove {
     position: absolute;
-    top: 332px;
-    left: 137px;
+    top: 110px;
+    left: 87px;
     width: 71px;
     height: 86px;
     background: url('content/gui/helpmove.png') no-repeat;
 }
 
-#menuHelpLayer .helpmovetext {
+#menuHelpLayer .txtDIVL1 {
     position: absolute;
-    top: 332px;
-    left: 220px;
-    width: 150px;
-    height: 84px;
+    top: 112px;
+    left: 185px;
+    width: 230px;
+    height: 90px;
     font-size: 15px;
     color : #F0F0E0;
     overflow: hidden;
     z-index:1;
 }
+
+
+#menuHelpLayer .imghelpmoveweapons {
+    position: absolute;
+    top: 233px;
+    left: 87px;
+    width: 259px;
+    height: 65px;
+    z-index:1;
+}
+
+#menuHelpLayer .helpmoveweaponstext {
+    position: absolute;
+    top: 306px;
+    left: 137px;
+    width: 230px;
+    height: 110px;
+    font-size: 15px;
+    color : #F0F0E0;
+    overflow: hidden;
+    text-align: justify;
+    z-index:1;
+}
+
+#menuHelpLayer .helpnext {
+    position: absolute;
+    bottom: 98px;
+    left: 284px;
+    width: 110px;
+    height: 20px;
+    font-size: 18px;
+    color : #008000;
+    overflow: hidden;
+    font-weight:bold;
+    z-index:1;
+}
+
 
 #menuHelpLayer img.helpinv {
     position: absolute;
@@ -902,14 +962,14 @@
     z-index:1;
 }
 
-#menuHelpLayer img.helpquestion {
+/*#menuHelpLayer img.helpquestion {
     position: absolute;
     top: 91px;
     left: 62px;    
     width: 101px;
     height: 84px;
     background: url('content/gui/helpquestion.png') no-repeat;
-}
+}*/
 
 #menuHelpLayer .helpquestiontext {
     position: absolute;
@@ -920,6 +980,28 @@
     font-size: 15px;
     color : #F0F0E0;
     overflow: hidden;
+    z-index:1;
+}
+
+
+#menuHelpLayer .imghelpquestionsquest {
+    position: absolute;
+    top: 316px;
+    left: 164px;    
+    width: 166px;
+    height: 84px;
+}
+
+#menuHelpLayer .txthelpquestionsquest {
+    position: absolute;
+    top: 233px;
+    left: 87px;
+    width: 270px;
+    height: 72px;
+    font-size: 15px;
+    color : #F0F0E0;
+    overflow: hidden;
+    text-align: justify;
     z-index:1;
 }
 
