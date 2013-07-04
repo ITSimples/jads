@@ -92,7 +92,10 @@ var HeroEntity = me.ObjectEntity.extend({
 		
 		//Check if is showing the inventory enable/disable
 		this.isShowInv = false;
-		
+
+        //Check if is showing the inventory enable/disable
+        this.isShowHelp = false;
+        		
 		// DEBUG GET KEY TO HERO 
 		// adsGame.Inventory.addItem(  ads_items_data[14] );
 		
@@ -229,6 +232,27 @@ var HeroEntity = me.ObjectEntity.extend({
 				this.isShowInv = true;
 			}			
 		}
+		
+        // If keypressed H then open Help window
+        if (me.input.isKeyPressed('helpWindow'))
+        {            
+            if (this.isShowHelp){
+                adsGame.helpwindow.hide();
+                // me.state.resume();
+                // Disable showing
+                this.isShowHelp = false;
+            }else{
+                adsGame.helpwindow.show();
+                me.state.pause();
+                me.event.subscribe(me.event.KEYDOWN, function watch_key(action) {
+                    if (action == "helpWindow") {
+                        me.state.resume();
+                    }
+                });
+                // Enable showing
+                this.isShowHelp = true;
+            }           
+        }		
 		
 		//Change inventory and question layer position
 		// if ( this.pos.x < 1300){

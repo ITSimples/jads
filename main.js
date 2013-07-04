@@ -51,6 +51,7 @@ var adsGame =
 			alert( language.system.TRbrowserInf );
 			return;
 		}
+		
 
         //Init title name
         $( document ).attr("title", language.system.TRgameName);
@@ -89,6 +90,9 @@ var adsGame =
 		
 		//Create helpwindow box object
         adsGame.storywindow = new adsGame.storywindow();
+        
+        //Create creditswindow box object
+        adsGame.creditsWindow = new adsGame.CreditsWindow();        
 		
 		// New structure for game
 		// adsGame.data = game_data;
@@ -162,6 +166,8 @@ var adsGame =
 		
 		//Create inventory key
 		me.input.bindKey(me.input.KEY.I, "inventory", true);
+		//Create help key
+        me.input.bindKey(me.input.KEY.H, "helpWindow", true);
 		
 		// enable the keyboard
 		me.input.bindKey(me.input.KEY.T, "touch");
@@ -664,6 +670,7 @@ var myButton = me.GUI_Object.extend(
       this.txtDevonshire = new me.Font("Devonshire",28,"white","left");
 
       this.playOneTime = false;
+      
    },
     
     hover: function () {
@@ -690,6 +697,11 @@ var myButton = me.GUI_Object.extend(
       }else if (this.target == "storyScreen") {
            if (!windowMenuOpen){
             adsGame.storywindow.show();
+            windowMenuOpen = true;
+          }
+      }else if (this.target == "creditsScreen") {
+           if (!windowMenuOpen){
+            adsGame.creditsWindow.show();
             windowMenuOpen = true;
           }
       }
@@ -740,6 +752,16 @@ var myButton = me.GUI_Object.extend(
     
    onDestroyEvent:function()
    {
+       //Close window if is one open before play game
+       if (windowMenuOpen){
+           if (this.target == "instructionsScreen") {
+                adsGame.helpwindow.hide();
+          }else if (this.target == "storyScreen") {
+                adsGame.storywindow.hide();
+          }else if (this.target == "creditsScreen") {
+                adsGame.creditsWindow.hide();
+          }
+      }
       console.log("Destroy button!");
       me.input.releaseMouseEvent("mousedown", this);
       me.input.releaseMouseEvent('mousemove', this);

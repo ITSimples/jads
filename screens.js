@@ -44,7 +44,7 @@ var TileScreen = me.ScreenObject.extend(
             {"text": "TRmenuPlay", "target":"playScreen" , "pos":{"x": 437 , "y" : 35}},
             {"text": "TRmenuStory", "target":"storyScreen" , "pos":{"x": 437 , "y" : 87}},
             {"text": "TRmenuHelp", "target":"instructionsScreen" , "pos":{"x": 437 , "y" : 139}},
-           // {"text": "TRmenuCredits", "target":"creditsScreen" , "pos":{"x": 437 , "y" : 191}}
+            {"text": "TRmenuCredits", "target":"creditsScreen" , "pos":{"x": 437 , "y" : 191}}
         ];
 
 	},
@@ -159,7 +159,8 @@ var TileScreen = me.ScreenObject.extend(
         // console.log("Menu screen update...");
         return true;
 	},
-	   onDestroyEvent: function()
+	
+	onDestroyEvent: function()
     {
         // Remove language clicks handler
         $('#flag_pt').unbind('click');

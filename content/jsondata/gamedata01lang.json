@@ -53,7 +53,7 @@
                "Mas tens de me ajudar a salvar os prisioneiros.",
                "Vou para a sala mais a sudeste da prisão.",
                "Espero lá por ti e pelos prisioneiros salvos.",
-               "Boa sorte."
+               "Boa sorte. Se precisares de ajuda carrega a tecla 'H'"
             ],
             "TRnpcAlysStoreName": "Laboratório da Alys.",
             "TRnpcAlysStoreWelcome": "Bem vindo ao meu Laboratório.",
@@ -114,7 +114,7 @@
                "But you have to help me save all the prisoners.",
                "I go to the southeastern room of the prison.",
                "I wait there for you and the prisoners saved.",
-               "Good luck."
+               "Good luck. If you need help click on 'H'"
             ],
             "TRnpcAlysStoreName": "Alys laboratory.",
             "TRnpcAlysStoreWelcome": "Welcome to my lab.",

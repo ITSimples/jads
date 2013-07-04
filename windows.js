@@ -757,8 +757,7 @@ adsGame.helpwindow =  Object.extend({
         console.log('Init helpwindow class...');
     },
     "show": function show() {
-            if (!this.helpwindowShowing){
-                
+            if (!this.helpwindowShowing){                
                  // all help screen
                  var $allScreensBoxHtml = (                     
                     '<div id="helpScreen">' + 
@@ -783,12 +782,12 @@ adsGame.helpwindow =  Object.extend({
                 $('#helpScreen').append($firstScreenBoxHtml);
                 
                 //Html data for 1st screen
-                $('.instructionsL1').html( "Movimento" );
-                $('.instructionsL2').html( "Usar armas" );
+                $('.instructionsL1').html( language.system.TRmenuHelpMvt );
+                $('.instructionsL2').html( language.system.TRmenuHelpWuse );
                 $('.imgDIVL1').html ( "<img src = '"+ ads_images_gui + "helpmove.png'></img>");
-                $('.txtDIVL1').html( "W - Cima <br>S - Baixo <br>A - Esquerda <br>D - Direita <br>Também pode usar as setas" );
+                $('.txtDIVL1').html( language.system.TRmenuHelpMvtHelp );
                 $('.imghelpmoveweapons').html ( "<img src = '"+ ads_images_gui + "helpmoveweapons.png'></img>");
-                $('.helpmoveweaponstext').html( "1 - Cursor sobre arma <br>2 - Clicar na arma uma vez para ativar arma<br>3 - Clicar no ecrã de jogo para disparar " );
+                $('.helpmoveweaponstext').html( language.system.TRmenuHelpWeaponUse );
                 $(".helpnext").html( language.system.TRcontinue + "  >>");
 
                 // Show first screen
@@ -814,12 +813,12 @@ adsGame.helpwindow =  Object.extend({
                         $('#helpScreen').append($secondScreenBoxHtml);
                         
                         // New html data for screen two
-                        $('.instructionsL1').html( "Perguntas" );
+                        $('.instructionsL1').html( language.system.TRmenuHelpQst );
                         $('.imgDIVL1').html ( "<img src = '"+ ads_images_gui + "helpquestion.png'></img>");
-                        $('.txtDIVL1').html ( "Respondes às questões<br>Teclas 1-3<br>Click na resposta<br>Nota: O heroi fica parado.");
-                        $('.instructionsL2').html( "Desafio de Perguntas" );
+                        $('.txtDIVL1').html ( language.system.TRmenuHelpQstEx);
+                        $('.instructionsL2').html( language.system.TRqstQuestName );
                         $('.imghelpquestionsquest').html ( "<img src = '"+ ads_images_gui + "helpquestionsquest.png'></img>");
-                        $('.txthelpquestionsquest').html( "Tens que responder corretamente a 5 perguntas.<br>Não podes errar mais de 5 vezes ou então perdes o desafio.");
+                        $('.txthelpquestionsquest').html( language.system.TRmenuHelpChaEx);
                         
                         // Fade in the second screen
                         $('#helpScreen').fadeIn(500);
@@ -839,20 +838,15 @@ adsGame.helpwindow =  Object.extend({
                                 $(".helpnext").remove();
                                 
                                 // New html data for third screen
-                                $('.instructionsL1').html( "Inventory" );
+                                $('.instructionsL1').html( language.system.TRinvName );
                                 $('.imgDIVL1').css({'top':100, 'left':70});
                                 $('.imgDIVL1').html ( "<img src = '"+ ads_images_gui + "helpinv.png'></img>");
                                 $('.txtDIVL1').css({'top':105, 'left':160 , 'height': 130});
-                                $('.txtDIVL1').html ( "I - Show/Hide inventory <br>" +
-                                                                "Mouse:<br>" +
-                                                                "Double Click - Use items <br>" + 
-                                                                "Click - Select weapon to  use. <br>" +
-                                                                "Over - Item information. <br>"+
-                                                                "Drag item to map to destroy");
+                                $('.txtDIVL1').html ( language.system.TRmenuHelpInv );
                                 $('.instructionsL2').css('top',250);                                
-                                $('.instructionsL2').html( "Exemplos" );
+                                $('.instructionsL2').html( language.system.TRmenuHelpExamples );
                                 $('.txthelpquestionsquest').css({'top':281, 'left':136 , 'height': 125 , 'width': 230});
-                                $('.txthelpquestionsquest').html( "* Duplo click para usares comida aumenta vida.<br>*Mantêm certos items no inventório para ganhares mais velocidade ou sorte.<BR>*Items especiais não podes destruir, são usados no mapa.");
+                                $('.txthelpquestionsquest').html(  language.system.TRmenuHelpEx );
                                 
                                  // Fade in the third screen
                                 $('#helpScreen').fadeIn(500);
@@ -879,11 +873,22 @@ adsGame.helpwindow =  Object.extend({
                 //lears all the child divs, but leaves the master intact.
                 $("#menuHelpLayer").children().remove();
             });
+            
+            //Get player entity and make the isShowHelp = false
+            var player = adsGame.heroEntity();
+            player.isShowHelp = false;
+            player = undefined;
     
             // console.log("hide message...");
             this.helpwindowShowing = false;
             
             windowMenuOpen = false;
+            
+            // If game is on pause and the help window is closed then resume game
+            if (!me.state.isRunning()) {
+                me.state.resume();
+            }
+            
         }
     }
 });
@@ -988,6 +993,100 @@ adsGame.storywindow =  Object.extend({
     
             // console.log("hide message...");
             this.storywindowShowing = false;
+            
+            windowMenuOpen = false;
+        }
+    }
+});
+
+
+ /**
+ * creditswindow.
+ * @class
+ * @extends 
+ * @constructor
+ * @param msgData (.msgImage, .msgName, .msg)
+ * @example
+ * 
+ */
+ 
+adsGame.CreditsWindow =  Object.extend({
+    "init" : function init() {
+        this.creditsWindowShowing = false;
+
+        console.log('Init story window class...');
+    },
+    "show": function show() {
+            if (!this.creditsWindowShowing){
+                 
+                 // Create html in messagelayer DIV
+                var $messageBoxHtml = (
+                    '<div class="storytitle"></div>' +
+                    '<div class="storytext"></div>' +
+                    '<div class="storyclose"></div>'+
+                    '<div class="fire"></div>'+
+                    '<img class="candlefire" src = "content/gui/candlefire.png"></img>');
+                    
+                $('#menuStoryLayer').append($messageBoxHtml);
+                
+                //Prepare candle fire
+                $('.fire').fire({
+                    speed:20,
+                    maxPow:2,
+                    minPow: 1,
+                    gravity:12,
+                    flameWidth:4,
+                    flameHeight:1,
+                    plasm:false,
+                    fireTransparency:35,
+                    globalTransparency:10,
+                    fadingFlameSpeed:4,
+                    mouseEffect:true,
+                    maxPowZone: "center",
+                    burnBorders: false,
+                    yOffset: 0
+                }); 
+                
+                $('.storytitle').html( "Créditos" );
+                 
+                $('.storyclose').html( "[" + language.system.TRclose + "]" );
+                
+                $('.storyclose').bind('click', function( event ) {
+                    console.log("Close event...");
+                    this.hide();
+                }.bind(this));
+
+                //Make html space lines
+                // <p style='padding-bottom:170px'> </p>
+
+                $('.storytext').html ( "<img src = '"+ ads_images_path + "storyimage.png'>" + language.system.TRmenuFullStory  );
+                
+                 // CSS for the new star
+                // $(".storylogoimage").css({
+                    // "border-style" : "none"
+                // });   
+            
+                $('#menuStoryLayer').fadeIn( 250);
+                
+                // Scroll text down
+                $('.storytext').animate({
+                scrollTop: 418}, 20000, null);
+                
+                // console.log("Show message...");
+                this.creditsWindowShowing = true;
+            }
+    },
+        
+    "hide": function hide() {
+        if (this.creditsWindowShowing){
+            $('#menuStoryLayer').fadeOut( 200 , function(){
+                $('.storyclose').unbind('click');                
+                //lears all the child divs, but leaves the master intact.
+                $("#menuStoryLayer").children().remove();
+            });
+    
+            // console.log("hide message...");
+            this.creditsWindowShowing = false;
             
             windowMenuOpen = false;
         }

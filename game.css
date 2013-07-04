@@ -1,3 +1,9 @@
+body {
+   transform: scale(1.1);
+   -webkit-transform: scale(1.1);
+   -ms-transform: scale(1.1);
+   -moz-transform: scale(1.1);
+}
 #adsPage{
 	position: relative;
 	width: 880px;
@@ -896,7 +902,7 @@
     position: absolute;
     top: 112px;
     left: 185px;
-    width: 230px;
+    width: 220px;
     height: 90px;
     font-size: 15px;
     color : #F0F0E0;
