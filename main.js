@@ -93,6 +93,9 @@ var adsGame =
         
         //Create creditswindow box object
         adsGame.creditsWindow = new adsGame.CreditsWindow();        
+        
+        //Create Objectivewindow box object
+        adsGame.objectiveWindow = new adsGame.ObjectiveWindow();        
 		
 		// New structure for game
 		// adsGame.data = game_data;
@@ -687,11 +690,12 @@ var myButton = me.GUI_Object.extend(
       if ( this.target == "playScreen"){
             // TODO - Make this to all screens and fadein and out
             me.game.viewport.fadeIn("#000", 500, function () {
-                me.state.change(me.state.PLAY);
+                me.state.change(me.state.PLAY); 
             });
       }else if (this.target == "instructionsScreen") {
           if (!windowMenuOpen){
-            adsGame.helpwindow.show();
+               adsGame.objectiveWindow.show();
+            // adsGame.helpwindow.show();
             windowMenuOpen = true;
           }
       }else if (this.target == "storyScreen") {
@@ -701,6 +705,8 @@ var myButton = me.GUI_Object.extend(
           }
       }else if (this.target == "creditsScreen") {
            if (!windowMenuOpen){
+            // console.log("contentsOfFileAsString", contentsOfFileAsString);
+    
             adsGame.creditsWindow.show();
             windowMenuOpen = true;
           }
@@ -810,5 +816,19 @@ function chooseLanguage( lang ) {
         
         //Get Questions to variable with hero language
         adsQtnData = adsQtnDataAll[lang];
+}
+
+function FileHelper()
+{}
+{
+    FileHelper.readStringFromFileAtPath = function(pathOfFileToReadFrom)
+    {
+        var request = new XMLHttpRequest();
+        request.open("GET", pathOfFileToReadFrom, false);
+        request.send(null);
+        var returnValue = request.responseText;
+
+        return returnValue;
+    }
 }
         

@@ -1,34 +1,33 @@
-Code authors
+I want to thank everyone who made this game possible. 
+
+Authors
 ************
 
-This program was written and developed by the following people:
+This program was written and developed by:
 
 Code:
-- Francisco Fernandes
+Francisco Fernandes
 
-Story-teller, public relations, website developer:
-- Carla Ventura
-
+Story-teller,website developer:
+Carla Ventura
 
 Libraries used
 ********************
 
-Olivier Biot
- - melonJS
+MelonJS - The best,thx ;) 
 
-// (C) Andrea Giammarchi
-//	Special thanks to Alessandro Crugnola [www.sephiroth.it]
- - astar.js
+JQuery.js - /*! jQuery v1.7.2 jquery.com | jquery.org/license */
+
+/*Jquery fire plugin: http://www.computableminds.com/jquery-plugin-fire-animation-texture-generator.html */
  
- ********** Add all libraries *******
+PathFinding.js - © 2011-2012 Xueqiao Xu <xueqiaoxu@gmail.com>
 
+astar.js - (C) Andrea Giammarchi Special thanks to Alessandro Crugnola [www.sephiroth.it]
 
 Asset attribution
 *****************
 
 Assets were authored by the following people:
-
-Must be on credits when game finished ************** REMOVE THIS LINE
 
 Images:
 
@@ -51,103 +50,8 @@ for the purpose except playing this game. When you want
 to get these resources, go to the website above."
 Resources REFMAP used in game:
 
--bee.png
--death.png
--diablo.png
--diablo02.png
--diablo03.png
--doorcheck.png
--eye.png
--e_female01.png
--e_female01_face.png
--e_male01.png
--e_male01_face.png
--e_male02.png
--e_male02_face.png
--e_male03.png
--e_male03_face.png
--flame.png
--f_female01.png
--f_female01_face.png
--f_female02.png
--f_female02_face.png
--f_male01.png
--f_male01_face.png
--f_male02.png
--f_male02_face.png
--f_male03.png
--f_male03_face.png
--f_male04.png
--f_male04_face.png
--goblin.png
--goblin02.png
--golem.png
--heroe.png
--heroe_face.png
--Hudbg.png
--h_female01.png
--h_female01_face.png
--h_female02.png
--h_female02_face.png
--h_female03.png
--h_female03_face.png
--h_female04.png
--h_female04_face.png
--h_male01.png
--h_male01_face.png
--h_male02.png
--h_male02_face.png
--h_male03.png
--h_male03_face.png
--h_male04.png
--h_male04_face.png
--Iceman.png
--kid_female.png
--kid_female_face.png
--kid_male.png
--kid_male_face.png
--king.png
--king_face.png
--list_images.txt
--mushroom.png
--print.txt
--queen.png
--queen_face.png
--skull.png
--sleleton.png
--snake.png
--stoneman.png
--tiles.png
--villain.png
--villain_face.png
--wolf.png
-
 medievil stuff tileset pack by benja6678 (http://sandbox.yoyogames.com/users/benja6678)
 download from http://sandbox.yoyogames.com/resources?cat_id=3
-
--items\banana.png
--items\botas.png
--items\cenoura.png
--items\chaveosso.png
--items\colarunicornio.png
--items\fruta.png
--items\lanca.png
--items\livro2.png
--items\livroazul.png
--items\maca.png
--items\manuscrito.png
--items\moedas.png
--items\pao.png
--items\pera.png
--items\pocao1.png
--items\pocao2.png
--items\pocao3.png
--items\pocao4.png
--items\pocaoazul.png
--items\presunto.png
--items\vegetais.png
--items\vinho1.png
--items\vinho2.png
 
 Boysano :
 
@@ -155,7 +59,11 @@ fire.png
 
 campfire02 - Credit goes to Zabin and Jetrel from OGA (http://opengameart.org/content/camp-fire-animation-for-rpgs-finished)
 
-Questions conquest - Parchment pngs by ~SzisszDL (http://szisszdl.deviantart.com/art/Parchment-pngs-177119212?q=gallery%3Aszisszdl%2F25787310&qo=0)
+Questions conquest - Parchment pngs by ~SzisszDL 
+(http://szisszdl.deviantart.com/art/Parchment-pngs-177119212?q=gallery%3Aszisszdl%2F25787310&qo=0)
+
+Monsters Illustration was created by DownloadFreeVector team.
+http://DownloadFreeVector.com 
 
 Level Editor
 ------------
@@ -164,7 +72,10 @@ Use [Tiled-QT](http://www.mapeditor.org/) to edit the maps. Version 0.9 was used
 to run the automapping rules, which as of this writing is still in beta.
 
 SFX
-------------
-
+-----------------------
 freesfx.co.uk 
 NoiseForFun.com
+
+MUSIC
+-----------------------
+http://blog.dayjo.org/free-rpg-music-pack-part-1/

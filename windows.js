@@ -875,10 +875,15 @@ adsGame.helpwindow =  Object.extend({
             });
             
             //Get player entity and make the isShowHelp = false
-            var player = adsGame.heroEntity();
-            player.isShowHelp = false;
-            player = undefined;
-    
+            
+            // If in play screen on menu do nothing
+            // console.log("me.state.current():", me.state.isCurrent(me.state.PLAY));
+            if(me.state.isCurrent(me.state.PLAY)){
+                var player = adsGame.heroEntity();
+                player.isShowHelp = false;
+                player = undefined;
+            }
+            
             // console.log("hide message...");
             this.helpwindowShowing = false;
             
@@ -1011,10 +1016,19 @@ adsGame.storywindow =  Object.extend({
  */
  
 adsGame.CreditsWindow =  Object.extend({
-    "init" : function init() {
+    "init" : function init( ) {
         this.creditsWindowShowing = false;
+        
+        var pathOfFileToRead = "AUTHORS.txt";
+        
+        // READ AUTHORS TXT FILE to a string
+        var contentsOfFileAsString = FileHelper.readStringFromFileAtPath
+        (
+        pathOfFileToRead
+        );
+        this.contentsOfFileAsString = contentsOfFileAsString;
 
-        console.log('Init story window class...');
+        console.log('Init credits window class...');
     },
     "show": function show() {
             if (!this.creditsWindowShowing){
@@ -1022,9 +1036,10 @@ adsGame.CreditsWindow =  Object.extend({
                  // Create html in messagelayer DIV
                 var $messageBoxHtml = (
                     '<div class="storytitle"></div>' +
-                    '<div class="storytext"></div>' +
+                    '<div class="creditstext"></div>' +
                     '<div class="storyclose"></div>'+
                     '<div class="fire"></div>'+
+                    '<div class="creditsLogos"></div>'+
                     '<img class="candlefire" src = "content/gui/candlefire.png"></img>');
                     
                 $('#menuStoryLayer').append($messageBoxHtml);
@@ -1047,7 +1062,7 @@ adsGame.CreditsWindow =  Object.extend({
                     yOffset: 0
                 }); 
                 
-                $('.storytitle').html( "Créditos" );
+                $('.storytitle').html( language.system.TRmenuCredits );
                  
                 $('.storyclose').html( "[" + language.system.TRclose + "]" );
                 
@@ -1059,7 +1074,9 @@ adsGame.CreditsWindow =  Object.extend({
                 //Make html space lines
                 // <p style='padding-bottom:170px'> </p>
 
-                $('.storytext').html ( "<img src = '"+ ads_images_path + "storyimage.png'>" + language.system.TRmenuFullStory  );
+                $('.creditstext').html ( "<img height='50%' width='100%' src = '"+ ads_images_path + "itsimplessmalllogo.png'><PRE>" + this.contentsOfFileAsString + "</PRE>"  );
+                
+                $('.creditsLogos').html ( "<img src = '"+ ads_images_path + "alllogos.png'></img>");
                 
                  // CSS for the new star
                 // $(".storylogoimage").css({
@@ -1069,8 +1086,8 @@ adsGame.CreditsWindow =  Object.extend({
                 $('#menuStoryLayer').fadeIn( 250);
                 
                 // Scroll text down
-                $('.storytext').animate({
-                scrollTop: 418}, 20000, null);
+                $('.creditstext').animate({
+                scrollTop: 2500}, 120000, null);
                 
                 // console.log("Show message...");
                 this.creditsWindowShowing = true;
@@ -1089,6 +1106,70 @@ adsGame.CreditsWindow =  Object.extend({
             this.creditsWindowShowing = false;
             
             windowMenuOpen = false;
+        }
+    }
+});
+
+
+ /**
+ * objectivewindow.
+ * @class
+ * @extends 
+ * @constructor
+ * @param msgData (.msgImage, .msgName, .msg)
+ * @example
+ * 
+ */
+ 
+adsGame.ObjectiveWindow =  Object.extend({
+    "init" : function init( ) {
+        this.objectiveWindowShowing = false;
+
+        console.log('Init objective window class...');
+    },
+    "show": function show() {
+            if (!this.objectiveWindowShowing){
+                 
+                 console.log('Init objective window class show method called **********...');
+                 
+                 // Create html in messagelayer DIV
+                var $messageBoxHtml = ('<div class="prisonersImage"></div>' +
+                                                          '<div class="askHeroName"></div>' +
+                                                          '<div class="lvlTileObjectives"></div>' +
+                                                          '<div class="lvlTxtObjectives"></div>' +
+                                                          '<div class="buttonStart"><a class="button">Start</a></div>' 
+                                                          );
+                    
+                $('#objLayer').append($messageBoxHtml);
+
+                $('.askHeroName').html ( "Hero Name:");
+                $('.lvlTileObjectives').html ( "Objetivos deste nível:");
+                $('.lvlTxtObjectives').html ( "O objectivo deste nível é libertar os 4 prisioneiros que podes ver em baixo. Resolve os enigmas e enfrenta os teus inimigos. Tenta obter o máximo de conhecimento que conseguires");
+                $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'></img>");
+                
+                
+                 // CSS for the new star
+                // $(".storylogoimage").css({
+                    // "border-style" : "none"
+                // });   
+            
+                $('#objLayer').fadeIn( 250);
+                
+                
+                // console.log("Show message...");
+                this.objectiveWindowShowing = true;
+            }
+    },
+        
+    "hide": function hide() {
+        if (this.objectiveWindowShowing){
+            $('#objLayer').fadeOut( 200 , function(){     
+                //lears all the child divs, but leaves the master intact.
+                $("#objLayer").children().remove();
+            });
+    
+            // console.log("hide message...");
+            this.objectiveWindowShowing = false;
         }
     }
 });

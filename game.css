@@ -1112,5 +1112,100 @@ body {
     z-index:2;
     
 }
+
+#menuStoryLayer .creditstext {
+    position: absolute;
+    top: 95px;
+    left: 75px;
+    width: 280px;
+    height: 218px;
+    font-size: 14px;
+    color: #F0F0E0;
+    overflow: hidden;
+    z-index: 1;
+    word-wrap: break-word;
+    text-align: justify;
+}
+
+#menuStoryLayer .creditsLogos {
+    position: absolute;
+    top: 306px;
+    left: 145px;
+    width: 230px;
+    height: 110px;
+    z-index:1;
+}
 /* End Menu Help layer configuration */
 
+
+/* Objectives option layer configuration */
+#objLayer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 450px;
+    height: 379px;
+    background: url('content/gui/levelobjectives.png') no-repeat;
+    font-family: 'MedievalSharp', serif;
+    display: none;
+}
+
+#objLayer .prisonersImage {
+    position: absolute;
+    bottom: 122px;
+    left: 60px;
+    width: 320px;
+    height: 73px;
+    z-index:1;
+}
+
+#objLayer .askHeroName {
+    position: absolute;
+    top: 275px;
+    left: 60px;
+    width: 125px;
+    height: 22px;
+    font-size: 22px;
+    color : #764F00;
+    overflow: hidden;
+    text-align: left;    
+    z-index:1;
+}
+
+#objLayer .lvlTileObjectives {
+    position: absolute;
+    top: 52px;
+    left: 60px;
+    width: 325px;
+    height: 20px;
+    font-size: 18px;
+    color : #764F00;
+    overflow: hidden;
+    text-align: left;    
+    z-index:1;
+}
+
+#objLayer .lvlTxtObjectives {
+    position: absolute;
+    top: 87px;
+    left: 60px;
+    width: 320px;
+    height: 88px;
+    font-size: 15px;
+    color : #F0F0E0;
+    overflow: hidden;
+    text-align: justify;
+    z-index:1;
+}
+
+#objLayer .buttonStart {
+    position: absolute;
+    top: 312px;
+    left: 310px;
+    width: 80px;
+    height: 35px;
+    overflow: hidden;
+    text-align: justify;
+    z-index:1;
+}
+/* END Objectives option layer configuration */
