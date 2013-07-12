@@ -51,8 +51,7 @@ var adsGame =
 			alert( language.system.TRbrowserInf );
 			return;
 		}
-		
-
+    
         //Init title name
         $( document ).attr("title", language.system.TRgameName);
         
@@ -113,6 +112,9 @@ var adsGame =
 		
 		// Create object to Shop
         adsGame.Shop = new adsGame.Shop();
+        
+        this.test = new adsGame.Score("createPlayer",{username: "variable" ,score:'300'});
+        
 	},
 	reboot:function(){
 		this.data = null;
@@ -643,7 +645,6 @@ $( function(){
         init_game( lvlData );
         
          console.log("Questions Loaded..", adsQtnData);
-    
     });
 });
 
@@ -694,8 +695,8 @@ var myButton = me.GUI_Object.extend(
             });
       }else if (this.target == "instructionsScreen") {
           if (!windowMenuOpen){
-               adsGame.objectiveWindow.show();
-            // adsGame.helpwindow.show();
+            //adsGame.objectiveWindow.show();
+            adsGame.helpwindow.show();
             windowMenuOpen = true;
           }
       }else if (this.target == "storyScreen") {

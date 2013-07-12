@@ -29,7 +29,7 @@ var TileScreen = me.ScreenObject.extend(
 {
 	// Contrutor
 	init: function()
-	{
+	{	    
 		this.parent(true);
 		this.title = null;
 		// Configurar fontes usadas no ecrã inicial - fonte,tamanho,cor,alinhamento
