@@ -46,14 +46,25 @@ adsGame.Score = Object.extend ({
         self.createPlayerSucessed = "";     
         self.getPostResponse = false;
         
-        $.post('libraries/scoreoid_proxy.php', {action:'curl_request', method:'createPlayer',username: userName, response:'JSON'}, function(data){
-            // console.log("Data Loaded: " + data);
-            var dataJSON =  JSON.parse(data)
-            self.createPlayerSucessed = dataJSON.error;
-            console.log("self.createPlayerSucessed:::", self.createPlayerSucessed);
-        }).done(function() { self.getPostResponse = true; console.log('self.getPostResponse INside:',self.getPostResponse);})
+        // $.post('libraries/scoreoid_proxy.php', {action:'curl_request', method:'createPlayer',username: userName, response:'JSON'}, function(data){
+            // // console.log("Data Loaded: " + data);
+            // var dataJSON =  JSON.parse(data)
+            // self.createPlayerSucessed = dataJSON.error;
+            // console.log("self.createPlayerSucessed:::", self.createPlayerSucessed);
+        // }).done(function() { self.getPostResponse = true; console.log('self.getPostResponse INside:',self.getPostResponse);})
         
-        console.log('self.getPostResponse Outside:',self.getPostResponse);
+        $.ajax({
+                url:'libraries/scoreoid_proxy.php', 
+                data: {action:'curl_request', method:'createPlayer',username: userName, response:'JSON'}, 
+                type : 'POST',
+                async: false
+        }).done(
+            function(data){
+                // console.log("Data Loaded: " + data);
+                var dataJSON =  JSON.parse(data)
+                self.createPlayerSucessed = dataJSON.error;
+                console.log("self.createPlayerSucessed:::", self.createPlayerSucessed);
+        });
         
         if ( self.createPlayerSucessed ){ // Return true or false
             console.log('Already on database...',self.createPlayerSucessed);
@@ -63,7 +74,6 @@ adsGame.Score = Object.extend ({
             return true;
         }
         
-         
      },
      "playerScore" : function playerScore ( userName , playerScore){
         $.post('libraries/scoreoid_proxy.php', {action:'curl_request', method:'createScore',username: userName, score : playerScore,  response:'JSON'}, 
