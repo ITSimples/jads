@@ -1021,12 +1021,13 @@ adsGame.CreditsWindow =  Object.extend({
         
         var pathOfFileToRead = "AUTHORS.txt";
         
+        // TODO - ready in another place is delaying load process
         // READ AUTHORS TXT FILE to a string
-        var contentsOfFileAsString = FileHelper.readStringFromFileAtPath
-        (
-        pathOfFileToRead
-        );
-        this.contentsOfFileAsString = contentsOfFileAsString;
+        // var contentsOfFileAsString = FileHelper.readStringFromFileAtPath
+        // (
+        // pathOfFileToRead
+        // );
+        // this.contentsOfFileAsString = contentsOfFileAsString;
 
         console.log('Init credits window class...');
     },
@@ -1131,13 +1132,13 @@ adsGame.ObjectiveWindow =  Object.extend({
             if (!this.objectiveWindowShowing){
                  
                  console.log('Init objective window class show method called **********...');
-                 
                  // Create html in messagelayer DIV
                 var $messageBoxHtml = ('<div class="prisonersImage"></div>' +
                                                           '<div class="askHeroName"></div>' +
                                                           '<div class="lvlTileObjectives"></div>' +
                                                           '<div class="lvlTxtObjectives"></div>' +
-                                                          '<div class="buttonStart"><a class="button">Start</a></div>' 
+                                                          '<div class="buttonStart"><a class="button">Start</a></div>' +
+                                                          '<input type="text"  class="heroName" name="heroName"/>'
                                                           );
                     
                 $('#objLayer').append($messageBoxHtml);
@@ -1155,6 +1156,16 @@ adsGame.ObjectiveWindow =  Object.extend({
             
                 $('#objLayer').fadeIn( 250);
                 
+                $('.buttonStart').bind('click', function() {                     
+                    var variable = $('.heroName').val();
+                    // console.log('adsGame.scoreOID.createPlayer(variable)...' , adsGame.scoreOID.createPlayer(variable)); 
+                    if ( adsGame.scoreOID.createPlayer(variable) ){
+                        this.hide();
+                        me.state.change(me.state.PLAY); 
+                    }else{
+                        console.log("Already exist enter another name...");
+                    }
+                }.bind(this));
                 
                 // console.log("Show message...");
                 this.objectiveWindowShowing = true;
@@ -1166,8 +1177,14 @@ adsGame.ObjectiveWindow =  Object.extend({
             $('#objLayer').fadeOut( 200 , function(){     
                 //lears all the child divs, but leaves the master intact.
                 $("#objLayer").children().remove();
+                $('.buttonStart').unbind('click');
             });
-    
+            
+            // If game is on pause and the objective window is closed then resume game
+            if (!me.state.isRunning()) {
+                me.state.resume();
+            }
+            
             // console.log("hide message...");
             this.objectiveWindowShowing = false;
         }

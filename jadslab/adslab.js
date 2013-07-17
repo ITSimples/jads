@@ -82,21 +82,25 @@ var adsTest =
         var variable = "";
         var method = "createPlayer";
         
-         $('#mybutton').bind('click', function() {variable = $('#myInput').val(); console.log('Click on button...', variable);
+         // $('#mybutton').bind('click', function() {variable = $('#myInput').val(); console.log('Click on button...', variable);
+//          
+                 // $.post("http://api.scoreoid.com/v1/" + method, { api_key:'d1909dac1cb00b5b38db9c13d8e2be56d23e6460',game_id:'78f73dc8b2',response:"JSON", username: variable ,score:'300'},
+                // function(response) {
+                    // //response will now contain the JSON data returned by Scoreoid
+                     // //note, this is an async call
+                     // if (response.error)
+                        // console.log('Already on database...',response.error);
+                     // else
+                        // console.log('Not in database player created',response);
+                // });    
+//         
+         // });
          
-                 $.post("http://api.scoreoid.com/v1/" + method, { api_key:'d1909dac1cb00b5b38db9c13d8e2be56d23e6460',game_id:'78f73dc8b2',response:"JSON", username: variable ,score:'300'},
-        function(response) {
-            //response will now contain the JSON data returned by Scoreoid
-             //note, this is an async call
-             if (response.error)
-                console.log('Already on database...',response.error);
-             else
-                console.log('Not in database player created',response);
-        });    
-        
-         });
-         
-     
+        $.post('scoreoid_proxy.php', {action:'curl_request', method:'getScores', response:'JSON'}, 
+            function(data) {
+                alert("Data Loaded: " + data);
+            console.log("Data Loaded: " + data);
+        });
    
 	}
 } // END ****  adsGame *******

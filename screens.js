@@ -229,7 +229,7 @@ var PlayScreen = me.ScreenObject.extend(
 
 		//Config mouse cursor over inventory div with jquery
 		$('#inventoryLayer').css('cursor', "url('content/gui/inv_cur.gif'),pointer");
-		
+
 		// me.loader.getImage("sparkle")		
 	},
 
@@ -337,7 +337,7 @@ adsGame.LoadScreen = me.ScreenObject.extend({
         var progressBar = Math.floor((this.loadPercent * ads_width) / 8) ;
         var canvas = me.video.getScreenCanvas();
         
-        console.log("this.loadPercent" , this.loadPercent);
+        // console.log("this.loadPercent" , this.loadPercent);
         
         drawCanvas(progressBar, canvas ,  context);
         
@@ -392,4 +392,38 @@ adsGame.logoAnimationScreen = me.ScreenObject.extend({
 });
 // ****************************
 // **** End Loading Screen ****
+// ****************************
+
+// ************************
+// **** Objectives Screen  *
+// ************************
+
+adsGame.levelObjectivesScreen = me.ScreenObject.extend({
+    "init" : function () {
+        this.parent(true);
+
+        this.showObjectives = false;
+    },
+
+    "onResetEvent" : function onResetEvent() {
+                // Show objectives for the first level
+        if(!this.showObjectives){
+            // Show objectives level on game play start
+            adsGame.objectiveWindow.show();
+            // Pause game
+            me.state.pause();
+            this.showObjectives = true;
+        }
+    },
+
+    "onDestroyEvent" : function onDestroyEvent() {
+    },
+
+    "update" : function update() {
+
+        return true
+    }
+});
+// ****************************
+// **** End Objectives Screen  *
 // ****************************

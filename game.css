@@ -1141,8 +1141,8 @@ body {
 /* Objectives option layer configuration */
 #objLayer {
     position: absolute;
-    bottom: 0px;
-    left: 0px;
+    bottom: 130px;
+    left: 172px;
     width: 450px;
     height: 379px;
     background: url('content/gui/levelobjectives.png') no-repeat;
@@ -1191,6 +1191,7 @@ body {
     left: 60px;
     width: 320px;
     height: 88px;
+    font-family: 'MedievalSharp', serif;
     font-size: 15px;
     color : #F0F0E0;
     overflow: hidden;
@@ -1208,4 +1209,27 @@ body {
     text-align: justify;
     z-index:1;
 }
+
+#objLayer .heroName {
+    position: absolute;
+    top: 262px;
+    left: 184px;
+    width: 150px;
+    height: 0px;
+    border: 5px solid white; 
+    -webkit-box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1); 
+    -moz-box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1); 
+    box-shadow: 
+      inset 0 0 8px  rgba(0,0,0,0.1),
+            0 0 16px rgba(0,0,0,0.1); 
+    padding: 15px;
+    background: rgba(255,255,255,0.5);
+    margin: 0 0 10px 0;
+}
+
+input[type='text'] { font-size: 20px; font-family: 'MedievalSharp', serif; color: #764F00;}
 /* END Objectives option layer configuration */

@@ -113,8 +113,7 @@ var adsGame =
 		// Create object to Shop
         adsGame.Shop = new adsGame.Shop();
         
-        this.test = new adsGame.Score("createPlayer",{username: "variable" ,score:'300'});
-        
+        adsGame.scoreOID = new adsGame.Score();
 	},
 	reboot:function(){
 		this.data = null;
@@ -130,11 +129,14 @@ var adsGame =
 	loaded:function()
 	{
 	    var STATE_LOGO_ANIMATION = me.state.USER + 0;
+	    // Create user state Level objectives
+	    var STATE_LEVEL_OBJECTIVES = me.state.USER + 1;
 	    
 		// Definir estado Menu 
-		me.state.set(me.state.MENU,new TileScreen());
-		me.state.set(me.state.STATE_LOGO_ANIMATION,new adsGame.logoAnimationScreen());
-		
+		me.state.set(me.state.MENU,new TileScreen(true));
+		me.state.set(me.state.STATE_LOGO_ANIMATION,new adsGame.logoAnimationScreen(true));
+		me.state.set(me.state.READY,new adsGame.levelObjectivesScreen(true));
+
 		// Definir estado jogo 
 		me.state.set(me.state.PLAY,new PlayScreen(true));		
 
@@ -183,7 +185,6 @@ var adsGame =
 		// Iniciar o jogo com o Menu
 		// me.state.change(me.state.MENU);
         me.state.change(me.state.STATE_LOGO_ANIMATION);
-        
 		// Debug Mode
 		//me.state.change(me.state.PLAY);
 	}
@@ -691,11 +692,11 @@ var myButton = me.GUI_Object.extend(
       if ( this.target == "playScreen"){
             // TODO - Make this to all screens and fadein and out
             me.game.viewport.fadeIn("#000", 500, function () {
-                me.state.change(me.state.PLAY); 
+                // me.state.change(me.state.PLAY);
+                me.state.change(me.state.READY); 
             });
       }else if (this.target == "instructionsScreen") {
           if (!windowMenuOpen){
-            //adsGame.objectiveWindow.show();
             adsGame.helpwindow.show();
             windowMenuOpen = true;
           }

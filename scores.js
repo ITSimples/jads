@@ -36,45 +36,64 @@ SOFTWARE.
 adsGame.Score = Object.extend ({
     /** @scope adsGame */
      "init" : function init( scoreoidFunc , scoreoidParameters ) {
-         
-        /**
-         * api_key
-         * @private
-         * @type string
-         * @name adsGame.api_key
-         */
-         var scoreoidApi_key = 'd1909dac1cb00b5b38db9c13d8e2be56d23e6460';
-         
-        /**
-         * game_id
-         * @private
-         * @type string
-         * @name adsGame.game_id
-         */         
-         var scoreoidGame_id = '78f73dc8b2';
-         
-         var method = scoreoidFunc;
-         
-         
-         var output = {};
-         var geralParameters = { api_key : scoreoidApi_key ,game_id: scoreoidGame_id ,response:"JSON"};
-         
-         for (var key in scoreoidParameters) {
-          geralParameters[key] = scoreoidParameters[key];
-         }
+         console.log("Init adsGame.Score");
+                  
+     },
+     
+     "createPlayer" : function createPlayer ( userName ){
         
-         console.log('geralParameters',geralParameters);
-         
-        $.post("http://api.scoreoid.com/v1/" + method, geralParameters,
+        self = this;
+        self.createPlayerSucessed = "";     
+        self.getPostResponse = false;
         
-        function(response) {
-            //response will now contain the JSON data returned by Scoreoid
-             //note, this is an async call
-             if (response.error)
-                console.log('Already on database...',response.error);
-             else
-                console.log('Not in database player created',response);
-        });       
-     }
+        $.post('libraries/scoreoid_proxy.php', {action:'curl_request', method:'createPlayer',username: userName, response:'JSON'}, function(data){
+            // console.log("Data Loaded: " + data);
+            var dataJSON =  JSON.parse(data)
+            self.createPlayerSucessed = dataJSON.error;
+            console.log("self.createPlayerSucessed:::", self.createPlayerSucessed);
+        }).done(function() { self.getPostResponse = true; console.log('self.getPostResponse INside:',self.getPostResponse);})
+        
+        console.log('self.getPostResponse Outside:',self.getPostResponse);
+        
+        if ( self.createPlayerSucessed ){ // Return true or false
+            console.log('Already on database...',self.createPlayerSucessed);
+            return false;
+        }else{
+            console.log('Not in database player created',self.createPlayerSucessed);
+            return true;
+        }
+        
+         
+     },
+     "playerScore" : function playerScore ( userName , playerScore){
+        $.post('libraries/scoreoid_proxy.php', {action:'curl_request', method:'createScore',username: userName, score : playerScore,  response:'JSON'}, 
+            function(data) {
+                // alert("Data Loaded: " + data);
+            // console.log("Data Loaded: " + data);
+            if (data.error)
+                console.log('Error: ',data.error);
+            else
+                console.log('Score update : ',data);
+        });
+     },
+     "topPlayers" : function topPlayers (){
+        $.post('libraries/scoreoid_proxy.php', {action:'curl_request', method:'getBestScores',order_by : 'score', order : 'desc', limit : 10, response:'JSON'}, 
+            function(data) {
+                // alert("Data Loaded: " + data);
+
+            if (data.error){
+                console.log('Error: ',data.error);
+                return 'Error';
+            }else{
+                console.log('Top 10 : ',data.Player);
+                $.each($.parseJSON(data), function(index, element) {
+                     console.log('element' , element.Player.username , '- Score:', element.Score.score);
+                });
+                return data
+             }
+        });
+     }     
      
 }); //End adsGame.Score
+
+
