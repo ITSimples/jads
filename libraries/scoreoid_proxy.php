@@ -1,5 +1,4 @@
 <?php
-
 /*
   Copyright (c) 2013, Score-oid Ltd. 
   All rights reserved.

@@ -1201,8 +1201,19 @@ body {
 
 #objLayer .buttonStart {
     position: absolute;
-    top: 312px;
-    left: 310px;
+    top: 267px;
+    left: 321px;
+    width: 80px;
+    height: 35px;
+    overflow: hidden;
+    text-align: justify;
+    z-index:1;
+}
+
+#objLayer .buttonIgnore {
+    position: absolute;
+    top: 305px;
+    left: 321px;
     width: 80px;
     height: 35px;
     overflow: hidden;
@@ -1214,7 +1225,7 @@ body {
     position: absolute;
     top: 262px;
     left: 184px;
-    width: 150px;
+    width: 117px;
     height: 0px;
     border: 5px solid white; 
     -webkit-box-shadow: 
@@ -1227,8 +1238,23 @@ body {
       inset 0 0 8px  rgba(0,0,0,0.1),
             0 0 16px rgba(0,0,0,0.1); 
     padding: 15px;
+    padding-left: 3px;
+    padding-right: 3px;
     background: rgba(255,255,255,0.5);
     margin: 0 0 10px 0;
+}
+
+/* Comment inventory*/
+#objLayer .serverResponse {
+    position: absolute;
+    bottom: 56px;
+    left: 57px;
+    width: 263px;
+    color : #B43104;
+    font-weight: bold;
+    font-size: 13px;
+    overflow: hidden;
+    z-index:1;
 }
 
 input[type='text'] { font-size: 20px; font-family: 'MedievalSharp', serif; color: #764F00;}

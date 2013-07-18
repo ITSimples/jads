@@ -90,9 +90,6 @@ var adsGame =
 		//Create helpwindow box object
         adsGame.storywindow = new adsGame.storywindow();
         
-        //Create creditswindow box object
-        adsGame.creditsWindow = new adsGame.CreditsWindow();        
-        
         //Create Objectivewindow box object
         adsGame.objectiveWindow = new adsGame.ObjectiveWindow();        
 		
@@ -151,34 +148,6 @@ var adsGame =
 		me.entityPool.add("throwers_spawn", ThrowersSpawnEntity);
 		me.entityPool.add("map_effects_spawn", MapEffectsSpawnEntity);		
 		
-		
-		// Config Keys - in game you can use WASD or arrow keys
-		// Configurar teclas a usar, False - L� mais que uma vez True - L� v�rias vezes.
-		// Usar true por exemplo para lutar...
-		me.input.bindKey(me.input.KEY.UP, "up", false);
-		me.input.bindKey(me.input.KEY.DOWN, "down", false);
-		me.input.bindKey(me.input.KEY.LEFT, "left", false);
-		me.input.bindKey(me.input.KEY.RIGHT, "right", false);
-		
-		// Teclas para debug - prefiro :)
-		me.input.bindKey(me.input.KEY.A, "left");
-		me.input.bindKey(me.input.KEY.D, "right");
-		me.input.bindKey(me.input.KEY.W, "up");
-		me.input.bindKey(me.input.KEY.S, "down");
-		
-		// For debug mode
-		me.input.bindKey(me.input.KEY.CTRL, "ctrl", false);
-		me.input.bindKey(me.input.KEY.P, "speedup", true);
-		me.input.bindKey(me.input.KEY.L, "speeddown", true);
-		
-		//Create inventory key
-		me.input.bindKey(me.input.KEY.I, "inventory", true);
-		//Create help key
-        me.input.bindKey(me.input.KEY.H, "helpWindow", true);
-		
-		// enable the keyboard
-		me.input.bindKey(me.input.KEY.T, "touch");
-		
 		me.input.bindKey(me.input.KEY.SPACE, "mouseOverride", true);
         me.input.bindMouse(me.input.mouse.LEFT, me.input.KEY.SPACE);
 		
@@ -187,9 +156,40 @@ var adsGame =
         me.state.change(me.state.STATE_LOGO_ANIMATION);
 		// Debug Mode
 		//me.state.change(me.state.PLAY);
+		
+		//Create creditswindow box object - Create were to not delay the load because load txt file
+        adsGame.creditsWindow = new adsGame.CreditsWindow(); 
 	}
 }; // END ****  adsGame *******
 
+function bindGameKeys(){
+        // Config Keys - in game you can use WASD or arrow keys
+        // Configurar teclas a usar, False - L� mais que uma vez True - L� v�rias vezes.
+        // Usar true por exemplo para lutar...
+        me.input.bindKey(me.input.KEY.UP, "up", false);
+        me.input.bindKey(me.input.KEY.DOWN, "down", false);
+        me.input.bindKey(me.input.KEY.LEFT, "left", false);
+        me.input.bindKey(me.input.KEY.RIGHT, "right", false);
+        
+        // Teclas para debug - prefiro :)
+        me.input.bindKey(me.input.KEY.A, "left");
+        me.input.bindKey(me.input.KEY.D, "right");
+        me.input.bindKey(me.input.KEY.W, "up");
+        me.input.bindKey(me.input.KEY.S, "down");
+        
+        // For debug mode
+        me.input.bindKey(me.input.KEY.CTRL, "ctrl", false);
+        me.input.bindKey(me.input.KEY.P, "speedup", true);
+        me.input.bindKey(me.input.KEY.L, "speeddown", true);
+        
+        //Create inventory key
+        me.input.bindKey(me.input.KEY.I, "inventory", true);
+        //Create help key
+        me.input.bindKey(me.input.KEY.H, "helpWindow", true);
+        
+        // enable the keyboard
+        me.input.bindKey(me.input.KEY.T, "touch");
+};
 
 // *** Improve Speed of question box
 /*

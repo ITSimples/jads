@@ -40,39 +40,49 @@ adsGame.Score = Object.extend ({
                   
      },
      
-     "createPlayer" : function createPlayer ( userName ){
+     "createPlayer" : function createPlayer ( userName , sucess , fail , failCommunication ){
+
+        $.post('libraries/scoreoid_proxy.php', {
+            action:'curl_request', method:'createPlayer',username: userName, response:'JSON'
+            }).done(
+                function(data) { 
+                    if ( data == undefined || data ==""){
+                        failCommunication(); 
+                    }else{
+                        // console.log("Data Loaded: " , data);
+                        var dataJSON =  JSON.parse(data);
+                        
+                        var createPlayerSucessed = dataJSON.error;
+                        
+                        if ( createPlayerSucessed && userName !=="Prince Wise" ){ // Return true or false
+                            // Call fail function
+                            fail( createPlayerSucessed );
+                        }else{
+                            sucess();
+                        }
+                    }
+                }).fail( failCommunication );
         
-        self = this;
-        self.createPlayerSucessed = "";     
-        self.getPostResponse = false;
+        // $.ajax({
+                // url:'libraries/scoreoid_proxy.php', 
+                // data: {action:'curl_request', method:'createPlayer',username: userName, response:'JSON'}, 
+                // type : 'POST',
+                // async: false
+        // }).done(
+            // function(data){
+                // // console.log("Data Loaded: " + data);
+                // var dataJSON =  JSON.parse(data)
+                // self.createPlayerSucessed = dataJSON.error;
+                // console.log("self.createPlayerSucessed:::", self.createPlayerSucessed);
+        // });
         
-        // $.post('libraries/scoreoid_proxy.php', {action:'curl_request', method:'createPlayer',username: userName, response:'JSON'}, function(data){
-            // // console.log("Data Loaded: " + data);
-            // var dataJSON =  JSON.parse(data)
-            // self.createPlayerSucessed = dataJSON.error;
-            // console.log("self.createPlayerSucessed:::", self.createPlayerSucessed);
-        // }).done(function() { self.getPostResponse = true; console.log('self.getPostResponse INside:',self.getPostResponse);})
-        
-        $.ajax({
-                url:'libraries/scoreoid_proxy.php', 
-                data: {action:'curl_request', method:'createPlayer',username: userName, response:'JSON'}, 
-                type : 'POST',
-                async: false
-        }).done(
-            function(data){
-                // console.log("Data Loaded: " + data);
-                var dataJSON =  JSON.parse(data)
-                self.createPlayerSucessed = dataJSON.error;
-                console.log("self.createPlayerSucessed:::", self.createPlayerSucessed);
-        });
-        
-        if ( self.createPlayerSucessed ){ // Return true or false
-            console.log('Already on database...',self.createPlayerSucessed);
-            return false;
-        }else{
-            console.log('Not in database player created',self.createPlayerSucessed);
-            return true;
-        }
+        // if ( self.createPlayerSucessed ){ // Return true or false
+            // console.log('Already on database...',self.createPlayerSucessed);
+            // return false;
+        // }else{
+            // console.log('Not in database player created',self.createPlayerSucessed);
+            // return true;
+        // }
         
      },
      "playerScore" : function playerScore ( userName , playerScore){

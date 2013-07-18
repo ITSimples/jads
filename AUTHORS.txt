@@ -79,3 +79,8 @@ NoiseForFun.com
 MUSIC
 -----------------------
 http://blog.dayjo.org/free-rpg-music-pack-part-1/
+
+Game Servers
+--------------------
+
+ScoreOID.net - Scoreoid is a game technology company that provides developers with an advanced gaming backend as a service platform letting developers focus on what matters the most their games. 

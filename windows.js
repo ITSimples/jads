@@ -1023,11 +1023,11 @@ adsGame.CreditsWindow =  Object.extend({
         
         // TODO - ready in another place is delaying load process
         // READ AUTHORS TXT FILE to a string
-        // var contentsOfFileAsString = FileHelper.readStringFromFileAtPath
-        // (
-        // pathOfFileToRead
-        // );
-        // this.contentsOfFileAsString = contentsOfFileAsString;
+        var contentsOfFileAsString = FileHelper.readStringFromFileAtPath
+        (
+        pathOfFileToRead
+        );
+        this.contentsOfFileAsString = contentsOfFileAsString;
 
         console.log('Init credits window class...');
     },
@@ -1138,7 +1138,9 @@ adsGame.ObjectiveWindow =  Object.extend({
                                                           '<div class="lvlTileObjectives"></div>' +
                                                           '<div class="lvlTxtObjectives"></div>' +
                                                           '<div class="buttonStart"><a class="button">Start</a></div>' +
-                                                          '<input type="text"  class="heroName" name="heroName"/>'
+                                                          '<div class="buttonIgnore"><a class="button">Ignore</a></div>' +
+                                                          '<input type="text"  class="heroName" name="heroName " maxlength="10" value="Prince Wise" />' +
+                                                          '<div class="serverResponse"></div>'
                                                           );
                     
                 $('#objLayer').append($messageBoxHtml);
@@ -1146,25 +1148,59 @@ adsGame.ObjectiveWindow =  Object.extend({
                 $('.askHeroName').html ( "Hero Name:");
                 $('.lvlTileObjectives').html ( "Objetivos deste nível:");
                 $('.lvlTxtObjectives').html ( "O objectivo deste nível é libertar os 4 prisioneiros que podes ver em baixo. Resolve os enigmas e enfrenta os teus inimigos. Tenta obter o máximo de conhecimento que conseguires");
-                $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'></img>");
+                $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'/>");
                 
                 
                  // CSS for the new star
                 // $(".storylogoimage").css({
                     // "border-style" : "none"
-                // });   
-            
+                // });
+                              
                 $('#objLayer').fadeIn( 250);
                 
-                $('.buttonStart').bind('click', function() {                     
-                    var variable = $('.heroName').val();
-                    // console.log('adsGame.scoreOID.createPlayer(variable)...' , adsGame.scoreOID.createPlayer(variable)); 
-                    if ( adsGame.scoreOID.createPlayer(variable) ){
+                // Not show ignore button for now
+                $('.buttonIgnore').hide();
+                
+                $('.heroName').focus();
+                
+                $('.buttonStart').bind('click', function() { 
+                    $('.serverResponse').html ("Connecting to server. Please wait.  <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
+                    var sucess = function(){
                         this.hide();
-                        me.state.change(me.state.PLAY); 
-                    }else{
-                        console.log("Already exist enter another name...");
-                    }
+                        me.state.change(me.state.PLAY);
+                        bindGameKeys();
+                        console.log("New player created...");
+                    }.bind(this);
+                    
+                    var fail = function( error ){
+                        console.log("Error:" , error);
+                        
+                        $('.serverResponse').html ("Name exits enter a new one or click ignore.");
+                        $('.buttonIgnore').show();
+                    };
+                    
+                    var failCommunication = function(){
+                        console.log("Comunication with server failed...");
+                        $('.serverResponse').html ("Comunication with server failed.");
+                        $('.buttonIgnore').show();
+                    };
+                    
+                    var variable = $('.heroName').val();
+                    
+                    adsGame.scoreOID.createPlayer(variable, sucess, fail , failCommunication);
+                    
+                    // console.log('adsGame.scoreOID.createPlayer(variable)...' , adsGame.scoreOID.createPlayer(variable)); 
+                    // if ( adsGame.scoreOID.createPlayer(variable, sucess, fail) ){
+// 
+                    // }else{
+                        // console.log("Already exist enter another name...");
+                    // }
+                }.bind(this));
+                
+                $('.buttonIgnore').bind('click', function() { 
+                        this.hide();
+                        me.state.change(me.state.PLAY);
+                        bindGameKeys();
                 }.bind(this));
                 
                 // console.log("Show message...");
