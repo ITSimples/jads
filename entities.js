@@ -1008,7 +1008,7 @@ var TriggerEntity = me.ObjectEntity.extend({
 				if (this.type == 'PORTAL_OBJECT'){
 					if (this.checkSolution){
 						//***** TEST TELEPORT AND FADE MAP
-						// var player = me.game.getEntityByName('Hero');
+						var player = me.game.getEntityByName('Hero');
 // 						
 						// player[0].pos.x = this.targX * ads_tile_size;
 						// player[0].pos.y = this.targY * ads_tile_size;
@@ -1019,11 +1019,19 @@ var TriggerEntity = me.ObjectEntity.extend({
 						adsGame.heroEntity().pos.x = this.targX * ads_tile_size;
 						adsGame.heroEntity().pos.y = this.targY * ads_tile_size;
 						
-						if ( this.targX == 1 && this.targY == 1)
-						  window.location = "https://docs.google.com/forms/d/17GBoEcrjcjzQ-kKA3o3RG961sBBLRuX4bmu6v1eGPQ8/viewform";
-						
+
 						//TODO - Fade out /in viewport 
-						me.game.viewport.fadeOut('#000000',1000);
+						me.game.viewport.fadeOut('#000000',1000, function() {
+                            // End level one
+                            if ( this.solution = "chave3cristais"){
+                                console.log("Level one finished.");
+                                adsGame.heroEntity().renderable.setCurrentAnimation('down');
+                                me.state.pause();
+                                adsGame.Inventory.hide();
+                                adsGame.lvlFinishedWindow.show();
+                              // window.location = "https://docs.google.com/forms/d/17GBoEcrjcjzQ-kKA3o3RG961sBBLRuX4bmu6v1eGPQ8/viewform";
+                            }
+						});
 						
 						// **** TODO - REMOVE SCROOLL OF PORTAL FROM LIST OF ITEMS
 					}else{

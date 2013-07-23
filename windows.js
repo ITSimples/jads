@@ -1214,6 +1214,7 @@ adsGame.ObjectiveWindow =  Object.extend({
                 //lears all the child divs, but leaves the master intact.
                 $("#objLayer").children().remove();
                 $('.buttonStart').unbind('click');
+                $('.buttonIgnore').unbind('click');
             });
             
             // If game is on pause and the objective window is closed then resume game
@@ -1369,3 +1370,116 @@ adsGame.ScoresWindow =  Object.extend({
 });
 
 // End Top Scores Window
+
+
+ /**
+ * LVLFinishedWindow.
+ * @class
+ * @extends 
+ * @constructor
+ * @param 
+ * @example
+ * 
+ */
+ 
+adsGame.LVLFinishedWindow =  Object.extend({
+    "init" : function init( ) {
+        this.lvlFinishedWindowShowing = false;
+
+        console.log('Init game level end window class...');
+    },
+    "show": function show() {
+            if (!this.lvlFinishedWindowShowing){
+                 
+                 console.log('Init objective window class show method called **********...');
+                 // Create html in messagelayer DIV
+                var $messageBoxHtml = ('<div class="prisonersImage"></div>' +
+                                                          '<div class="thxForSaveUs"></div>' +
+                                                          '<div class="lvlCongratulations"></div>' +
+                                                          '<div class="lvlTxtHelpUs"></div>' +
+                                                          '<div class="buttonMenu"><a class="button">Menu</a></div>' +
+                                                          '<div class="buttonRetry"><a class="button">Retry</a></div>' +                                                          
+                                                          '<div class="serverResponse"></div>'
+                                                          );
+                    
+                $('#finishLayer').append($messageBoxHtml);
+
+                $('.thxForSaveUs').html ( "Thanks for save us.");
+                $('.lvlCongratulations').html ( "Congratulations you finished the game demostration." );
+                $('.lvlTxtHelpUs').html ( "Please help us to continue that adventure and save the kingdom of wisdom from the claws of king Ignoramus. Make a like on our facebook page.");
+                $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'/>");
+                
+                              
+                $('#finishLayer').fadeIn( 250);
+                
+                // Not show ignore button for now
+                $('.buttonIgnore').hide();
+                
+                $('.heroName').focus();
+                
+                $('.buttonStart').bind('click', function() { 
+                    $('.serverResponse').html ("Connecting to server. Please wait.  <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
+                    var sucess = function(){
+                        this.hide();
+                        me.state.change(me.state.PLAY);
+                        bindGameKeys();
+                        console.log("New player created...");
+                    }.bind(this);
+                    
+                    var fail = function( error ){
+                        console.log("Error:" , error);
+                        
+                        $('.serverResponse').html ("Name exits enter a new one or click ignore.");
+                        $('.buttonIgnore').show();
+                    };
+                    
+                    var failCommunication = function(){
+                        console.log("Comunication with server failed...");
+                        $('.serverResponse').html ("Comunication with server failed.");
+                        $('.buttonIgnore').show();
+                    };
+                    
+                    var variable = $('.heroName').val();
+                    
+                    adsGame.scoreOID.createPlayer(variable, sucess, fail , failCommunication);
+                    
+                    // console.log('adsGame.scoreOID.createPlayer(variable)...' , adsGame.scoreOID.createPlayer(variable)); 
+                    // if ( adsGame.scoreOID.createPlayer(variable, sucess, fail) ){
+// 
+                    // }else{
+                        // console.log("Already exist enter another name...");
+                    // }
+                }.bind(this));
+                
+                $('.buttonIgnore').bind('click', function() { 
+                        this.hide();
+                        me.state.change(me.state.PLAY);
+                        bindGameKeys();
+                }.bind(this));
+                
+                // console.log("Show message...");
+                this.lvlFinishedWindowShowing = true;
+            }
+    },
+        
+    "hide": function hide() {
+        if (this.lvlFinishedWindowShowing){
+            $('#finishLayer').fadeOut( 200 , function(){     
+                //lears all the child divs, but leaves the master intact.
+                $("#finishLayer").children().remove();
+                $('.buttonMenu').unbind('click');
+                $('.buttonRetry').unbind('click');
+            });
+            
+            // If game is on pause and the objective window is closed then resume game
+            if (!me.state.isRunning()) {
+                me.state.resume();
+            }
+            
+            // console.log("hide message...");
+            this.lvlFinishedWindowShowing = false;
+        }
+    }
+});
+
+// End level finished window ******

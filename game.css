@@ -45,8 +45,8 @@ body {
 
 #linkForm {
     position: absolute;
-    bottom: 10px;
-    right: 420px;
+    bottom: 8px;
+    right: 400px;
     text-align:left;
     z-index:0;
     font-family: 'MedievalSharp', serif;
@@ -1451,17 +1451,17 @@ input[type='text'] { font-size: 20px; font-family: 'MedievalSharp', serif; color
     z-index:1;
 }
 
-#finishLayer .thxForPlaying {
+#finishLayer .thxForSaveUs {
     position: absolute;
-    top: 275px;
-    left: 60px;
-    width: 125px;
+    top: 268px;
+    left: 75px;
+    width: 250px;
     height: 22px;
     font-size: 22px;
-    color : #764F00;
+    color: #764F00;
     overflow: hidden;
-    text-align: left;    
-    z-index:1;
+    text-align: left;
+    z-index: 1;
 }
 
 #finishLayer .lvlCongratulations {

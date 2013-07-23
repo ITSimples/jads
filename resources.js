@@ -86,14 +86,14 @@ var heroVelocity = 3;
 
 var itemLucky = 15;
 
-var startHero = [5,5];
+var startHero = [45,45];
 
 var heroHealth = 10;
 
-var DEBUG_MODE = false;
+var DEBUG_MODE = true;
 
 // Give item to hero to start in debug mode
-var giveItemDebug = "manuscrito";
+var giveItemDebug = "chave3cristais";
 
 /*--- END Hero Configuration ---*/
 

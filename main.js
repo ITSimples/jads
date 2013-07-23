@@ -95,6 +95,9 @@ var adsGame =
         
         //Create Objectivewindow box object
         adsGame.objectiveWindow = new adsGame.ObjectiveWindow();
+        
+        //Create Objectivewindow box object
+        adsGame.lvlFinishedWindow = new adsGame.LVLFinishedWindow();
 		
 		// New structure for game
 		// adsGame.data = game_data;

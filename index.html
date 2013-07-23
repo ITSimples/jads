@@ -59,30 +59,19 @@ SOFTWARE.
 		<link rel="stylesheet" type="text/css" href="game.css" />
 	</head>
 	<body bgcolor="black">
-        <!--div id = "adsInformation">
-            <font color="#FFFFFF", style ="font-size: 14px; font-family: Courier New">
-                <p>How to play: </p>
-                <p> * Keys *</p>
-                <p> W - Move UP</p>
-                <p> S - Move DOWN</p>
-                <p> A - Move LEFT</p>
-                <p> D - Move RIGHT</p>
-                <p> I - Show inventory</p>
-                <p> 1-3 Answer Questions</p>
-                <p>* Mouse *</p>
-                <p>Click:</p>
-                <p>  - Active weapon</p>
-                <p>  - Fire weapon</p>
-                <p>  - Answer Questions</p>
-                <p>Double Click:</p>
-                <p>  - Use items</p>
-                <p>Over inventory:</p>
-                <p>  - Information</p>
-             </font>
-             <font color="#FF0000", style ="font-size: 14px; font-family: Courier New">
-                <p>Game in development.</p>
-             </font>
-         </div-->
+	    <!--  Facebook like button configuration-->
+	     <div id="fb-root"></div>
+        <script>
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&status=0";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+        </script>
+        <!--  End Facebook like button configuration-->        
+        
 		<div id="adsPage">
 			<div id="gameBorder">		
 				<!-- Game name -->
@@ -134,15 +123,20 @@ SOFTWARE.
                     <!-- Scores Information Box -->
                     <div id="menuScoreLayer">
                     </div>
-                    <!-- Scores level Information Box -->                    
+                    <!-- Scores level Information Box -->                 
+                    
+                    <!-- End level  Box -->
+                    <div id="finishLayer">
+                    </div>
+                    <!-- End level Box -->   
 				</div>
 				
                 <!-- Link formulario -->
                 <div id="linkForm"> 
-                    
-                    <a href="https://docs.google.com/forms/d/17GBoEcrjcjzQ-kKA3o3RG961sBBLRuX4bmu6v1eGPQ8/viewform?pli=1" target="_blank">
+                    <div class="fb-like" data-href="https://www.facebook.com/ITsimples" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial"></div>
+                    <!-- <a href="https://docs.google.com/forms/d/17GBoEcrjcjzQ-kKA3o3RG961sBBLRuX4bmu6v1eGPQ8/viewform?pli=1" target="_blank">
                     Formulário
-                    </a>
+                    </a> -->
                 </div>
                 
 				<!-- Author name -->
