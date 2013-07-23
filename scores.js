@@ -58,34 +58,14 @@ adsGame.Score = Object.extend ({
                             // Call fail function
                             fail( createPlayerSucessed );
                         }else{
-                            sucess();
+                            sucess( );
                         }
                     }
                 }).fail( failCommunication );
-        
-        // $.ajax({
-                // url:'libraries/scoreoid_proxy.php', 
-                // data: {action:'curl_request', method:'createPlayer',username: userName, response:'JSON'}, 
-                // type : 'POST',
-                // async: false
-        // }).done(
-            // function(data){
-                // // console.log("Data Loaded: " + data);
-                // var dataJSON =  JSON.parse(data)
-                // self.createPlayerSucessed = dataJSON.error;
-                // console.log("self.createPlayerSucessed:::", self.createPlayerSucessed);
-        // });
-        
-        // if ( self.createPlayerSucessed ){ // Return true or false
-            // console.log('Already on database...',self.createPlayerSucessed);
-            // return false;
-        // }else{
-            // console.log('Not in database player created',self.createPlayerSucessed);
-            // return true;
-        // }
-        
+  
      },
-     "playerScore" : function playerScore ( userName , playerScore){
+     
+     "setPlayerScore" : function setPlayerScore ( userName , playerScore){
         $.post('libraries/scoreoid_proxy.php', {action:'curl_request', method:'createScore',username: userName, score : playerScore,  response:'JSON'}, 
             function(data) {
                 // alert("Data Loaded: " + data);
@@ -96,6 +76,7 @@ adsGame.Score = Object.extend ({
                 console.log('Score update : ',data);
         });
      },
+     
      "topPlayers" : function topPlayers ( sucess , fail , failCommunication ){
             $.post('libraries/scoreoid_proxy.php', {action:'curl_request', 
                                                                         method:'getBestScores',
@@ -113,13 +94,39 @@ adsGame.Score = Object.extend ({
                         
                         if ( error ){ // Return true or false
                             // Call fail function
-                            fail( createPlayerSucessed );
+                            fail( error );
                         }else{
                             console.log('Top 10 : ',data.Player);
                             $.each($.parseJSON(data), function(index, element) {
                                  console.log('element' , element.Player.username , '- Score:', element.Score.score);
                             });
                             sucess( dataJSON );
+                        }
+                    }
+                }).fail( failCommunication );
+     },
+     
+     "getPlayerRank" : function getPlayerRank ( playerName , sucess , fail , failCommunication ){
+            $.post('libraries/scoreoid_proxy.php', {action:'curl_request', 
+                                                                        method:'getPlayerRank',
+                                                                        username : playerName,
+                                                                        response:'JSON'}).done(
+                function(data) { 
+                    if ( data == undefined || data ==""){
+                        failCommunication(); 
+                    }else{
+                        // console.log("Data Loaded: " , data);
+                        var dataJSON =  JSON.parse(data);
+                        
+                        var error = dataJSON.error;
+                        
+                        if ( error ){ // Return true or false
+                            // Call fail function
+                            fail( error );
+                        }else{
+                            console.log('Rank for ' , playerName , ' rank :' , dataJSON.rank);
+                            
+                            sucess( dataJSON.rank );
                         }
                     }
                 }).fail( failCommunication );

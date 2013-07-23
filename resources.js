@@ -88,6 +88,8 @@ var itemLucky = 15;
 
 var startHero = [45,45];
 
+var heroName = "";
+
 var heroHealth = 10;
 
 var DEBUG_MODE = true;

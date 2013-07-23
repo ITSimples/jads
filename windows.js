@@ -1185,9 +1185,9 @@ adsGame.ObjectiveWindow =  Object.extend({
                         $('.buttonIgnore').show();
                     };
                     
-                    var variable = $('.heroName').val();
+                    heroName = $('.heroName').val();
                     
-                    adsGame.scoreOID.createPlayer(variable, sucess, fail , failCommunication);
+                    adsGame.scoreOID.createPlayer(heroName, sucess, fail , failCommunication);
                     
                     // console.log('adsGame.scoreOID.createPlayer(variable)...' , adsGame.scoreOID.createPlayer(variable)); 
                     // if ( adsGame.scoreOID.createPlayer(variable, sucess, fail) ){
@@ -1395,6 +1395,7 @@ adsGame.LVLFinishedWindow =  Object.extend({
                  // Create html in messagelayer DIV
                 var $messageBoxHtml = ('<div class="prisonersImage"></div>' +
                                                           '<div class="thxForSaveUs"></div>' +
+                                                          '<div class="playerPosition"></div>' +
                                                           '<div class="lvlCongratulations"></div>' +
                                                           '<div class="lvlTxtHelpUs"></div>' +
                                                           '<div class="buttonMenu"><a class="button">Menu</a></div>' +
@@ -1404,7 +1405,7 @@ adsGame.LVLFinishedWindow =  Object.extend({
                     
                 $('#finishLayer').append($messageBoxHtml);
 
-                $('.thxForSaveUs').html ( "Thanks for save us.");
+                $('.thxForSaveUs').html ( "Thanks for saving us " + heroName +".");
                 $('.lvlCongratulations').html ( "Congratulations you finished the game demostration." );
                 $('.lvlTxtHelpUs').html ( "Please help us to continue that adventure and save the kingdom of wisdom from the claws of king Ignoramus. Make a like on our facebook page.");
                 $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'/>");
@@ -1417,39 +1418,29 @@ adsGame.LVLFinishedWindow =  Object.extend({
                 
                 $('.heroName').focus();
                 
-                $('.buttonStart').bind('click', function() { 
-                    $('.serverResponse').html ("Connecting to server. Please wait.  <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
-                    var sucess = function(){
-                        this.hide();
-                        me.state.change(me.state.PLAY);
-                        bindGameKeys();
-                        console.log("New player created...");
-                    }.bind(this);
+                // Get player rank and set score on scoreoid
+                
+                var sucess = function( rank ){
+                    console.log("Get Player Rank.");
+                    $('.playerPosition').html ( "Position " + rank + " with " + me.game.HUD.getItemValue("conhecimento") + " Points." );
+                }.bind(this);
+                
+                var fail = function( error ){
+                    console.log("Error:" , error);
                     
-                    var fail = function( error ){
-                        console.log("Error:" , error);
-                        
-                        $('.serverResponse').html ("Name exits enter a new one or click ignore.");
-                        $('.buttonIgnore').show();
-                    };
-                    
-                    var failCommunication = function(){
-                        console.log("Comunication with server failed...");
-                        $('.serverResponse').html ("Comunication with server failed.");
-                        $('.buttonIgnore').show();
-                    };
-                    
-                    var variable = $('.heroName').val();
-                    
-                    adsGame.scoreOID.createPlayer(variable, sucess, fail , failCommunication);
-                    
-                    // console.log('adsGame.scoreOID.createPlayer(variable)...' , adsGame.scoreOID.createPlayer(variable)); 
-                    // if ( adsGame.scoreOID.createPlayer(variable, sucess, fail) ){
-// 
-                    // }else{
-                        // console.log("Already exist enter another name...");
-                    // }
-                }.bind(this));
+                    $('.serverResponse').html ("Error getting data from server.");
+                    $('.buttonRetry').show();
+                };
+                
+                var failCommunication = function(){
+                    console.log("Comunication with server failed...");
+                    $('.serverResponse').html ("Comunication with server failed.");
+                    $('.buttonRetry').show();
+                };
+                
+                console.log("Hero name:", heroName);
+                
+                adsGame.scoreOID.getPlayerRank(heroName, sucess, fail , failCommunication);
                 
                 $('.buttonIgnore').bind('click', function() { 
                         this.hide();
