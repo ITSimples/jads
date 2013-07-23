@@ -90,8 +90,11 @@ var adsGame =
 		//Create helpwindow box object
         adsGame.storywindow = new adsGame.storywindow();
         
+        //CreateScorewindow box object
+        adsGame.scoreWindow = new adsGame.ScoresWindow();
+        
         //Create Objectivewindow box object
-        adsGame.objectiveWindow = new adsGame.ObjectiveWindow();        
+        adsGame.objectiveWindow = new adsGame.ObjectiveWindow();
 		
 		// New structure for game
 		// adsGame.data = game_data;
@@ -705,6 +708,11 @@ var myButton = me.GUI_Object.extend(
             adsGame.storywindow.show();
             windowMenuOpen = true;
           }
+      }else if (this.target == "topScoresScreen") {
+           if (!windowMenuOpen){
+            adsGame.scoreWindow.show();
+            windowMenuOpen = true;
+          }
       }else if (this.target == "creditsScreen") {
            if (!windowMenuOpen){
             // console.log("contentsOfFileAsString", contentsOfFileAsString);
@@ -713,8 +721,6 @@ var myButton = me.GUI_Object.extend(
             windowMenuOpen = true;
           }
       }
-      
-      adsGame.storywindow
       return false;
    },
    
@@ -768,6 +774,8 @@ var myButton = me.GUI_Object.extend(
                 adsGame.storywindow.hide();
           }else if (this.target == "creditsScreen") {
                 adsGame.creditsWindow.hide();
+          }else if (this.target == "topScoresScreen") {
+                adsGame.scoreWindow.hide();
           }
       }
       console.log("Destroy button!");

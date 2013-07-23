@@ -40,11 +40,15 @@ var TileScreen = me.ScreenObject.extend(
             e.preventDefault();
         });
         
+        var menuStartYPosition = 15;
+        var sizeBetweenButtons = 50;
+        
         this.menuButtons = [
-            {"text": "TRmenuPlay", "target":"playScreen" , "pos":{"x": 437 , "y" : 35}},
-            {"text": "TRmenuStory", "target":"storyScreen" , "pos":{"x": 437 , "y" : 87}},
-            {"text": "TRmenuHelp", "target":"instructionsScreen" , "pos":{"x": 437 , "y" : 139}},
-            {"text": "TRmenuCredits", "target":"creditsScreen" , "pos":{"x": 437 , "y" : 191}}
+            {"text": "TRmenuPlay", "target":"playScreen" , "pos":{"x": 437 , "y" : menuStartYPosition }},
+            {"text": "TRmenuStory", "target":"storyScreen" , "pos":{"x": 437 , "y" : menuStartYPosition + (sizeBetweenButtons * 1)}},
+            {"text": "TRmenuHelp", "target":"instructionsScreen" , "pos":{"x": 437 , "y" : menuStartYPosition +  (sizeBetweenButtons * 2)}},
+            {"text": "TRmenuTopScores", "target":"topScoresScreen" , "pos":{"x": 437 , "y" : menuStartYPosition +  (sizeBetweenButtons * 3)}},
+            {"text": "TRmenuCredits", "target":"creditsScreen" , "pos":{"x": 437 , "y" : menuStartYPosition +  (sizeBetweenButtons * 4)}}
         ];
 
 	},

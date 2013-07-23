@@ -1226,3 +1226,146 @@ adsGame.ObjectiveWindow =  Object.extend({
         }
     }
 });
+
+
+ /**
+ * scoreswindow.
+ * @class
+ * @extends 
+ * @constructor
+ * @param 
+ * @example
+ * 
+ */
+ 
+adsGame.ScoresWindow =  Object.extend({
+    "init" : function init( ) {
+        this.scoresWindowShowing = false;
+        
+        console.log('Init scores window class...');
+    },
+    "show": function show() {
+            if (!this.scoresWindowShowing){
+                 
+                 
+            console.log("Open top scores window...");
+            
+                 // Create html in messagelayer DIV
+                var $messageBoxHtml = (
+                    '<div class="instructionsL1"></div>' +
+                    '<div class="txtDIVL1"></div>' +
+                    '<div class="playerNameHeader"></div>' +
+                    '<div class="scoreDateHeader"></div>' +
+                    '<div class="scorePointsHeader"></div>' +                    
+                    '<div class="playerName"></div>' +
+                    '<div class="scoreDate"></div>' +
+                    '<div class="scorePoints"></div>' +
+                    '<div class="inpirationText"></div>' +
+                    '<div class="scoreClose"></div>'+
+                    '<div class="fire"></div>'+
+                    '<img class="candlefire" src = "content/gui/candlefire.png"></img>'+
+                    '<div class="serverResponse"></div>');
+                    
+                $('#menuScoreLayer').append($messageBoxHtml);
+                
+                //Prepare candle fire
+                $('.fire').fire({
+                    speed:20,
+                    maxPow:2,
+                    minPow: 1,
+                    gravity:12,
+                    flameWidth:4,
+                    flameHeight:1,
+                    plasm:false,
+                    fireTransparency:35,
+                    globalTransparency:10,
+                    fadingFlameSpeed:4,
+                    mouseEffect:true,
+                    maxPowZone: "center",
+                    burnBorders: false,
+                    yOffset: 0
+                }); 
+                
+                $('.instructionsL1').html( '* The top ten smartest heroes  *');
+                
+                // fill with scoreoid data
+                
+                // Connect to server to get top player scores
+                $('.serverResponse').html ("Connecting to server. Please wait.  <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
+                
+                var sucess = function( data ){
+                    
+                    $(".playerNameHeader,.scoreDateHeader,.scorePointsHeader").css({'color':'#008000', 'font-weight':'bold' } );
+                    
+                    $('.playerNameHeader').html('Hero Name' + '<BR>' );
+                    $('.scoreDateHeader').html('Score date' + '<BR>' );
+                    $('.scorePointsHeader').html('Knowledge' + '<BR>' );
+                    
+                    $(".playerName,.scoreDate,.scorePoints").css({'font-weight':'normal' } );
+                    
+                    $(".playerName").css({'color':'#FFFFFF'});
+                    $(".scoreDate").css({'color':'#FFFF00'});
+                    $(".scorePoints").css({'color':'#0000FF'});
+                    
+                    $('.serverResponse').hide();
+                    console.log("Get top 10 players...", data);
+                    
+                    // Make top 10 list
+                    $.each( data , function(index, element) {
+                         console.log('element' , element.Player.username , '- Score:', element.Score.score);
+                        // $('.txtDIVL1').append('#' + (index + 1) + element.Player.username + 'on ' + element.Score.created + ' '+ element.Score.score + ' Points<BR>');
+                        
+                        $('.playerName').append((index + 1) + ' - ' +  element.Player.username + '<BR>' );
+                        $('.scoreDate').append(element.Score.created.substring(0,11) + '<BR>' );
+                        $('.scorePoints').append(element.Score.score + '<BR>' );
+                    });
+                    
+                    $('.inpirationText').html('O raciocínio lógico leva-te de A a B. A imaginação leva-te a qualquer lugar onde quiseres. (Albert Einstein)');
+                }.bind(this);
+                
+                var fail = function( error ){
+                    console.log("Error:" , error);
+                    
+                    $('.serverResponse').html ("Error receiving data from server. Try again later.");
+                };
+                
+                var failCommunication = function(){
+                    console.log("Comunication with server failed. Try again later.");
+                    $('.serverResponse').html ("Comunication with server failed. Try again later.");
+                    $('.buttonIgnore').show();
+                };
+                
+                //Get top 10 players
+                adsGame.scoreOID.topPlayers( sucess, fail , failCommunication);
+                $('.scoreClose').html( "[" + language.system.TRclose + "]" );
+                
+                $('.scoreClose').bind('click', function( event ) {
+                    console.log("Close event...");
+                    this.hide();
+                }.bind(this));
+ 
+            
+                $('#menuScoreLayer').fadeIn( 250);
+                
+                // console.log("Show message...");
+                this.scoresWindowShowing = true;
+            }
+    },
+        
+    "hide": function hide() {
+        if (this.scoresWindowShowing){
+            $('#menuScoreLayer').fadeOut( 200 , function(){
+                $('.storyclose').unbind('click');                
+                //lears all the child divs, but leaves the master intact.
+                $("#menuScoreLayer").children().remove();
+            });
+    
+            // console.log("hide message...");
+            this.scoresWindowShowing = false;
+            
+            windowMenuOpen = false;
+        }
+    }
+});
+
+// End Top Scores Window

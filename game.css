@@ -1135,7 +1135,7 @@ body {
     height: 110px;
     z-index:1;
 }
-/* End Menu Help layer configuration */
+/* End Menu Story layer configuration */
 
 
 /* Objectives option layer configuration */
@@ -1244,7 +1244,6 @@ body {
     margin: 0 0 10px 0;
 }
 
-/* Comment inventory*/
 #objLayer .serverResponse {
     position: absolute;
     bottom: 56px;
@@ -1259,3 +1258,270 @@ body {
 
 input[type='text'] { font-size: 20px; font-family: 'MedievalSharp', serif; color: #764F00;}
 /* END Objectives option layer configuration */
+
+/* Menu Top Scores option layer configuration */
+#menuScoreLayer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 444px;
+    height: 544px;
+    background: url('content/gui/helpwindow.png') no-repeat;
+    font-family: 'MedievalSharp', serif;
+    display: none;
+}
+
+#menuScoreLayer .instructionsL1 {
+    position: absolute;
+    top: 70px;
+    left: 60px;
+    width: 325px;
+    height: 22px;
+    font-size: 22px;
+    color : #764F00;
+    overflow: hidden;
+    text-align: center;    
+    z-index:1;
+}
+
+#menuScoreLayer .txtDIVL1 {
+    position: absolute;
+    top: 108px;
+    left: 70px;
+    width: 300px;
+    height: 200px;
+    font-size: 15px;
+    color: #F0F0E0;
+    overflow: hidden;
+    line-height: 130%;
+    z-index: 1;
+}
+#menuScoreLayer .playerNameHeader {
+    position: absolute;
+    top: 100px;
+    left: 70px;
+    width: 105px;
+    height: 20px;
+    font-size: 17px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#menuScoreLayer .scoreDateHeader {
+    position: absolute;
+    top: 100px;
+    left: 180px;
+    width: 100px;
+    height: 20px;
+    font-size: 17px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#menuScoreLayer .scorePointsHeader {
+    position: absolute;
+    top: 100px;
+    left: 283px;
+    width: 90px;
+    height: 20px;
+    font-size: 17px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#menuScoreLayer .playerName {
+    position: absolute;
+    top: 125px;
+    left: 70px;
+    width: 110px;
+    height: 200px;
+    font-size: 15px;
+    overflow: hidden;
+    line-height: 120%;
+    z-index: 1;
+}
+
+#menuScoreLayer .scoreDate {
+    position: absolute;
+    top: 125px;
+    left: 180px;
+    width: 100px;
+    height: 200px;
+    font-size: 15px;
+    overflow: hidden;
+    line-height: 120%;
+    z-index: 1;
+}
+
+#menuScoreLayer .scorePoints {
+    position: absolute;
+    top: 125px;
+    left: 283px;
+    width: 80px;
+    height: 200px;
+    font-size: 15px;
+    overflow: hidden;
+    line-height: 120%;
+    text-align: right;
+    z-index: 1;
+}
+
+
+
+#menuScoreLayer .scoreClose {
+    position: absolute;
+    top: 20px;
+    left: 310px;
+    width: 60px;
+    height: 20px;
+    font-size: 15px;
+    color : #008000;
+    overflow: hidden;
+    font-weight:bold;
+    z-index:1;
+}
+
+#menuScoreLayer .fire {
+    position: absolute;
+    bottom: 194px;
+    left: 67px;
+    width: 26px;
+    height: 57px;
+ /*   border:2px solid;
+    border-radius:125px;*/
+    z-index:1;
+}
+
+#menuScoreLayer img.candlefire {
+    position: absolute;
+    bottom: 190px;
+    left: 73px;
+    width: 24px;
+    height: 40px;
+    z-index:2;
+    
+}
+
+#menuScoreLayer .serverResponse {
+    position: absolute;
+    top: 108px;
+    left: 70px;
+    width: 300px;
+    height: 20px;
+    font-size: 15px;
+    color: #B43104;
+    overflow: hidden;
+    line-height: 130%;
+    z-index: 1;    
+}
+
+#menuScoreLayer .inpirationText {
+    position: absolute;
+    top: 350px;
+    left: 137px;
+    width: 230px;
+    height: 110px;
+    font-size: 15px;
+    color : #ec4a4a;
+    overflow: hidden;
+    text-align: justify;
+    z-index:1;
+}
+/* End Menu Scores layer configuration */
+
+
+/* Objectives option layer configuration */
+#finishLayer {
+    position: absolute;
+    bottom: 130px;
+    left: 172px;
+    width: 450px;
+    height: 379px;
+    background: url('content/gui/levelobjectives.png') no-repeat;
+    font-family: 'MedievalSharp', serif;
+    display: none;
+}
+
+#finishLayer .prisonersImage {
+    position: absolute;
+    bottom: 122px;
+    left: 60px;
+    width: 320px;
+    height: 73px;
+    z-index:1;
+}
+
+#finishLayer .thxForPlaying {
+    position: absolute;
+    top: 275px;
+    left: 60px;
+    width: 125px;
+    height: 22px;
+    font-size: 22px;
+    color : #764F00;
+    overflow: hidden;
+    text-align: left;    
+    z-index:1;
+}
+
+#finishLayer .lvlCongratulations {
+    position: absolute;
+    top: 52px;
+    left: 60px;
+    width: 325px;
+    height: 20px;
+    font-size: 18px;
+    color : #764F00;
+    overflow: hidden;
+    text-align: left;    
+    z-index:1;
+}
+
+#finishLayer .lvlTxtHelpUs {
+    position: absolute;
+    top: 87px;
+    left: 60px;
+    width: 320px;
+    height: 88px;
+    font-family: 'MedievalSharp', serif;
+    font-size: 15px;
+    color : #F0F0E0;
+    overflow: hidden;
+    text-align: justify;
+    z-index:1;
+}
+
+#finishLayer .buttonMenu {
+    position: absolute;
+    top: 267px;
+    left: 321px;
+    width: 80px;
+    height: 35px;
+    overflow: hidden;
+    text-align: justify;
+    z-index:1;
+}
+
+#finishLayer .buttonRetry {
+    position: absolute;
+    top: 305px;
+    left: 321px;
+    width: 80px;
+    height: 35px;
+    overflow: hidden;
+    text-align: justify;
+    z-index:1;
+}
+
+#finishLayer .serverResponse {
+    position: absolute;
+    bottom: 56px;
+    left: 57px;
+    width: 263px;
+    color : #B43104;
+    font-weight: bold;
+    font-size: 13px;
+    overflow: hidden;
+    z-index:1;
+}
+/* END finish game layer configuration */

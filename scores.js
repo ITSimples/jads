@@ -96,22 +96,33 @@ adsGame.Score = Object.extend ({
                 console.log('Score update : ',data);
         });
      },
-     "topPlayers" : function topPlayers (){
-        $.post('libraries/scoreoid_proxy.php', {action:'curl_request', method:'getBestScores',order_by : 'score', order : 'desc', limit : 10, response:'JSON'}, 
-            function(data) {
-                // alert("Data Loaded: " + data);
-
-            if (data.error){
-                console.log('Error: ',data.error);
-                return 'Error';
-            }else{
-                console.log('Top 10 : ',data.Player);
-                $.each($.parseJSON(data), function(index, element) {
-                     console.log('element' , element.Player.username , '- Score:', element.Score.score);
-                });
-                return data
-             }
-        });
+     "topPlayers" : function topPlayers ( sucess , fail , failCommunication ){
+            $.post('libraries/scoreoid_proxy.php', {action:'curl_request', 
+                                                                        method:'getBestScores',
+                                                                        order_by : 'score', 
+                                                                        order : 'desc', limit : 10, 
+                                                                        response:'JSON'}).done(
+                function(data) { 
+                    if ( data == undefined || data ==""){
+                        failCommunication(); 
+                    }else{
+                        // console.log("Data Loaded: " , data);
+                        var dataJSON =  JSON.parse(data);
+                        
+                        var error = dataJSON.error;
+                        
+                        if ( error ){ // Return true or false
+                            // Call fail function
+                            fail( createPlayerSucessed );
+                        }else{
+                            console.log('Top 10 : ',data.Player);
+                            $.each($.parseJSON(data), function(index, element) {
+                                 console.log('element' , element.Player.username , '- Score:', element.Score.score);
+                            });
+                            sucess( dataJSON );
+                        }
+                    }
+                }).fail( failCommunication );
      }     
      
 }); //End adsGame.Score
