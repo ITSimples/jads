@@ -750,7 +750,7 @@ adsGame.QuestionQuest =  Object.extend({
  * 
  */
  
-adsGame.helpwindow =  Object.extend({
+adsGame.HelpWindow =  Object.extend({
     "init" : function init() {
         this.helpwindowShowing = false;
 
@@ -909,7 +909,7 @@ adsGame.helpwindow =  Object.extend({
  * 
  */
  
-adsGame.storywindow =  Object.extend({
+adsGame.StoryWindow =  Object.extend({
     "init" : function init() {
         this.storywindowShowing = false;
 
@@ -1131,7 +1131,7 @@ adsGame.ObjectiveWindow =  Object.extend({
     "show": function show() {
             if (!this.objectiveWindowShowing){
                  
-                 console.log('Init objective window class show method called **********...');
+                 console.log('Objective window opened **********...');
                  // Create html in messagelayer DIV
                 var $messageBoxHtml = ('<div class="prisonersImage"></div>' +
                                                           '<div class="askHeroName"></div>' +
@@ -1218,9 +1218,9 @@ adsGame.ObjectiveWindow =  Object.extend({
             });
             
             // If game is on pause and the objective window is closed then resume game
-            if (!me.state.isRunning()) {
-                me.state.resume();
-            }
+            // if (!me.state.isRunning()) {
+                // me.state.resume();
+            // }
             
             // console.log("hide message...");
             this.objectiveWindowShowing = false;
@@ -1413,22 +1413,23 @@ adsGame.LVLFinishedWindow =  Object.extend({
                               
                 $('#finishLayer').fadeIn( 250);
                 
-                // Not show ignore button for now
-                $('.buttonIgnore').hide();
-                
-                $('.heroName').focus();
+                // Not show retry button if not error connecting to server
+                $('.buttonRetry').hide();
                 
                 // Get player rank and set score on scoreoid
                 
-                var sucess = function( rank ){
+                var sucessRank = function( rank ){
                     console.log("Get Player Rank.");
-                    $('.playerPosition').html ( "Position " + rank + " with " + me.game.HUD.getItemValue("conhecimento") + " Points." );
+                    $('.serverResponse').hide();
+                    $('.playerPosition').html ( "You are in rank " + rank + " with " + me.game.HUD.getItemValue("conhecimento") + " Points." );
+                    adsGame.restart();
                 }.bind(this);
+                
                 
                 var fail = function( error ){
                     console.log("Error:" , error);
                     
-                    $('.serverResponse').html ("Error getting data from server.");
+                    $('.serverResponse').html ("Error handling data with server.");
                     $('.buttonRetry').show();
                 };
                 
@@ -1438,14 +1439,27 @@ adsGame.LVLFinishedWindow =  Object.extend({
                     $('.buttonRetry').show();
                 };
                 
+                var sucessSetPlayerScore = function( ){
+                    console.log("Get Player Rank." , sucessRank);
+                    adsGame.scoreOID.getPlayerRank(heroName, sucessRank , fail , failCommunication);
+                    // $('.playerPosition').html ( "You are in rank " + rank + " with " + me.game.HUD.getItemValue("conhecimento") + " Points." );
+                }.bind(this);
+                
                 console.log("Hero name:", heroName);
                 
-                adsGame.scoreOID.getPlayerRank(heroName, sucess, fail , failCommunication);
+                // sucessSetPlayerScore();
+                $('.serverResponse').html ("Connecting to scoreoid server. <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
                 
-                $('.buttonIgnore').bind('click', function() { 
+                adsGame.scoreOID.setPlayerScore(heroName, me.game.HUD.getItemValue("conhecimento"), sucessSetPlayerScore , fail , failCommunication);
+                
+                $('.buttonMenu').bind('click', function() { 
+                        this.hide();                        
+                        me.state.change(me.state.MENU);
+                }.bind(this));
+                
+                $('.buttonRetry').bind('click', function() { 
                         this.hide();
-                        me.state.change(me.state.PLAY);
-                        bindGameKeys();
+                        adsGame.scoreOID.setPlayerScore(heroName, me.game.HUD.getItemValue("conhecimento"), sucessSetPlayerScore , fail , failCommunication);
                 }.bind(this));
                 
                 // console.log("Show message...");

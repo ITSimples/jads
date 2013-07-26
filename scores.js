@@ -65,16 +65,29 @@ adsGame.Score = Object.extend ({
   
      },
      
-     "setPlayerScore" : function setPlayerScore ( userName , playerScore){
-        $.post('libraries/scoreoid_proxy.php', {action:'curl_request', method:'createScore',username: userName, score : playerScore,  response:'JSON'}, 
-            function(data) {
-                // alert("Data Loaded: " + data);
-            // console.log("Data Loaded: " + data);
-            if (data.error)
-                console.log('Error: ',data.error);
-            else
-                console.log('Score update : ',data);
-        });
+     "setPlayerScore" : function setPlayerScore ( userName , playerScore, sucess , fail , failCommunication){
+                $.post('libraries/scoreoid_proxy.php', {action:'curl_request', 
+                                                                            method:'createScore',
+                                                                            username: userName, 
+                                                                            score : playerScore,  
+                                                                            response:'JSON'}).done(
+                function(data) { 
+                    if ( data == undefined || data ==""){
+                        failCommunication(); 
+                    }else{
+                        // console.log("Data Loaded: " , data);
+                        var dataJSON =  JSON.parse(data);
+                        
+                        var error = dataJSON.error;
+                        
+                        if ( error ){ // Return true or false
+                            // Call fail function
+                            fail( error );
+                        }else{
+                            sucess();
+                        }
+                    }
+                }).fail( failCommunication );
      },
      
      "topPlayers" : function topPlayers ( sucess , fail , failCommunication ){

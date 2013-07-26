@@ -83,12 +83,50 @@ var adsGame =
 		//Ver caixa de colis�o
 		me.debug.renderHitBox = DEBUG_MODE;
 		
-		//Create helpwindow box object
-		adsGame.helpwindow = new adsGame.helpwindow();
-		
-		
-		//Create helpwindow box object
-        adsGame.storywindow = new adsGame.storywindow();
+		this.createGameObjects();
+	},
+	
+	deleteReferenceGameObjects:function(){
+	    // Delete Create helpwindow box object
+        delete adsGame.helpwindow;
+        
+        // Delete  helpwindow box object
+        delete adsGame.storywindow;
+        
+        // Delete Scorewindow box object
+        delete adsGame.scoreWindow;
+        
+        // Delete Objectivewindow box object
+        delete adsGame.objectiveWindow;
+        
+        // Delete bjectivewindow box object
+        delete adsGame.lvlFinishedWindow;
+        
+        // Delete Inventory box object
+        delete adsGame.Inventory;
+        
+        delete adsGame.pathFinder;
+        
+        // Delete object from prisondoor classe
+        delete adsGame.prisonDoors;
+        
+        // Delete object to NPC
+        delete adsGame.Npc;
+        
+        // Delete object to Shop
+        delete adsGame.shop;
+        
+        // Delete object that handle with scoreoid server
+        delete adsGame.scoreOID;
+	},
+	
+	createGameObjects:function(){
+	    
+        //Create helpwindow box object
+        adsGame.helpwindow = new adsGame.HelpWindow();
+        
+        //Create helpwindow box object
+        adsGame.storywindow = new adsGame.StoryWindow();
         
         //CreateScorewindow box object
         adsGame.scoreWindow = new adsGame.ScoresWindow();
@@ -98,28 +136,38 @@ var adsGame =
         
         //Create Objectivewindow box object
         adsGame.lvlFinishedWindow = new adsGame.LVLFinishedWindow();
-		
-		// New structure for game
-		// adsGame.data = game_data;
-		
-		//Create Inventory box object
-		adsGame.Inventory = new adsGame.Inventory();
-		
-		adsGame.pathFinder = new  adsGame.pathFinder();
-		
-		//Create object from prisondoor classe
-		adsGame.prisonDoors =  new adsGame.PrisonDoors();
-		
-		// Create object to NPC
-		adsGame.Npc = new adsGame.NPC();
-		
-		// Create object to Shop
-        adsGame.Shop = new adsGame.Shop();
         
+        // New structure for game
+        // adsGame.data = game_data;
+        
+        //Create Inventory box object
+        adsGame.Inventory = new adsGame.INVENTORY();
+        
+        adsGame.pathFinder = new  adsGame.PathFinder();
+        
+        //Create object from prisondoor classe
+        adsGame.prisonDoors =  new adsGame.PrisonDoors();
+        
+        // Create object to NPC
+        adsGame.Npc = new adsGame.NPC();
+        
+        // Create object to Shop
+        adsGame.shop = new adsGame.Shop();
+        
+        //Create object that handle with scoreoid server
         adsGame.scoreOID = new adsGame.Score();
 	},
-	reboot:function(){
-		this.data = null;
+	
+	restart:function(){
+		// this.data = null;
+		//Delete old objects references
+		unBindGameKeys();
+		me.game.removeAll(true);
+        me.game.reset();
+		heroItems = [];
+		this.deleteReferenceGameObjects();
+		//Create new references
+		this.createGameObjects();
 	},
 	
 	//Create a global identity for player as hero 
@@ -195,6 +243,35 @@ function bindGameKeys(){
         
         // enable the keyboard
         me.input.bindKey(me.input.KEY.T, "touch");
+};
+
+function unBindGameKeys(){
+        // Config Keys - in game you can use WASD or arrow keys
+        // Configurar teclas a usar, False - L� mais que uma vez True - L� v�rias vezes.
+        // Usar true por exemplo para lutar...
+        me.input.unbindKey(me.input.KEY.UP);
+        me.input.unbindKey(me.input.KEY.DOWN);
+        me.input.unbindKey(me.input.KEY.LEFT);
+        me.input.unbindKey(me.input.KEY.RIGHT);
+        
+        // Teclas para debug - prefiro :)
+        me.input.unbindKey(me.input.KEY.A);
+        me.input.unbindKey(me.input.KEY.D);
+        me.input.unbindKey(me.input.KEY.W);
+        me.input.unbindKey(me.input.KEY.S);
+        
+        // For debug mode
+        me.input.unbindKey(me.input.KEY.CTRL);
+        me.input.unbindKey(me.input.KEY.P);
+        me.input.unbindKey(me.input.KEY.L);
+        
+        //Create inventory key
+        me.input.unbindKey(me.input.KEY.I);
+        //Create help key
+        me.input.unbindKey(me.input.KEY.H);
+        
+        // enable the keyboard
+        me.input.unbindKey(me.input.KEY.T);
 };
 
 // *** Improve Speed of question box

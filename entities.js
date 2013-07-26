@@ -1026,7 +1026,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                             if ( this.solution = "chave3cristais"){
                                 console.log("Level one finished.");
                                 adsGame.heroEntity().renderable.setCurrentAnimation('down');
-                                me.state.pause();
+                                // me.state.pause();
                                 adsGame.Inventory.hide();
                                 adsGame.lvlFinishedWindow.show();
                               // window.location = "https://docs.google.com/forms/d/17GBoEcrjcjzQ-kKA3o3RG961sBBLRuX4bmu6v1eGPQ8/viewform";

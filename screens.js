@@ -186,7 +186,6 @@ var TileScreen = me.ScreenObject.extend(
 // **********************
 var PlayScreen = me.ScreenObject.extend(
 {
-
 	onResetEvent: function()
 	{	
 	    
@@ -421,6 +420,9 @@ adsGame.levelObjectivesScreen = me.ScreenObject.extend({
     },
 
     "onDestroyEvent" : function onDestroyEvent() {
+        //When the window is called again
+        this.showObjectives = false;
+        console.log("Objective window destroyed...");
     },
 
     "update" : function update() {

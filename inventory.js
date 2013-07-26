@@ -31,7 +31,7 @@ SOFTWARE.
  * @example
  */
  
- adsGame.Inventory =  Object.extend({
+ adsGame.INVENTORY =  Object.extend({
     "init" : function init() {
         // initialize variable to check if inventory is showing
         this.isShowing = false;
@@ -52,6 +52,9 @@ SOFTWARE.
         
         // Active weapon on inventory
         this.activeWeapon = false;
+        
+        //If restart then 
+        $('#inventoryLayer').children().remove();
         
         // Create html in inventoryLayer DIV
         var $messageBoxHtml = ( '<img class="invImage" src="" alt="">' +

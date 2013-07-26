@@ -31,7 +31,7 @@ SOFTWARE.
  * @return path
  */
  
-adsGame.pathFinder =  Object.extend({
+adsGame.PathFinder =  Object.extend({
 	"init" : function init() {
 		console.log('Init pathfinder class...');
 	},

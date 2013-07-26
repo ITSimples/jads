@@ -148,6 +148,7 @@ var heroItems = [];
 // *********** QUESTIONS SECTION ***********
 // Keep all information about the questions
 var adsQtnData = [];
+
 // Global variable to keep the number of questions:
 var countQtn = 0;
 

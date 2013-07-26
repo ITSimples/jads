@@ -518,6 +518,7 @@ var NpcEntity = me.ObjectEntity.extend({
 
             // Move NPC
             if (moveObject(this) && !this.stop) {
+                console.log("NPC name error: ",this.npcData.nome);
                 if (this.countPath != this.path[this.currentPath].length) {
                     //return movement
                     this.accel.x = this.accel.y = this.npcData.velocidade;
@@ -924,12 +925,12 @@ var NpcEntity = me.ObjectEntity.extend({
                 break;
             case "sellItems":
                 if( this.collideHero ){
-                    adsGame.Shop.show( this.npcData );
+                    adsGame.shop.show( this.npcData );
                     
                 }else{
                     // console.log("Don't sell item to hero:");
                     if ( showingShop ){
-                        adsGame.Shop.hide();
+                        adsGame.shop.hide();
                     }
                 }
                 break; // Sell talk
