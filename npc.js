@@ -154,7 +154,7 @@ var NpcEntity = me.ObjectEntity.extend({
         this.prisoner = this.npcData.prisioneiro;        
 
         // Create message box for object to avoid blinking if is a global box
-        this.message = new adsGame.message();
+        this.message = new adsGame.Message();
 
         //To store the distances bewwen two start and end point
         this.distanceX = 0;
@@ -518,7 +518,6 @@ var NpcEntity = me.ObjectEntity.extend({
 
             // Move NPC
             if (moveObject(this) && !this.stop) {
-                console.log("NPC name error: ",this.npcData.nome);
                 if (this.countPath != this.path[this.currentPath].length) {
                     //return movement
                     this.accel.x = this.accel.y = this.npcData.velocidade;
@@ -945,8 +944,6 @@ var NpcEntity = me.ObjectEntity.extend({
         // console.log ('Calculate path to freedom... :)');
         // console.log ('Stop being a prisoner...');
         
-        
-        
         // If open prisoner cell door releases the prisoner
         //Stop being a prisoner...
         this.prisoner = false;
@@ -1074,6 +1071,12 @@ var NpcEntity = me.ObjectEntity.extend({
                         me.game.remove(self);
             }
         }
+    },
+    
+    onDestroyEvent : function(){
+        console.log("NPC was destroyed...");
+        // Hide messages when npc was destroyed
+        this.message.hide();
     }
 });
 // *************************

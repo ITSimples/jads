@@ -32,8 +32,18 @@ SOFTWARE.
  * 
  */
  
-adsGame.message =  Object.extend({
+adsGame.Message =  Object.extend({
 	"init" : function init() {
+	    
+	    // console.log("this.messageShowing:", this.messageShowing);
+	    
+        // In case of restart
+        // if (this.messageShowing){
+            // console.log("Clear after reset...");
+            // $('#messageLayer').hide();
+            // $('#messageLayer').children().remove();
+        // }
+        
 		this.messageShowing = false;
 		
 		this.leftClickMouse = false;		
@@ -42,7 +52,6 @@ adsGame.message =  Object.extend({
 	},
 	"show": function show(msgData) {
 			if (!this.messageShowing){
-			     
 			     // Create html in messagelayer DIV
                 var $messageBoxHtml = ('<img class="msgImage" src="" alt="">' +
                     '<div class="titleText"></div>' +
@@ -1388,6 +1397,11 @@ adsGame.LVLFinishedWindow =  Object.extend({
 
         console.log('Init game level end window class...');
     },
+    
+    "isShowing" : function isShowing(){
+        return this.lvlFinishedWindowShowing;
+    },
+    
     "show": function show() {
             if (!this.lvlFinishedWindowShowing){
                  
@@ -1422,7 +1436,6 @@ adsGame.LVLFinishedWindow =  Object.extend({
                     console.log("Get Player Rank.");
                     $('.serverResponse').hide();
                     $('.playerPosition').html ( "You are in rank " + rank + " with " + me.game.HUD.getItemValue("conhecimento") + " Points." );
-                    adsGame.restart();
                 }.bind(this);
                 
                 
@@ -1453,7 +1466,8 @@ adsGame.LVLFinishedWindow =  Object.extend({
                 adsGame.scoreOID.setPlayerScore(heroName, me.game.HUD.getItemValue("conhecimento"), sucessSetPlayerScore , fail , failCommunication);
                 
                 $('.buttonMenu').bind('click', function() { 
-                        this.hide();                        
+                        this.hide();
+                        adsGame.restart();
                         me.state.change(me.state.MENU);
                 }.bind(this));
                 

@@ -86,11 +86,29 @@ var heroVelocity = 3;
 
 var itemLucky = 15;
 
-var startHero = [45,45];
+var startHero = [41,43];
 
 var heroName = "";
 
 var heroHealth = 10;
+
+// Keep all items found by hero
+var heroItems = [];
+
+// Enable/Disable hero weapon
+var heroWeaponEnable = false;
+
+// Get slot inventory of hero weapon
+var heroWeaponSlot = -1;
+
+// Hero weapon name
+var heroWeaponName = "";
+
+// full inventory
+var fullInventory = false;
+
+// full inventory special items
+var specialItemfullInventory = false;
 
 var DEBUG_MODE = true;
 
@@ -143,8 +161,6 @@ var windowMenuOpen = false;
 // Used to avoid show prison door triggers messages to show when NPC is talking
 var npcTalking = false;
 
-// Keep all items found by hero
-var heroItems = [];
 // *********** QUESTIONS SECTION ***********
 // Keep all information about the questions
 var adsQtnData = [];
@@ -161,26 +177,11 @@ var showingQuestion = false;
 // If Shop box is showing
 var showingShop = false;        
 
-// full inventory
-var fullInventory = false; 
-
-// full inventory special items
-var specialItemfullInventory = false;
-
 // Var background music
 var backgroundMusic = true;
 
-// Enable/Disable hero weapon
-var heroWeaponEnable = false;
-
-// Get slot inventory of hero weapon
-var heroWeaponSlot = -1;
-
-// Hero weapon name
-var heroWeaponName = "";
-
 // SFX volume when hit hero
-hitHeroVolume = 0.1;
+var hitHeroVolume = 0.1;
 
 // *********** MESSAGE SECTION ***********
 // adsGame.messageShowing = false; 

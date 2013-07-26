@@ -88,6 +88,7 @@ var adsGame =
 	
 	deleteReferenceGameObjects:function(){
 	    // Delete Create helpwindow box object
+	       
         delete adsGame.helpwindow;
         
         // Delete  helpwindow box object
@@ -162,9 +163,9 @@ var adsGame =
 		// this.data = null;
 		//Delete old objects references
 		unBindGameKeys();
-		me.game.removeAll(true);
+		// me.game.removeAll(true);
         me.game.reset();
-		heroItems = [];
+		
 		this.deleteReferenceGameObjects();
 		//Create new references
 		this.createGameObjects();

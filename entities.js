@@ -235,22 +235,25 @@ var HeroEntity = me.ObjectEntity.extend({
 		
         // If keypressed H then open Help window
         if (me.input.isKeyPressed('helpWindow'))
-        {            
-            if (this.isShowHelp){
-                adsGame.helpwindow.hide();
-                // me.state.resume();
-                // Disable showing
-                this.isShowHelp = false;
-            }else{
-                adsGame.helpwindow.show();
-                me.state.pause();
-                me.event.subscribe(me.event.KEYDOWN, function watch_key(action) {
-                    if (action == "helpWindow") {
-                        me.state.resume();
-                    }
-                });
-                // Enable showing
-                this.isShowHelp = true;
+        {  
+            //If finished window is opened then don't show help
+            if ( !adsGame.lvlFinishedWindow.isShowing() ) {         
+                if (this.isShowHelp){
+                    adsGame.helpwindow.hide();
+                    // me.state.resume();
+                    // Disable showing
+                    this.isShowHelp = false;
+                }else{
+                    adsGame.helpwindow.show();
+                    me.state.pause();
+                    me.event.subscribe(me.event.KEYDOWN, function watch_key(action) {
+                        if (action == "helpWindow") {
+                            me.state.resume();
+                        }
+                    });
+                    // Enable showing
+                    this.isShowHelp = true;
+                }
             }           
         }		
 		
@@ -414,7 +417,39 @@ var HeroEntity = me.ObjectEntity.extend({
 
 		return updated;
 
-	} // End update method
+	}, // End update method
+    onDestroyEvent : function(){
+        console.log("Hero was destroyed...");
+        // When hero was destroyed
+        //Reset hero global variables
+        heroVelocity = 3;
+
+        itemLucky = 15;
+        
+        // startHero = [45,45];
+        
+        heroName = "";
+        
+        heroHealth = 10;
+        
+        // Keep all items found by hero
+        heroItems = [];
+        
+        // Enable/Disable hero weapon
+        heroWeaponEnable = false;
+        
+        // Get slot inventory of hero weapon
+        heroWeaponSlot = -1;
+        
+        // Hero weapon name
+        heroWeaponName = "";
+        
+        // full inventory
+        fullInventory = false;
+        
+        // full inventory special items
+        specialItemfullInventory = false;
+    }
 });
 // *****************************
 // ****  Fim Entidade Heroi ****
@@ -792,7 +827,7 @@ var TriggerEntity = me.ObjectEntity.extend({
 		this.isChecked = false;
 
 		// Create message box for object
-		this.message = new adsGame.message();
+		this.message = new adsGame.Message();
 		
 		//Update always
 		this.alwaysUpdate = true;
@@ -1132,7 +1167,13 @@ var TriggerEntity = me.ObjectEntity.extend({
             }
         }
         
-	} // End Update
+	}, // End Update
+	
+    onDestroyEvent : function(){
+        console.log("TriggerEntity was destroyed...");
+        // Hide messages when TriggerEntity was destroyed
+        this.message.hide();
+    }
 	
 });
 
