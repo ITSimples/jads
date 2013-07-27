@@ -1468,11 +1468,11 @@ adsGame.LVLFinishedWindow =  Object.extend({
                 $('.buttonMenu').bind('click', function() { 
                         this.hide();
                         adsGame.restart();
-                        me.state.change(me.state.MENU);
+                        // me.state.change(me.state.MENU);
                 }.bind(this));
                 
                 $('.buttonRetry').bind('click', function() { 
-                        this.hide();
+                        // this.hide();
                         adsGame.scoreOID.setPlayerScore(heroName, me.game.HUD.getItemValue("conhecimento"), sucessSetPlayerScore , fail , failCommunication);
                 }.bind(this));
                 

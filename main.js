@@ -160,13 +160,20 @@ var adsGame =
 	},
 	
 	restart:function(){
+	    
+	    restartGame = true;
+	    // Reload data for level 
+        startGame();
 		// this.data = null;
-		//Delete old objects references
+		
 		unBindGameKeys();
-		// me.game.removeAll(true);
+
+        //Reset game - destroy all current object except the HUD
         me.game.reset();
 		
+		//Delete old objects references
 		this.deleteReferenceGameObjects();
+		
 		//Create new references
 		this.createGameObjects();
 	},
@@ -528,7 +535,6 @@ function randomFloat(minValue,maxValue,precision){
 //window.onReady(function(){
 	var init_game = function(data)
 	{
-
 		// Inicializar vari�vel para ler recursos dos items
 		var countNpc = 0;
 		var countItems = 0;
@@ -556,42 +562,7 @@ function randomFloat(minValue,maxValue,precision){
 		
 		// Copy array ads_items_tmp to ads_items_final to load resource items
 		load_ads_items = ads_items_tmp.slice();
-		
-		//Get NPC data
-		// $.each(data.npc, function(i,data)
-		// {
-			// countNpc++;
-			// adsNpcData.push(data);		
-		// });
-		
-		//Get questions data
-		// $.each(data.questions, function(i,data)
-		// {
-			// countQtn++;
-			// adsQtnData.push(data);		
-		// });
-		
-		//Get triggers data
-		// $.each(data.triggers, function(i,data)
-		// {
-			// countTrg++;
-			// triggersData.push(data);		
-		// });
-		
-		// //Get specialItems data
-		// $.each(data.specialItems, function(i,data)
-		// {
-			// countSI++;
-			// specialItemsData.push(data);		
-		// });
 
-		//Get throwers data
-		// $.each(data.throwers, function(i,data)
-		// {
-			// countThrow++;
-			// throwersData.push(data);		
-		// });
-		
 		//Get npcData data - It's not necessary $.each
 		specialItemsData = data.specialItems;
 		
@@ -615,24 +586,19 @@ function randomFloat(minValue,maxValue,precision){
 		
 		console.log("noItemsData", noItemsData);
 		
-
-		// console.log("Carregados " + countItems + " Items");
-		// console.log("ads_items_data " + ads_items_data + " .");
-		
-		// console.log("Carregados " + countNpc + " NPC");
-		// console.log("adsNpcData " + adsNpcData + " .");
-		
-		// console.log("Carregados " + countQtn + " Questions");
-		// console.log("adsQtnData " + adsQtnData + " .");
-		
-		// Implement with a new level
-		// adsGame.onload( data );
-		
-		adsGame.onload();
+		// If restart game don't call onload()
+		if (!restartGame){
+		  adsGame.onload();
+		}
 	};
-$( function(){
+	
+$( function (){
+    startGame();
+} );
+
+
+var startGame = function (){
     $.when(
-        
         // Load multilingue items file
         $.get( ads_json_files + "itemslang.json" )
         .done( function( data ){
@@ -665,19 +631,19 @@ $( function(){
         }),
         
         // Get Data for level 01
-    	$.get( ads_json_files + "gamedata01.json" )
-    		.done( function( data ){
-    			if( typeof data != "object" ){
-    				alert( "Data is invalid --- gamedata01.json ---" );
-    			}
-    			// console.debug( "recebi o seguinte", data );
-    			lvlData = data; 
-    		})
-    		.fail( function(){
-    			alert( "Invalid DATA file! --- gamedata01.json ---" );
-    		}),
-    		
-    	// Load questions jason data
+        $.get( ads_json_files + "gamedata01.json" )
+            .done( function( data ){
+                if( typeof data != "object" ){
+                    alert( "Data is invalid --- gamedata01.json ---" );
+                }
+                // console.debug( "recebi o seguinte", data );
+                lvlData = data; 
+            })
+            .fail( function(){
+                alert( "Invalid DATA file! --- gamedata01.json ---" );
+            }),
+            
+        // Load questions jason data
         $.get( ads_json_files + "questions.json" )
             .done( function( data ){
                 if( typeof data != "object" ){
@@ -709,10 +675,10 @@ $( function(){
             .fail( function(){
                 alert( "Invalid DATA file! --- gamelang.json ---" );
             })                      
-	).done(function(){
-	    
-	    // Loading Google fonts:
-	     (function() 
+    ).done(function(){
+        
+        // Loading Google fonts:
+         (function() 
         {
             var wf = document.createElement('script');
             wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
@@ -730,8 +696,12 @@ $( function(){
         init_game( lvlData );
         
          console.log("Questions Loaded..", adsQtnData);
+         
+         if (restartGame){
+            me.state.change(me.state.MENU);
+         }
     });
-});
+};
 
 // create a basic GUI Object
 var myButton = me.GUI_Object.extend(

@@ -54,6 +54,7 @@ var ads_items_path='content/sprites/items/';
 var ads_music_path='content/music/';
 var ads_json_files='content/jsondata/';
 var ads_tile_size = 32;
+var restartGame = false;
 
 /*------------------- 
 HUD Configuration

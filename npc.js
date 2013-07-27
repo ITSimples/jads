@@ -221,12 +221,16 @@ var NpcEntity = me.ObjectEntity.extend({
         
         // Initialize hello sound
         this.helloSound = false;
+        
+        // this.npcData.tipoMovimento = "path";
+        
+        console.log("this.npcData.tipoMovimento:", this.npcData.tipoMovimento);
 
         //Check NPC movement
         if (this.npcData.tipoMovimento == "path") {
 
             // Get start and end position from gamedata.json for all paths
-            for ( pathNumber = 0; pathNumber < this.npcData.coordenadas.length; pathNumber++) {
+            for ( var pathNumber = 0; pathNumber < this.npcData.coordenadas.length; pathNumber++) {
                 var start = [this.npcData.coordenadas[pathNumber].initStartX, this.npcData.coordenadas[pathNumber].initStartY];
                 var end = [this.npcData.coordenadas[pathNumber].initDestX, this.npcData.coordenadas[pathNumber].initDestY];
 
@@ -662,6 +666,7 @@ var NpcEntity = me.ObjectEntity.extend({
                 // console.log(" Not follow - Distance to attack: " , this.distanceTo(player));
                 this.countPath = 0;
                 this.currentPath = this.npcData.coordenadas.length + 1;
+                
                 this.npcData.tipoMovimento = "path";
                 
                 var startX = Math.round( this.pos.x / ads_tile_size);
@@ -676,7 +681,7 @@ var NpcEntity = me.ObjectEntity.extend({
                 
                 this.path[this.currentPath] = adsGame.pathFinder.getPath(start, end);
                 
-                // console.log("pathlength:", this.path.length);
+                console.log("pathlength:", this.path.length);
                 
                 this.destX = this.path[this.currentPath][0][0] * ads_tile_size;
                 this.destY = (this.path[this.currentPath][0][1] * ads_tile_size) - this.avoidWall;
