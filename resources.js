@@ -36,6 +36,8 @@ me.sys.useNativeAnimFrame = true;
 me.sys.cacheImage = true;
 
  me.sys.preRender = false;
+ 
+ me.sys.pauseOnBlur = false;
 
 /*--- END Game engine system Configuration ---*/
 
@@ -83,33 +85,60 @@ var maxHudValue = {"live":10,"velocity":10};
 Hero Configuration
 -------------------------------- */
 
-var heroVelocity = 3;
+var heroVelocity;
 
-var itemLucky = 15;
+var itemLucky;
 
-var startHero = [41,43];
+var startHero;
 
-var heroName = "";
+var heroName;
 
-var heroHealth = 10;
+var heroHealth;
 
 // Keep all items found by hero
-var heroItems = [];
+var heroItems;
 
 // Enable/Disable hero weapon
-var heroWeaponEnable = false;
+var heroWeaponEnable;
 
 // Get slot inventory of hero weapon
-var heroWeaponSlot = -1;
+var heroWeaponSlot;
 
 // Hero weapon name
-var heroWeaponName = "";
+var heroWeaponName;
 
 // full inventory
-var fullInventory = false;
+var fullInventory;
 
 // full inventory special items
-var specialItemfullInventory = false;
+var specialItemfullInventory;
+
+var setInitialHeroVariables = function setInitialHeroVariables(){
+    //Set initial variables for hero
+    console.log("Set initial variables for hero.");
+    
+    heroVelocity = 3;
+
+    itemLucky = 15;
+    
+    startHero = [45,45];
+    
+    heroName = "";
+    
+    heroHealth = 10;
+    
+    heroItems = [];
+    
+    heroWeaponEnable = false;
+    
+    heroWeaponSlot = -1;
+    
+    heroWeaponName = "";
+    
+    fullInventory = false;
+    
+    specialItemfullInventory = false;
+};
 
 var DEBUG_MODE = true;
 

@@ -74,6 +74,8 @@ var adsGame =
 		//Preparar todos os recursos do jogo
 		me.loader.preload(ads_resources.concat(load_ads_items));
 		
+		setInitialHeroVariables();
+		
 		//me.loader.preload(ads_resources);
 		
 		//Mudar estado para ecr� de carregamento do jogo. 

@@ -422,33 +422,7 @@ var HeroEntity = me.ObjectEntity.extend({
         console.log("Hero was destroyed...");
         // When hero was destroyed
         //Reset hero global variables
-        heroVelocity = 3;
-
-        itemLucky = 15;
-        
-        // startHero = [45,45];
-        
-        heroName = "";
-        
-        heroHealth = 10;
-        
-        // Keep all items found by hero
-        heroItems = [];
-        
-        // Enable/Disable hero weapon
-        heroWeaponEnable = false;
-        
-        // Get slot inventory of hero weapon
-        heroWeaponSlot = -1;
-        
-        // Hero weapon name
-        heroWeaponName = "";
-        
-        // full inventory
-        fullInventory = false;
-        
-        // full inventory special items
-        specialItemfullInventory = false;
+        setInitialHeroVariables();
     }
 });
 // *****************************

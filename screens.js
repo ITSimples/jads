@@ -50,7 +50,6 @@ var TileScreen = me.ScreenObject.extend(
             {"text": "TRmenuTopScores", "target":"topScoresScreen" , "pos":{"x": 437 , "y" : menuStartYPosition +  (sizeBetweenButtons * 3)}},
             {"text": "TRmenuCredits", "target":"creditsScreen" , "pos":{"x": 437 , "y" : menuStartYPosition +  (sizeBetweenButtons * 4)}}
         ];
-
 	},
 	
 	onResetEvent: function()
@@ -69,11 +68,18 @@ var TileScreen = me.ScreenObject.extend(
         
         // Add background music
         // play the audio track
-         if ( backgroundMusic ){
+         // if ( backgroundMusic ){
                 me.audio.playTrack("cornfields", 0.5);
-         }
+         // }
          
         // console.warn('tas a brincar?');
+        
+        // If restart then remove the last click event and create a new one
+        if (restartGame){
+            // console.log("backgroundMusic after restart:" , backgroundMusic);
+            $("#music_button").unbind("click");
+            $("#sfx_button").unbind("click");
+        }
         
         // Enable/Disable music
         $("#music_button").click(function() {
@@ -89,9 +95,13 @@ var TileScreen = me.ScreenObject.extend(
                 me.audio.resumeTrack();
                 backgroundMusic = true;
             }
-
+            console.log("backgroundMusic:", backgroundMusic );
             return false;
         });
+        
+        //Show language div not in game
+        $('#flag_pt').show();
+        $('#flag_en').show();
         
         // Change game Language
         $("#flag_pt").click(function() {
@@ -107,9 +117,6 @@ var TileScreen = me.ScreenObject.extend(
             //Init game name
             $('#msgGameName').html( language.system.TRgameName );
         });      
-        
-        
-        console.log("backgroundMusic:", backgroundMusic );
         
         // Enable/Disable sfx
         $("#sfx_button").click(function() {
@@ -170,9 +177,12 @@ var TileScreen = me.ScreenObject.extend(
         $('#flag_pt').unbind('click');
         $('#flag_en').unbind('click');
         
-        //Remove language div not in game
-        $('#flag_pt').remove();
-        $('#flag_en').remove();
+        //Hide language div not in game
+        $('#flag_pt').hide();
+        $('#flag_en').hide();
+        
+        // $("#music_button").unbind("click");
+        // $("#sfx_button").unbind("click");
     }
 });
 
@@ -244,7 +254,16 @@ var PlayScreen = me.ScreenObject.extend(
         }else{
             me.audio.resumeTrack();
         }
-        // console.log("backgroundMusic:", backgroundMusic);
+        // console.log("Game Loop..." , adsGame.helpwindow.isShowing());
+        
+        // console.log("isRunning out ():" , me.state.isRunning());
+        
+        // If pause onblur and help or finish window is showing then continue on pause
+        if (adsGame.helpwindow.isShowing() || adsGame.lvlFinishedWindow.isShowing()){
+            if(me.state.isRunning()){
+                me.state.pause();
+            }
+        }
 	},
 
 	onDestroyEvent: function()

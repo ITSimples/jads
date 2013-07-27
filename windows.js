@@ -765,6 +765,11 @@ adsGame.HelpWindow =  Object.extend({
 
         console.log('Init helpwindow class...');
     },
+    
+    "isShowing" : function isShowing(){
+        return this.helpwindowShowing;
+    },
+    
     "show": function show() {
             if (!this.helpwindowShowing){                
                  // all help screen
@@ -1404,6 +1409,9 @@ adsGame.LVLFinishedWindow =  Object.extend({
     
     "show": function show() {
             if (!this.lvlFinishedWindowShowing){
+                 
+                 //Pause the game
+                 me.state.pause();
                  
                  console.log('Init objective window class show method called **********...');
                  // Create html in messagelayer DIV
