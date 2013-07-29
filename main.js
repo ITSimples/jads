@@ -121,6 +121,9 @@ var adsGame =
         
         // Delete object that handle with scoreoid server
         delete adsGame.scoreOID;
+        
+        //Create object that handle with hero die (Game over)
+        delete adsGame.heroDies;
 	},
 	
 	createGameObjects:function(){
@@ -159,17 +162,27 @@ var adsGame =
         
         //Create object that handle with scoreoid server
         adsGame.scoreOID = new adsGame.Score();
+        
+        //Create object that handle with hero die (Game over)
+        adsGame.heroDies = new adsGame.HeroDiesWindow();
 	},
 	
-	restart:function(){
+	restart:function( whatState ){
 	    
 	    restartGame = true;
+	    
+	    gotoState = whatState;
 	    // Reload data for level 
         startGame();
 		// this.data = null;
 		
-		unBindGameKeys();
-
+		if (gotoState === "MENU"){
+		  unBindGameKeys();
+        }
+        
+        //Before destroy hero object in case of restart then keep hero name
+        keepHeroName = heroName;
+        
         //Reset game - destroy all current object except the HUD
         me.game.reset();
 		
@@ -180,6 +193,29 @@ var adsGame =
 		this.createGameObjects();
 	},
 	
+    continueGame:function( ){
+        
+         //Reset hud 
+        adsGame.resetHUD();
+
+        //Start Game again
+        if(!me.state.isRunning()){
+            me.state.resume();
+        }
+        
+        //Hero goes to initial position
+        // play a "teleport" sound
+        me.audio.play("teleport");
+
+        adsGame.heroEntity().pos.x = startHero[0] * ads_tile_size;
+        adsGame.heroEntity().pos.y = startHero[1] * ads_tile_size;
+
+        //TODO - Fade out /in viewport 
+        me.game.viewport.fadeOut('#000000',1000);
+        
+
+    },	
+    
 	//Create a global identity for player as hero 
     heroEntity :function(){
         var heroEntityAux = me.game.getEntityByName('Hero');
@@ -343,7 +379,18 @@ function showQuestionLayer(itemData, adsQtnData)
             $(".r3").css({'top' : 205});
             $(".r0").css({'top' : 225});
         }
-		
+        
+        // On mouse over answer change the color
+        $.each([".r1", ".r2",".r3",".r0"], function(index, value) {
+            $(value).bind('mouseenter', function() {
+              $(value).css({'color' : '#8A4B08'});
+            });
+    
+            $(value).bind('mouseleave', function() {
+              $(value).css({'color' : '#4B8A08'});
+            });
+        });
+        
 		$('.qtnImage').attr({
 		'src' : 'content/sprites/items/' + itemData.imagem
 		});
@@ -445,7 +492,7 @@ function hideQuestionLayer(answer)
 	$('.answerValue').fadeOut();
 	
 	// Kill click events
-	$("*", "#questionLayer").unbind("click");
+	$("*", "#questionLayer").unbind('click' , 'mouseenter','mouseleave');
 
 	$('.questionTheme').remove();
 	$('.questionText').remove();
@@ -454,6 +501,18 @@ function hideQuestionLayer(answer)
 	$('.r3').remove();
 	$('.r0').remove();
 	$('.answerValue').remove();
+	
+	//Olde code for window - adapt to new code - do better next time
+	if ( answer === "CG"){
+        $('#questionLayer').children().remove();
+        $('#questionLayer').hide();
+        showingQuestion = false;
+        
+        $(document).unbind();
+        
+        // console.warn('GC Option...');
+        return;
+	}
 	
 	// Show player answer result
 	var $addAnswerResult = ('<div class="answerResult"></div>');
@@ -700,7 +759,14 @@ var startGame = function (){
          console.log("Questions Loaded..", adsQtnData);
          
          if (restartGame){
-            me.state.change(me.state.MENU);
+            if (gotoState === "MENU"){
+                me.state.change(me.state.MENU);
+            }else if (gotoState === "PLAY"){
+                me.state.change(me.state.PLAY);
+                //There is a restart game to play then keep hero name
+                heroName = keepHeroName;
+                console.log("heroName:", heroName);
+            }
          }
     });
 };

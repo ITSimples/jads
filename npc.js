@@ -224,7 +224,7 @@ var NpcEntity = me.ObjectEntity.extend({
         
         // this.npcData.tipoMovimento = "path";
         
-        console.log("this.npcData.tipoMovimento:", this.npcData.tipoMovimento);
+        // console.log("this.npcData.tipoMovimento:", this.npcData.tipoMovimento);
 
         //Check NPC movement
         if (this.npcData.tipoMovimento == "path") {

@@ -1538,3 +1538,86 @@ input[type='text'] { font-size: 20px; font-family: 'MedievalSharp', serif; color
     z-index:1;
 }
 /* END finish game layer configuration */
+
+
+/* Hero Dies option layer configuration */
+#heroDiesLayer {
+    position: absolute;
+    bottom: 130px;
+    left: 172px;
+    width: 450px;
+    height: 379px;
+    background: url('content/gui/levelobjectives.png') no-repeat;
+    font-family: 'MedievalSharp', serif;
+    display: none;
+}
+
+#heroDiesLayer .prisonersImage {
+    position: absolute;
+    bottom: 105px;
+    left: 60px;
+    width: 320px;
+    height: 73px;
+    z-index:1;
+}
+
+#heroDiesLayer .prisonersMessage {
+    position: absolute;
+    top: 290px;
+    left: 65px;
+    width: 325px;
+    height: 22px;
+    font-size: 22px;
+    color: #764F00;
+    overflow: hidden;
+    text-align: right;
+    z-index: 1;
+}
+
+#heroDiesLayer .heroDiesMessage {
+    position: absolute;
+    top: 52px;
+    left: 60px;
+    width: 325px;
+    height: 40px;
+    font-size: 18px;
+    color : #764F00;
+    overflow: hidden;
+    text-align: left;    
+    z-index:1;
+}
+
+#heroDiesLayer .heroDiesOption1 {
+    position: absolute;
+    top: 100px;
+    left: 60px;
+    width: 320px;
+    height: 30px;
+    font-family: 'MedievalSharp', serif;
+    font-size: 15px;
+    color : #F0F0E0;
+    overflow: hidden;
+    text-align: justify;
+    z-index:1;
+}
+
+#heroDiesLayer .heroDiesOption2 {
+    position: absolute;
+    top: 127px;
+    left: 60px;
+    width: 320px;
+    height: 50px;
+    font-family: 'MedievalSharp', serif;
+    font-size: 15px;
+    color : #F0F0E0;
+    overflow: hidden;
+    text-align: justify;
+    z-index:1;
+}
+
+#heroDiesLayer img.checkImage {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    z-index:1;
+}

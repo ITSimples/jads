@@ -57,6 +57,8 @@ var ads_music_path='content/music/';
 var ads_json_files='content/jsondata/';
 var ads_tile_size = 32;
 var restartGame = false;
+var gotoState = "";
+var startMusic = "cornfields"
 
 /*------------------- 
 HUD Configuration
@@ -113,6 +115,8 @@ var fullInventory;
 // full inventory special items
 var specialItemfullInventory;
 
+var keepHeroName;
+
 var setInitialHeroVariables = function setInitialHeroVariables(){
     //Set initial variables for hero
     console.log("Set initial variables for hero.");
@@ -121,7 +125,7 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
 
     itemLucky = 15;
     
-    startHero = [45,45];
+    startHero = [44,12];
     
     heroName = "";
     
@@ -143,7 +147,7 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
 var DEBUG_MODE = true;
 
 // Give item to hero to start in debug mode
-var giveItemDebug = "chave3cristais";
+var giveItemDebug = "livroConhecimento";
 
 /*--- END Hero Configuration ---*/
 

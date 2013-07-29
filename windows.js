@@ -560,6 +560,18 @@ adsGame.QuestionQuest =  Object.extend({
         $('.QuestR3').html( "(3) " +questionData.r3 );      
         $('.questSate').html( language.system.TRgoodCorrectAnswer + " +2 " + language.system.TRknowledge + "<BR>" +
                                          language.system.TRbadWrongAnswer + " -2 " + language.system.TRknowledge );
+                                         
+        // On mouse over answer change the color
+        $.each([".QuestR1", ".QuestR2",".QuestR3"], function(index, value) {
+            $(value).bind('mouseenter', function() {
+              $(value).css({'color' : '#8A4B08'});
+            });
+    
+            $(value).bind('mouseleave', function() {
+              $(value).css({'color' : '#4B8A08'});
+            });
+        });
+                                                 
         //Show question                         
         $('#heroQuestions').fadeIn( 1000 );
         
@@ -732,7 +744,7 @@ adsGame.QuestionQuest =  Object.extend({
         // Remove event listener to get answer from player
         $(document).unbind();
         
-        $("*", "#questionQuestLayer").unbind("click");
+        $("*", "#questionQuestLayer").unbind('click' , 'mouseenter','mouseleave');
         
         // Is not showing questions quest anymore
         this.showQuestionQuest = false;
@@ -1475,7 +1487,7 @@ adsGame.LVLFinishedWindow =  Object.extend({
                 
                 $('.buttonMenu').bind('click', function() { 
                         this.hide();
-                        adsGame.restart();
+                        adsGame.restart("MENU");
                         // me.state.change(me.state.MENU);
                 }.bind(this));
                 
@@ -1510,3 +1522,141 @@ adsGame.LVLFinishedWindow =  Object.extend({
 });
 
 // End level finished window ******
+
+
+ /**
+ * HeroDiesWindow.
+ * @class
+ * @extends 
+ * @constructor
+ * @param msgData (.msgImage, .msgName, .msg)
+ * @example
+ * 
+ */
+ 
+adsGame.HeroDiesWindow =  Object.extend({
+    "init" : function init( ) {
+        this.HeroDiesWindowShowing = false;
+
+        console.log('Init HeroDies window class...');
+    },
+    
+    "isShowing" : function isShowing(){
+        return this.HeroDiesWindowShowing;
+    },
+    
+    "show": function show() {
+            if (!this.HeroDiesWindowShowing){
+                // Hide question window if is open
+                 if ( showingQuestion ){
+                    hideQuestionLayer('CG');
+                    // console.warn("Question window hide...");
+                }
+                 console.log('HeroDies window opened **********...');
+                 // Create html in messagelayer DIV
+                var $messageBoxHtml = ('<div class="prisonersImage"></div>' +
+                                                          '<div class="prisonersMessage"></div>' +
+                                                          '<div class="heroDiesMessage"></div>' +
+                                                          '<div class="heroDiesOption1"></div>' +
+                                                          '<div class="heroDiesOption2"></div>'
+                                                          );
+                    
+                $('#heroDiesLayer').append($messageBoxHtml);
+
+                $('.prisonersMessage').html ( "Please save us.");
+                $('.heroDiesMessage').html ( "Sorry you died, what do you want to do?");
+                $('.heroDiesOption1').html ( "Restart Game ( You must do all again).");
+                $('.heroDiesOption2').html ( "Continue Game ( The prisoners who already saved remained free but you lose your current score ).");
+                $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'/>");
+                
+                //Check if hero already save any  prisoner
+                $.each([1,2,3,4], function( index , value){
+                    if ( adsGame.prisonDoors.getPrisonDoorState(index) ){
+                        this.putXorV( index, "v");
+                    }else{
+                        this.putXorV( index, "x");
+                    }
+                }.bind(this));
+                
+                // heroDiesOption1
+                // On mouse over answer change the color
+                $.each([".heroDiesOption1", ".heroDiesOption2"], function(index, value) {
+                    $(value).bind('mouseenter', function() {
+                      $(value).css({'color' : '#FFFF00'});
+                    });
+            
+                    $(value).bind('mouseleave', function() {
+                      $(value).css({'color' : '#F0F0E0'});
+                    });
+                });
+                
+                // If player wants to restart the game
+                $('.heroDiesOption1').bind('click', function() { 
+                        this.hide();
+                        adsGame.restart("PLAY");
+                        // me.state.change(me.state.MENU);
+                }.bind(this));
+                
+                // If player wants to restart the game
+                $('.heroDiesOption2').bind('click', function() { 
+                        this.hide(adsGame.continueGame);
+                        // me.state.change(me.state.MENU);
+                }.bind(this));
+                
+                $('#heroDiesLayer').fadeIn( 250);
+                
+                // console.log("Show message...");
+                this.HeroDiesWindowShowing = true;
+            }
+    },
+    
+    "putXorV" : function putXorV ( checkNumber , image){
+
+            var topPosition = 222;
+            
+            var scrImage = 'content/gui/' + image + '.png';
+                        
+            var $addCheckHtml = ('<div id="checkSlot' + checkNumber + '">' + 
+                                                    '<img class="checkImage" src=' + scrImage + ' alt="">' +
+                                                 '</div>');
+
+            // Space between stars 
+            var spaceBetweenCheck = 0;
+            
+            if ( checkNumber < 1){
+                spaceBetweenCheck = 0;        
+            }else{
+                spaceBetweenCheck = 48;    
+            }
+                
+            var checkDivPosition = 107 + ( 32 * checkNumber ) + ( spaceBetweenCheck * checkNumber ) ;
+
+            $('#heroDiesLayer').append( $addCheckHtml );
+            
+            // CSS for the new x or y
+            $("#checkSlot" + checkNumber ).css({
+                "position" : "absolute" , 
+                "top": topPosition + "px" , 
+                "left": checkDivPosition + "px" ,
+                "width": "32px",
+                "height": "32px",
+                "border-style" : "none"
+            });   
+    },
+    
+    "hide": function hide( functionContinueGame ) {
+        var functionContinueGame = functionContinueGame;
+        
+        if (this.HeroDiesWindowShowing){
+            $('#heroDiesLayer').fadeOut( 100 , function(){     
+                //lears all the child divs, but leaves the master intact.
+                $("#heroDiesLayer").children().remove();
+                $('.heroDiesOption1, .heroDiesOption2').unbind('click');
+                if (typeof functionContinueGame !== 'undefined')
+                    functionContinueGame();
+            }.bind(this));
+            // console.log("hide message...");
+            this.HeroDiesWindowShowing = false;
+        }
+    }
+});

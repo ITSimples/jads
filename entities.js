@@ -162,8 +162,7 @@ var HeroEntity = me.ObjectEntity.extend({
 	
 	//Update player position.
 	update : function ()
-	{		
-	    
+	{
 	    // DEBUG MODE remove
         if (DEBUG_MODE && this.makeOneTime && giveItemDebug !== undefined ){
             ads_items_data[giveItemDebug].specialItem = true;
@@ -404,6 +403,16 @@ var HeroEntity = me.ObjectEntity.extend({
         			}
     		}
 		});
+		
+        // If hero died
+        // console.log( "me.game.HUDgetItemValue(vida)" , me.game.HUD.getItemValue("vida"));
+        if ( me.game.HUD.getItemValue("vida") <= 0 ){
+            console.log("Player is dead");
+            // Pause the game
+            me.state.pause();
+            // Show window game over
+            adsGame.heroDies.show()
+        }
 
 		// check & update player movement
 		updated = this.updateMovement();
@@ -414,10 +423,11 @@ var HeroEntity = me.ObjectEntity.extend({
 			// Actualizar animação
 			this.parent(this);
 		}
-
+		
 		return updated;
 
 	}, // End update method
+	
     onDestroyEvent : function(){
         console.log("Hero was destroyed...");
         // When hero was destroyed
@@ -1032,7 +1042,8 @@ var TriggerEntity = me.ObjectEntity.extend({
 						//TODO - Fade out /in viewport 
 						me.game.viewport.fadeOut('#000000',1000, function() {
                             // End level one
-                            if ( this.solution = "chave3cristais"){
+                            console.log("this.solution:", this.solution);
+                            if ( this.solution == "chave3cristais"){
                                 console.log("Level one finished.");
                                 adsGame.heroEntity().renderable.setCurrentAnimation('down');
                                 // me.state.pause();
@@ -1040,7 +1051,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                                 adsGame.lvlFinishedWindow.show();
                               // window.location = "https://docs.google.com/forms/d/17GBoEcrjcjzQ-kKA3o3RG961sBBLRuX4bmu6v1eGPQ8/viewform";
                             }
-						});
+						}.bind(this));
 						
 						// **** TODO - REMOVE SCROOLL OF PORTAL FROM LIST OF ITEMS
 					}else{
