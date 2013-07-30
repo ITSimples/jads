@@ -1226,8 +1226,8 @@ body {
     top: 262px;
     left: 184px;
     width: 117px;
-    height: 0px;
-    border: 5px solid white; 
+    height: 15px;
+    border: 3px solid white; 
     -webkit-box-shadow: 
       inset 0 0 8px  rgba(0,0,0,0.1),
             0 0 16px rgba(0,0,0,0.1); 
@@ -1237,7 +1237,7 @@ body {
     box-shadow: 
       inset 0 0 8px  rgba(0,0,0,0.1),
             0 0 16px rgba(0,0,0,0.1); 
-    padding: 15px;
+    padding: 10px;
     padding-left: 3px;
     padding-right: 3px;
     background: rgba(255,255,255,0.5);
