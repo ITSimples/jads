@@ -125,7 +125,7 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
 
     itemLucky = 15;
     
-    startHero = [44,12];
+    startHero = [5,5];
     
     heroName = "";
     
@@ -144,7 +144,7 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
     specialItemfullInventory = false;
 };
 
-var DEBUG_MODE = true;
+var DEBUG_MODE = false;
 
 // Give item to hero to start in debug mode
 var giveItemDebug = "livroConhecimento";
