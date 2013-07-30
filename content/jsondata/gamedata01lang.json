@@ -61,7 +61,8 @@
             "TRnpcGuardsDieMsg":  "Oh não. Venceste-me.",
             "TRnpcRedEyesIntro":  "Olá eu sou o Red Eyes. Se responderes a 5 perguntas corretamente, sem errar mais de 5 vezes eu liberto o Michael.",
             "TRnpcRedEyesWin": "Ganhei o desafio por isso não vou libertar o Michael.",
-            "TRnpcRedEyesLoses": "Muito bem, vou libertar o Michael como prometido. Vamos voltar a encontrar-nos."
+            "TRnpcRedEyesLoses": "Muito bem, vou libertar o Michael como prometido. Vamos voltar a encontrar-nos.",
+            "TRobjwindowLVLObjectives" : "O objectivo deste nível é libertar os 4 prisioneiros que podes ver em baixo. Resolve os enigmas e enfrenta os teus inimigos. Tenta obter o máximo de conhecimento que conseguires"
          },
          "english":{
             "TRnpcJacquelynDialogue":[
@@ -122,7 +123,8 @@
             "TRnpcGuardsDieMsg":  "Oh no. You defeat me.",
             "TRnpcRedEyesIntro":  "Hello I am the Red Eyes. If you answer 5 questions correctly, without missing more than 5 times I release Michael.",
             "TRnpcRedEyesWin": "I won the challenge so I will not release Michael.",
-            "TRnpcRedEyesLoses": "Okay, I'll release the Michael as promised. We will find ourselves again."
+            "TRnpcRedEyesLoses": "Okay, I'll release the Michael as promised. We will find ourselves again.",
+            "TRobjwindowLVLObjectives" : "The objective of this level is to free the four prisoners that you can see below. Solve the puzzles and face your enemies. Try to get as much knowledge as you can."
          },
          "german":{
 

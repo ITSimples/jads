@@ -147,7 +147,7 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
 var DEBUG_MODE = false;
 
 // Give item to hero to start in debug mode
-var giveItemDebug = "livroConhecimento";
+var giveItemDebug = "chave3cristais";
 
 /*--- END Hero Configuration ---*/
 

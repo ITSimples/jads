@@ -1171,9 +1171,9 @@ adsGame.ObjectiveWindow =  Object.extend({
                     
                 $('#objLayer').append($messageBoxHtml);
 
-                $('.askHeroName').html ( "Hero Name:");
-                $('.lvlTileObjectives').html ( "Objetivos deste nível:");
-                $('.lvlTxtObjectives').html ( "O objectivo deste nível é libertar os 4 prisioneiros que podes ver em baixo. Resolve os enigmas e enfrenta os teus inimigos. Tenta obter o máximo de conhecimento que conseguires");
+                $('.askHeroName').html ( language.system.TRobjwindowHeroName + ":" );
+                $('.lvlTileObjectives').html ( language.system.TRobjwindowLVLObjectives + ":");
+                $('.lvlTxtObjectives').html ( language.npcs.TRobjwindowLVLObjectives);
                 $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'/>");
                 
                 
@@ -1190,7 +1190,7 @@ adsGame.ObjectiveWindow =  Object.extend({
                 $('.heroName').focus();
                 
                 $('.buttonStart').bind('click', function() { 
-                    $('.serverResponse').html ("Connecting to server. Please wait.  <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
+                    $('.serverResponse').html ( language.system.TRserverConnection + "  <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
                     var sucess = function(){
                         this.hide();
                         me.state.change(me.state.PLAY);
@@ -1201,13 +1201,13 @@ adsGame.ObjectiveWindow =  Object.extend({
                     var fail = function( error ){
                         console.log("Error:" , error);
                         
-                        $('.serverResponse').html ("Name exits enter a new one or click ignore.");
+                        $('.serverResponse').html ( language.system.TRserverConnectionNameExists );
                         $('.buttonIgnore').show();
                     };
                     
                     var failCommunication = function(){
-                        console.log("Comunication with server failed...");
-                        $('.serverResponse').html ("Comunication with server failed.");
+                        // console.log("Comunication with server failed...");
+                        $('.serverResponse').html ( language.system.TRserverConnectionFailed );
                         $('.buttonIgnore').show();
                     };
                     
@@ -1243,11 +1243,6 @@ adsGame.ObjectiveWindow =  Object.extend({
                 $('.buttonIgnore').unbind('click');
             });
             
-            // If game is on pause and the objective window is closed then resume game
-            // if (!me.state.isRunning()) {
-                // me.state.resume();
-            // }
-            
             // console.log("hide message...");
             this.objectiveWindowShowing = false;
         }
@@ -1275,7 +1270,7 @@ adsGame.ScoresWindow =  Object.extend({
             if (!this.scoresWindowShowing){
                  
                  
-            console.log("Open top scores window...");
+                // console.log("Open top scores window...");
             
                  // Create html in messagelayer DIV
                 var $messageBoxHtml = (
@@ -1313,20 +1308,20 @@ adsGame.ScoresWindow =  Object.extend({
                     yOffset: 0
                 }); 
                 
-                $('.instructionsL1').html( '* The top ten smartest heroes  *');
+                $('.instructionsL1').html( '*' +  language.system.TRscorewindowTitle  + '*');
                 
                 // fill with scoreoid data
                 
                 // Connect to server to get top player scores
-                $('.serverResponse').html ("Connecting to server. Please wait.  <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
+                $('.serverResponse').html (language.system.TRserverConnection + "   <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
                 
                 var sucess = function( data ){
                     
                     $(".playerNameHeader,.scoreDateHeader,.scorePointsHeader").css({'color':'#008000', 'font-weight':'bold' } );
                     
-                    $('.playerNameHeader').html('Hero Name' + '<BR>' );
-                    $('.scoreDateHeader').html('Score date' + '<BR>' );
-                    $('.scorePointsHeader').html('Knowledge' + '<BR>' );
+                    $('.playerNameHeader').html( language.system.TRobjwindowHeroName + '<BR>' );
+                    $('.scoreDateHeader').html( language.system.TRscorewindowScoreDate + '<BR>' );
+                    $('.scorePointsHeader').html( language.system.TRscorewindowKnowledge + '<BR>' );
                     
                     $(".playerName,.scoreDate,.scorePoints").css({'font-weight':'normal' } );
                     
@@ -1335,11 +1330,12 @@ adsGame.ScoresWindow =  Object.extend({
                     $(".scorePoints").css({'color':'#0000FF'});
                     
                     $('.serverResponse').hide();
-                    console.log("Get top 10 players...", data);
+                   
+                    // console.log("Get top 10 players...", data);
                     
                     // Make top 10 list
                     $.each( data , function(index, element) {
-                         console.log('element' , element.Player.username , '- Score:', element.Score.score);
+                         // console.log('element' , element.Player.username , '- Score:', element.Score.score);
                         // $('.txtDIVL1').append('#' + (index + 1) + element.Player.username + 'on ' + element.Score.created + ' '+ element.Score.score + ' Points<BR>');
                         
                         $('.playerName').append((index + 1) + ' - ' +  element.Player.username + '<BR>' );
@@ -1347,18 +1343,18 @@ adsGame.ScoresWindow =  Object.extend({
                         $('.scorePoints').append(element.Score.score + '<BR>' );
                     });
                     
-                    $('.inpirationText').html('O raciocínio lógico leva-te de A a B. A imaginação leva-te a qualquer lugar onde quiseres. (Albert Einstein)');
+                    $('.inpirationText').html( language.system.TRscorewindowPhrase );
                 }.bind(this);
                 
                 var fail = function( error ){
-                    console.log("Error:" , error);
+                    // console.log("Error:" , error);
                     
-                    $('.serverResponse').html ("Error receiving data from server. Try again later.");
+                    $('.serverResponse').html ( language.system.TRserverConnectionFailedData );
                 };
                 
                 var failCommunication = function(){
-                    console.log("Comunication with server failed. Try again later.");
-                    $('.serverResponse').html ("Comunication with server failed. Try again later.");
+                    // console.log("Comunication with server failed. Try again later.");
+                    $('.serverResponse').html ( language.system.TRserverConnectionFailed );
                     $('.buttonIgnore').show();
                 };
                 
@@ -1367,7 +1363,7 @@ adsGame.ScoresWindow =  Object.extend({
                 $('.scoreClose').html( "[" + language.system.TRclose + "]" );
                 
                 $('.scoreClose').bind('click', function( event ) {
-                    console.log("Close event...");
+                    // console.log("Close event...");
                     this.hide();
                 }.bind(this));
  
@@ -1439,9 +1435,9 @@ adsGame.LVLFinishedWindow =  Object.extend({
                     
                 $('#finishLayer').append($messageBoxHtml);
 
-                $('.thxForSaveUs').html ( "Thanks for saving us " + heroName +".");
-                $('.lvlCongratulations').html ( "Congratulations you finished the game demostration." );
-                $('.lvlTxtHelpUs').html ( "Please help us to continue that adventure and save the kingdom of wisdom from the claws of king Ignoramus. Make a like on our facebook page.");
+                $('.thxForSaveUs').html ( language.system.TRlvlfinishedThxSaveUs + heroName +".");
+                $('.lvlCongratulations').html ( language.system.TRlvlfinishedCongratulations );
+                $('.lvlTxtHelpUs').html ( language.system.TRlvlfinishedHelpUs);
                 $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'/>");
                 
                               
@@ -1453,22 +1449,23 @@ adsGame.LVLFinishedWindow =  Object.extend({
                 // Get player rank and set score on scoreoid
                 
                 var sucessRank = function( rank ){
-                    console.log("Get Player Rank.");
+                    // console.log("Get Player Rank.");
                     $('.serverResponse').hide();
-                    $('.playerPosition').html ( "You are in rank " + rank + " with " + me.game.HUD.getItemValue("conhecimento") + " Points." );
+                    
+                    $('.playerPosition').html ( language.system.TRlvlfinishedRank + rank + language.system.TRlvlfinishedWith + me.game.HUD.getItemValue("conhecimento") + " " + language.system.TRlvlfinishedPoints + "." );
                 }.bind(this);
                 
                 
                 var fail = function( error ){
                     console.log("Error:" , error);
                     
-                    $('.serverResponse').html ("Error handling data with server.");
+                    $('.serverResponse').html ( language.system.TRserverConnectionFailedData );
                     $('.buttonRetry').show();
                 };
                 
                 var failCommunication = function(){
-                    console.log("Comunication with server failed...");
-                    $('.serverResponse').html ("Comunication with server failed.");
+                    // console.log("Comunication with server failed...");
+                    $('.serverResponse').html ( language.system.TRserverConnectionFailed );
                     $('.buttonRetry').show();
                 };
                 
@@ -1481,7 +1478,7 @@ adsGame.LVLFinishedWindow =  Object.extend({
                 console.log("Hero name:", heroName);
                 
                 // sucessSetPlayerScore();
-                $('.serverResponse').html ("Connecting to scoreoid server. <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
+                $('.serverResponse').html (language.system.TRserverConnection + " <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
                 
                 adsGame.scoreOID.setPlayerScore(heroName, me.game.HUD.getItemValue("conhecimento"), sucessSetPlayerScore , fail , failCommunication);
                 
@@ -1563,10 +1560,10 @@ adsGame.HeroDiesWindow =  Object.extend({
                     
                 $('#heroDiesLayer').append($messageBoxHtml);
 
-                $('.prisonersMessage').html ( "Please save us.");
-                $('.heroDiesMessage').html ( "Sorry you died, what do you want to do?");
-                $('.heroDiesOption1').html ( "Restart Game ( You must do all again).");
-                $('.heroDiesOption2').html ( "Continue Game ( The prisoners who already saved remained free but you lose your current score ).");
+                $('.prisonersMessage').html ( language.system.TRherodiesSaveUs);
+                $('.heroDiesMessage').html ( language.system.TRherodiesDiesMessage);
+                $('.heroDiesOption1').html ( language.system.TRherodiesMsgRestart);
+                $('.heroDiesOption2').html ( language.system.TRherodiesMsgContinue);
                 $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'/>");
                 
                 //Check if hero already save any  prisoner
