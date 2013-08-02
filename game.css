@@ -46,7 +46,18 @@ body {
 #linkForm {
     position: absolute;
     bottom: 8px;
-    right: 400px;
+    right: 450px;
+    text-align:left;
+    z-index:0;
+    font-family: 'MedievalSharp', serif;
+    color : #996600;
+    font-weight: bold;
+}
+
+#twitterButton {
+    position: absolute;
+    bottom: 8px;
+    right: 340px;
     text-align:left;
     z-index:0;
     font-family: 'MedievalSharp', serif;
