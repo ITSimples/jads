@@ -138,7 +138,7 @@
       "languages":{
          "portuguese":{
             "TRtriggerMessageChestStaff": "Precisas do cristal de fogo para abrir o cofre.",
-            "TRtriggerMessageOpenChestStaff": "Parabéns. O bastão vai desintegrar-se depois de venceres o dragão.",
+            "TRtriggerMessageOpenChestStaff": "Parabéns. Clica no bastão no inventário para usares.",
             "TRtriggerMessageLiefCell": "Precisas da Chave Caveira para abrir a porta.",
             "TRtriggerMessageJacquelynCell":"Precisas da Chave do dragão para abrir a porta.",
             "TRtriggerReqMessageAgnesCell": "Tens que salvar primeiro o Lief e a Jacquelyn.",
@@ -153,7 +153,7 @@
          },
          "english":{
             "TRtriggerMessageChestStaff": "You need the crystal of fire to open the treasure.",
-            "TRtriggerMessageOpenChestStaff": "Congratulations. The Ice Staff will disintegrate after you defeat the dragon.",
+            "TRtriggerMessageOpenChestStaff": "Congratulations. Click on Ice Staff will in inventory to use.",
             "TRtriggerMessageLiefCell": "You need the Skull Key to open the door.",
             "TRtriggerMessageJacquelynCell":"You need the dragon key to open the door.",
             "TRtriggerReqMessageAgnesCell": "You must first save the Lief and Jacquelyn.",

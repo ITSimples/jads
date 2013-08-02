@@ -50,7 +50,12 @@ adsGame.Message =  Object.extend({
 		
 		console.log('Init message class....');
 	},
-	"show": function show(msgData) {
+	
+    "isShowing" : function isShowing(){
+        return this.messageShowing;
+    },
+    	
+	"show": function show(msgData , timeShowing) {
 			if (!this.messageShowing){
 			     // Create html in messagelayer DIV
                 var $messageBoxHtml = ('<img class="msgImage" src="" alt="">' +
@@ -91,6 +96,13 @@ adsGame.Message =  Object.extend({
                 
 				// console.log("Show message...");
 				this.messageShowing = true;
+				
+				if (timeShowing){
+                    var tween = new me.Tween( { x: 0} )
+                        .to( { x: 1 }, timeShowing ).onComplete(function(){ 
+                        this.hide();
+                        }.bind(this)).start();
+				}
 			}
 	},
 		
@@ -1175,7 +1187,7 @@ adsGame.ObjectiveWindow =  Object.extend({
                 $('.lvlTileObjectives').html ( language.system.TRobjwindowLVLObjectives + ":");
                 $('.lvlTxtObjectives').html ( language.npcs.TRobjwindowLVLObjectives);
                 $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'/>");
-                
+                $('.serverResponse').html ( language.system.TRserverConnectionScore );
                 
                  // CSS for the new star
                 // $(".storylogoimage").css({

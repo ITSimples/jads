@@ -413,7 +413,7 @@ var NpcEntity = me.ObjectEntity.extend({
                     
                     //Show last message on messages data if this.msgData.msg null 
                     if ( this.msgData.msg == undefined ){
-                        this.msgData.msg = this.npcData.mensage[this.npcData.mensage.length - 1];
+                        this.msgData.msg = language.npcs[this.npcData.mensagem][language.npcs[this.npcData.mensagem].length - 1];
                     }
                     
                     this.message.show(this.msgData);
@@ -1081,7 +1081,7 @@ var NpcEntity = me.ObjectEntity.extend({
     onDestroyEvent : function(){
         console.log("NPC was destroyed...");
         // Hide messages when npc was destroyed
-        this.message.hide();
+        // this.message.hide();
     }
 });
 // *************************

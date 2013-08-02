@@ -125,7 +125,7 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
 
     itemLucky = 15;
     
-    startHero = [5,5];
+    startHero = [13,24];
     
     heroName = "";
     
@@ -144,10 +144,10 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
     specialItemfullInventory = false;
 };
 
-var DEBUG_MODE = false;
+var DEBUG_MODE = true;
 
 // Give item to hero to start in debug mode
-var giveItemDebug = "chave3cristais";
+var giveItemDebug = "cristalfogo";
 
 /*--- END Hero Configuration ---*/
 

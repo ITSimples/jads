@@ -814,7 +814,7 @@ var TriggerEntity = me.ObjectEntity.extend({
 		this.message = new adsGame.Message();
 		
 		//Update always
-		this.alwaysUpdate = true;
+		this.alwaysUpdate = false;
 		
 		//  Show message and play sound only one timw when hero does'nt have the door key
 		this.oneTimeSoundMessage = false;
@@ -913,12 +913,15 @@ var TriggerEntity = me.ObjectEntity.extend({
                             var tween = new me.Tween( { x: 0} )
                             .to( { x: 1 }, 10000 ).onComplete(function(){ 
                                 self.message.hide();
+                                 // Remove Trigger
+                                me.game.remove(this);
                             }).start();
                             // console.log("How many times...");
+                            
                         }
                         
-                        // Remove Trigger
-                        me.game.remove(this);
+                        this.checkSolution = false;
+                       
                     }else{
                         //The hero hasn't  the item to open chest show a message to hero
                         if (!npcTalking){
@@ -1063,11 +1066,11 @@ var TriggerEntity = me.ObjectEntity.extend({
                 
 				// If trigger is a npc object object
                 if (this.type == 'NEW_NPC'){                        
-                        this.message.show(this.msgData);
+                        this.message.show(this.msgData, 100000);
                         // msgShowing = true;
                         
                         //Create the new NPC only one time
-                        if ( !this.oneTime ){
+                        if ( !this.oneTime ){                
                             // Shake map
                             me.game.viewport.shake (20 , 1500);
                             
@@ -1133,7 +1136,7 @@ var TriggerEntity = me.ObjectEntity.extend({
 			this.isChecked = false;
 			
 			//Remove item from game if remove = true:
-            if (this.remove && this.oneTime){          
+            if (this.remove && this.oneTime){
                   // Remove this object 
                   me.game.remove(this);
                   
