@@ -31,22 +31,6 @@ SOFTWARE.
 <meta http-equiv="PRAGMA" content="NO-CACHE">
 <meta http-equiv="Expires" content="0">
 
-<script type="text/javascript">
-    // Disabling Mouse Selection
-    var omitformtags=["input", "textarea", "select"]
-    omitformtags=omitformtags.join("|")
-    function disableselect(e){
-    if (omitformtags.indexOf(e.target.tagName.toLowerCase())==-1)
-    return false }
-    function reEnable(){
-    return true }
-    if (typeof document.onselectstart!="undefined")
-    document.onselectstart=new Function ("return false")
-    else {
-    document.onmousedown=disableselect
-    document.onmouseup=reEnable }
-</script>
-
 <html>
 	<head>
 	    <meta http-equiv="cache-control" content="max-age=0" />

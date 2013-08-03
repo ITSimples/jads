@@ -366,18 +366,18 @@ function showQuestionLayer(itemData, adsQtnData)
             $(".r0").css({'top' : 185});
         }else if ( questionLength > 38 && questionLength < 77 ){
             // console.log("Two Lines...");
-            $(".questionText").css({'height': 40});
-            $(".r1").css({'top' : 145});
-            $(".r2").css({'top' : 165});
-            $(".r3").css({'top' : 185});
-            $(".r0").css({'top' : 205});
+            $(".questionText").css({'height': 48});
+            $(".r1").css({'top' : 148});
+            $(".r2").css({'top' : 168});
+            $(".r3").css({'top' : 188});
+            $(".r0").css({'top' : 208});
         }else{
-            $(".questionText").css({'height': 65});            
+            $(".questionText").css({'height': 78});            
             // console.log("Three Lines...");
-            $(".r1").css({'top' : 165});
-            $(".r2").css({'top' : 185});
-            $(".r3").css({'top' : 205});
-            $(".r0").css({'top' : 225});
+            $(".r1").css({'top' : 168});
+            $(".r2").css({'top' : 188});
+            $(".r3").css({'top' : 208});
+            $(".r0").css({'top' : 228});
         }
         
         // On mouse over answer change the color
@@ -962,3 +962,13 @@ function FileHelper()
     }
 }
         
+function textToHTML(text)
+{
+    return ((text || "") + "")  // make sure it's a string;
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\t/g, "    ")
+        .replace(/ /g, "&#8203;&nbsp;&#8203;")
+        .replace(/\r\n|\r|\n/g, "<br />");
+}

@@ -26,6 +26,12 @@
 	top: 80px; /* Top from border*/
 	margin-left: auto ;
 	margin-right: auto ;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #adsInformation{
@@ -357,7 +363,8 @@
 	position: absolute;
 	bottom: 15px;
 	left: 13px;
-	width: 150px;
+	width: 155px;
+	height:34px;
 	color : #B43104;
 	font-weight: bold;
 	font-size: 13px;
@@ -766,10 +773,10 @@
 
 #questionQuestLayer .questionToHero {
     position: absolute;
-    top: 260px;
+    top: 270px;
     left: 125px;
-    width: 290px;
-    height: 40px;
+    width: 245px;
+    height: 23px;
     font-weight: bold;
     color : #0B610B;
     overflow: hidden;
@@ -781,7 +788,6 @@
     top: 180px;
     left: 60px;
     width: 300px;
-    height: 120px;
     font-weight: bold;
     color : #0B610B;
     overflow: hidden;
@@ -1036,7 +1042,7 @@
     position: absolute;
     top: 20px;
     left: 310px;
-    width: 60px;
+    width: 65px;
     height: 20px;
     font-size: 15px;
     color : #008000;
@@ -1090,7 +1096,7 @@
     position: absolute;
     top: 20px;
     left: 310px;
-    width: 60px;
+    width: 65px;
     height: 20px;
     font-size: 15px;
     color : #008000;
@@ -1138,13 +1144,12 @@
     position: absolute;
     top: 95px;
     left: 75px;
-    width: 280px;
-    height: 218px;
     font-size: 14px;
     color: #F0F0E0;
     overflow: hidden;
     z-index: 1;
-    word-wrap: break-word;
+    height: 218px;
+    width: 280px;
     text-align: justify;
 }
 
@@ -1393,7 +1398,7 @@ input[type='text'] { font-size: 20px; font-family: 'MedievalSharp', serif; color
     position: absolute;
     top: 20px;
     left: 310px;
-    width: 60px;
+    width: 65px;
     height: 20px;
     font-size: 15px;
     color : #008000;

@@ -551,17 +551,16 @@ adsGame.QuestionQuest =  Object.extend({
             $(".QuestR3").css({'top' : 260});
         }else if ( questionLength > 38 && questionLength < 77 ){
             // console.log("Two Lines...");
-            $(".questionQuestText").css({'height': 40});
-            $(".QuestR1").css({'top' : 230});
-            $(".QuestR2").css({'top' : 255});
-            $(".QuestR3").css({'top' : 280});
-        }else{
-            $(".questionText").css({'height': 60});            
+            $(".questionQuestText").css({'height': 45});
+            $(".QuestR1").css({'top' : 235});
+            $(".QuestR2").css({'top' : 260});
+            $(".QuestR3").css({'top' : 285});
+        }else{      
             // console.log("Three Lines...");
-            $(".questionQuestText").css({'height': 60});
-            $(".QuestR1").css({'top' : 250});
-            $(".QuestR2").css({'top' : 275});
-            $(".QuestR3").css({'top' : 300});
+            $(".questionQuestText").css({'height': 75});
+            $(".QuestR1").css({'top' : 258});
+            $(".QuestR2").css({'top' : 283});
+            $(".QuestR3").css({'top' : 308});
         }       
         //Hide question
         $('#heroQuestions').hide();
@@ -1013,7 +1012,7 @@ adsGame.StoryWindow =  Object.extend({
                                             $(".storynext").bind('click', function(){
                                                 $(".storynext").unbind('click');
                                                 $('.storytext').animate({
-                                                scrollTop: 590}, 10000, function(){
+                                                scrollTop: 650}, 10000, function(){
                                                     $(".storynext").css({"left" : "265px"});   
                                                     $(".storynext").html( language.system.TRgoodLuck);
                                                     });
@@ -1065,9 +1064,10 @@ adsGame.CreditsWindow =  Object.extend({
         (
         pathOfFileToRead
         );
-        this.contentsOfFileAsString = contentsOfFileAsString;
+        
+        this.contentsOfFileAsString = textToHTML(contentsOfFileAsString);
 
-        console.log('Init credits window class...');
+        console.log('Init credits window class...' , this.contentsOfFileAsString);
     },
     "show": function show() {
             if (!this.creditsWindowShowing){
@@ -1113,7 +1113,7 @@ adsGame.CreditsWindow =  Object.extend({
                 //Make html space lines
                 // <p style='padding-bottom:170px'> </p>
 
-                $('.creditstext').html ( "<img height='50%' width='100%' src = '"+ ads_images_path + "itsimplessmalllogo.png'><PRE>" + this.contentsOfFileAsString + "</PRE>"  );
+                $('.creditstext').html ( "<img height='50%' width='100%' src = '"+ ads_images_path + "itsimplessmalllogo.png'>" + this.contentsOfFileAsString + ""  );
                 
                 $('.creditsLogos').html ( "<img src = '"+ ads_images_path + "alllogos.png'></img>");
                 

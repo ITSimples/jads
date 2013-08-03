@@ -13,7 +13,7 @@
                 },
                 "q02": {
                     "categoria": "Matemática",
-                    "pergunta": "Qual e a raiz quadrada de 100?",
+                    "pergunta": "Qual e a raíz quadrada de 100?",
                     "r1": "10",
                     "r2": "100",
                     "r3": "1000",
@@ -109,7 +109,7 @@
                 },
                 "q14": {
                     "categoria": "Matemática",
-                    "pergunta": "Uma vela queima-se em 3 horas.Em quanto tempo se queimariam três velas iguais e acesas ao mesmo tempo?",
+                    "pergunta": "Uma vela queima-se em 3 horas. Em quanto tempo se queimariam três velas iguais e acesas ao mesmo tempo?",
                     "r1": "9 horas",
                     "r2": "12 horas",
                     "r3": "3 horas",
@@ -127,7 +127,7 @@
         "english":{
                 "q01": {
                     "categoria": "Mathematics",
-                    "pergunta": "It has nine lighted candles. Go out 3, how many are?",
+                    "pergunta": "There are nine lighted candles. 3 went out, how many stay lighted?",
                     "r1": "5 . 2",
                     "r2": "2 x 3",
                     "r3": "48 : 4",
@@ -135,7 +135,7 @@
                 },
                 "q02": {
                     "categoria": "Mathematics",
-                    "pergunta": "Which and the square root of 100?",
+                    "pergunta": "What is the square root of 100?",
                     "r1": "10",
                     "r2": "100",
                     "r3": "1000",
@@ -151,7 +151,7 @@
                 },
                 "q04": {
                     "categoria": "Logic",
-                    "pergunta": "The black sheep have wool black. What color is the milk of black cows?",
+                    "pergunta": "The black sheep has black wool. What color is the milk of black cows?",
                     "r1": "Black",
                     "r2": "Red",
                     "r3": "White",
@@ -159,8 +159,8 @@
                 },
                 "q05": {
                     "categoria": "Logic",
-                    "pergunta": "In a dark room has a match, one stove, a lantern, a candle and a cigarette, which will light first?",
-                    "r1": "The cigarette is obvious",
+                    "pergunta": "In a dark room is a match, a stove, a lantern, a candle and a cigarette, which must be lighted first?",
+                    "r1": "The cigarette, it's obvious",
                     "r2": "The candle",
                     "r3": "The match",
                     "correta": "3"
@@ -175,7 +175,7 @@
                 },
                 "q07": {
                     "categoria": "Language",
-                    "pergunta": "Therapeutic method involves inserting needles in meat.",
+                    "pergunta": "Therapeutic method which involves inserting needles in meat.",
                     "r1": "Acupuncture",
                     "r2": "Agriculture",
                     "r3": "Swine",
@@ -183,10 +183,10 @@
                 },
                 "q08": {
                     "categoria": "Language",
-                    "pergunta": "Not to be recognized, used the disguise of:",
-                    "r1": "Alliance",
-                    "r2": "Mask",
-                    "r3": "Tie",
+                    "pergunta": "To not be recognized, he used the disguise of:",
+                    "r1": "an alliance",
+                    "r2": "a mask",
+                    "r3": "a tie",
                     "correta": "3"
                 },
                 "q09": {
@@ -199,8 +199,8 @@
                 },
                 "q10": {
                     "categoria": "Logic",
-                    "pergunta": "Would have been lost in the forest, if he had the help of a:",
-                    "r1": "Path",
+                    "pergunta": "He would be lost in the forest, if he hadn't the help of a:",
+                    "r1": "Map",
                     "r2": "Guide",
                     "r3": "Horse",
                     "correta": "2"
@@ -223,15 +223,15 @@
                 },
                 "q13": {
                     "categoria": "Mathematics",
-                    "pergunta": "What is heavier, two pounds of lead or three goose feather?",
+                    "pergunta": "Which is heavier, two pounds of came or three of goose feather?",
                     "r1": "Are equivalent",
                     "r2": "3 goose feather",
-                    "r3": "2 lead of course",
+                    "r3": "2 of came of course",
                     "correta": "2"
                 },
                 "q14": {
                     "categoria": "Mathematics",
-                    "pergunta": "A candle burns in 3 hours. How long would burn three candles burning and equal at the same time?",
+                    "pergunta": "A candle burns out in 3 hours. How long would need three equal burning candles at the same time to burn out?",
                     "r1": "9 hours",
                     "r2": "12 hours",
                     "r3": "3 hours",
@@ -242,7 +242,7 @@
                     "pergunta": "If all birds were black:",
                     "r1": "The buzzard could be white",
                     "r2": "There would be no blue birds",
-                    "r3": "The black cat would ave",
+                    "r3": "The black cat would be a bird",
                     "correta": "2"
                 }
         },

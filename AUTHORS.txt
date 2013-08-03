@@ -5,16 +5,19 @@ Authors
 
 This program was written and developed by:
 
-Code:
+Code and other stuff :-)
 Francisco Fernandes
 
-Story-teller,website developer:
+Story-teller, languages reviewer, website developer:
 Carla Ventura
+
+Special thanks to my personal consultant:
+Vladimiro Casinha
 
 Libraries used
 ********************
 
-MelonJS - The best,thx ;) 
+MelonJS - The best,thx ;) without them nothing would be possible.
 
 JQuery.js - /*! jQuery v1.7.2 jquery.com | jquery.org/license */
 
