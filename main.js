@@ -406,7 +406,8 @@ function showQuestionLayer(itemData, adsQtnData)
 		if (!itemData.specialItem){
 			$('.answerValue').html('+/-' + itemData.valor + ' ' + language.system.TRof + ' ' + language.items[itemData.categoriaDesc] + '.');
 		}else{
-			$('.answerValue').html(language.system.TRwrongAnswer + ' ' + itemData.quantidade + ' ' + language.system.TRof + ' ' + itemData.remover + '.');
+			$('.answerValue').html(language.system.TRwrongAnswer + ' ' + itemData.quantidade + ' ' + language.system.TRof + ' ' + language.items[itemData.removerNome] + '.');
+			console.log("itemData:", itemData);
 		}
 		// Create event listener to get answer from player
 		$(document).keyup(function(event) {

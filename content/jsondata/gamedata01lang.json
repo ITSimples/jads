@@ -153,7 +153,7 @@
          },
          "english":{
             "TRtriggerMessageChestStaff": "You need the crystal of fire to open the treasure.",
-            "TRtriggerMessageOpenChestStaff": "Congratulations. Click on Ice Staff will in inventory to use.",
+            "TRtriggerMessageOpenChestStaff": "Congratulations. Click on Ice Staff in the inventory to use it.",
             "TRtriggerMessageLiefCell": "You need the Skull Key to open the door.",
             "TRtriggerMessageJacquelynCell":"You need the dragon key to open the door.",
             "TRtriggerReqMessageAgnesCell": "You must first save the Lief and Jacquelyn.",

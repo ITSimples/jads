@@ -746,6 +746,7 @@ var ItemSpawnEntity = me.ObjectEntity.extend({
 				if ( dataSpecialItem.value == ads_item_data.valor)
 				{
 					ads_item_data.remover = dataSpecialItem.remover;
+					ads_item_data.removerNome = dataSpecialItem.removerNome;
 					ads_item_data.quantidade = dataSpecialItem.quantidade;
 					ads_item_data.specialItem = true;
 					item = new ItemEntity(parseInt(ads_tile_size*dataSpecialItem.coordinates.x , 10), parseInt(ads_tile_size*dataSpecialItem.coordinates.y ,10), 
@@ -907,17 +908,18 @@ var TriggerEntity = me.ObjectEntity.extend({
                         //The hero open chest show a message to hero
                         if (!npcTalking){
                             this.msgData.msg = language.triggers[this.triggerData.messageOpen];
-                            this.message.show(this.msgData);
+                            this.message.show(this.msgData , 10000);
                             
                             // msgShowing = true;
-                            var tween = new me.Tween( { x: 0} )
-                            .to( { x: 1 }, 10000 ).onComplete(function(){ 
-                                self.message.hide();
-                                 // Remove Trigger
-                                me.game.remove(this);
-                            }).start();
+                            // var tween = new me.Tween( { x: 0} )
+                            // .to( { x: 1 }, 10000 ).onComplete(function(){ 
+                                // self.message.hide();
+//                                 
+                            // }).start();
                             // console.log("How many times...");
                             
+                            // Remove Trigger
+                            me.game.remove(this);
                         }
                         
                         this.checkSolution = false;
@@ -1066,7 +1068,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                 
 				// If trigger is a npc object object
                 if (this.type == 'NEW_NPC'){                        
-                        this.message.show(this.msgData, 100000);
+                        this.message.show(this.msgData, 10000);
                         // msgShowing = true;
                         
                         //Create the new NPC only one time
@@ -1095,6 +1097,9 @@ var TriggerEntity = me.ObjectEntity.extend({
                                                         
                             //Create new NPC
                             adsGame.Npc.create(adsNpcData[this.npcName]);
+                            
+                            //Remove Trigger
+                            me.game.remove(this);
                         }
                 }
 
@@ -1160,7 +1165,7 @@ var TriggerEntity = me.ObjectEntity.extend({
     onDestroyEvent : function(){
         console.log("TriggerEntity was destroyed...");
         // Hide messages when TriggerEntity was destroyed
-        this.message.hide();
+        // this.message.hide();
     }
 	
 });

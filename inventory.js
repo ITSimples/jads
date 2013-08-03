@@ -187,10 +187,7 @@ SOFTWARE.
             
         if (itemTarget == 'use'){
             // console.log (' Use this item...');
-            
             me.game.HUD.updateItemValue(itemCategory,  parseInt(itemValue));
-            //hide item information because on leave with mouse the item info doesn't dissapear
-            $('#itemInfLayer').hide();
             
         }else // If removed item is velocity or lucky then update Hud to remove hud points
         {
@@ -198,7 +195,10 @@ SOFTWARE.
                 me.game.HUD.updateItemValue(itemCategory,  -(parseInt(itemValue)) );
             }
         }
-            
+        
+        //hide item information because on leave with mouse the item info doesn't dissapear
+        $('#itemInfLayer').hide();
+                
         // TODO - Remove only if there is only one item else remove on groupSize
         if ( heroItems[itemIndex].groupSize == 1 || itemIndex > 5  ){
             // console.log( "There is only one item on slot....");      
@@ -503,7 +503,7 @@ SOFTWARE.
                         slot.bind('dblclick' , function () {
                             // console.log((me.game.HUD.getItemValue(itemCategory) + itemValue) , ' < ' ,maxHudValue['live']);
                             // Check if live is full
-                            if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= heroHealth ){//maxHudValue['live']){
+                            if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= hudInitialValues.vida ){//maxHudValue['live']){
                                 // play a "heroeat" sound
                                 me.audio.play("heroeat");
 

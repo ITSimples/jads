@@ -95,7 +95,7 @@ var startHero;
 
 var heroName;
 
-var heroHealth;
+// var heroHealth;
 
 // Keep all items found by hero
 var heroItems;
@@ -125,11 +125,11 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
 
     itemLucky = 15;
     
-    startHero = [13,24];
+    startHero = [5,5];
     
     heroName = "";
     
-    heroHealth = 10;
+    // heroHealth = 10;
     
     heroItems = [];
     
@@ -144,10 +144,10 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
     specialItemfullInventory = false;
 };
 
-var DEBUG_MODE = true;
+var DEBUG_MODE = false;
 
 // Give item to hero to start in debug mode
-var giveItemDebug = "cristalfogo";
+var giveItemDebug = "icestaff";
 
 /*--- END Hero Configuration ---*/
 
