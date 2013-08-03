@@ -385,6 +385,11 @@ var NpcEntity = me.ObjectEntity.extend({
         if (!this.alive) {
             return;
         }
+        
+        if (!this.alwaysUpdate && !this.stop){
+            this.alwaysUpdate = true;
+            // console.log("Always Updated...", this.npcData.nome);
+        }
         // Update thrower position follow NPC
         if (this.npcData.ataca) {
             this.updateThrower( this.direction );
@@ -558,6 +563,12 @@ var NpcEntity = me.ObjectEntity.extend({
                     // Stop the player
                     if (this.currentPath == this.path.length) {
                         this.stop = true;
+                        
+                        // Set always update to false the npc is stoped
+                        if (this.alwaysUpdate){
+                            this.alwaysUpdate = false;
+                            // console.log("Reached the end stop update...", this.npcData.nome);
+                        }
                         // this.setCurrentAnimation("stand-" + this.direction);
                         if ( !this.firstAnimation ){
                             this.renderable.setCurrentAnimation( "stand-down");
@@ -572,7 +583,7 @@ var NpcEntity = me.ObjectEntity.extend({
             var player = adsGame.heroEntity();
             
             if ( typeof (this.npcData.atacaDistancia ) !== "undefined" && this.npcData.atacaDistancia >  this.distanceTo(player) ){
-                console.log(" follow - Distance to attack: " , this.distanceTo(player));
+                // console.log(" follow - Distance to attack: " , this.distanceTo(player));
                 this.countPath = 0;
                 this.npcData.tipoMovimento = "npcFollowHero";
             }
@@ -681,7 +692,7 @@ var NpcEntity = me.ObjectEntity.extend({
                 
                 this.path[this.currentPath] = adsGame.pathFinder.getPath(start, end);
                 
-                console.log("pathlength:", this.path.length);
+                // console.log("pathlength:", this.path.length);
                 
                 this.destX = this.path[this.currentPath][0][0] * ads_tile_size;
                 this.destY = (this.path[this.currentPath][0][1] * ads_tile_size) - this.avoidWall;
@@ -1021,7 +1032,7 @@ var NpcEntity = me.ObjectEntity.extend({
                     
                     var tween = new me.Tween( { x: 1} )
                     .to( { x: 0 }, 8000 ).onComplete(function(){ 
-                        console.log("Testing Tween..."); 
+                        // console.log("Testing Tween..."); 
                         self.message.hide();
                         // msgShowing = false;
                         self.showMessage = false;
@@ -1079,7 +1090,7 @@ var NpcEntity = me.ObjectEntity.extend({
     },
     
     onDestroyEvent : function(){
-        console.log("NPC was destroyed...");
+        // console.log("NPC was destroyed...");
         // Hide messages when npc was destroyed
         // this.message.hide();
     }
@@ -1106,8 +1117,8 @@ var NpcSpawnEntity = me.ObjectEntity.extend({
         // Total of NPC
         countNpc = npcKeys.length;
 
-        console.log("NPC count:", countNpc);
-        console.log("NPC name:", adsNpcData["dragonlvl01"].nome, ": Spritewidth:", adsNpcData["dragonlvl01"].tamanhoImagem.largura, " Sprite Height:", adsNpcData["dragonlvl01"].tamanhoImagem.altura);
+        // console.log("NPC count:", countNpc);
+        // console.log("NPC name:", adsNpcData["dragonlvl01"].nome, ": Spritewidth:", adsNpcData["dragonlvl01"].tamanhoImagem.largura, " Sprite Height:", adsNpcData["dragonlvl01"].tamanhoImagem.altura);
 
         for (var x = 0; x < countNpc; x++) {
             //Test if npc is to create at the beginning of the game

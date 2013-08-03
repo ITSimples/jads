@@ -36,7 +36,7 @@ var HeroEntity = me.ObjectEntity.extend({
 		// Chamar o contrutor
 		this.parent(x, y , settings);
 		
-		console.log("TESTING BRANCH...");
+		// console.log("TESTING BRANCH...");
 		
 		//Debug Position
 		
@@ -116,7 +116,7 @@ var HeroEntity = me.ObjectEntity.extend({
 	//Create weapon player position.
     createWeapon : function ( weapon )
     {
-        console.log("Weapon:", weapon);
+        // console.log("Weapon:", weapon);
         
         // Set global name of weapon
         heroWeaponName = weapon.valor;
@@ -407,7 +407,7 @@ var HeroEntity = me.ObjectEntity.extend({
         // If hero died
         // console.log( "me.game.HUDgetItemValue(vida)" , me.game.HUD.getItemValue("vida"));
         if ( me.game.HUD.getItemValue("vida") <= 0 ){
-            console.log("Player is dead");
+            // console.log("Player is dead");
             // Pause the game
             me.state.pause();
             // Show window game over
@@ -429,7 +429,7 @@ var HeroEntity = me.ObjectEntity.extend({
 	}, // End update method
 	
     onDestroyEvent : function(){
-        console.log("Hero was destroyed...");
+        // console.log("Hero was destroyed...");
         // When hero was destroyed
         //Reset hero global variables
         setInitialHeroVariables();
@@ -1047,9 +1047,9 @@ var TriggerEntity = me.ObjectEntity.extend({
 						//TODO - Fade out /in viewport 
 						me.game.viewport.fadeOut('#000000',1000, function() {
                             // End level one
-                            console.log("this.solution:", this.solution);
+                            // console.log("this.solution:", this.solution);
                             if ( this.solution == "chave3cristais"){
-                                console.log("Level one finished.");
+                                // console.log("Level one finished.");
                                 adsGame.heroEntity().renderable.setCurrentAnimation('down');
                                 // me.state.pause();
                                 adsGame.Inventory.hide();

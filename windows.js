@@ -1067,7 +1067,7 @@ adsGame.CreditsWindow =  Object.extend({
         
         this.contentsOfFileAsString = textToHTML(contentsOfFileAsString);
 
-        console.log('Init credits window class...' , this.contentsOfFileAsString);
+        // console.log('Init credits window class...' , this.contentsOfFileAsString);
     },
     "show": function show() {
             if (!this.creditsWindowShowing){
@@ -1169,7 +1169,7 @@ adsGame.ObjectiveWindow =  Object.extend({
     "show": function show() {
             if (!this.objectiveWindowShowing){
                  
-                 console.log('Objective window opened **********...');
+                 // console.log('Objective window opened **********...');
                  // Create html in messagelayer DIV
                 var $messageBoxHtml = ('<div class="prisonersImage"></div>' +
                                                           '<div class="askHeroName"></div>' +
@@ -1207,11 +1207,11 @@ adsGame.ObjectiveWindow =  Object.extend({
                         this.hide();
                         me.state.change(me.state.PLAY);
                         bindGameKeys();
-                        console.log("New player created...");
+                        // console.log("New player created...");
                     }.bind(this);
                     
                     var fail = function( error ){
-                        console.log("Error:" , error);
+                        // console.log("Error:" , error);
                         
                         $('.serverResponse').html ( language.system.TRserverConnectionNameExists );
                         $('.buttonIgnore').show();
@@ -1433,7 +1433,7 @@ adsGame.LVLFinishedWindow =  Object.extend({
                  //Pause the game
                  me.state.pause();
                  
-                 console.log('Init objective window class show method called **********...');
+                 // console.log('Init objective window class show method called **********...');
                  // Create html in messagelayer DIV
                 var $messageBoxHtml = ('<div class="prisonersImage"></div>' +
                                                           '<div class="thxForSaveUs"></div>' +
@@ -1482,12 +1482,12 @@ adsGame.LVLFinishedWindow =  Object.extend({
                 };
                 
                 var sucessSetPlayerScore = function( ){
-                    console.log("Get Player Rank." , sucessRank);
+                    // console.log("Get Player Rank." , sucessRank);
                     adsGame.scoreOID.getPlayerRank(heroName, sucessRank , fail , failCommunication);
                     // $('.playerPosition').html ( "You are in rank " + rank + " with " + me.game.HUD.getItemValue("conhecimento") + " Points." );
                 }.bind(this);
                 
-                console.log("Hero name:", heroName);
+                // console.log("Hero name:", heroName);
                 
                 // sucessSetPlayerScore();
                 $('.serverResponse').html (language.system.TRserverConnection + " <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
@@ -1561,7 +1561,7 @@ adsGame.HeroDiesWindow =  Object.extend({
                     hideQuestionLayer('CG');
                     // console.warn("Question window hide...");
                 }
-                 console.log('HeroDies window opened **********...');
+                 // console.log('HeroDies window opened **********...');
                  // Create html in messagelayer DIV
                 var $messageBoxHtml = ('<div class="prisonersImage"></div>' +
                                                           '<div class="prisonersMessage"></div>' +

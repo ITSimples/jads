@@ -407,7 +407,7 @@ function showQuestionLayer(itemData, adsQtnData)
 			$('.answerValue').html('+/-' + itemData.valor + ' ' + language.system.TRof + ' ' + language.items[itemData.categoriaDesc] + '.');
 		}else{
 			$('.answerValue').html(language.system.TRwrongAnswer + ' ' + itemData.quantidade + ' ' + language.system.TRof + ' ' + language.items[itemData.removerNome] + '.');
-			console.log("itemData:", itemData);
+			// console.log("itemData:", itemData);
 		}
 		// Create event listener to get answer from player
 		$(document).keyup(function(event) {
@@ -466,7 +466,7 @@ function hideQuestionLayer(answer)
 	//				- Make a new field with that information
     var answerResult ='';
     
-    console.log("Answer:", answer);
+    // console.log("Answer:", answer);
 	
 	if(answer == 'C')
 	{
@@ -646,7 +646,7 @@ function randomFloat(minValue,maxValue,precision){
         //Get data where don't swamp items
 		noItemsData = data.noItems;
 		
-		console.log("noItemsData", noItemsData);
+		// console.log("noItemsData", noItemsData);
 		
 		// If restart game don't call onload()
 		if (!restartGame){
@@ -766,7 +766,7 @@ var startGame = function (){
                 me.state.change(me.state.PLAY);
                 //There is a restart game to play then keep hero name
                 heroName = keepHeroName;
-                console.log("heroName:", heroName);
+                // console.log("heroName:", heroName);
             }
          }
     });
@@ -811,7 +811,7 @@ var myButton = me.GUI_Object.extend(
    onClick:function()
    {
       // don't propagate the event
-      console.log("this.target:", this.target );
+      // console.log("this.target:", this.target );
       if ( this.target == "playScreen"){
             // TODO - Make this to all screens and fadein and out
             me.game.viewport.fadeIn("#000", 500, function () {

@@ -179,7 +179,7 @@ SOFTWARE.
             itemIndex = ( parseInt(slot.substr(slot.length - 1)) - 1);          
         }
         // DEBUG 
-        console.log("this.slotsMap before:", this.slotsMap);
+        // console.log("this.slotsMap before:", this.slotsMap);
         
         // If option is to use the item
         var itemCategory = heroItems[itemIndex].categoria;
@@ -401,7 +401,7 @@ SOFTWARE.
     
     "dragStart" : function dragStart(e){
         var value = e.currentTarget.id;
-        console.log(value);
+        // console.log(value);
         e.originalEvent.dataTransfer.setData('text',value);
         
         //hide item information because on leave with mouse the item info doesn't dissapear
@@ -413,7 +413,7 @@ SOFTWARE.
     "dropped" : function dropped(e){
         e.preventDefault();
         var slot = e.originalEvent.dataTransfer.getData('text')
-        console.log('Item drop out...' + slot);
+        // console.log('Item drop out...' + slot);
         // If item is not dragable then dont return slot data return image to avoid error
         if ( slot.indexOf("Slot") >= 0){ // Remove Item - check if Slot string is in slot variable
             adsGame.Inventory.removeItem(slot);

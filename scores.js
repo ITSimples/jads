@@ -109,10 +109,10 @@ adsGame.Score = Object.extend ({
                             // Call fail function
                             fail( error );
                         }else{
-                            console.log('Top 10 : ',data.Player);
-                            $.each($.parseJSON(data), function(index, element) {
-                                 console.log('element' , element.Player.username , '- Score:', element.Score.score);
-                            });
+                            // console.log('Top 10 : ',data.Player);
+                            // $.each($.parseJSON(data), function(index, element) {
+                                 // console.log('element' , element.Player.username , '- Score:', element.Score.score);
+                            // });
                             sucess( dataJSON );
                         }
                     }
@@ -137,7 +137,7 @@ adsGame.Score = Object.extend ({
                             // Call fail function
                             fail( error );
                         }else{
-                            console.log('Rank for ' , playerName , ' rank :' , dataJSON.rank);
+                            // console.log('Rank for ' , playerName , ' rank :' , dataJSON.rank);
                             
                             sucess( dataJSON.rank );
                         }

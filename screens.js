@@ -95,7 +95,7 @@ var TileScreen = me.ScreenObject.extend(
                 me.audio.resumeTrack();
                 backgroundMusic = true;
             }
-            console.log("backgroundMusic:", backgroundMusic );
+            // console.log("backgroundMusic:", backgroundMusic );
             return false;
         });
         
@@ -105,14 +105,14 @@ var TileScreen = me.ScreenObject.extend(
         
         // Change game Language
         $("#flag_pt").click(function() {
-            console.log("Change Language to portuguese.");
+            // console.log("Change Language to portuguese.");
             chooseLanguage( "portuguese" );
             //Init game name
             $('#msgGameName').html( language.system.TRgameName );
         }); 
         
         $("#flag_en ").click(function() {
-            console.log("Change Language to english.");
+            // console.log("Change Language to english.");
             chooseLanguage( "english" );
             //Init game name
             $('#msgGameName').html( language.system.TRgameName );

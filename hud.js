@@ -37,7 +37,7 @@ START hud border entity
 // });
 /*--- END hud border entity ---*/
 
-var hudInitialValues = {"vida" : 20,"conhecimento" : 10,"velocidade" : 3, "ouro" : 40,"sorte":1};
+var hudInitialValues = {"vida" : 20,"conhecimento" : 10,"velocidade" : 3, "ouro" : 400,"sorte":1};
 
 /*------------------- 
 START hud live entity

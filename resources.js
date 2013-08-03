@@ -58,7 +58,7 @@ var ads_json_files='content/jsondata/';
 var ads_tile_size = 32;
 var restartGame = false;
 var gotoState = "";
-var startMusic = "cornfields"
+var startMusic = "ancientforest"
 
 /*------------------- 
 HUD Configuration
@@ -125,7 +125,7 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
 
     itemLucky = 15;
     
-    startHero = [43,46];
+    startHero = [5,5];
     
     heroName = "";
     
@@ -144,7 +144,7 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
     specialItemfullInventory = false;
 };
 
-var DEBUG_MODE = true;
+var DEBUG_MODE = false;
 
 // Give item to hero to start in debug mode
 var giveItemDebug = "chave3cristais";
@@ -246,7 +246,8 @@ var ads_resources =
 	
 	// ---------------------------- AUDIO ------------------------------------------------------
 	//---- Music ----
-	{name: "cornfields", type: "audio",  src: "content/music/", channel: 1},
+	// {name: "cornfields", type: "audio",  src: "content/music/", channel: 1},
+	{name: "ancientforest", type: "audio",  src: "content/music/", channel: 1},
 	
 	//---- SFX ----
    {name: "doorexplosion", type: "audio",  src: "content/sfx/", channel: 1},

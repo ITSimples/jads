@@ -44,7 +44,7 @@ function moveObject( object )
     }
     
     if (object.type == 'PROJECTIL_OBJECT'){       
-        console.log("err:",err);
+        // console.log("err:",err);
         if ( Math.abs(err) < 3 ) return true;
      }
      
