@@ -1492,7 +1492,12 @@ adsGame.LVLFinishedWindow =  Object.extend({
                 // sucessSetPlayerScore();
                 $('.serverResponse').html (language.system.TRserverConnection + " <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
                 
-                adsGame.scoreOID.setPlayerScore(heroName, me.game.HUD.getItemValue("conhecimento"), sucessSetPlayerScore , fail , failCommunication);
+                //If name is Prince Wise then don't save the score on scoreoid server
+                if ( heroName !=="Prince Wise" ){
+                    adsGame.scoreOID.setPlayerScore(heroName, me.game.HUD.getItemValue("conhecimento"), sucessSetPlayerScore , fail , failCommunication);
+                }else{
+                    sucessSetPlayerScore();
+                }
                 
                 $('.buttonMenu').bind('click', function() { 
                         this.hide();
@@ -1502,7 +1507,11 @@ adsGame.LVLFinishedWindow =  Object.extend({
                 
                 $('.buttonRetry').bind('click', function() { 
                         // this.hide();
-                        adsGame.scoreOID.setPlayerScore(heroName, me.game.HUD.getItemValue("conhecimento"), sucessSetPlayerScore , fail , failCommunication);
+                        if ( heroName !=="Prince Wise" ){
+                            adsGame.scoreOID.setPlayerScore(heroName, me.game.HUD.getItemValue("conhecimento"), sucessSetPlayerScore , fail , failCommunication);
+                        }else{
+                            sucessSetPlayerScore();
+                        }
                 }.bind(this));
                 
                 // console.log("Show message...");

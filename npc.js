@@ -297,6 +297,7 @@ var NpcEntity = me.ObjectEntity.extend({
         // New on melonjs 0.9.7
        if ( this.npcData.atualizarSempre !== undefined && this.npcData.atualizarSempre)  
             this.alwaysUpdate = true;
+         
     },
 
     removeHealth : function removeHealth(hitPoints) {
@@ -730,7 +731,37 @@ var NpcEntity = me.ObjectEntity.extend({
             // Change to calculate the number of conversations on currentevent
             // this.pauseMessage = Math.floor(this.waitEvent / this.npcData.mensagem.length);
             this.pauseMessage = Math.floor(this.waitEvent / this.currentEvent.conversa.length);
-
+            
+            //Add Dialogue animation
+            var playerPosX = adsGame.heroEntity().pos.x;
+            var playerPosY = adsGame.heroEntity().pos.y;
+            
+            this.dialogueAnimation = new effect(
+                this.pos.x + 30 , this.pos.y - 10, // Coordinates
+                me.loader.getImage("dialoge"),  // Image
+                18  , 19, // Size
+                [0,1,2,3], //Animation sheet
+                5, // Speed between 0 - Slowest and 60 - fastest
+                true, // Repeat animation
+                10 // Wait between animations 10 milliseconds
+            );
+            
+            //Add Dialogue animation
+            this.exclamationAnimation = new effect(
+                playerPosX + 30 , playerPosY - 10, // Coordinates
+                me.loader.getImage("exclamation"),  // Image
+                17  , 17, // Size
+                [0,1], //Animation sheet
+                5, // Speed between 0 - Slowest and 60 - fastest
+                true, // Repeat animation
+                10 // Wait between animations 10 milliseconds
+            ); 
+            
+            me.game.add( this.exclamationAnimation, 6);
+            me.game.add( this.dialogueAnimation, 6);
+            me.game.sort();
+            
+            console.log("How many times reading message show");
         }
 
         // console.log('this.currentEvent.conversa:' , this.currentEvent.conversa , 'this.messageNumber:' , this.messageNumber );
@@ -788,7 +819,12 @@ var NpcEntity = me.ObjectEntity.extend({
             
             // Destroy variable
             player = undefined;
-    
+            
+            // Remove dialogue animation
+            me.game.remove( this.dialogueAnimation );
+            // Remove exclamation animation
+            me.game.remove( this.exclamationAnimation );
+            
             return false;
             // Event end...~~
         } else {                

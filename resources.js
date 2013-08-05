@@ -117,6 +117,9 @@ var specialItemfullInventory;
 
 var keepHeroName;
 
+// Do not repeat questions until all are showed
+var qstDone = 0;
+
 var setInitialHeroVariables = function setInitialHeroVariables(){
     //Set initial variables for hero
     console.log("Set initial variables for hero.");
@@ -142,6 +145,8 @@ var setInitialHeroVariables = function setInitialHeroVariables(){
     fullInventory = false;
     
     specialItemfullInventory = false;
+    
+    var qstDone = 0;
 };
 
 var DEBUG_MODE = false;
@@ -365,6 +370,8 @@ var ads_resources =
 	{name: "fireplace", 	type: "image",src: ads_effects_path + "fireplace.png"},
 	{name: "risesfire",    type: "image",src: ads_effects_path + "risesfire.png"},
 	{name: "frozendragon",    type: "image",src: ads_effects_path + "frozendragon.png"},
+	{name: "dialoge",    type: "image",src: ads_effects_path + "dialoge.png"},
+	{name: "exclamation",    type: "image",src: ads_effects_path + "exclamation.png"},
 	
 	//***** Mouse cursor
 	{name: "point_cur",    type: "image",src: ads_images_gui + "point_cur.cur"},

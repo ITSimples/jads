@@ -466,8 +466,17 @@ var ItemEntity = me.CollectableEntity.extend({
 		countQtn = adsQtnDataKeys.length;
 		
 		// Random question number between 0 and number of question less one 
-		var rndQuestion = randomInt( 0 , (countQtn - 1) );
-		this.rndQtnData = adsQtnData[adsQtnDataKeys[rndQuestion]];
+		// var rndQuestion = randomInt( 0 , (countQtn - 1) );
+
+		// this.rndQtnData = adsQtnData[adsQtnDataKeys[rndQuestion]];
+
+                
+        this.rndQtnData = adsQtnData[adsQtnDataKeys[qstDone]];
+        
+        qstDone++;
+        
+        if ( qstDone == countQtn )
+            qstDone = 0;
 		
 		this.type = 'ITEM_OBJECT';
 		
@@ -508,6 +517,7 @@ var ItemEntity = me.CollectableEntity.extend({
 		
 		// If the answer is correct then update HUD and remove item
 		heroAnswer = showQuestionLayer(this.items_data , this.rndQtnData);
+		
 		if (heroAnswer != -1)
 		{
 			if ( heroAnswer == this.rndQtnData.correta){ // if hero correct answer			
