@@ -1078,7 +1078,7 @@ var TriggerEntity = me.ObjectEntity.extend({
                 
 				// If trigger is a npc object object
                 if (this.type == 'NEW_NPC'){                        
-                        this.message.show(this.msgData, 10000);
+                        this.message.show(this.msgData, 5000);
                         // msgShowing = true;
                         
                         //Create the new NPC only one time

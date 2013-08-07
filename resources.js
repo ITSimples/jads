@@ -31,8 +31,10 @@ Game engine system Configuration
 -------------------------------- */
 // me.sys.fps = 30;
 
+// When use that the me.sys.fps is disabled
 me.sys.useNativeAnimFrame = true;
 
+// Old not working on 0.9.8
 // me.sys.cacheImage = true;
 
  me.sys.preRender = false;
