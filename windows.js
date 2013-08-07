@@ -1294,6 +1294,7 @@ adsGame.ScoresWindow =  Object.extend({
                     '<div class="playerName"></div>' +
                     '<div class="scoreDate"></div>' +
                     '<div class="scorePoints"></div>' +
+                    '<div class="poweredByScoreoid"></div>' +
                     '<div class="inpirationText"></div>' +
                     '<div class="scoreClose"></div>'+
                     '<div class="fire"></div>'+
@@ -1356,6 +1357,7 @@ adsGame.ScoresWindow =  Object.extend({
                     });
                     
                     $('.inpirationText').html( language.system.TRscorewindowPhrase );
+                    $('.poweredByScoreoid').html('<a href ="http://scoreoid.net/" target="_blank">Score Powered by Scoreoid.</a>');
                 }.bind(this);
                 
                 var fail = function( error ){

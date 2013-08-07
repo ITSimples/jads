@@ -1441,6 +1441,19 @@ input[type='text'] { font-size: 20px; font-family: 'MedievalSharp', serif; color
     z-index: 1;    
 }
 
+#menuScoreLayer .poweredByScoreoid {
+    position: absolute;
+    top: 320px;
+    left: 137px;
+    width: 230px;
+    height: 20px;
+    font-size: 15px;
+    color : #F0F8FF;
+    overflow: hidden;
+    text-align: left;
+    z-index:1;
+}
+
 #menuScoreLayer .inpirationText {
     position: absolute;
     top: 350px;

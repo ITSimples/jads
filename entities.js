@@ -1546,6 +1546,9 @@ var TriggerSpawnEntity = me.ObjectEntity.extend({
 		
 		// If you want add time before destroy object must be interesting
 		this.timeToDestroy = 0;
+		
+		//Update always???
+        this.alwaysUpdate = false;
     },
     
     update: function () {

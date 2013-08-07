@@ -793,7 +793,11 @@ var myButton = me.GUI_Object.extend(
       this.text = text;
             
       // Register the hover event
-      me.input.registerMouseEvent('mousemove', this, this.hover.bind(this));
+      
+      // Until version 0.9.7
+      // me.input.registerMouseEvent('mousemove', this, this.hover.bind(this));
+      // Version 0.9.8 and older
+      me.input.registerPointerEvent('mousemove', this, this.hover.bind(this));
       
       this.txtDevonshire = new me.Font("Devonshire",28,"white","left");
 
@@ -899,8 +903,14 @@ var myButton = me.GUI_Object.extend(
           }
       }
       console.log("Destroy button!");
-      me.input.releaseMouseEvent("mousedown", this);
-      me.input.releaseMouseEvent('mousemove', this);
+      
+      // For melonjs older then 0.9.7
+      // me.input.releaseMouseEvent("mousedown", this);
+      // me.input.releaseMouseEvent('mousemove', this);
+      
+      me.input.releasePointerEvent("mousedown", this);
+      me.input.releasePointerEvent('mousemove', this);
+      
       me.game.remove(this);
       // don't propagate the event
       return true;
