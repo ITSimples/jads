@@ -129,10 +129,20 @@
 
 #fpsInfo{
 	position: absolute;
-	width: 300px;
+	height: 50px;
+	width: 200px;
 	bottom: 10px;
 	left: 10px;	
 }
+
+#Flattr{
+    position: absolute;
+    height: 20px;
+    width: 110px;
+    bottom: 13px;
+    left: 180px;
+}
+
 
 #hiddenText {
 	width: 530px;

@@ -155,15 +155,24 @@ SOFTWARE.
                 </div>
 				
 				<!-- Debug Information -->
-				<div id="fpsInfo">
-					<font color="#996600", style ="font-size: 14px; font-family: Courier New">
+				<div id="Flattr">
+					<!--font color="#996600", style ="font-size: 14px; font-family: Courier New">
 					    <!--
 					<span> Debug Info: </span>
 					<span id="framecounter">&#xA0;(0/0 fps)</span>
-					-->
 					<span>Demonstração-</span>
 					<span id="framecounter">&#xA0;(0/0 fps)</span>
-				</font>
+				</font>-->
+                <script id='flattrbtn'>
+                (function(i){var f,s=document.getElementById(i);
+                    f=document.createElement('iframe');
+                    f.src='//api.flattr.com/button/view/?uid=ITSimples&button=compact&url='+encodeURIComponent(document.URL);
+                    f.title='Flattr';f.height=20;
+                    f.width=110;
+                    f.style.borderWidth=0;
+                    s.parentNode.insertBefore(f,s);
+                    })('flattrbtn');
+                </script>
 			</div>
 			</div>
 		        <div id="faceComments">
