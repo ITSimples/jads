@@ -12,7 +12,7 @@ Story-teller, languages reviewer, website developer:
 Carla Ventura
 
 Special thanks to my personal consultant:
-Vladimiro Casinha
+Vladimiro Casinha 
 
 Libraries used
 ********************
