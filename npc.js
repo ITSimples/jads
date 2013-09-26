@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 /*
------------------------------------
+----------------------------------
 Ficheiro: npc.js
 ClassName:npc
 Comment: Non players charters
