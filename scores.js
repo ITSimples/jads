@@ -42,7 +42,7 @@ adsGame.Score = Object.extend ({
      
      "createPlayer" : function createPlayer ( userName , sucess , fail , failCommunication ){
 
-        $.post('libraries/scoreoid_proxy.php', {
+        $.post('lib/scoreoid_proxy.php', {
             action:'curl_request', method:'createPlayer',username: userName, response:'JSON'
             }).done(
                 function(data) { 
@@ -66,7 +66,7 @@ adsGame.Score = Object.extend ({
      },
      
      "setPlayerScore" : function setPlayerScore ( userName , playerScore, sucess , fail , failCommunication){
-                $.post('libraries/scoreoid_proxy.php', {action:'curl_request', 
+                $.post('lib/scoreoid_proxy.php', {action:'curl_request', 
                                                                             method:'createScore',
                                                                             username: userName, 
                                                                             score : playerScore,  
@@ -91,7 +91,7 @@ adsGame.Score = Object.extend ({
      },
      
      "topPlayers" : function topPlayers ( sucess , fail , failCommunication ){
-            $.post('libraries/scoreoid_proxy.php', {action:'curl_request', 
+            $.post('lib/scoreoid_proxy.php', {action:'curl_request', 
                                                                         method:'getBestScores',
                                                                         order_by : 'score', 
                                                                         order : 'desc', limit : 10, 
@@ -120,7 +120,7 @@ adsGame.Score = Object.extend ({
      },
      
      "getPlayerRank" : function getPlayerRank ( playerName , sucess , fail , failCommunication ){
-            $.post('libraries/scoreoid_proxy.php', {action:'curl_request', 
+            $.post('lib/scoreoid_proxy.php', {action:'curl_request', 
                                                                         method:'getPlayerRank',
                                                                         username : playerName,
                                                                         response:'JSON'}).done(
@@ -143,7 +143,7 @@ adsGame.Score = Object.extend ({
                         }
                     }
                 }).fail( failCommunication );
-     }     
+     }
      
 }); //End adsGame.Score
 
