@@ -1,9 +1,6 @@
-/*body {
-   transform: scale(1.1);
-   -webkit-transform: scale(1.1);
-   -ms-transform: scale(1.1);
-   -moz-transform: scale(1.1);
-}*/
+body {
+  background-color : #000000;
+}
 
 #adsPage{
 	position: relative;
@@ -31,7 +28,7 @@
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
+    /*user-select: none;*/
 }
 
 #adsInformation{
@@ -853,7 +850,7 @@
     box-shadow:inset 0px 1px 0px 0px #fce2c1;
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffc477), color-stop(1, #fb9e25) );
     background:-moz-linear-gradient( center top, #ffc477 5%, #fb9e25 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc477', endColorstr='#fb9e25');
+    /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc477', endColorstr='#fb9e25');*/
     background-color:#ffc477;
     -moz-border-radius:25px;
     -webkit-border-radius:25px;
@@ -870,7 +867,7 @@
 }.button:hover {
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fb9e25), color-stop(1, #ffc477) );
     background:-moz-linear-gradient( center top, #fb9e25 5%, #ffc477 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');
+    /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fb9e25', endColorstr='#ffc477');*/
     background-color:#fb9e25;
 }.button:active {
     position:relative;
