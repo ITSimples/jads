@@ -61,7 +61,7 @@ var TileScreen = me.ScreenObject.extend(
 		}
 		
 		      //Config mouse cursor over game div with jquery
-        $('#adsGame').css('cursor', "url('content/gui/point_cur.cur'),crosshair");
+        $('#adsGame').css('cursor', "url('data/gui/point_cur.cur'),crosshair");
 				
 		// Provisório até fazer menu (Para entra no jogo)
         // me.input.bindKey(me.input.KEY.ENTER, "enter", true);
@@ -87,11 +87,11 @@ var TileScreen = me.ScreenObject.extend(
             me.audio.play("buttonclick");
             
             if ( backgroundMusic ){
-                $("#music_button").attr({ src: "content/gui/musicoff.png" });
+                $("#music_button").attr({ src: "data/gui/musicoff.png" });
                 me.audio.pauseTrack();
                 backgroundMusic = false;
             }else{
-                $("#music_button").attr({ src: "content/gui/musicon.png" });
+                $("#music_button").attr({ src: "data/gui/musicon.png" });
                 me.audio.resumeTrack();
                 backgroundMusic = true;
             }
@@ -124,11 +124,11 @@ var TileScreen = me.ScreenObject.extend(
         me.audio.play("buttonclick");
             
           if ( backgroundMusic ){
-            $("#sfx_button").attr({ src: "content/gui/sfxiconoff.png" });
+            $("#sfx_button").attr({ src: "data/gui/sfxiconoff.png" });
             me.audio.muteAll();
             backgroundMusic = false;
           }else{
-            $("#sfx_button").attr({ src: "content/gui/sfxiconon.png" });
+            $("#sfx_button").attr({ src: "data/gui/sfxiconon.png" });
             me.audio.unmuteAll();
             backgroundMusic = true;
           }
@@ -212,7 +212,7 @@ var PlayScreen = me.ScreenObject.extend(
         adsGame.initHUD();
 
 		//Config mouse cursor over inventory div with jquery
-		$('#inventoryLayer').css('cursor', "url('content/gui/inv_cur.gif'),pointer");
+		$('#inventoryLayer').css('cursor', "url('data/gui/inv_cur.gif'),pointer");
 
 		// If restart then play music again
         if (restartGame){
@@ -259,7 +259,7 @@ var PlayScreen = me.ScreenObject.extend(
 adsGame.showLogo = function showLogo(callback) {
     adsGame.showLogo = new Image();
     adsGame.showLogo.onload = callback;
-    adsGame.showLogo.src ='content/images/itsimpleslogo.png';
+    adsGame.showLogo.src ='data/images/itsimpleslogo.png';
 }
 
 adsGame.LoadScreen = me.ScreenObject.extend({

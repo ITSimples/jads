@@ -61,15 +61,15 @@ SOFTWARE.
                                 '<div class="invText"></div>' +
                                 '<div class="invSpecialItems"></div>' +                             
                                 '<div class="invComment"></div>' +
-                                '<div id="Slot01"><span class="textslotnormal"></span><img class="invSlot01" src="content/gui/32x32Trans.png"/></div>' + 
-                                '<div id="Slot02"><span class="textslotnormal"></span><img class="invSlot02" src="content/gui/32x32Trans.png"/></div>' + 
-                                '<div id="Slot03"><span class="textslotnormal"></span><img class="invSlot03" src="content/gui/32x32Trans.png"/></div>' + 
-                                '<div id="Slot04"><span class="textslotnormal"></span><img class="invSlot04" src="content/gui/32x32Trans.png"/></div>' + 
-                                '<div id="Slot05"><span class="textslotnormal"></span><img class="invSlot05" src="content/gui/32x32Trans.png"/></div>' + 
-                                '<div id="Slot06"><span class="textslotnormal"></span><img class="invSlot06" src="content/gui/32x32Trans.png"/></div>' + 
-                                '<div id="Slot07"><span class="textslot"></span><img class="invSlot07" src="content/gui/32x32Trans.png"/></div>' + 
-                                '<div id="Slot08"><span class="textslot"></span><img class="invSlot08" src="content/gui/32x32Trans.png"/></div>' + 
-                                '<div id="Slot09"><span class="textslot"></span><img class="invSlot09" src="content/gui/32x32Trans.png"/></div>');
+                                '<div id="Slot01"><span class="textslotnormal"></span><img class="invSlot01" src="data/gui/32x32Trans.png"/></div>' + 
+                                '<div id="Slot02"><span class="textslotnormal"></span><img class="invSlot02" src="data/gui/32x32Trans.png"/></div>' + 
+                                '<div id="Slot03"><span class="textslotnormal"></span><img class="invSlot03" src="data/gui/32x32Trans.png"/></div>' + 
+                                '<div id="Slot04"><span class="textslotnormal"></span><img class="invSlot04" src="data/gui/32x32Trans.png"/></div>' + 
+                                '<div id="Slot05"><span class="textslotnormal"></span><img class="invSlot05" src="data/gui/32x32Trans.png"/></div>' + 
+                                '<div id="Slot06"><span class="textslotnormal"></span><img class="invSlot06" src="data/gui/32x32Trans.png"/></div>' + 
+                                '<div id="Slot07"><span class="textslot"></span><img class="invSlot07" src="data/gui/32x32Trans.png"/></div>' + 
+                                '<div id="Slot08"><span class="textslot"></span><img class="invSlot08" src="data/gui/32x32Trans.png"/></div>' + 
+                                '<div id="Slot09"><span class="textslot"></span><img class="invSlot09" src="data/gui/32x32Trans.png"/></div>');
         
         // attach to inventoryLayer
         $('#inventoryLayer').append($messageBoxHtml);
@@ -97,7 +97,7 @@ SOFTWARE.
                         
             //Hero face
             $('.invImage').attr({
-            'src' : 'content/sprites/h_male01_face.png',
+            'src' : 'data/sprites/h_male01_face.png',
             'alt' : 'Testing...'});
             
             // Inventory name
@@ -221,7 +221,7 @@ SOFTWARE.
             // Mask the removed item with a transparent image
             var htmlSlot = ".invSlot0" + ( itemIndex + 1 ).toString(); 
             $( htmlSlot  ).attr({
-                'src' : 'content/gui/32x32Trans.png',
+                'src' : 'data/gui/32x32Trans.png',
                 'alt' : ''});
     
             // Remove square if exists
@@ -361,7 +361,7 @@ SOFTWARE.
     
         //Show item in the inventory slot
         $( '.invSlot0' + ( this.slotNumber + 1 ) ).attr({
-        'src' : 'content/sprites/items/' + item.imagem,
+        'src' : 'data/sprites/items/' + item.imagem,
         'alt' : ''});
 
         // Add events for the new item 

@@ -50,13 +50,13 @@ START Global Variables
 // Configurações do Jogo - Variáveis Globais:
 var ads_width = 800;
 var ads_height = 520;
-var ads_images_path='content/images/';
-var ads_images_gui='content/gui/';
-var ads_sprites_path='content/sprites/';
-var ads_effects_path='content/effects/';
-var ads_items_path='content/sprites/items/';
-var ads_music_path='content/music/';
-var ads_json_files='content/jsondata/';
+var ads_images_path='data/images/';
+var ads_images_gui='data/gui/';
+var ads_sprites_path='data/sprites/';
+var ads_effects_path='data/effects/';
+var ads_items_path='data/sprites/items/';
+var ads_music_path='data/music/';
+var ads_json_files='data/jsondata/';
 var ads_tile_size = 32;
 var restartGame = false;
 var gotoState = "";
@@ -235,15 +235,15 @@ var ads_resources =
 	// *** Tiles for Map 01 ***	
 	
 	//Implement the new map with the tiles
-	{name: "metatiles32x32",type: "image",src: "content/maps/map01_tileset/metatiles32x32.png"},	
-	{name: "TileB",type: "image",src: "content/maps/map01_tileset/TileB.png"},
-	{name: "TileC",type: "image",src: "content/maps/map01_tileset/TileC.png"},
-	{name: "TileD",type: "image",src: "content/maps/map01_tileset/TileD.png"},
-	{name: "TileE",type: "image",src: "content/maps/map01_tileset/TileE.png"},
-	{name: "tiles",type: "image",src: "content/maps/map01_tileset/tiles.png"},
+	{name: "metatiles32x32",type: "image",src: "data/maps/map01_tileset/metatiles32x32.png"},	
+	{name: "TileB",type: "image",src: "data/maps/map01_tileset/TileB.png"},
+	{name: "TileC",type: "image",src: "data/maps/map01_tileset/TileC.png"},
+	{name: "TileD",type: "image",src: "data/maps/map01_tileset/TileD.png"},
+	{name: "TileE",type: "image",src: "data/maps/map01_tileset/TileE.png"},
+	{name: "tiles",type: "image",src: "data/maps/map01_tileset/tiles.png"},
 	
 	// *** Map 01 ***
-	{name: "map01", type: "tmx", src: "content/maps/map01.tmx"},
+	{name: "map01", type: "tmx", src: "data/maps/map01.tmx"},
 	
 	// ---- Imagens GUI ----
 	{name: "initialscreen",type: "image",src: ads_images_path + "initialscreen.png"},
@@ -253,42 +253,42 @@ var ads_resources =
 	
 	// ---------------------------- AUDIO ------------------------------------------------------
 	//---- Music ----
-	// {name: "cornfields", type: "audio",  src: "content/music/", channel: 1},
-	{name: "ancientforest", type: "audio",  src: "content/music/", channel: 1},
+	// {name: "cornfields", type: "audio",  src: "data/music/", channel: 1},
+	{name: "ancientforest", type: "audio",  src: "data/music/", channel: 1},
 	
 	//---- SFX ----
-   {name: "doorexplosion", type: "audio",  src: "content/sfx/", channel: 1},
-   {name: "herowalk", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "heroeat", type: "audio",  src: "content/sfx/", channel: 2},
-   // {name: "heartbeat", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "doorlockmessage", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "opendoor", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "buttonclick", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "openingwindows", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "closingwindows", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "hithero", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "shopbells", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "fireball", type: "audio",  src: "content/sfx/", channel: 2}, 
-   {name: "campfire", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "snake", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "wrong", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "hmmquestionfemale", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "hmmquestionmale", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "openchest", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "dragonbreath", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "dragonborn", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "icestaff", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "bombs", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "sword", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "goodanswer", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "badanswer", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "evillaugh", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "redeyeshide", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "mandying", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "dragondie", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "teleport", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "logo", type: "audio",  src: "content/sfx/", channel: 2},
-   {name: "menumouseover", type: "audio",  src: "content/sfx/", channel: 2},   
+   {name: "doorexplosion", type: "audio",  src: "data/sfx/", channel: 1},
+   {name: "herowalk", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "heroeat", type: "audio",  src: "data/sfx/", channel: 2},
+   // {name: "heartbeat", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "doorlockmessage", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "opendoor", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "buttonclick", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "openingwindows", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "closingwindows", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "hithero", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "shopbells", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "fireball", type: "audio",  src: "data/sfx/", channel: 2}, 
+   {name: "campfire", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "snake", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "wrong", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "hmmquestionfemale", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "hmmquestionmale", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "openchest", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "dragonbreath", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "dragonborn", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "icestaff", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "bombs", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "sword", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "goodanswer", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "badanswer", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "evillaugh", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "redeyeshide", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "mandying", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "dragondie", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "teleport", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "logo", type: "audio",  src: "data/sfx/", channel: 2},
+   {name: "menumouseover", type: "audio",  src: "data/sfx/", channel: 2},   
    
 	// ---- Enemies ----
 	{name: "dragon_lvl_01", type: "image",  src: ads_sprites_path + "dragon_lvl_01.png"},

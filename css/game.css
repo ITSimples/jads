@@ -41,7 +41,7 @@ body {
     position: relative;
     width: 880px;
     height: 640px;
-    background:url('../content/gui/game_border.png') transparent no-repeat;
+    background:url('../data/gui/game_border.png') transparent no-repeat;
     float: left;
 }
 
@@ -91,7 +91,7 @@ body {
 #flag_en {
 	width: 40px;
 	height: 20px;
-	background:url('../content/gui/en_flag.png') no-repeat;
+	background:url('../data/gui/en_flag.png') no-repeat;
 	z-index:0;
 	position: absolute;
 	top: 42px;
@@ -101,7 +101,7 @@ body {
 #flag_pt {
 	width: 40px;
 	height: 20px;
-	background:url('../content/gui/pt_flag.png') no-repeat;
+	background:url('../data/gui/pt_flag.png') no-repeat;
 	z-index:0;
 	position: absolute;
 	top: 20px;
@@ -153,7 +153,7 @@ body {
 	right: 0px;
 	width: 400px;
 	height: 110px;
-	background: url('../content/images/dialoguebox.png') no-repeat;
+	background: url('../data/images/dialoguebox.png') no-repeat;
 	font-family: 'MedievalSharp', serif;
 	display: none;
 }
@@ -189,7 +189,7 @@ body {
 
 .mouseLeftClick {
     width: 24px; height: 24px; 
-    background-image: url('../content/gui/mouse_left_click.png');
+    background-image: url('../data/gui/mouse_left_click.png');
     display: block;
 }
 
@@ -202,7 +202,7 @@ body {
 	left: 0px;
 	width: 366px;
 	height: 308px;
-	background: url('../content/images/questionbox.png') no-repeat;
+	background: url('../data/images/questionbox.png') no-repeat;
 	font-family: 'MedievalSharp', serif;
 	font-size: 14px;
 	display: none;
@@ -327,7 +327,7 @@ body {
 	width: 180px;
 	height: 325px;
 	padding: 0px;
-	background: url('../content/gui/inventory.png') no-repeat; 
+	background: url('../data/gui/inventory.png') no-repeat; 
 	font-family: 'MedievalSharp', serif;
 	display: none;
 }
@@ -569,7 +569,7 @@ body {
 	width: 250px;
 	height: 100px;
 	padding: 10px;
-	background: url('../content/gui/iteminf.png') no-repeat;
+	background: url('../data/gui/iteminf.png') no-repeat;
 	display: none;
 	font-family: 'MedievalSharp', serif;
 	z-index:5;
@@ -627,7 +627,7 @@ body {
     left: 0px;
     width: 366px;
     height: 308px;
-    background: url('../content/images/questionbox.png') no-repeat;
+    background: url('../data/images/questionbox.png') no-repeat;
     font-family: 'MedievalSharp', serif;
     display: none;
 }
@@ -727,7 +727,7 @@ body {
     left: 0px;
     width: 405px;
     height: 480px;
-    background: url('../content/gui/parchmentquest.png') no-repeat;
+    background: url('../data/gui/parchmentquest.png') no-repeat;
     font-family: 'MedievalSharp', serif;
     display: none;
 }
@@ -883,7 +883,7 @@ body {
     left: 0px;
     width: 444px;
     height: 544px;
-    background: url('../content/gui/helpwindow.png') no-repeat;
+    background: url('../data/gui/helpwindow.png') no-repeat;
     font-family: 'MedievalSharp', serif;
     display: none;
 }
@@ -929,7 +929,7 @@ body {
     left: 87px;
     width: 71px;
     height: 86px;
-    background: url('../content/gui/helpmove.png') no-repeat;
+    background: url('../data/gui/helpmove.png') no-repeat;
 }
 
 #menuHelpLayer .txtDIVL1 {
@@ -987,7 +987,7 @@ body {
     left: 62px;
     width: 80px;
     height: 139px;
-    background: url('../content/gui/helpinv.png') no-repeat;
+    background: url('../data/gui/helpinv.png') no-repeat;
 }
 
 #menuHelpLayer .helpinvtext {
@@ -1008,7 +1008,7 @@ body {
     left: 62px;    
     width: 101px;
     height: 84px;
-    background: url('../content/gui/helpquestion.png') no-repeat;
+    background: url('../data/gui/helpquestion.png') no-repeat;
 }*/
 
 #menuHelpLayer .helpquestiontext {
@@ -1067,7 +1067,7 @@ body {
     left: 0px;
     width: 444px;
     height: 544px;
-    background: url('../content/gui/helpwindow.png') no-repeat;
+    background: url('../data/gui/helpwindow.png') no-repeat;
     font-family: 'MedievalSharp', serif;
     display: none;
 }
@@ -1178,7 +1178,7 @@ body {
     left: 172px;
     width: 450px;
     height: 379px;
-    background: url('../content/gui/levelobjectives.png') no-repeat;
+    background: url('../data/gui/levelobjectives.png') no-repeat;
     font-family: 'MedievalSharp', serif;
     display: none;
 }
@@ -1299,7 +1299,7 @@ input[type='text'] { font-size: 20px; font-family: 'MedievalSharp', serif; color
     left: 0px;
     width: 444px;
     height: 544px;
-    background: url('../content/gui/helpwindow.png') no-repeat;
+    background: url('../data/gui/helpwindow.png') no-repeat;
     font-family: 'MedievalSharp', serif;
     display: none;
 }
@@ -1483,7 +1483,7 @@ input[type='text'] { font-size: 20px; font-family: 'MedievalSharp', serif; color
     left: 172px;
     width: 450px;
     height: 379px;
-    background: url('../content/gui/levelobjectives.png') no-repeat;
+    background: url('../data/gui/levelobjectives.png') no-repeat;
     font-family: 'MedievalSharp', serif;
     display: none;
 }
@@ -1593,7 +1593,7 @@ input[type='text'] { font-size: 20px; font-family: 'MedievalSharp', serif; color
     left: 172px;
     width: 450px;
     height: 379px;
-    background: url('../content/gui/levelobjectives.png') no-repeat;
+    background: url('../data/gui/levelobjectives.png') no-repeat;
     font-family: 'MedievalSharp', serif;
     display: none;
 }

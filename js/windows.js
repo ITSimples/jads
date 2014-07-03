@@ -74,7 +74,7 @@ adsGame.Message =  Object.extend({
                 
 				//Fill fields from question box with msgData
 				$('.msgImage').attr({
-				'src' : 'content/' + msgData.msgImage,
+				'src' : 'data/' + msgData.msgImage,
 				'alt' : 'Testing...',
 				'height' : '48px',
 				'width' : '48px'
@@ -152,7 +152,7 @@ adsGame.Shop =  Object.extend({
             
             //Show fields from question box with data
             $('.npcImage').attr({
-            'src' : 'content/sprites/' + npcObject.imagem.replace(".png", "_face.png"),
+            'src' : 'data/sprites/' + npcObject.imagem.replace(".png", "_face.png"),
             'alt' : 'Testing...' 
             });
             $('.shopName').html( language.npcs[npcObject.loja.nome] );
@@ -385,16 +385,16 @@ adsGame.QuestionQuest =  Object.extend({
         
         //Hero face
         $('.questHeroImage').attr({
-        'src' : 'content/sprites/h_male01_face.png'});
+        'src' : 'data/sprites/h_male01_face.png'});
 
         //Enemy face
         var npcFaceImage = this.npcData.imagem.replace(".png","_face.png");
         
         $('.questEnemyImage').attr({
-        'src' : 'content/sprites/' + npcFaceImage });
+        'src' : 'data/sprites/' + npcFaceImage });
         
         // $('.questStarImage').attr({
-        // 'src' : 'content/gui/star_gold32.png'});       
+        // 'src' : 'data/gui/star_gold32.png'});       
         
         $('#questionQuestLayer').fadeIn( 250 );
         
@@ -701,7 +701,7 @@ adsGame.QuestionQuest =  Object.extend({
             }
             
             var $addStarHtml = ('<div id="starSlot' + where + starNumber  + '">' + 
-                                              '<img class="questStarImage" src="content/gui/star_gold32.png" alt="">' +
+                                              '<img class="questStarImage" src="data/gui/star_gold32.png" alt="">' +
                                               '</div>');
 
             // Space between stars 
@@ -962,7 +962,7 @@ adsGame.StoryWindow =  Object.extend({
                     '<div class="storynext"></div>' +
                     '<div class="storyclose"></div>'+
                     '<div class="fire"></div>'+
-                    '<img class="candlefire" src = "content/gui/candlefire.png"></img>');
+                    '<img class="candlefire" src = "data/gui/candlefire.png"></img>');
                     
                 $('#menuStoryLayer').append($messageBoxHtml);
                 
@@ -1060,14 +1060,14 @@ adsGame.CreditsWindow =  Object.extend({
         
         // TODO - ready in another place is delaying load process
         // READ AUTHORS TXT FILE to a string
-        var contentsOfFileAsString = FileHelper.readStringFromFileAtPath
+        var datasOfFileAsString = FileHelper.readStringFromFileAtPath
         (
         pathOfFileToRead
         );
         
-        this.contentsOfFileAsString = textToHTML(contentsOfFileAsString);
+        this.datasOfFileAsString = textToHTML(datasOfFileAsString);
 
-        // console.log('Init credits window class...' , this.contentsOfFileAsString);
+        // console.log('Init credits window class...' , this.datasOfFileAsString);
     },
     "show": function show() {
             if (!this.creditsWindowShowing){
@@ -1079,7 +1079,7 @@ adsGame.CreditsWindow =  Object.extend({
                     '<div class="storyclose"></div>'+
                     '<div class="fire"></div>'+
                     '<div class="creditsLogos"></div>'+
-                    '<img class="candlefire" src = "content/gui/candlefire.png"></img>');
+                    '<img class="candlefire" src = "data/gui/candlefire.png"></img>');
                     
                 $('#menuStoryLayer').append($messageBoxHtml);
                 
@@ -1113,7 +1113,7 @@ adsGame.CreditsWindow =  Object.extend({
                 //Make html space lines
                 // <p style='padding-bottom:170px'> </p>
 
-                $('.creditstext').html ( "<img height='136px' width='136px' align='middle' src = '"+ ads_images_path + "itsimplessmalllogo.png'>" + this.contentsOfFileAsString + ""  );
+                $('.creditstext').html ( "<img height='136px' width='136px' align='middle' src = '"+ ads_images_path + "itsimplessmalllogo.png'>" + this.datasOfFileAsString + ""  );
                 
                 $('.creditsLogos').html ( "<img src = '"+ ads_images_path + "alllogos.png'></img>");
                 
@@ -1298,7 +1298,7 @@ adsGame.ScoresWindow =  Object.extend({
                     '<div class="inpirationText"></div>' +
                     '<div class="scoreClose"></div>'+
                     '<div class="fire"></div>'+
-                    '<img class="candlefire" src = "content/gui/candlefire.png"></img>'+
+                    '<img class="candlefire" src = "data/gui/candlefire.png"></img>'+
                     '<div class="serverResponse"></div>');
                     
                 $('#menuScoreLayer').append($messageBoxHtml);
@@ -1634,7 +1634,7 @@ adsGame.HeroDiesWindow =  Object.extend({
 
             var topPosition = 222;
             
-            var scrImage = 'content/gui/' + image + '.png';
+            var scrImage = 'data/gui/' + image + '.png';
                         
             var $addCheckHtml = ('<div id="checkSlot' + checkNumber + '">' + 
                                                     '<img class="checkImage" src=' + scrImage + ' alt="">' +

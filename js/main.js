@@ -392,7 +392,7 @@ function showQuestionLayer(itemData, adsQtnData)
         });
         
 		$('.qtnImage').attr({
-		'src' : 'content/sprites/items/' + itemData.imagem
+		'src' : 'data/sprites/items/' + itemData.imagem
 		});
 		$('.itemText').html( language.items[itemData.descricao] );
 		$('.questionTheme').html( language.system.TRquestionsTheme + ": " + rndQtnData.categoria );
@@ -839,7 +839,7 @@ var myButton = me.GUI_Object.extend(
           }
       }else if (this.target == "creditsScreen") {
            if (!windowMenuOpen){
-            // console.log("contentsOfFileAsString", contentsOfFileAsString);
+            // console.log("datasOfFileAsString", datasOfFileAsString);
     
             adsGame.creditsWindow.show();
             windowMenuOpen = true;

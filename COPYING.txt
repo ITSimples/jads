@@ -27,7 +27,7 @@ SOFTWARE.
 
 
 ========================================
-Artwork, music, and other assets/content
+Artwork, music, and other assets/data
 ========================================
 
 For details on authorship of various resources, see AUTHORS.txt
