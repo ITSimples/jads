@@ -1113,7 +1113,7 @@ adsGame.CreditsWindow =  Object.extend({
                 //Make html space lines
                 // <p style='padding-bottom:170px'> </p>
 
-                $('.creditstext').html ( "<img height='50%' width='100%' src = '"+ ads_images_path + "itsimplessmalllogo.png'>" + this.contentsOfFileAsString + ""  );
+                $('.creditstext').html ( "<img height='136px' width='136px' align='middle' src = '"+ ads_images_path + "itsimplessmalllogo.png'>" + this.contentsOfFileAsString + ""  );
                 
                 $('.creditsLogos').html ( "<img src = '"+ ads_images_path + "alllogos.png'></img>");
                 
