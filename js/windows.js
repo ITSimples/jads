@@ -230,7 +230,7 @@ adsGame.Shop =  Object.extend({
              var testOptions = "";
              var testOneItem = false;
              // Get hero money
-             var heroGold = me.game.HUD.getItemValue("ouro");
+             var heroGold = me.game.HUD.getItemValue(_Globals.hud.name.gold);
              
              // if there is enough money add item to inventory
              if ( heroGold >= itemObject.preco){
@@ -276,7 +276,7 @@ adsGame.Shop =  Object.extend({
                  case "TD":
                     answerToHero = language.system.TRshopThanks;
                      // remove the value of item in gold from hud
-                    me.game.HUD.updateItemValue("ouro", -itemObject.preco)
+                    me.game.HUD.updateItemValue(_Globals.hud.name.gold, -itemObject.preco)
                     
                     // make the transaction - give item to hero
                    // Add item to hero
@@ -821,9 +821,9 @@ adsGame.HelpWindow =  Object.extend({
                 //Html data for 1st screen
                 $('.instructionsL1').html( language.system.TRmenuHelpMvt );
                 $('.instructionsL2').html( language.system.TRmenuHelpWuse );
-                $('.imgDIVL1').html ( "<img src = '"+ ads_images_gui + "helpmove.png'></img>");
+                $('.imgDIVL1').html ( "<img src = '"+ _Globals.paths.images_gui + "helpmove.png'></img>");
                 $('.txtDIVL1').html( language.system.TRmenuHelpMvtHelp );
-                $('.imghelpmoveweapons').html ( "<img src = '"+ ads_images_gui + "helpmoveweapons.png'></img>");
+                $('.imghelpmoveweapons').html ( "<img src = '"+ _Globals.paths.images_gui + "helpmoveweapons.png'></img>");
                 $('.helpmoveweaponstext').html( language.system.TRmenuHelpWeaponUse );
                 $(".helpnext").html( language.system.TRcontinue + "  >>");
 
@@ -851,10 +851,10 @@ adsGame.HelpWindow =  Object.extend({
                         
                         // New html data for screen two
                         $('.instructionsL1').html( language.system.TRmenuHelpQst );
-                        $('.imgDIVL1').html ( "<img src = '"+ ads_images_gui + "helpquestion.png'></img>");
+                        $('.imgDIVL1').html ( "<img src = '"+ _Globals.paths.images_gui + "helpquestion.png'></img>");
                         $('.txtDIVL1').html ( language.system.TRmenuHelpQstEx);
                         $('.instructionsL2').html( language.system.TRqstQuestName );
-                        $('.imghelpquestionsquest').html ( "<img src = '"+ ads_images_gui + "helpquestionsquest.png'></img>");
+                        $('.imghelpquestionsquest').html ( "<img src = '"+ _Globals.paths.images_gui + "helpquestionsquest.png'></img>");
                         $('.txthelpquestionsquest').html( language.system.TRmenuHelpChaEx);
                         
                         // Fade in the second screen
@@ -877,7 +877,7 @@ adsGame.HelpWindow =  Object.extend({
                                 // New html data for third screen
                                 $('.instructionsL1').html( language.system.TRinvName );
                                 $('.imgDIVL1').css({'top':100, 'left':70});
-                                $('.imgDIVL1').html ( "<img src = '"+ ads_images_gui + "helpinv.png'></img>");
+                                $('.imgDIVL1').html ( "<img src = '"+ _Globals.paths.images_gui + "helpinv.png'></img>");
                                 $('.txtDIVL1').css({'top':105, 'left':160 , 'height': 130});
                                 $('.txtDIVL1').html ( language.system.TRmenuHelpInv );
                                 $('.instructionsL2').css('top',250);                                
@@ -996,7 +996,7 @@ adsGame.StoryWindow =  Object.extend({
                 //Make html space lines
                 // <p style='padding-bottom:170px'> </p>
 
-                $('.storytext').html ( "<img src = '"+ ads_images_path + "storyimage.png'>" + language.system.TRmenuFullStory  );
+                $('.storytext').html ( "<img src = '"+ _Globals.paths.images + "storyimage.png'>" + language.system.TRmenuFullStory  );
                 
                  // CSS for the new star
                 // $(".storylogoimage").css({
@@ -1113,9 +1113,9 @@ adsGame.CreditsWindow =  Object.extend({
                 //Make html space lines
                 // <p style='padding-bottom:170px'> </p>
 
-                $('.creditstext').html ( "<img height='136px' width='136px' align='middle' src = '"+ ads_images_path + "itsimplessmalllogo.png'>" + this.datasOfFileAsString + ""  );
+                $('.creditstext').html ( "<img height='136px' width='136px' align='middle' src = '"+ _Globals.paths.images + "itsimplessmalllogo.png'>" + this.datasOfFileAsString + ""  );
                 
-                $('.creditsLogos').html ( "<img src = '"+ ads_images_path + "alllogos.png'></img>");
+                $('.creditsLogos').html ( "<img src = '"+ _Globals.paths.images + "alllogos.png'></img>");
                 
                  // CSS for the new star
                 // $(".storylogoimage").css({
@@ -1186,7 +1186,7 @@ adsGame.ObjectiveWindow =  Object.extend({
                 $('.askHeroName').html ( language.system.TRobjwindowHeroName + ":" );
                 $('.lvlTileObjectives').html ( language.system.TRobjwindowLVLObjectives + ":");
                 $('.lvlTxtObjectives').html ( language.npcs.TRobjwindowLVLObjectives);
-                $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'/>");
+                $('.prisonersImage').html ( "<img src = '"+ _Globals.paths.images_gui + "objprisonerlvl01.png'/>");
                 $('.serverResponse').html ( language.system.TRserverConnectionScore );
                 
                  // CSS for the new star
@@ -1202,7 +1202,7 @@ adsGame.ObjectiveWindow =  Object.extend({
                 $('.heroName').focus();
                 
                 $('.buttonStart').bind('click', function() { 
-                    $('.serverResponse').html ( language.system.TRserverConnection + "  <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
+                    $('.serverResponse').html ( language.system.TRserverConnection + "  <img src = '"+ _Globals.paths.images_gui + "ajax-loader.gif'/>");
                     var sucess = function(){
                         this.hide();
                         me.state.change(me.state.PLAY);
@@ -1326,7 +1326,7 @@ adsGame.ScoresWindow =  Object.extend({
                 // fill with scoreoid data
                 
                 // Connect to server to get top player scores
-                $('.serverResponse').html (language.system.TRserverConnection + "   <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
+                $('.serverResponse').html (language.system.TRserverConnection + "   <img src = '"+ _Globals.paths.images_gui + "ajax-loader.gif'/>");
                 
                 var sucess = function( data ){
                     
@@ -1452,7 +1452,7 @@ adsGame.LVLFinishedWindow =  Object.extend({
                 $('.thxForSaveUs').html ( language.system.TRlvlfinishedThxSaveUs + heroName +".");
                 $('.lvlCongratulations').html ( language.system.TRlvlfinishedCongratulations );
                 $('.lvlTxtHelpUs').html ( language.system.TRlvlfinishedHelpUs);
-                $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'/>");
+                $('.prisonersImage').html ( "<img src = '"+ _Globals.paths.images_gui + "objprisonerlvl01.png'/>");
                 
                               
                 $('#finishLayer').fadeIn( 250);
@@ -1492,7 +1492,7 @@ adsGame.LVLFinishedWindow =  Object.extend({
                 // console.log("Hero name:", heroName);
                 
                 // sucessSetPlayerScore();
-                $('.serverResponse').html (language.system.TRserverConnection + " <img src = '"+ ads_images_gui + "ajax-loader.gif'/>");
+                $('.serverResponse').html (language.system.TRserverConnection + " <img src = '"+ _Globals.paths.images_gui + "ajax-loader.gif'/>");
                 
                 //If name is Prince Wise then don't save the score on scoreoid server
                 if ( heroName !=="Prince Wise" ){
@@ -1587,7 +1587,7 @@ adsGame.HeroDiesWindow =  Object.extend({
                 $('.heroDiesMessage').html ( language.system.TRherodiesDiesMessage);
                 $('.heroDiesOption1').html ( language.system.TRherodiesMsgRestart);
                 $('.heroDiesOption2').html ( language.system.TRherodiesMsgContinue);
-                $('.prisonersImage').html ( "<img src = '"+ ads_images_gui + "objprisonerlvl01.png'/>");
+                $('.prisonersImage').html ( "<img src = '"+ _Globals.paths.images_gui + "objprisonerlvl01.png'/>");
                 
                 //Check if hero already save any  prisoner
                 $.each([1,2,3,4], function( index , value){

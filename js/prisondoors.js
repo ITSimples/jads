@@ -78,7 +78,7 @@ SOFTWARE.
 					    // play a "doorexplosion" sound
                         me.audio.play("doorexplosion");
 						var boom = new effect(
-									(initCoord[0] * ads_tile_size) , (initCoord[1] * ads_tile_size) - 32, // Coordinates
+									(initCoord[0] * _Globals.map.tileSize) , (initCoord[1] * _Globals.map.tileSize) - 32, // Coordinates
 									me.loader.getImage("explosion_64x64"),	// Image
 									64, 64, // Size
 									[0,1,2,3,4,5,6,7,8,9,10,11], //Animation sheet
@@ -100,7 +100,7 @@ SOFTWARE.
 						
 					}else if (effectName == "openDoor"){		
 						var openDoor = new effect(
-									(initCoord[0] * ads_tile_size) , (initCoord[1] * ads_tile_size) - 32, // Coordinates
+									(initCoord[0] * _Globals.map.tileSize) , (initCoord[1] * _Globals.map.tileSize) - 32, // Coordinates
 									me.loader.getImage(animation),	// Image
 									64, 64, // Size
 									[0,1,2,3,4], //Animation sheet

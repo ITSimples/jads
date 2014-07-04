@@ -69,13 +69,13 @@ var TileScreen = me.ScreenObject.extend(
         // Add background music
         // play the audio track
          // if ( backgroundMusic ){
-                me.audio.playTrack(startMusic, 0.5);
+                me.audio.playTrack( _Globals.music.start, _Globals.music.volume);
          // }
          
         // console.warn('tas a brincar?');
         
         // If restart then remove the last click event and create a new one
-        if (restartGame){
+        if ( _Globals.restartGame){
             // console.log("backgroundMusic after restart:" , backgroundMusic);
             $("#music_button").unbind("click");
             $("#sfx_button").unbind("click");
@@ -215,8 +215,8 @@ var PlayScreen = me.ScreenObject.extend(
 		$('#inventoryLayer').css('cursor', "url('data/gui/inv_cur.gif'),pointer");
 
 		// If restart then play music again
-        if (restartGame){
-            me.audio.playTrack(startMusic, 0.5);
+        if ( _Globals.restartGame){
+            me.audio.playTrack( _Globals.music.start, _Globals.music.volume);
         }
 	},
 
@@ -268,7 +268,7 @@ adsGame.LoadScreen = me.ScreenObject.extend({
         
         console.log("Init Load screen ...");
         // ----- Set DIV width to fit the inventory, message and question box
-        $('#adsGame').css("width", ads_width);
+        $('#adsGame').css("width", _Globals.canvas.width);
 
         // Create a new scaled image
         var img = adsGame.showLogo;
@@ -318,19 +318,19 @@ adsGame.LoadScreen = me.ScreenObject.extend({
 
     "draw" : function draw(context) {
         var img = this.logo,
-            x = (ads_width - img.width) / 2,
-            y = (ads_height - img.height) / 2;
+            x = (_Globals.canvas.width - img.width) / 2,
+            y = (_Globals.canvas.height - img.height) / 2;
 
         me.video.clearSurface(context, "white");
         // Draw logo
         context.drawImage(
             this.logo,
-            x = (ads_width - img.width) / 2,
-            y = (ads_height - img.height) / 2
+            x = (_Globals.canvas.width - img.width) / 2,
+            y = (_Globals.canvas.height - img.height) / 2
         );
 
         // Draw progress bar
-        var progressBar = Math.floor((this.loadPercent * ads_width) / 8) ;
+        var progressBar = Math.floor((this.loadPercent * _Globals.canvas.width) / 8) ;
         var canvas = me.video.getScreenCanvas();
         
         // console.log("this.loadPercent" , this.loadPercent);
@@ -381,8 +381,8 @@ adsGame.logoAnimationScreen = me.ScreenObject.extend({
         // Draw logo
         context.drawImage(
             this.logo,
-            x = (ads_width - this.logo.width) / 2,
-            y = (ads_height - this.logo.height) / 2
+            x = (_Globals.canvas.width - this.logo.width) / 2,
+            y = (_Globals.canvas.height - this.logo.height) / 2
         );
     }
 });

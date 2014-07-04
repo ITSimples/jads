@@ -445,15 +445,15 @@ SOFTWARE.
         var infValueColor;
         switch (heroItems[itemIndex].categoria)
         {
-            case 'vida': infValueColor = hudColorLive;
+            case 'vida': infValueColor = _Globals.hud.color.live;
                         itemInfUse  = language.system.TRinvItemInfUse;
                         break;
 
-            case 'velocidade': infValueColor = hudColorVelocity;
+            case 'velocidade': infValueColor = _Globals.hud.color.velocity;
                         itemInfUse   = language.system.TRinvItemDestroyVelocity;
                         break;
             
-            case 'sorte': infValueColor = hudColorLucky;
+            case 'sorte': infValueColor = _Globals.hud.color.lucky;
                         itemInfUse = language.system.TRinvItemDestroyLucky;
                         break;          
             default:  infValueColor = "white"; // Mission items
@@ -503,7 +503,7 @@ SOFTWARE.
                         slot.bind('dblclick' , function () {
                             // console.log((me.game.HUD.getItemValue(itemCategory) + itemValue) , ' < ' ,maxHudValue['live']);
                             // Check if live is full
-                            if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= hudInitialValues.vida ){//maxHudValue['live']){
+                            if ( (me.game.HUD.getItemValue(itemCategory) + itemValue) <= _Globals.hud.values.init.live){//maxHudValue['live']){
                                 // play a "heroeat" sound
                                 me.audio.play("heroeat");
 
@@ -512,7 +512,7 @@ SOFTWARE.
                                 // play a "wrong" sound
                                 me.audio.play( "wrong" , false , null , 0.1 );                                
                                 this.invComment = language.system.TRinvItemMaxHealth;
-                                $('.invComment').css("color", hudColorLive);
+                                $('.invComment').css("color", _Globals.hud.color.live);
                                 $('.invComment').html(this.invComment);
                             }                            
                             

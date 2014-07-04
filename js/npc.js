@@ -59,7 +59,7 @@ var NpcEntity = me.ObjectEntity.extend({
         this.friction = 0;
 
         //Diferrence between npc height and tilesize to avoid collision with wall
-        this.avoidWall = (this.npcData.tamanhoImagem.altura - ads_tile_size) + 1;
+        this.avoidWall = (this.npcData.tamanhoImagem.altura - _Globals.map.tileSize) + 1;
 
         // console.log("this.avoidWall:", this.avoidWall);
 
@@ -249,17 +249,17 @@ var NpcEntity = me.ObjectEntity.extend({
                 }
             }
 
-            //*ads_tile_size to convert tile position to map coordinates
+            //*_Globals.map.tileSize to convert tile position to map coordinates
             // First destination on array path
-            this.destX = this.path[0][0][0] * ads_tile_size;
-            this.destY = (this.path[0][0][1] * ads_tile_size) - this.avoidWall;
+            this.destX = this.path[0][0][0] * _Globals.map.tileSize;
+            this.destY = (this.path[0][0][1] * _Globals.map.tileSize) - this.avoidWall;
         } else if (this.npcData.tipoMovimento == "circle") {
 
         } else {
-            //*ads_tile_size to convert tile position to map coordinates
+            //*_Globals.map.tileSize to convert tile position to map coordinates
             // If NPC movement is between two points only
-            this.destX = this.npcData.coordenadas[0].initDestX * ads_tile_size;
-            this.destY = (this.npcData.coordenadas[0].initDestY * ads_tile_size) - this.avoidWall;
+            this.destX = this.npcData.coordenadas[0].initDestX * _Globals.map.tileSize;
+            this.destY = (this.npcData.coordenadas[0].initDestY * _Globals.map.tileSize) - this.avoidWall;
         }
 
         // *****************************************************
@@ -272,7 +272,7 @@ var NpcEntity = me.ObjectEntity.extend({
 
                 this.throwerData = throwersData[npcThrower];
 
-                this.thrower = new throwersEntity((this.pos.x + 24) * ads_tile_size, (this.pos.y + 20) * ads_tile_size, this.throwerData);
+                this.thrower = new throwersEntity((this.pos.x + 24) * _Globals.map.tileSize, (this.pos.y + 20) * _Globals.map.tileSize, this.throwerData);
                 me.game.add(this.thrower, 6);
                 me.game.sort.defer();
             }
@@ -536,8 +536,8 @@ var NpcEntity = me.ObjectEntity.extend({
                     // }else{
                         // this.setCurrentAnimation( "primeiraAnimacao" );
                     // }
-                    this.destX = this.path[this.currentPath][this.countPath ][0] * ads_tile_size;
-                    this.destY = (this.path[this.currentPath][this.countPath ][1] * ads_tile_size) - this.avoidWall;
+                    this.destX = this.path[this.currentPath][this.countPath ][0] * _Globals.map.tileSize;
+                    this.destY = (this.path[this.currentPath][this.countPath ][1] * _Globals.map.tileSize) - this.avoidWall;
 
                     this.countPath++;
                     this.setDirection();
@@ -635,19 +635,19 @@ var NpcEntity = me.ObjectEntity.extend({
             
             if (this.countPath == 0){
                 
-                var initStartX = Math.round( this.pos.x / ads_tile_size);
-                var initStartY = Math.round( ( this.pos.y ) / ads_tile_size);
+                var initStartX = Math.round( this.pos.x / _Globals.map.tileSize);
+                var initStartY = Math.round( ( this.pos.y ) / _Globals.map.tileSize);
                 
-                var initDestX = Math.round( player.pos.x / ads_tile_size);
-                var initDestY = Math.round( ( player.pos.y + this.avoidWall ) / ads_tile_size);
+                var initDestX = Math.round( player.pos.x / _Globals.map.tileSize);
+                var initDestY = Math.round( ( player.pos.y + this.avoidWall ) / _Globals.map.tileSize);
                 
                 var start = [initStartX, initStartY];
                 var end = [initDestX, initDestY];
 
                 this.heroFollowPath = adsGame.pathFinder.getPath(start, end);
             
-                this.destX = this.heroFollowPath[0][0] * ads_tile_size;
-                this.destY = this.heroFollowPath[0][1] * ads_tile_size - this.avoidWall;
+                this.destX = this.heroFollowPath[0][0] * _Globals.map.tileSize;
+                this.destY = this.heroFollowPath[0][1] * _Globals.map.tileSize - this.avoidWall;
             }
             
             // Move NPC
@@ -658,8 +658,8 @@ var NpcEntity = me.ObjectEntity.extend({
                     this.accel.x = this.accel.y = this.npcData.velocidade;
                     this.renderable.setCurrentAnimation(this.direction);
 
-                    this.destX = this.heroFollowPath[this.countPath ][0] * ads_tile_size;
-                    this.destY = (this.heroFollowPath[this.countPath ][1] * ads_tile_size) - this.avoidWall;
+                    this.destX = this.heroFollowPath[this.countPath ][0] * _Globals.map.tileSize;
+                    this.destY = (this.heroFollowPath[this.countPath ][1] * _Globals.map.tileSize) - this.avoidWall;
 
                     this.countPath++;
                     this.setDirection();
@@ -681,8 +681,8 @@ var NpcEntity = me.ObjectEntity.extend({
                 
                 this.npcData.tipoMovimento = "path";
                 
-                var startX = Math.round( this.pos.x / ads_tile_size);
-                var startY = Math.round( ( this.pos.y ) / ads_tile_size);
+                var startX = Math.round( this.pos.x / _Globals.map.tileSize);
+                var startY = Math.round( ( this.pos.y ) / _Globals.map.tileSize);
                 
 
                 var destX = this.npcData.coordenadas[0].initStartX;
@@ -695,8 +695,8 @@ var NpcEntity = me.ObjectEntity.extend({
                 
                 // console.log("pathlength:", this.path.length);
                 
-                this.destX = this.path[this.currentPath][0][0] * ads_tile_size;
-                this.destY = (this.path[this.currentPath][0][1] * ads_tile_size) - this.avoidWall;
+                this.destX = this.path[this.currentPath][0][0] * _Globals.map.tileSize;
+                this.destY = (this.path[this.currentPath][0][1] * _Globals.map.tileSize) - this.avoidWall;
             }
         }
         
@@ -893,7 +893,7 @@ var NpcEntity = me.ObjectEntity.extend({
                 //**** CHANGE THIS FOR COORDINATES INSTEAD PATH
                 // if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
                 // TODO - Review npc talk event how it's trigged
-                if ((this.currentEvent.coordenadas[0] == Math.round(this.pos.x / ads_tile_size) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y / ads_tile_size)) || adsGame.prisonDoors.prisonDoorTrigger[this.npcData.prisao.numero]) {// to talk to prisoner if hero pull the trigger
+                if ((this.currentEvent.coordenadas[0] == Math.round(this.pos.x / _Globals.map.tileSize) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y / _Globals.map.tileSize)) || adsGame.prisonDoors.prisonDoorTrigger[this.npcData.prisao.numero]) {// to talk to prisoner if hero pull the trigger
                     if (this.npcTalkEvent()) {
                         // event talking is happening
                         npcTalking = true;
@@ -907,7 +907,7 @@ var NpcEntity = me.ObjectEntity.extend({
                 break;
             case "wait":
                 // if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
-                if (this.currentEvent.coordenadas[0] == Math.round(this.pos.x / ads_tile_size) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y / ads_tile_size)) {
+                if (this.currentEvent.coordenadas[0] == Math.round(this.pos.x / _Globals.map.tileSize) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y / _Globals.map.tileSize)) {
                     if (this.npcWaitEvent()) {
                         return true;
                     } else {
@@ -917,7 +917,7 @@ var NpcEntity = me.ObjectEntity.extend({
                 break;
             case "effect":
                 // if( this.currentEvent.caminho == this.currentPath && this.currentEvent.passo == this.countPath){
-                if (this.currentEvent.coordenadas[0] == Math.round(this.pos.x / ads_tile_size) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y / ads_tile_size)) {
+                if (this.currentEvent.coordenadas[0] == Math.round(this.pos.x / _Globals.map.tileSize) && this.currentEvent.coordenadas[1] == Math.round(this.pos.y / _Globals.map.tileSize)) {
                     if (this.npceffectEvent()) {
                         return true;
                     } else {
@@ -936,7 +936,7 @@ var NpcEntity = me.ObjectEntity.extend({
                     this.currentPath = this.path.length - 1;
 
                     this.countPath = 0;
-                    var start = [Math.round(this.pos.x / ads_tile_size), Math.round(this.pos.y / ads_tile_size)];
+                    var start = [Math.round(this.pos.x / _Globals.map.tileSize), Math.round(this.pos.y / _Globals.map.tileSize)];
                     var end = this.currentEvent.coordenadas;
                     this.path[this.currentPath] = adsGame.pathFinder.getPath(start, end, "collision");
 
@@ -1182,8 +1182,8 @@ adsGame.NPC = Object.extend({
         settings.name = indexKey;
         // console.log("npcData.coordenadas[0].initStartX:", npcData.coordenadas[0].initStartX);
 
-        // Create a new npc *ads_tile_size to transform map coordinates to tile coordinates
-        npc = new NpcEntity(npcData.coordenadas[0].initStartX * ads_tile_size, npcData.coordenadas[0].initStartY * ads_tile_size, settings, npcData);
+        // Create a new npc *_Globals.map.tileSize to transform map coordinates to tile coordinates
+        npc = new NpcEntity(npcData.coordenadas[0].initStartX * _Globals.map.tileSize, npcData.coordenadas[0].initStartY * _Globals.map.tileSize, settings, npcData);
 
         me.game.add(npc, 7);
         me.game.sort();

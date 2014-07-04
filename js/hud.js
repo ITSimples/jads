@@ -37,7 +37,7 @@ START hud border entity
 // });
 /*--- END hud border entity ---*/
 
-var hudInitialValues = {"vida" : 20,"conhecimento" : 10,"velocidade" : 2, "ouro" : 40,"sorte":1};
+// var hudInitialValues = {"vida" : 20,"conhecimento" : 10,"velocidade" : 2, "ouro" : 40,"sorte":1};
 
 /*------------------- 
 START hud live entity
@@ -45,16 +45,17 @@ START hud live entity
 var HUDLive = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
-		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorLive,"left");
-		this.value = hudInitialValues["vida"];
+		this.font = new me.Font("MedievalSharp",_Globals.hud.fontSize,_Globals.hud.color.live,"left");
+		// this.value = hudInitialValues["vida"];
+		this.value = _Globals.hud.values.init.live;
 		
 		this.name= language.system.TRlive;
 		// calculate value position
-		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
+		this.itemHUDLength = ( ( this.name.length ) * _Globals.hud.fontSize ) / 2;
     },
 	
 	hudLength : function(){
-		return ( this.itemHUDLength + ads_HUD_font_size ); 
+		return ( this.itemHUDLength + _Globals.hud.fontSize ); 
 	},
 
     draw: function(context, x, y) {
@@ -71,15 +72,17 @@ START hud gold entity
 var HUDGold = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
-		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorGold,"left");
-		this.value = hudInitialValues["ouro"];
+		this.font = new me.Font("MedievalSharp",_Globals.hud.fontSize,_Globals.hud.color.gold,"left");
+		// this.value = hudInitialValues["ouro"];
+		// this.value = hudInitialValues["ouro"];
+		this.value = _Globals.hud.values.init.gold;
 		this.name = language.system.TRgold;
 		// calculate value position
-		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
+		this.itemHUDLength = ( ( this.name.length ) * _Globals.hud.fontSize ) / 2;
     },
 	
 	hudLength : function(){
-		return ( this.itemHUDLength + ads_HUD_font_size );
+		return ( this.itemHUDLength + _Globals.hud.fontSize );
 		
 	},
 	
@@ -96,15 +99,16 @@ START hud velocity entity
 var HUDVelocity = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
-		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorVelocity,"left");
-		this.value = hudInitialValues["velocidade"] * 2 ; //Hud information
+		this.font = new me.Font("MedievalSharp",_Globals.hud.fontSize,_Globals.hud.color.velocity,"left");
+		// this.value = hudInitialValues["velocidade"] * 2 ; //Hud information
+		this.value = _Globals.hud.values.init.velocity;
 		this.name = language.system.TRvelocity;
 		// calculate value position
-		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
+		this.itemHUDLength = ( ( this.name.length ) * _Globals.hud.fontSize ) / 2;
     },
 	
 	hudLength : function(){
-		return ( this.itemHUDLength + ads_HUD_font_size );
+		return ( this.itemHUDLength + _Globals.hud.fontSize );
 		
 	},	
 
@@ -128,17 +132,18 @@ START hud knowledge entity
 var HUDKnowledge = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
-		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorKnowledge,"left");
-		this.value = hudInitialValues["conhecimento"];
+		this.font = new me.Font("MedievalSharp",_Globals.hud.fontSize,_Globals.hud.color.knowledge,"left");
+		// this.value = hudInitialValues["conhecimento"];
+		this.value = _Globals.hud.values.init.knowledge;
 		this.name = language.system.TRknowledge;
 
 		// calculate value position
-		this.itemHUDLength = (( ( this.name.length ) * ads_HUD_font_size ) / 2) + ads_HUD_X_Position;
+		this.itemHUDLength = (( ( this.name.length ) * _Globals.hud.fontSize ) / 2) + _Globals.hud.position.x;
     },
 
 	hudLength : function(){
-		// Plus 10 because star on ads_HUD_X_Position
-		return (this.itemHUDLength + ads_HUD_font_size + ads_HUD_X_Position);
+		// Plus 10 because star on _Globals.hud.position.x
+		return (this.itemHUDLength + _Globals.hud.fontSize + _Globals.hud.position.x);
 		
 	},	
 
@@ -156,15 +161,16 @@ START hud Lucky entity
 var HUDLucky = me.HUD_Item.extend({
     init: function(x, y) {
         this.parent(x, y);
-		this.font = new me.Font("MedievalSharp",ads_HUD_font_size,hudColorLucky,"left");
-		this.value = hudInitialValues["sorte"];
+		this.font = new me.Font("MedievalSharp",_Globals.hud.fontSize,_Globals.hud.color.lucky,"left");
+		// this.value = hudInitialValues["sorte"];
+		this.value = _Globals.hud.values.init.lucky;
 		this.name = language.system.TRlucky;
 		// calculate value position
-		this.itemHUDLength = ( ( this.name.length ) * ads_HUD_font_size ) / 2;
+		this.itemHUDLength = ( ( this.name.length ) * _Globals.hud.fontSize ) / 2;
     },
 	
 	hudLength : function(){
-		return ( this.itemHUDLength + ads_HUD_font_size );
+		return ( this.itemHUDLength + _Globals.hud.fontSize );
 		
 	},	
 
@@ -177,43 +183,48 @@ var HUDLucky = me.HUD_Item.extend({
 
 adsGame.initHUD = function(){
         // Setup HUD
-        me.game.addHUD(0,0,ads_width,33,"#222222");
+        me.game.addHUD(0,0,_Globals.canvas.width,33,"#222222");
         
         
-        var hudSpace= ~~(ads_width / 16);
+        var hudSpace= ~~(_Globals.canvas.width / 16);
         
-        var hudLive = new HUDLive(ads_HUD_X_Position ,ads_HUD_Y_Position);
+        var hudLive = new HUDLive(_Globals.hud.position.x ,_Globals.hud.position.y);
 
         var hudKnowledge = new HUDKnowledge( hudLive.hudLength() + 
-                                            (hudSpace * 1),ads_HUD_Y_Position);
+                                            (hudSpace * 1),_Globals.hud.position.y);
         var hudVelocity = new HUDVelocity(  hudLive.hudLength() + 
                                             hudKnowledge.hudLength() + 
-                                            (hudSpace * 2) ,ads_HUD_Y_Position);
+                                            (hudSpace * 2) ,_Globals.hud.position.y);
         var hudGold =  new HUDGold( hudVelocity.hudLength() + 
                                     hudLive.hudLength() + 
                                     hudKnowledge.hudLength() + 
-                                    (hudSpace * 3),ads_HUD_Y_Position);
+                                    (hudSpace * 3),_Globals.hud.position.y);
         var hudLucky =  new HUDLucky(   hudLive.hudLength() + 
                                         hudKnowledge.hudLength() + 
                                         hudVelocity.hudLength() + 
-                                        hudGold.hudLength() + (hudSpace * 4),ads_HUD_Y_Position);
+                                        hudGold.hudLength() + (hudSpace * 4),_Globals.hud.position.y);
         
         
         
-        me.game.HUD.addItem("vida", hudLive );
-        me.game.HUD.addItem("conhecimento", hudKnowledge );
-        me.game.HUD.addItem("velocidade", hudVelocity );
-        me.game.HUD.addItem("ouro", hudGold );
-        me.game.HUD.addItem("sorte", hudLucky);
+        me.game.HUD.addItem(_Globals.hud.name.live, hudLive );
+        me.game.HUD.addItem(_Globals.hud.name.knowledge, hudKnowledge );
+        me.game.HUD.addItem(_Globals.hud.name.velocity, hudVelocity );
+        me.game.HUD.addItem(_Globals.hud.name.gold, hudGold );
+        me.game.HUD.addItem(_Globals.hud.name.lucky, hudLucky);
         // HUD border must be last so it is on the bottom
         // me.game.HUD.addItem("HUDborder", new HUDBorder(0,0));
 };
 
 adsGame.resetHUD = function(){
+        me.game.HUD.setItemValue(_Globals.hud.name.live, _Globals.hud.values.init.live );
+        me.game.HUD.setItemValue(_Globals.hud.name.knowledge, _Globals.hud.values.init.knowledge );
+        me.game.HUD.setItemValue(_Globals.hud.name.gold, _Globals.hud.values.init.gold );
+        me.game.HUD.setItemValue(_Globals.hud.name.lucky, _Globals.hud.values.init.lucky);
+        
         // Reset items on hud values
-        $.each(hudInitialValues , function (index , value){
-            if (index !== "velocidade"){
-                me.game.HUD.setItemValue(index, value );
-            }
-        });
+        // $.each(hudInitialValues , function (index , value){
+            // if (index !== "velocidade"){
+                // me.game.HUD.setItemValue(index, value );
+            // }
+        // });
 };

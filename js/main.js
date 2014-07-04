@@ -47,7 +47,7 @@ var adsGame =
         }
         
 		//Inicializar resolu��o e teste se browser suporta o jogo
-		if( !me.video.init('adsGame',ads_width,ads_height,true,1.0,false) ){
+		if( !me.video.init('adsGame',_Globals.canvas.width,_Globals.canvas.height,true,1.0,false) ){
 			alert( language.system.TRbrowserInf );
 			return;
 		}
@@ -169,14 +169,14 @@ var adsGame =
 	
 	restart:function( whatState ){
 	    
-	    restartGame = true;
+	    _Globals.restartGame = true;
 	    
-	    gotoState = whatState;
+	     _Globals.gotoState = whatState;
 	    // Reload data for level 
         startGame();
 		// this.data = null;
 		
-		if (gotoState === "MENU"){
+		if ( _Globals.gotoState === "MENU"){
 		  unBindGameKeys();
         }
         
@@ -207,8 +207,8 @@ var adsGame =
         // play a "teleport" sound
         me.audio.play("teleport");
 
-        adsGame.heroEntity().pos.x = startHero[0] * ads_tile_size;
-        adsGame.heroEntity().pos.y = startHero[1] * ads_tile_size;
+        adsGame.heroEntity().pos.x = startHero[0] * _Globals.map.tileSize;
+        adsGame.heroEntity().pos.y = startHero[1] * _Globals.map.tileSize;
 
         //TODO - Fade out /in viewport 
         me.game.viewport.fadeOut('#000000',1000);
@@ -611,7 +611,7 @@ function randomFloat(minValue,maxValue,precision){
 		{
 			// To load automatic the items - it�s not necessary in the load resources
 			ads_items_tmp.push({name: data.imagem.replace(".png",""),	type: "image",	
-			src: ""+ ads_items_path + "" + data.imagem + ""});
+			src: ""+ _Globals.paths.items + "" + data.imagem + ""});
 			countItems++;
 			// Add index of item in de array to use in inventory
 			data.itemIndex = i;
@@ -649,7 +649,7 @@ function randomFloat(minValue,maxValue,precision){
 		// console.log("noItemsData", noItemsData);
 		
 		// If restart game don't call onload()
-		if (!restartGame){
+		if (! _Globals.restartGame){
 		  adsGame.onload();
 		}
 	};
@@ -662,7 +662,7 @@ $( function (){
 var startGame = function (){
     $.when(
         // Load multilingue items file
-        $.get( ads_json_files + "itemslang.json" )
+        $.get( _Globals.paths.json + "itemslang.json" )
         .done( function( data ){
             if( typeof data != "object" ){
                 alert( "Data is invalid --- itemslang.json ---" );
@@ -677,7 +677,7 @@ var startGame = function (){
         }),
         
         // Load multilingue level01 file
-        $.get( ads_json_files + "gamedata01lang.json" )
+        $.get( _Globals.paths.json + "gamedata01lang.json" )
         .done( function( data ){
             if( typeof data != "object" ){
                 alert( "Data is invalid --- gamedata01lang.json ---" );
@@ -693,7 +693,7 @@ var startGame = function (){
         }),
         
         // Get Data for level 01
-        $.get( ads_json_files + "gamedata01.json" )
+        $.get( _Globals.paths.json + "gamedata01.json" )
             .done( function( data ){
                 if( typeof data != "object" ){
                     alert( "Data is invalid --- gamedata01.json ---" );
@@ -706,7 +706,7 @@ var startGame = function (){
             }),
             
         // Load questions jason data
-        $.get( ads_json_files + "questions.json" )
+        $.get( _Globals.paths.json + "questions.json" )
             .done( function( data ){
                 if( typeof data != "object" ){
                     alert( "Data is invalid --- question.json ---" );
@@ -722,7 +722,7 @@ var startGame = function (){
                 alert( "Invalid DATA file! --- question.json ---" );
             }),
         // Load multilingue system file
-        $.get( ads_json_files + "gamelang.json" )
+        $.get( _Globals.paths.json + "gamelang.json" )
             .done( function( data ){
                 if( typeof data != "object" ){
                     alert( "Data is invalid --- gamelang.json ---" );
@@ -759,10 +759,10 @@ var startGame = function (){
         
          console.log("Questions Loaded..", adsQtnData);
          
-         if (restartGame){
-            if (gotoState === "MENU"){
+         if ( _Globals.restartGame){
+            if ( _Globals.gotoState === "MENU"){
                 me.state.change(me.state.MENU);
-            }else if (gotoState === "PLAY"){
+            }else if ( _Globals.gotoState === "PLAY"){
                 me.state.change(me.state.PLAY);
                 //There is a restart game to play then keep hero name
                 heroName = keepHeroName;

@@ -21,220 +21,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
- 
-/*------------------- 
-Gobal Variables
--------------------------------- */
-
-/*------------------- 
-Game engine system Configuration 
--------------------------------- */
-// me.sys.fps = 30;
-
-// When use that the me.sys.fps is disabled
-me.sys.useNativeAnimFrame = true;
-
-// Old not working on 0.9.8
-// me.sys.cacheImage = true;
-
- me.sys.preRender = false;
- 
- me.sys.pauseOnBlur = false;
-
-/*--- END Game engine system Configuration ---*/
-
-/*------------------- 
-START Global Variables
--------------------------------- */
-
-// Configurações do Jogo - Variáveis Globais:
-var ads_width = 800;
-var ads_height = 520;
-var ads_images_path='data/images/';
-var ads_images_gui='data/gui/';
-var ads_sprites_path='data/sprites/';
-var ads_effects_path='data/effects/';
-var ads_items_path='data/sprites/items/';
-var ads_music_path='data/music/';
-var ads_json_files='data/jsondata/';
-var ads_tile_size = 32;
-var restartGame = false;
-var gotoState = "";
-var startMusic = "ancientforest"
-
-/*------------------- 
-HUD Configuration
--------------------------------- */
-// HUD font Size
-var ads_HUD_font_size = 20;
-// HUD texx Y Position
-var ads_HUD_Y_Position = 8;
-// HUD texx X Position
-var ads_HUD_X_Position = 10;
-// HUD color
-
-var hudColorLive = "white";
-var hudColorGold  = "yellow";
-var hudColorVelocity = "red";
-var hudColorKnowledge = "blue";
-var hudColorLucky = "green";
-
-// Max values to hud objects
-var maxHudValue = {"live":10,"velocity":10};
-
-/*--- END HUD Configuration ---*/
-
-
-/*------------------- 
-Hero Configuration
--------------------------------- */
-
-var heroVelocity;
-
-var itemLucky;
-
-var startHero;
-
-var heroName;
-
-// var heroHealth;
-
-// Keep all items found by hero
-var heroItems;
-
-// Enable/Disable hero weapon
-var heroWeaponEnable;
-
-// Get slot inventory of hero weapon
-var heroWeaponSlot;
-
-// Hero weapon name
-var heroWeaponName;
-
-// full inventory
-var fullInventory;
-
-// full inventory special items
-var specialItemfullInventory;
-
-var keepHeroName;
-
-// Do not repeat questions until all are showed
-var qstDone = 0;
-
-var setInitialHeroVariables = function setInitialHeroVariables(){
-    //Set initial variables for hero
-    console.log("Set initial variables for hero.");
-    
-    heroVelocity = 3;
-
-    itemLucky = 15;
-    
-    startHero = [5,5];
-    
-    heroName = "";
-    
-    // heroHealth = 10;
-    
-    heroItems = [];
-    
-    heroWeaponEnable = false;
-    
-    heroWeaponSlot = -1;
-    
-    heroWeaponName = "";
-    
-    fullInventory = false;
-    
-    specialItemfullInventory = false;
-    
-    var qstDone = 0;
-};
-
-var DEBUG_MODE = false;
-
-// Give item to hero to start in debug mode
-var giveItemDebug = "chave3cristais";
-
-/*--- END Hero Configuration ---*/
-
-/*------------------- 
-KEEP DATA IN ARRAY FROM JSON FILE
--------------------------------- */
-
-// Array with all items from game to load resources - Load from JSON file
-// {name: "****",type: "image",src: "*****"},
-var load_ads_items=[];
-
-// Keep all information about the items of the game
-var ads_items_data = [];
-
-// Keep all information about the npc's
-var adsNpcData = [];
-
-// Keep all information about the trigger identity
-var triggersData = [];
-
-// Keep all information where to place the special items (coordinates and value)
-var specialItemsData = [];
-
-// Keep all information where to place the Throwers 
-var throwersData = [];
-
-// Keep all information where to place the Throwers 
-var projectilsData = [];
-
-// Keep all information where not to place items on map
-var noItemsData = [];
-
-// Keep all information about map effects
-var mapEffectsData = [];
-
-var windowMenuOpen = false;
-
- var language =  {};
-
-// To solve problem with messageBox keeping blink - If is collide with a trigger avoid the others to hide message box
-// also setup in NPC - set allways when message is showinf
-// var msgShowing = false;
-
-// NPC is talking - Test if NPC Event talk is true
-// Used to avoid show prison door triggers messages to show when NPC is talking
-var npcTalking = false;
-
-// *********** QUESTIONS SECTION ***********
-// Keep all information about the questions
-var adsQtnData = [];
-
-// Global variable to keep the number of questions:
-var countQtn = 0;
-
-// Global variables to test answer
-var heroAnswer = -1;
-
-// If Question box is showing
-var showingQuestion = false;
-
-// If Shop box is showing
-var showingShop = false;        
-
-// Var background music
-var backgroundMusic = true;
-
-// SFX volume when hit hero
-var hitHeroVolume = 0.1;
-
-// *********** MESSAGE SECTION ***********
-// adsGame.messageShowing = false; 
 
 // Game resources
 var ads_resources = 
 [
 	// ---- Mapas ----
 	
-	// *** Tiles for Map 01 ***	
-	
-	//Implement the new map with the tiles
+	// *** Tiles for Map 01 ***
 	{name: "metatiles32x32",type: "image",src: "data/maps/map01_tileset/metatiles32x32.png"},	
 	{name: "TileB",type: "image",src: "data/maps/map01_tileset/TileB.png"},
 	{name: "TileC",type: "image",src: "data/maps/map01_tileset/TileC.png"},
@@ -246,153 +39,104 @@ var ads_resources =
 	{name: "map01", type: "tmx", src: "data/maps/map01.tmx"},
 	
 	// ---- Imagens GUI ----
-	{name: "initialscreen",type: "image",src: ads_images_path + "initialscreen.png"},
-	// {name: "storyimage",type: "image",src: ads_images_path + "storyimage.png"},
-	{name: "menubutton",type: "image",src: ads_images_gui + "menubutton.png"},
-	{name: "menubuttonhover",type: "image",src: ads_images_gui + "menubuttonhover.png"},
+	{name: "initialscreen",type: "image",src: _Globals.paths.images + "initialscreen.png"},
+	{name: "menubutton",type: "image",src: _Globals.paths.images_gui + "menubutton.png"},
+	{name: "menubuttonhover",type: "image",src: _Globals.paths.images_gui + "menubuttonhover.png"},
 	
 	// ---------------------------- AUDIO ------------------------------------------------------
 	//---- Music ----
-	// {name: "cornfields", type: "audio",  src: "data/music/", channel: 1},
-	{name: "ancientforest", type: "audio",  src: "data/music/", channel: 1},
+	{name: "ancientforest", type: "audio",  src:  _Globals.paths.music, channel: 1},
 	
 	//---- SFX ----
-   {name: "doorexplosion", type: "audio",  src: "data/sfx/", channel: 1},
-   {name: "herowalk", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "heroeat", type: "audio",  src: "data/sfx/", channel: 2},
-   // {name: "heartbeat", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "doorlockmessage", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "opendoor", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "buttonclick", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "openingwindows", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "closingwindows", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "hithero", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "shopbells", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "fireball", type: "audio",  src: "data/sfx/", channel: 2}, 
-   {name: "campfire", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "snake", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "wrong", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "hmmquestionfemale", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "hmmquestionmale", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "openchest", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "dragonbreath", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "dragonborn", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "icestaff", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "bombs", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "sword", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "goodanswer", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "badanswer", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "evillaugh", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "redeyeshide", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "mandying", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "dragondie", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "teleport", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "logo", type: "audio",  src: "data/sfx/", channel: 2},
-   {name: "menumouseover", type: "audio",  src: "data/sfx/", channel: 2},   
+   {name: "doorexplosion", type: "audio",  src: _Globals.paths.sfx, channel: 1},
+   {name: "herowalk", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "heroeat", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "doorlockmessage", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "opendoor", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "buttonclick", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "openingwindows", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "closingwindows", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "hithero", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "shopbells", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "fireball", type: "audio",  src: _Globals.paths.sfx, channel: 2}, 
+   {name: "campfire", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "snake", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "wrong", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "hmmquestionfemale", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "hmmquestionmale", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "openchest", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "dragonbreath", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "dragonborn", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "icestaff", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "bombs", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "sword", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "goodanswer", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "badanswer", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "evillaugh", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "redeyeshide", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "mandying", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "dragondie", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "teleport", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "logo", type: "audio",  src: _Globals.paths.sfx, channel: 2},
+   {name: "menumouseover", type: "audio",  src: _Globals.paths.sfx, channel: 2},   
    
 	// ---- Enemies ----
-	{name: "dragon_lvl_01", type: "image",  src: ads_sprites_path + "dragon_lvl_01.png"},
-	
+	{name: "dragon_lvl_01", type: "image",  src: _Globals.paths.sprites + "dragon_lvl_01.png"},
 	
 	// ---- Sprites ----
-	{name: "transparency",      type: "image",  src: ads_sprites_path + "transparency.png"},
-	{name: "bee",		type: "image",	src: ads_sprites_path + "bee.png"},
-	{name: "beehive",		type: "image",	src: ads_sprites_path + "beehive.png"},
-	// {name: "death",	type: "image",	src: ads_sprites_path + "death.png"},
-	// {name: "diablo",	type: "image",	src: ads_sprites_path + "diablo.png"},
-	// {name: "diablo02",	type: "image",	src: ads_sprites_path + "diablo02.png"},
-	// {name: "diablo03",	type: "image",	src: ads_sprites_path + "diablo03.png"},
-	// {name: "e_female01",	type: "image",	src: ads_sprites_path + "e_female01.png"},
-	{name: "e_male01",	type: "image",	src: ads_sprites_path + "e_male01.png"},
-	// {name: "e_male02",	type: "image",	src: ads_sprites_path + "e_male02.png"},
-	{name: "e_male03", type: "image",  src: ads_sprites_path + "e_male03.png"},
-	{name: "e_male04", type: "image",  src: ads_sprites_path + "e_male04.png"},
-    {name: "e_male05", type: "image",  src: ads_sprites_path + "e_male05.png"},
-    {name: "e_male06", type: "image",  src: ads_sprites_path + "e_male06.png"},
-	
-	// {name: "eye",		type: "image",	src: ads_sprites_path + "eye.png"},
-	{name: "f_female01",	type: "image",	src: ads_sprites_path + "f_female01.png"},
-	{name: "f_female02",	type: "image",	src: ads_sprites_path + "f_female02.png"},
-	// {name: "f_male01",	type: "image",	src: ads_sprites_path + "f_male01.png"},
-	// {name: "f_male02",	type: "image",	src: ads_sprites_path + "f_male02.png"},
-	{name: "f_male03",	type: "image",	src: ads_sprites_path + "f_male03.png"},
-	{name: "f_male04",	type: "image",	src: ads_sprites_path + "f_male04.png"},
-	{name: "f_male05", type: "image",  src: ads_sprites_path + "f_male05.png"},
-	{name: "flame",	type: "image",	src: ads_sprites_path + "flame.png"},
-
-	// {name: "goblin",	type: "image",	src: ads_sprites_path + "goblin.png"},
-	// {name: "goblin02",	type: "image",	src: ads_sprites_path + "goblin02.png"},
-	// {name: "golem",	type: "image",	src: ads_sprites_path + "golem.png"},
-	{name: "h_female01",	type: "image",	src: ads_sprites_path + "h_female01.png"},
-	// {name: "h_female02",	type: "image",	src: ads_sprites_path + "h_female02.png"},
-	// {name: "h_female03",	type: "image",	src: ads_sprites_path + "h_female03.png"},
-	// {name: "h_female04",	type: "image",	src: ads_sprites_path + "h_female04.png"},
-	{name: "h_male01",	type: "image",	src: ads_sprites_path + "h_male01.png"},
-	// {name: "h_male02",	type: "image",	src: ads_sprites_path + "h_male02.png"},
-	// {name: "h_male03",	type: "image",	src: ads_sprites_path + "h_male03.png"},
-	// {name: "h_male04",	type: "image",	src: ads_sprites_path + "h_male04.png"},
-	// {name: "Hudbg",	type: "image",	src: ads_sprites_path + "Hudbg.png"},
-	// {name: "Iceman",	type: "image",	src: ads_sprites_path + "Iceman.png"},
-	// {name: "kid_female",	type: "image",	src: ads_sprites_path + "kid_female.png"},
-	// {name: "kid_male",	type: "image",	src: ads_sprites_path + "kid_male.png"},
-	// {name: "king",	type: "image",	src: ads_sprites_path + "king.png"},
-	// {name: "mushroom",	type: "image",	src: ads_sprites_path + "mushroom.png"},
-	// {name: "queen",	type: "image",	src: ads_sprites_path + "queen.png"},
-	// {name: "QuestionTile",type: "image",	src: ads_sprites_path + "QuestionTile.png"},
-	// {name: "skull",	type: "image",	src: ads_sprites_path + "skull.png"},
-	// {name: "sleleton",	type: "image",	src: ads_sprites_path + "sleleton.png"},
-	{name: "snake",	type: "image",	src: ads_sprites_path + "snake.png"},
-	{name: "snakehole",		type: "image",	src: ads_sprites_path + "snakehole.png"},
-	// {name: "stoneman",	type: "image",	src: ads_sprites_path + "stoneman.png"},
-	// {name: "tiles",	type: "image",	src: ads_sprites_path + "tiles.png"},
-	// {name: "villain",	type: "image",	src: ads_sprites_path + "villain.png"},
-	// {name: "wolf",	type: "image",	src: ads_sprites_path + "wolf.png"},
-	{name: "items1",	type: "image",	src: ads_items_path + "fruta.png"},
-	{name: "fire01", 	type: "image",src: ads_sprites_path + "fire01.png"},
+	{name: "transparency",      type: "image",  src: _Globals.paths.sprites + "transparency.png"},
+	{name: "bee",		type: "image",	src: _Globals.paths.sprites + "bee.png"},
+	{name: "beehive",		type: "image",	src: _Globals.paths.sprites + "beehive.png"},
+	{name: "e_male01",	type: "image",	src: _Globals.paths.sprites + "e_male01.png"},
+	{name: "e_male03", type: "image",  src: _Globals.paths.sprites + "e_male03.png"},
+	{name: "e_male04", type: "image",  src: _Globals.paths.sprites + "e_male04.png"},
+    {name: "e_male05", type: "image",  src: _Globals.paths.sprites + "e_male05.png"},
+    {name: "e_male06", type: "image",  src: _Globals.paths.sprites + "e_male06.png"},
+	{name: "f_female01",	type: "image",	src: _Globals.paths.sprites + "f_female01.png"},
+	{name: "f_female02",	type: "image",	src: _Globals.paths.sprites + "f_female02.png"},
+	{name: "f_male03",	type: "image",	src: _Globals.paths.sprites + "f_male03.png"},
+	{name: "f_male04",	type: "image",	src: _Globals.paths.sprites + "f_male04.png"},
+	{name: "f_male05", type: "image",  src: _Globals.paths.sprites + "f_male05.png"},
+	{name: "flame",	type: "image",	src: _Globals.paths.sprites + "flame.png"},
+	{name: "h_female01",	type: "image",	src: _Globals.paths.sprites + "h_female01.png"},
+	{name: "h_male01",	type: "image",	src: _Globals.paths.sprites + "h_male01.png"},
+	{name: "snake",	type: "image",	src: _Globals.paths.sprites + "snake.png"},
+	{name: "snakehole",		type: "image",	src: _Globals.paths.sprites + "snakehole.png"},
+	{name: "items1",	type: "image",	src: _Globals.paths.items + "fruta.png"},
+	{name: "fire01", 	type: "image",src: _Globals.paths.sprites + "fire01.png"},
 	
 	// **** Throwers
-	{name: "thrower01", 	type: "image",src: ads_sprites_path + "thrower01.png"},
-	{name: "throwerfire", 	type: "image",src: ads_sprites_path + "throwerfire.png"},
-	{name: "throwerfire02", 	type: "image",src: ads_sprites_path + "throwerfire02.png"},
-	{name: "ice_staff",    type: "image",src: ads_sprites_path + "ice_staff.png"},
-	{name: "dragonfire",    type: "image",  src: ads_sprites_path + "dragonfire.png"},    
-    // {name: "campfire01",    type: "image",  src: ads_sprites_path + "campfire01.png"},
-    {name: "campfire02",    type: "image",  src: ads_sprites_path + "campfire02.png"},
-    {name: "iceprojectil",  type: "image",  src: ads_sprites_path + "iceprojectil.png"},
-    {name: "animsword",  type: "image",  src: ads_sprites_path + "animsword.png"},
-    {name: "bomb",  type: "image",  src: ads_sprites_path + "bomb.png"},
+	{name: "thrower01", 	type: "image",src: _Globals.paths.sprites + "thrower01.png"},
+	{name: "throwerfire", 	type: "image",src: _Globals.paths.sprites + "throwerfire.png"},
+	{name: "throwerfire02", 	type: "image",src: _Globals.paths.sprites + "throwerfire02.png"},
+	{name: "ice_staff",    type: "image",src: _Globals.paths.sprites + "ice_staff.png"},
+	{name: "dragonfire",    type: "image",  src: _Globals.paths.sprites + "dragonfire.png"},
+    {name: "campfire02",    type: "image",  src: _Globals.paths.sprites + "campfire02.png"},
+    {name: "iceprojectil",  type: "image",  src: _Globals.paths.sprites + "iceprojectil.png"},
+    {name: "animsword",  type: "image",  src: _Globals.paths.sprites + "animsword.png"},
+    {name: "bomb",  type: "image",  src: _Globals.paths.sprites + "bomb.png"},
 	
 	//**** Effects
-	{name: "explosion_32x32", 	type: "image",src: ads_effects_path + "explosion_32x32.png"},
-	{name: "explosion_64x64", 	type: "image",src: ads_effects_path + "explosion_64x64.png"},
-	{name: "prisiondooropen", 	type: "image",src: ads_effects_path + "prisiondooropen.png"},
-	{name: "dragondooropen",  type: "image",src: ads_effects_path + "dragondooropen.png"},
-	{name: "questitem", 	type: "image",src: ads_effects_path + "questitem.png"},
-	{name: "sparkle", 	type: "image",src: ads_effects_path + "sparkle.png"},
-	{name: "fireplace", 	type: "image",src: ads_effects_path + "fireplace.png"},
-	{name: "risesfire",    type: "image",src: ads_effects_path + "risesfire.png"},
-	{name: "frozendragon",    type: "image",src: ads_effects_path + "frozendragon.png"},
-	{name: "dialoge",    type: "image",src: ads_effects_path + "dialoge.png"},
-	{name: "exclamation",    type: "image",src: ads_effects_path + "exclamation.png"},
+	{name: "explosion_32x32", 	type: "image",src: _Globals.paths.effects + "explosion_32x32.png"},
+	{name: "explosion_64x64", 	type: "image",src: _Globals.paths.effects + "explosion_64x64.png"},
+	{name: "prisiondooropen", 	type: "image",src: _Globals.paths.effects + "prisiondooropen.png"},
+	{name: "dragondooropen",  type: "image",src: _Globals.paths.effects + "dragondooropen.png"},
+	{name: "questitem", 	type: "image",src: _Globals.paths.effects + "questitem.png"},
+	{name: "sparkle", 	type: "image",src: _Globals.paths.effects + "sparkle.png"},
+	{name: "fireplace", 	type: "image",src: _Globals.paths.effects + "fireplace.png"},
+	{name: "risesfire",    type: "image",src: _Globals.paths.effects + "risesfire.png"},
+	{name: "frozendragon",    type: "image",src: _Globals.paths.effects + "frozendragon.png"},
+	{name: "dialoge",    type: "image",src: _Globals.paths.effects + "dialoge.png"},
+	{name: "exclamation",    type: "image",src: _Globals.paths.effects + "exclamation.png"},
 	
 	//***** Mouse cursor
-	{name: "point_cur",    type: "image",src: ads_images_gui + "point_cur.cur"},
+	{name: "point_cur",    type: "image",src: _Globals.paths.images_gui + "point_cur.cur"},
 ];
 
 
 //Configurar fontes a utilizar - Google web Fonts
 WebFontConfig = {
-	google: { families: [ 	'Lancelot::latin',
-							'Geostar::latin',
-							'MedievalSharp::latin',
-							'Devonshire::latin']}
-	};
-
-//**********************************************
-// console.log("Loaded... B");
-
-/*------------------- 
-NPC's animation Configuration
------------------------------- */
-
-/*--- END HUD Configuration ---*/
+    google : {
+        families : ['Lancelot::latin', 'Geostar::latin', 'MedievalSharp::latin', 'Devonshire::latin']
+    }
+}; 
